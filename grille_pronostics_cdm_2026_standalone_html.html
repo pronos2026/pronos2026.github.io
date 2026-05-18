@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Pronostics - Coupe du Monde 2026</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #08111f, #102040);
+      color: #ffffff;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 620px;
+      margin: auto;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      color: #f5a623;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .header p {
+      color: #a0b8d8;
+      font-size: 15px;
+    }
+
+    .winner-box {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(245,166,35,0.4);
+      background: rgba(245,166,35,0.08);
+      color: #f5a623;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #0d1f3c, #122040);
+      border: 1px solid rgba(74,158,255,0.3);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #a0b8d8;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: 2px solid rgba(74,158,255,0.4);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #4a9eff;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .error {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      min-width: 220px;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .validate-btn {
+      background: linear-gradient(90deg, #1a6e1a, #22a222);
+    }
+
+    .download-btn {
+      background: linear-gradient(90deg, #1a5c8a, #1a7abf);
+    }
+
+    .pdf-btn {
+      background: linear-gradient(90deg, #6a1a1a, #c8102e);
+    }
+
+    .success {
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 12px;
+      border: 2px solid #22a222;
+      background: linear-gradient(135deg, #0d2a0d, #0f330f);
+      text-align: center;
+      display: none;
+    }
+
+    .success h2 {
+      color: #22cc22;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+
+    .success p {
+      line-height: 1.6;
+      color: #d5e8d5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 12px;
+      color: #4a6a8a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>🏆 Validation Officielle</h1>
+    <p>Tu as pronostiqué tous les matchs de la Coupe du Monde 2026</p>
+
+    <div class="winner-box">
+      🌍 Champion du monde pronostiqué : 🇫🇷 France
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="field">
+      <label for="pseudo">Ton pseudo *</label>
+      <input type="text" id="pseudo" placeholder="Ex : SuperProno">
+      <div id="pseudo-error" class="error"></div>
+    </div>
+
+    <div class="field">
+      <label for="email">Ton adresse email *</label>
+      <input type="email" id="email" placeholder="Ex : prenom@email.com">
+      <div id="email-error" class="error"></div>
+    </div>
+
+    <div class="button-group">
+      <button class="validate-btn" onclick="validateForm()">
+        ✅ VALIDER MA GRILLE
+      </button>
+
+      <button class="download-btn" onclick="downloadJSON()">
+        📥 EXPORT JSON
+      </button>
+
+      <button class="pdf-btn" onclick="window.print()">
+        📄 EXPORT PDF
+      </button>
+    </div>
+
+    <div class="footer">
+      En validant, ton fichier récapitulatif pourra être envoyé automatiquement.
+    </div>
+
+    <div class="success" id="successBox">
+      <h2>GRILLE VALIDÉE !</h2>
+      <p>
+        Bravo <strong id="successPseudo"></strong> !<br>
+        Ta grille de pronostics a bien été enregistrée.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function validateForm() {
+    const pseudo = document.getElementById('pseudo').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    const pseudoError = document.getElementById('pseudo-error');
+    const emailError = document.getElementById('email-error');
+
+    pseudoError.textContent = '';
+    emailError.textContent = '';
+
+    let valid = true;
+
+    if (!pseudo) {
+      pseudoError.textContent = 'Veuillez indiquer votre pseudo';
+      valid = false;
+    }
+
+    if (!email || !email.includes('@')) {
+      emailError.textContent = 'Veuillez indiquer une adresse email valide';
+      valid = false;
+    }
+
+    if (valid) {
+      document.getElementById('successBox').style.display = 'block';
+      document.getElementById('successPseudo').textContent = pseudo;
+    }
+  }
+
+  function downloadJSON() {
+    const pseudo = document.getElementById('pseudo').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    const data = {
+      pseudo,
+      email,
+      competition: 'Coupe du Monde 2026',
+      generatedAt: new Date().toLocaleString('fr-FR'),
+      championPronostique: 'France'
+    };
+
+    const blob = new Blob([
+      JSON.stringify(data, null, 2)
+    ], {
+      type: 'application/json'
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'grille_pronostic.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+</body>
+</html>
