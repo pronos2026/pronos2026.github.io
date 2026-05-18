@@ -33,15 +33,15 @@
     .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 20px auto 0; opacity: 0; animation: fadeUp 0.6s 0.6s forwards; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    .zone-contenu { background: var(--blanc); padding: 50px 20px 60px; position: relative; max-width: 1100px; margin: 0 auto; }
+    .zone-contenu { background: var(--blanc); padding: 50px 0 60px; position: relative; }
     .zone-contenu::before { content: 'BD'; position: absolute; font-size: 180px; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
 
-    .historique-titre { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--bleu-marine); text-align: left; margin-bottom: 20px; padding-left: 0; }
+    .historique-titre { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--bleu-marine); text-align: left; margin-bottom: 20px; padding-left: 20px; }
     .historique-titre span { color: var(--bleu-azur); }
 
-    .historique-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; font-size: 14px; table-layout: fixed; }
+    .historique-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; font-size: 14px; }
     .historique-table thead tr { background: var(--bleu-marine); color: var(--blanc); }
-    .historique-table thead th { padding: 11px 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; text-align: left; vertical-align: middle; line-height: 1.2; }
+    .historique-table thead th { padding: 11px 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; text-align: left; vertical-align: middle; line-height: 1.2; }
     .historique-table thead th.col-annee { text-align: center; width: 52px; }
     .historique-table thead th.col-photo { width: 58px; text-align: center; }
     .historique-table tbody tr { border-bottom: 1px solid #000; }
@@ -50,9 +50,9 @@
     .historique-table tbody tr:hover { background: #dceeff; }
 
     /* Toutes les cellules alignées en haut */
-    .historique-table tbody td { vertical-align: top; padding: 9px 5px; }
+    .historique-table tbody td { vertical-align: top; padding: 9px 8px; }
 
-    .col-annee { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--bleu-azur); letter-spacing: 1px; width: 60px; }
+    .col-annee { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--bleu-azur); letter-spacing: 1px; }
     .col-photo { text-align: center; vertical-align: middle !important; padding: 5px 6px !important; }
     .col-vainqueur { padding: 9px 8px; }
     .col-data { padding: 9px 8px; }
@@ -113,7 +113,7 @@
     <div class="deco-line"></div>
   </section>
   <section class="zone-contenu">
-    <p class="historique-titre">Palmar&#232;s du concours <span>depuis 2006</span></p>
+    <p class="historique-titre">Palm&#232;s du concours <span>depuis 2006</span></p>
     <table class="historique-table">
       <thead>
         <tr>
