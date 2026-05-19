@@ -16,8 +16,7 @@ header{background:var(--b);}
 .lt .ey{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--a);}
 .lt h1{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--w);letter-spacing:2px;}
 .lt .ed{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--r);}
-nav{background:var(--a);}
-nav::after{content:'';display:block;height:3px;background:var(--r);}
+nav{background:var(--a);}nav::after{content:'';display:block;height:3px;background:var(--r);}
 .nl{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;}
 .nl li a{display:block;padding:10px 14px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--w);text-decoration:none;border-right:1px solid rgba(255,255,255,0.15);}
 .nl li:last-child a{border-right:none;}
@@ -33,27 +32,23 @@ nav::after{content:'';display:block;height:3px;background:var(--r);}
 .mi{font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;}
 .mb{padding:24px 20px 18px;}
 .tr{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.tf{font-size:34px;line-height:1;flex-shrink:0;width:40px;}
+.tf{font-size:30px;line-height:1;flex-shrink:0;width:36px;text-align:center;}
 .tn{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,5vw,28px);color:var(--b);letter-spacing:2px;flex:1;}
 .si{width:50px;height:50px;border:2px solid #dde2ea;border-radius:8px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--r);background:#f8f9fc;outline:none;transition:border 0.2s;flex-shrink:0;}
 .si:focus{border-color:var(--a);background:var(--w);}
-.sep{height:1px;background:#eef1f6;margin:0 0 14px 52px;}
+.sep{height:1px;background:#eef1f6;margin:0 0 14px 48px;}
 .bv{display:block;width:100%;padding:15px;background:var(--g);color:var(--w);border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;margin-top:6px;}
 .bv:hover{background:#15803d;}
 .ph{background:linear-gradient(135deg,var(--b),#004080);padding:18px 20px;text-align:center;}
 .ph h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,6vw,36px);color:var(--w);letter-spacing:4px;}
 .ph p{color:#aac8e8;font-size:12px;margin-top:4px;}
-.km{padding:16px 18px;border-bottom:1px solid #eef1f6;}
-.km:last-child{border-bottom:none;}
-.km-meta{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:#888;text-transform:uppercase;}
-.km-info{font-size:10px;color:#bbb;margin-top:2px;}
-.kt{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
-.kb{display:flex;align-items:center;gap:10px;padding:12px 14px;border:2px solid #dde2ea;border-radius:8px;background:#f8f9fc;cursor:pointer;width:100%;text-align:left;transition:all 0.2s;}
+.kt{display:flex;flex-direction:column;gap:8px;margin-top:0;}
+.kb{display:flex;align-items:center;gap:10px;padding:14px 16px;border:2px solid #dde2ea;border-radius:8px;background:#f8f9fc;cursor:pointer;width:100%;text-align:left;transition:all 0.2s;}
 .kb:hover{border-color:var(--a);background:#eef5fc;}
 .kb.sel{border-color:var(--g);background:#f0fdf4;}
 .kb.elim{border-color:#fecaca;background:#fef2f2;opacity:0.5;}
-.kf{font-size:26px;width:32px;flex-shrink:0;}
-.kn{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--b);}
+.kf{font-size:26px;width:32px;flex-shrink:0;text-align:center;}
+.kn{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--b);}
 .kb.sel .kn{color:var(--g);}
 .kch{margin-left:auto;font-size:18px;color:var(--g);opacity:0;}
 .kb.sel .kch{opacity:1;}
@@ -90,22 +85,18 @@ nav::after{content:'';display:block;height:3px;background:var(--r);}
 .fs{height:4px;background:linear-gradient(90deg,var(--r),var(--a),var(--o));}
 footer{background:var(--b);color:rgba(255,255,255,0.5);text-align:center;padding:16px;font-size:12px;}
 footer a{color:var(--a);text-decoration:none;}
-@media(max-width:400px){.si{width:42px;height:42px;font-size:22px;}.tf{font-size:26px;}.tn{font-size:16px;}}
 </style>
 </head>
 <body>
 <header>
 <div class="hs"></div>
-<div class="hi">
-  <div class="lt">
-    <span class="ey">Le Championnat des</span>
-    <h1>Pronostiqueurs</h1>
-    <span class="ed">USA &middot; Canada &middot; Mexique 2026</span>
-  </div>
-</div>
+<div class="hi"><div class="lt">
+  <span class="ey">Le Championnat des</span>
+  <h1>Pronostiqueurs</h1>
+  <span class="ed">USA &middot; Canada &middot; Mexique 2026</span>
+</div></div>
 </header>
-<nav>
-<ul class="nl">
+<nav><ul class="nl">
   <li><a href="index.html">Accueil</a></li>
   <li><a href="reglement.html">R&egrave;glement</a></li>
   <li><a href="classement.html">Classement</a></li>
@@ -117,8 +108,7 @@ footer a{color:var(--a);text-decoration:none;}
   <li><a href="album-panini.html">Album Panini</a></li>
   <li><a href="favoris.html">Favoris</a></li>
   <li><a href="grilles.html" class="active">Grilles</a></li>
-</ul>
-</nav>
+</ul></nav>
 <div class="pb">
   <div class="pl" id="pLabel">MATCH 1 / 72 &mdash; PHASE DE GROUPES</div>
   <div class="pbr"><div class="pf" id="pFill"></div></div>
@@ -128,80 +118,79 @@ footer a{color:var(--a);text-decoration:none;}
 <footer>Contact : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
 <script>
 var MATCHES=[
-{num:1,gr:"A",date:"Jeudi 11 juin",h:"21h00",e1:"Mexique",e2:"Afrique du Sud",st:"Estadio Azteca, Mexico",ch:"M6 / beIN Sports"},
+{num:1,gr:"A",date:"Jeudi 11 juin",h:"21h00",e1:"Mexique",e2:"Afrique du Sud",st:"Estadio Azteca, Mexico",ch:"M6/beIN Sports"},
 {num:2,gr:"A",date:"Vendredi 12 juin",h:"04h00",e1:"Cor\u00e9e du Sud",e2:"Tch\u00e9quie",st:"Estadio Akron, Guadalajara",ch:"beIN Sports"},
-{num:3,gr:"B",date:"Vendredi 12 juin",h:"21h00",e1:"Canada",e2:"Bosnie-Herz\u00e9govine",st:"BMO Field, Toronto",ch:"M6 / beIN Sports"},
+{num:3,gr:"B",date:"Vendredi 12 juin",h:"21h00",e1:"Canada",e2:"Bosnie-Herz\u00e9govine",st:"BMO Field, Toronto",ch:"M6/beIN Sports"},
 {num:4,gr:"D",date:"Samedi 13 juin",h:"03h00",e1:"\u00c9tats-Unis",e2:"Paraguay",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports"},
-{num:5,gr:"B",date:"Samedi 13 juin",h:"21h00",e1:"Qatar",e2:"Suisse",st:"Levi's Stadium, San Francisco",ch:"M6 / beIN Sports"},
-{num:6,gr:"C",date:"Dimanche 14 juin",h:"00h00",e1:"Br\u00e9sil",e2:"Maroc",st:"MetLife Stadium, New York",ch:"M6 / beIN Sports"},
+{num:5,gr:"B",date:"Samedi 13 juin",h:"21h00",e1:"Qatar",e2:"Suisse",st:"Levi's Stadium, San Francisco",ch:"M6/beIN Sports"},
+{num:6,gr:"C",date:"Dimanche 14 juin",h:"00h00",e1:"Br\u00e9sil",e2:"Maroc",st:"MetLife Stadium, New York",ch:"M6/beIN Sports"},
 {num:7,gr:"C",date:"Dimanche 14 juin",h:"03h00",e1:"Ha\u00efti",e2:"\u00c9cosse",st:"Gillette Stadium, Boston",ch:"beIN Sports"},
 {num:8,gr:"D",date:"Dimanche 14 juin",h:"06h00",e1:"Australie",e2:"Turquie",st:"BC Place, Vancouver",ch:"beIN Sports"},
-{num:9,gr:"E",date:"Dimanche 14 juin",h:"19h00",e1:"Allemagne",e2:"Cura\u00e7ao",st:"NRG Stadium, Houston",ch:"M6 / beIN Sports"},
-{num:10,gr:"F",date:"Dimanche 14 juin",h:"22h00",e1:"Pays-Bas",e2:"Japon",st:"AT&T Stadium, Dallas",ch:"M6 / beIN Sports"},
+{num:9,gr:"E",date:"Dimanche 14 juin",h:"19h00",e1:"Allemagne",e2:"Cura\u00e7ao",st:"NRG Stadium, Houston",ch:"M6/beIN Sports"},
+{num:10,gr:"F",date:"Dimanche 14 juin",h:"22h00",e1:"Pays-Bas",e2:"Japon",st:"AT&T Stadium, Dallas",ch:"M6/beIN Sports"},
 {num:11,gr:"E",date:"Lundi 15 juin",h:"01h00",e1:"C\u00f4te d'Ivoire",e2:"\u00c9quateur",st:"Lincoln Financial Field",ch:"beIN Sports"},
 {num:12,gr:"F",date:"Lundi 15 juin",h:"04h00",e1:"Su\u00e8de",e2:"Tunisie",st:"Estadio BBVA, Monterrey",ch:"beIN Sports"},
-{num:13,gr:"H",date:"Lundi 15 juin",h:"18h00",e1:"Espagne",e2:"Cap-Vert",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6 / beIN Sports"},
-{num:14,gr:"G",date:"Lundi 15 juin",h:"21h00",e1:"Belgique",e2:"\u00c9gypte",st:"Lumen Field, Seattle",ch:"M6 / beIN Sports"},
-{num:15,gr:"H",date:"Mardi 16 juin",h:"00h00",e1:"Arabie Saoudite",e2:"Uruguay",st:"Hard Rock Stadium, Miami",ch:"M6 / beIN Sports"},
+{num:13,gr:"H",date:"Lundi 15 juin",h:"18h00",e1:"Espagne",e2:"Cap-Vert",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6/beIN Sports"},
+{num:14,gr:"G",date:"Lundi 15 juin",h:"21h00",e1:"Belgique",e2:"\u00c9gypte",st:"Lumen Field, Seattle",ch:"M6/beIN Sports"},
+{num:15,gr:"H",date:"Mardi 16 juin",h:"00h00",e1:"Arabie Saoudite",e2:"Uruguay",st:"Hard Rock Stadium, Miami",ch:"M6/beIN Sports"},
 {num:16,gr:"G",date:"Mardi 16 juin",h:"03h00",e1:"Iran",e2:"Nouvelle-Z\u00e9lande",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports"},
-{num:17,gr:"I",date:"Mardi 16 juin",h:"21h00",e1:"France",e2:"S\u00e9n\u00e9gal",st:"MetLife Stadium, New York",ch:"M6 / beIN Sports"},
-{num:18,gr:"I",date:"Mercredi 17 juin",h:"00h00",e1:"Irak",e2:"Norv\u00e8ge",st:"Gillette Stadium, Boston",ch:"M6 / beIN Sports"},
+{num:17,gr:"I",date:"Mardi 16 juin",h:"21h00",e1:"France",e2:"S\u00e9n\u00e9gal",st:"MetLife Stadium, New York",ch:"M6/beIN Sports"},
+{num:18,gr:"I",date:"Mercredi 17 juin",h:"00h00",e1:"Irak",e2:"Norv\u00e8ge",st:"Gillette Stadium, Boston",ch:"M6/beIN Sports"},
 {num:19,gr:"J",date:"Mercredi 17 juin",h:"03h00",e1:"Argentine",e2:"Alg\u00e9rie",st:"Arrowhead Stadium, Kansas City",ch:"beIN Sports"},
 {num:20,gr:"J",date:"Mercredi 17 juin",h:"06h00",e1:"Autriche",e2:"Jordanie",st:"Levi's Stadium, San Francisco",ch:"beIN Sports"},
-{num:21,gr:"K",date:"Mercredi 17 juin",h:"19h00",e1:"Portugal",e2:"RD Congo",st:"NRG Stadium, Houston",ch:"M6 / beIN Sports"},
-{num:22,gr:"L",date:"Mercredi 17 juin",h:"22h00",e1:"Angleterre",e2:"Croatie",st:"AT&T Stadium, Dallas",ch:"M6 / beIN Sports"},
+{num:21,gr:"K",date:"Mercredi 17 juin",h:"19h00",e1:"Portugal",e2:"RD Congo",st:"NRG Stadium, Houston",ch:"M6/beIN Sports"},
+{num:22,gr:"L",date:"Mercredi 17 juin",h:"22h00",e1:"Angleterre",e2:"Croatie",st:"AT&T Stadium, Dallas",ch:"M6/beIN Sports"},
 {num:23,gr:"L",date:"Jeudi 18 juin",h:"01h00",e1:"Ghana",e2:"Panama",st:"BMO Field, Toronto",ch:"beIN Sports"},
 {num:24,gr:"K",date:"Jeudi 18 juin",h:"04h00",e1:"Ouzb\u00e9kistan",e2:"Colombie",st:"Estadio Azteca, Mexico",ch:"beIN Sports"},
-{num:25,gr:"A",date:"Jeudi 18 juin",h:"18h00",e1:"Tch\u00e9quie",e2:"Afrique du Sud",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6 / beIN Sports"},
-{num:26,gr:"B",date:"Jeudi 18 juin",h:"21h00",e1:"Suisse",e2:"Bosnie-Herz\u00e9govine",st:"SoFi Stadium, Los Angeles",ch:"M6 / beIN Sports"},
+{num:25,gr:"A",date:"Jeudi 18 juin",h:"18h00",e1:"Tch\u00e9quie",e2:"Afrique du Sud",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6/beIN Sports"},
+{num:26,gr:"B",date:"Jeudi 18 juin",h:"21h00",e1:"Suisse",e2:"Bosnie-Herz\u00e9govine",st:"SoFi Stadium, Los Angeles",ch:"M6/beIN Sports"},
 {num:27,gr:"B",date:"Vendredi 19 juin",h:"00h00",e1:"Canada",e2:"Qatar",st:"BC Place, Vancouver",ch:"beIN Sports"},
 {num:28,gr:"A",date:"Vendredi 19 juin",h:"03h00",e1:"Mexique",e2:"Cor\u00e9e du Sud",st:"Estadio Akron, Guadalajara",ch:"beIN Sports"},
-{num:29,gr:"D",date:"Vendredi 19 juin",h:"21h00",e1:"\u00c9tats-Unis",e2:"Australie",st:"Lumen Field, Seattle",ch:"M6 / beIN Sports"},
-{num:30,gr:"C",date:"Samedi 20 juin",h:"00h00",e1:"\u00c9cosse",e2:"Maroc",st:"Gillette Stadium, Boston",ch:"M6 / beIN Sports"},
+{num:29,gr:"D",date:"Vendredi 19 juin",h:"21h00",e1:"\u00c9tats-Unis",e2:"Australie",st:"Lumen Field, Seattle",ch:"M6/beIN Sports"},
+{num:30,gr:"C",date:"Samedi 20 juin",h:"00h00",e1:"\u00c9cosse",e2:"Maroc",st:"Gillette Stadium, Boston",ch:"M6/beIN Sports"},
 {num:31,gr:"C",date:"Samedi 20 juin",h:"02h30",e1:"Br\u00e9sil",e2:"Ha\u00efti",st:"Lincoln Financial Field",ch:"beIN Sports"},
 {num:32,gr:"D",date:"Samedi 20 juin",h:"05h00",e1:"Turquie",e2:"Paraguay",st:"Levi's Stadium, San Francisco",ch:"beIN Sports"},
-{num:33,gr:"F",date:"Samedi 20 juin",h:"19h00",e1:"Pays-Bas",e2:"Su\u00e8de",st:"NRG Stadium, Houston",ch:"M6 / beIN Sports"},
-{num:34,gr:"E",date:"Samedi 20 juin",h:"22h00",e1:"Allemagne",e2:"C\u00f4te d'Ivoire",st:"BMO Field, Toronto",ch:"M6 / beIN Sports"},
+{num:33,gr:"F",date:"Samedi 20 juin",h:"19h00",e1:"Pays-Bas",e2:"Su\u00e8de",st:"NRG Stadium, Houston",ch:"M6/beIN Sports"},
+{num:34,gr:"E",date:"Samedi 20 juin",h:"22h00",e1:"Allemagne",e2:"C\u00f4te d'Ivoire",st:"BMO Field, Toronto",ch:"M6/beIN Sports"},
 {num:35,gr:"E",date:"Dimanche 21 juin",h:"02h00",e1:"\u00c9quateur",e2:"Cura\u00e7ao",st:"Arrowhead Stadium, Kansas City",ch:"beIN Sports"},
 {num:36,gr:"F",date:"Dimanche 21 juin",h:"06h00",e1:"Tunisie",e2:"Japon",st:"Estadio BBVA, Monterrey",ch:"beIN Sports"},
-{num:37,gr:"H",date:"Dimanche 21 juin",h:"18h00",e1:"Espagne",e2:"Arabie Saoudite",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6 / beIN Sports"},
-{num:38,gr:"G",date:"Dimanche 21 juin",h:"21h00",e1:"Belgique",e2:"Iran",st:"SoFi Stadium, Los Angeles",ch:"M6 / beIN Sports"},
+{num:37,gr:"H",date:"Dimanche 21 juin",h:"18h00",e1:"Espagne",e2:"Arabie Saoudite",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6/beIN Sports"},
+{num:38,gr:"G",date:"Dimanche 21 juin",h:"21h00",e1:"Belgique",e2:"Iran",st:"SoFi Stadium, Los Angeles",ch:"M6/beIN Sports"},
 {num:39,gr:"H",date:"Lundi 22 juin",h:"00h00",e1:"Uruguay",e2:"Cap-Vert",st:"Hard Rock Stadium, Miami",ch:"beIN Sports"},
 {num:40,gr:"G",date:"Lundi 22 juin",h:"03h00",e1:"Nouvelle-Z\u00e9lande",e2:"\u00c9gypte",st:"BC Place, Vancouver",ch:"beIN Sports"},
-{num:41,gr:"J",date:"Lundi 22 juin",h:"19h00",e1:"Argentine",e2:"Autriche",st:"AT&T Stadium, Dallas",ch:"M6 / beIN Sports"},
-{num:42,gr:"I",date:"Lundi 22 juin",h:"23h00",e1:"France",e2:"Irak",st:"Lincoln Financial Field",ch:"M6 / beIN Sports"},
+{num:41,gr:"J",date:"Lundi 22 juin",h:"19h00",e1:"Argentine",e2:"Autriche",st:"AT&T Stadium, Dallas",ch:"M6/beIN Sports"},
+{num:42,gr:"I",date:"Lundi 22 juin",h:"23h00",e1:"France",e2:"Irak",st:"Lincoln Financial Field",ch:"M6/beIN Sports"},
 {num:43,gr:"I",date:"Mardi 23 juin",h:"02h00",e1:"Norv\u00e8ge",e2:"S\u00e9n\u00e9gal",st:"MetLife Stadium, New York",ch:"beIN Sports"},
 {num:44,gr:"J",date:"Mardi 23 juin",h:"05h00",e1:"Jordanie",e2:"Alg\u00e9rie",st:"Levi's Stadium, San Francisco",ch:"beIN Sports"},
-{num:45,gr:"K",date:"Mardi 23 juin",h:"19h00",e1:"Portugal",e2:"Ouzb\u00e9kistan",st:"NRG Stadium, Houston",ch:"M6 / beIN Sports"},
-{num:46,gr:"L",date:"Mardi 23 juin",h:"22h00",e1:"Angleterre",e2:"Ghana",st:"Gillette Stadium, Boston",ch:"M6 / beIN Sports"},
+{num:45,gr:"K",date:"Mardi 23 juin",h:"19h00",e1:"Portugal",e2:"Ouzb\u00e9kistan",st:"NRG Stadium, Houston",ch:"M6/beIN Sports"},
+{num:46,gr:"L",date:"Mardi 23 juin",h:"22h00",e1:"Angleterre",e2:"Ghana",st:"Gillette Stadium, Boston",ch:"M6/beIN Sports"},
 {num:47,gr:"L",date:"Mercredi 24 juin",h:"01h00",e1:"Panama",e2:"Croatie",st:"BMO Field, Toronto",ch:"beIN Sports"},
 {num:48,gr:"K",date:"Mercredi 24 juin",h:"04h00",e1:"Colombie",e2:"RD Congo",st:"Estadio Akron, Guadalajara",ch:"beIN Sports"},
-{num:49,gr:"B",date:"Mercredi 24 juin",h:"21h00",e1:"Suisse",e2:"Canada",st:"BC Place, Vancouver",ch:"M6 / beIN Sports"},
+{num:49,gr:"B",date:"Mercredi 24 juin",h:"21h00",e1:"Suisse",e2:"Canada",st:"BC Place, Vancouver",ch:"M6/beIN Sports"},
 {num:50,gr:"B",date:"Mercredi 24 juin",h:"21h00",e1:"Bosnie-Herz\u00e9govine",e2:"Qatar",st:"Lumen Field, Seattle",ch:"beIN Sports"},
-{num:51,gr:"C",date:"Jeudi 25 juin",h:"00h00",e1:"\u00c9cosse",e2:"Br\u00e9sil",st:"Hard Rock Stadium, Miami",ch:"M6 / beIN Sports"},
-{num:52,gr:"C",date:"Jeudi 25 juin",h:"00h00",e1:"Maroc",e2:"Ha\u00efti",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6 / beIN Sports"},
+{num:51,gr:"C",date:"Jeudi 25 juin",h:"00h00",e1:"\u00c9cosse",e2:"Br\u00e9sil",st:"Hard Rock Stadium, Miami",ch:"M6/beIN Sports"},
+{num:52,gr:"C",date:"Jeudi 25 juin",h:"00h00",e1:"Maroc",e2:"Ha\u00efti",st:"Mercedes-Benz Stadium, Atlanta",ch:"M6/beIN Sports"},
 {num:53,gr:"A",date:"Jeudi 25 juin",h:"03h00",e1:"Tch\u00e9quie",e2:"Mexique",st:"Estadio Azteca, Mexico",ch:"beIN Sports"},
 {num:54,gr:"A",date:"Jeudi 25 juin",h:"03h00",e1:"Afrique du Sud",e2:"Cor\u00e9e du Sud",st:"Estadio BBVA, Monterrey",ch:"beIN Sports"},
 {num:55,gr:"E",date:"Jeudi 25 juin",h:"22h00",e1:"Cura\u00e7ao",e2:"C\u00f4te d'Ivoire",st:"Lincoln Financial Field",ch:"beIN Sports"},
-{num:56,gr:"E",date:"Jeudi 25 juin",h:"22h00",e1:"\u00c9quateur",e2:"Allemagne",st:"MetLife Stadium, New York",ch:"M6 / beIN Sports"},
+{num:56,gr:"E",date:"Jeudi 25 juin",h:"22h00",e1:"\u00c9quateur",e2:"Allemagne",st:"MetLife Stadium, New York",ch:"M6/beIN Sports"},
 {num:57,gr:"F",date:"Vendredi 26 juin",h:"01h00",e1:"Japon",e2:"Su\u00e8de",st:"AT&T Stadium, Dallas",ch:"beIN Sports"},
-{num:58,gr:"F",date:"Vendredi 26 juin",h:"01h00",e1:"Tunisie",e2:"Pays-Bas",st:"Arrowhead Stadium, Kansas City",ch:"M6 / beIN Sports"},
+{num:58,gr:"F",date:"Vendredi 26 juin",h:"01h00",e1:"Tunisie",e2:"Pays-Bas",st:"Arrowhead Stadium, Kansas City",ch:"M6/beIN Sports"},
 {num:59,gr:"D",date:"Vendredi 26 juin",h:"04h00",e1:"Turquie",e2:"\u00c9tats-Unis",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports"},
 {num:60,gr:"D",date:"Vendredi 26 juin",h:"04h00",e1:"Paraguay",e2:"Australie",st:"Levi's Stadium, San Francisco",ch:"beIN Sports"},
-{num:61,gr:"I",date:"Vendredi 26 juin",h:"21h00",e1:"Norv\u00e8ge",e2:"France",st:"Gillette Stadium, Boston",ch:"M6 / beIN Sports"},
+{num:61,gr:"I",date:"Vendredi 26 juin",h:"21h00",e1:"Norv\u00e8ge",e2:"France",st:"Gillette Stadium, Boston",ch:"M6/beIN Sports"},
 {num:62,gr:"I",date:"Vendredi 26 juin",h:"21h00",e1:"S\u00e9n\u00e9gal",e2:"Irak",st:"BMO Field, Toronto",ch:"beIN Sports"},
 {num:63,gr:"H",date:"Samedi 27 juin",h:"02h00",e1:"Cap-Vert",e2:"Arabie Saoudite",st:"NRG Stadium, Houston",ch:"beIN Sports"},
 {num:64,gr:"H",date:"Samedi 27 juin",h:"02h00",e1:"Uruguay",e2:"Espagne",st:"Estadio Akron, Guadalajara",ch:"beIN Sports"},
 {num:65,gr:"G",date:"Samedi 27 juin",h:"05h00",e1:"\u00c9gypte",e2:"Iran",st:"Lumen Field, Seattle",ch:"beIN Sports"},
 {num:66,gr:"G",date:"Samedi 27 juin",h:"05h00",e1:"Nouvelle-Z\u00e9lande",e2:"Belgique",st:"BC Place, Vancouver",ch:"beIN Sports"},
-{num:67,gr:"L",date:"Samedi 27 juin",h:"23h00",e1:"Panama",e2:"Angleterre",st:"MetLife Stadium, New York",ch:"M6 / beIN Sports"},
-{num:68,gr:"L",date:"Samedi 27 juin",h:"23h00",e1:"Croatie",e2:"Ghana",st:"Lincoln Financial Field",ch:"M6 / beIN Sports"},
-{num:69,gr:"K",date:"Dimanche 28 juin",h:"01h30",e1:"Colombie",e2:"Portugal",st:"Hard Rock Stadium, Miami",ch:"M6 / beIN Sports"},
+{num:67,gr:"L",date:"Samedi 27 juin",h:"23h00",e1:"Panama",e2:"Angleterre",st:"MetLife Stadium, New York",ch:"M6/beIN Sports"},
+{num:68,gr:"L",date:"Samedi 27 juin",h:"23h00",e1:"Croatie",e2:"Ghana",st:"Lincoln Financial Field",ch:"M6/beIN Sports"},
+{num:69,gr:"K",date:"Dimanche 28 juin",h:"01h30",e1:"Colombie",e2:"Portugal",st:"Hard Rock Stadium, Miami",ch:"M6/beIN Sports"},
 {num:70,gr:"K",date:"Dimanche 28 juin",h:"01h30",e1:"RD Congo",e2:"Ouzb\u00e9kistan",st:"Mercedes-Benz Stadium, Atlanta",ch:"beIN Sports"},
 {num:71,gr:"J",date:"Dimanche 28 juin",h:"04h00",e1:"Alg\u00e9rie",e2:"Autriche",st:"Arrowhead Stadium, Kansas City",ch:"beIN Sports"},
 {num:72,gr:"J",date:"Dimanche 28 juin",h:"04h00",e1:"Jordanie",e2:"Argentine",st:"AT&T Stadium, Dallas",ch:"beIN Sports"}
 ];
-
 var GROUPES={
 "A":["Mexique","Afrique du Sud","Cor\u00e9e du Sud","Tch\u00e9quie"],
 "B":["Canada","Bosnie-Herz\u00e9govine","Qatar","Suisse"],
@@ -216,14 +205,14 @@ var GROUPES={
 "K":["Portugal","RD Congo","Ouzb\u00e9kistan","Colombie"],
 "L":["Angleterre","Croatie","Ghana","Panama"]
 };
-
+// Drapeaux - Ecosse et Angleterre en texte car emoji non supporté universellement
 var F={
 "Mexique":"\uD83C\uDDF2\uD83C\uDDFD","Afrique du Sud":"\uD83C\uDDFF\uD83C\uDDE6",
 "Cor\u00e9e du Sud":"\uD83C\uDDF0\uD83C\uDDF7","Tch\u00e9quie":"\uD83C\uDDE8\uD83C\uDDFF",
 "Canada":"\uD83C\uDDE8\uD83C\uDDE6","Bosnie-Herz\u00e9govine":"\uD83C\uDDE7\uD83C\uDDE6",
 "Qatar":"\uD83C\uDDF6\uD83C\uDDE6","Suisse":"\uD83C\uDDE8\uD83C\uDDED",
 "Br\u00e9sil":"\uD83C\uDDE7\uD83C\uDDF7","Maroc":"\uD83C\uDDF2\uD83C\uDDE6",
-"Ha\u00efti":"\uD83C\uDDED\uD83C\uDDF9","\u00c9cosse":"\uD83C\uDFF4",
+"Ha\u00efti":"\uD83C\uDDED\uD83C\uDDF9","\u00c9cosse":"\uD83C\uDFF4\u200D\uD83D\uDEA9",
 "\u00c9tats-Unis":"\uD83C\uDDFA\uD83C\uDDF8","Paraguay":"\uD83C\uDDF5\uD83C\uDDFE",
 "Australie":"\uD83C\uDDE6\uD83C\uDDFA","Turquie":"\uD83C\uDDF9\uD83C\uDDF7",
 "Allemagne":"\uD83C\uDDE9\uD83C\uDDEA","Cura\u00e7ao":"\uD83C\uDDE8\uD83C\uDDFC",
@@ -240,33 +229,32 @@ var F={
 "Autriche":"\uD83C\uDDE6\uD83C\uDDF9","Jordanie":"\uD83C\uDDEF\uD83C\uDDF4",
 "Portugal":"\uD83C\uDDF5\uD83C\uDDF9","RD Congo":"\uD83C\uDDE8\uD83C\uDDE9",
 "Ouzb\u00e9kistan":"\uD83C\uDDFA\uD83C\uDDFF","Colombie":"\uD83C\uDDE8\uD83C\uDDF4",
-"Angleterre":"\uD83C\uDFF4","Croatie":"\uD83C\uDDED\uD83C\uDDF7",
+"Angleterre":"\uD83C\uDFF4\u200D\uD83D\uDEA9","Croatie":"\uD83C\uDDED\uD83C\uDDF7",
 "Ghana":"\uD83C\uDDEC\uD83C\uDDED","Panama":"\uD83C\uDDF5\uD83C\uDDE6"
 };
-
 var KO={
-seize:{tit:"1/16E DE FINALE",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez",ms:[
-{n:73,lb:"M73",dt:"28 juin \u00b7 21h00",st:"SoFi Stadium, LA",ch:"beIN Sports",t1:"2A",t2:"2B"},
+seize:{tit:"1/16E DE FINALE",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez pour le tour suivant",ms:[
+{n:73,lb:"M73",dt:"28 juin \u00b7 21h00",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports",t1:"2A",t2:"2B"},
 {n:74,lb:"M74",dt:"29 juin \u00b7 22h30",st:"Gillette Stadium, Boston",ch:"beIN Sports",t1:"1E",t2:"3ABCDF"},
 {n:75,lb:"M75",dt:"30 juin \u00b7 03h00",st:"Estadio BBVA, Monterrey",ch:"beIN Sports",t1:"1F",t2:"2C"},
 {n:76,lb:"M76",dt:"29 juin \u00b7 19h00",st:"NRG Stadium, Houston",ch:"beIN Sports",t1:"1C",t2:"2F"},
-{n:77,lb:"M77",dt:"30 juin \u00b7 23h00",st:"MetLife Stadium, NY",ch:"beIN Sports",t1:"1I",t2:"3CDFGH"},
+{n:77,lb:"M77",dt:"30 juin \u00b7 23h00",st:"MetLife Stadium, New York",ch:"beIN Sports",t1:"1I",t2:"3CDFGH"},
 {n:78,lb:"M78",dt:"30 juin \u00b7 19h00",st:"AT&T Stadium, Dallas",ch:"beIN Sports",t1:"2E",t2:"2I"},
 {n:79,lb:"M79",dt:"1 juil \u00b7 03h00",st:"Estadio Azteca, Mexico",ch:"beIN Sports",t1:"1A",t2:"3CEFHI"},
 {n:80,lb:"M80",dt:"1 juil \u00b7 18h00",st:"Mercedes-Benz Stadium, Atlanta",ch:"beIN Sports",t1:"1L",t2:"3EHIJK"},
-{n:81,lb:"M81",dt:"2 juil \u00b7 02h00",st:"Levi's Stadium, SF",ch:"beIN Sports",t1:"1D",t2:"3BEFIJ"},
+{n:81,lb:"M81",dt:"2 juil \u00b7 02h00",st:"Levi's Stadium, San Francisco",ch:"beIN Sports",t1:"1D",t2:"3BEFIJ"},
 {n:82,lb:"M82",dt:"1 juil \u00b7 22h00",st:"Lumen Field, Seattle",ch:"beIN Sports",t1:"1G",t2:"3AEHIJ"},
 {n:83,lb:"M83",dt:"3 juil \u00b7 01h00",st:"BMO Field, Toronto",ch:"beIN Sports",t1:"2K",t2:"2L"},
-{n:84,lb:"M84",dt:"2 juil \u00b7 21h00",st:"SoFi Stadium, LA",ch:"beIN Sports",t1:"1H",t2:"2J"},
+{n:84,lb:"M84",dt:"2 juil \u00b7 21h00",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports",t1:"1H",t2:"2J"},
 {n:85,lb:"M85",dt:"3 juil \u00b7 05h00",st:"BC Place, Vancouver",ch:"beIN Sports",t1:"1B",t2:"3EFGIJ"},
 {n:86,lb:"M86",dt:"4 juil \u00b7 00h00",st:"Hard Rock Stadium, Miami",ch:"beIN Sports",t1:"1J",t2:"2H"},
-{n:87,lb:"M87",dt:"4 juil \u00b7 03h30",st:"Arrowhead Stadium, KC",ch:"beIN Sports",t1:"1K",t2:"3DEIJL"},
+{n:87,lb:"M87",dt:"4 juil \u00b7 03h30",st:"Arrowhead Stadium, Kansas City",ch:"beIN Sports",t1:"1K",t2:"3DEIJL"},
 {n:88,lb:"M88",dt:"3 juil \u00b7 20h00",st:"AT&T Stadium, Dallas",ch:"beIN Sports",t1:"2D",t2:"2G"}
 ]},
 huit:{tit:"1/8E DE FINALE",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez",ms:[
 {n:89,lb:"M89",dt:"4 juil \u00b7 23h00",st:"Lincoln Financial Field",ch:"beIN Sports",t1:"V74",t2:"V77"},
 {n:90,lb:"M90",dt:"4 juil \u00b7 19h00",st:"NRG Stadium, Houston",ch:"beIN Sports",t1:"V73",t2:"V75"},
-{n:91,lb:"M91",dt:"5 juil \u00b7 22h00",st:"MetLife Stadium, NY",ch:"beIN Sports",t1:"V76",t2:"V78"},
+{n:91,lb:"M91",dt:"5 juil \u00b7 22h00",st:"MetLife Stadium, New York",ch:"beIN Sports",t1:"V76",t2:"V78"},
 {n:92,lb:"M92",dt:"6 juil \u00b7 02h00",st:"Estadio Azteca, Mexico",ch:"beIN Sports",t1:"V79",t2:"V80"},
 {n:93,lb:"M93",dt:"6 juil \u00b7 21h00",st:"AT&T Stadium, Dallas",ch:"beIN Sports",t1:"V83",t2:"V84"},
 {n:94,lb:"M94",dt:"7 juil \u00b7 02h00",st:"Lumen Field, Seattle",ch:"beIN Sports",t1:"V81",t2:"V82"},
@@ -275,9 +263,9 @@ huit:{tit:"1/8E DE FINALE",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez",ms
 ]},
 quart:{tit:"QUARTS DE FINALE",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez",ms:[
 {n:97,lb:"QF1",dt:"9 juil \u00b7 22h00",st:"Gillette Stadium, Boston",ch:"beIN Sports",t1:"V89",t2:"V90"},
-{n:98,lb:"QF2",dt:"10 juil \u00b7 21h00",st:"SoFi Stadium, LA",ch:"beIN Sports",t1:"V93",t2:"V94"},
+{n:98,lb:"QF2",dt:"10 juil \u00b7 21h00",st:"SoFi Stadium, Los Angeles",ch:"beIN Sports",t1:"V93",t2:"V94"},
 {n:99,lb:"QF3",dt:"11 juil \u00b7 23h00",st:"Hard Rock Stadium, Miami",ch:"beIN Sports",t1:"V91",t2:"V92"},
-{n:100,lb:"QF4",dt:"12 juil \u00b7 03h00",st:"Arrowhead Stadium, KC",ch:"beIN Sports",t1:"V95",t2:"V96"}
+{n:100,lb:"QF4",dt:"12 juil \u00b7 03h00",st:"Arrowhead Stadium, Kansas City",ch:"beIN Sports",t1:"V95",t2:"V96"}
 ]},
 demi:{tit:"DEMI-FINALES",sub:"Cliquez sur l'\u00e9quipe que vous qualifiez pour la finale",ms:[
 {n:101,lb:"DF1",dt:"14 juil \u00b7 21h00",st:"AT&T Stadium, Dallas",ch:"M6/beIN Sports",t1:"V97",t2:"V98"},
@@ -288,13 +276,12 @@ finale:{tit:"\u26BD FINALE",sub:"Cliquez sur votre Champion du Monde !",ms:[
 {n:104,lb:"FINALE",dt:"19 juil \u00b7 21h00",st:"MetLife Stadium, New York",ch:"M6/beIN Sports",t1:"V101",t2:"V102"}
 ]}
 };
-
 var sc={},koW={},clR=null,curTie=null,idx=0,ph="poule";
+var koIdx={seize:0,huit:0,quart:0,demi:0,finale:0};
 var uPseudos=[];try{uPseudos=JSON.parse(localStorage.getItem("up2026")||"[]");}catch(e){}
 function gi(id){return document.getElementById(id);}
-function fl(t){return F[t]||"\uD83C\uDFF3\uFE0F";}
+function fl(t){return F[t]||"?";}
 function ex(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-
 function render(){
   try{
     if(ph==="poule")rPoule();
@@ -302,9 +289,8 @@ function render(){
     else if(ph==="seize"||ph==="huit"||ph==="quart"||ph==="demi"||ph==="finale")rKO(ph);
     else if(ph==="valid")rValid();
     else rDone();
-  }catch(e){gi("card").innerHTML="<div style='padding:20px;color:red'><b>Erreur JS :</b> "+ex(e.message)+"<br><small>"+ex(e.stack)+"</small></div>";}
+  }catch(e){gi("card").innerHTML="<div style='padding:20px;color:red'><b>Erreur:</b> "+ex(e.message)+"</div>";}
 }
-
 function rPoule(){
   var m=MATCHES[idx];
   var pct=Math.max(1,Math.round((idx/72)*100));
@@ -312,18 +298,17 @@ function rPoule(){
   gi("pLabel").textContent="MATCH "+(idx+1)+" / 72 \u2014 GROUPE "+m.gr;
   var sv=sc[m.num]||{a:"",b:""};
   gi("card").innerHTML=
-    '<div class="mh"><div class="mm">\uD83D\uDCC5 '+ex(m.date)+' \u00b7 '+ex(m.h)+' \u00b7 Groupe '+m.gr+'</div>'+
-    '<div class="mi">\uD83C\uDFDF\uFE0F '+ex(m.st)+' \u00b7 \uD83D\uDCFA '+ex(m.ch)+'</div></div>'+
+    '<div class="mh"><div class="mm">&#128197; '+ex(m.date)+' &middot; '+ex(m.h)+' &middot; Groupe '+m.gr+'</div>'+
+    '<div class="mi">&#127903;&#65039; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
     '<div class="mb">'+
     '<div class="tr"><span class="tf">'+fl(m.e1)+'</span><span class="tn">'+ex(m.e1).toUpperCase()+'</span>'+
     '<input class="si" id="s1" type="number" min="0" max="30" value="'+ex(sv.a)+'" placeholder="-"></div>'+
     '<div class="sep"></div>'+
     '<div class="tr"><span class="tf">'+fl(m.e2)+'</span><span class="tn">'+ex(m.e2).toUpperCase()+'</span>'+
     '<input class="si" id="s2" type="number" min="0" max="30" value="'+ex(sv.b)+'" placeholder="-"></div>'+
-    '<button class="bv" onclick="vPoule()">\u2714 VALIDER</button></div>';
+    '<button class="bv" onclick="vPoule()">&#x2714; VALIDER</button></div>';
   var el=gi("s1");if(el)el.focus();
 }
-
 function vPoule(){
   var m=MATCHES[idx];
   var v1=gi("s1").value,v2=gi("s2").value;
@@ -333,7 +318,6 @@ function vPoule(){
   if(idx>=72){cClass();ph="classement";}
   render();
 }
-
 function cClass(){
   clR={};
   var gks=Object.keys(GROUPES);
@@ -358,14 +342,12 @@ function cClass(){
     clR[gks2[g]]=arr.map(function(x){return Object.assign({name:x[0]},x[1]);});
   }
 }
-
 function gB3(){
   var b3=[],gks=Object.keys(clR);
   for(var i=0;i<gks.length;i++){var t=clR[gks[i]][2];if(t)b3.push(Object.assign({grp:gks[i]},t));}
   b3.sort(function(a,b){if(b.pts!==a.pts)return b.pts-a.pts;if(b.db!==a.db)return b.db-a.db;return b.bm-a.bm;});
   return b3;
 }
-
 function rClass(){
   gi("pFill").style.width="100%";gi("pLabel").textContent="CLASSEMENT DES GROUPES";
   if(curTie){rTie();return;}
@@ -397,32 +379,35 @@ function rClass(){
   b3.forEach(function(t,i){
     h+='<tr'+(i<8?' style="background:#f0fdf4"':'')+'><td>'+fl(t.name)+'</td><td>'+ex(t.name)+'</td><td>'+t.pts+'</td><td>'+t.bm+'</td><td>'+(t.db>0?"+":"")+t.db+'</td><td>'+t.grp+'</td><td>'+(i<8?'<span class="eq">Q</span>':'<span class="eli">E</span>')+'</td></tr>';
   });
-  h+='</tbody></table><button class="bv" onclick="goKO()">\u2192 PASSER AUX 1/16e</button></div>';
+  h+='</tbody></table><button class="bv" onclick="goKO()">&rarr; PASSER AUX 1/16e</button></div>';
   gi("card").innerHTML=h;
 }
-
 function rTie(){
   var t=curTie,ctx=t.type==="g"?"dans le groupe "+t.grp:"parmi les meilleurs 3es";
   gi("card").innerHTML=
-    '<div class="ph"><h2>\u2696\uFE0F \u00c9GALIT\u00c9</h2></div>'+
-    '<div class="ecrd"><h3>\u00c9galit\u00e9 parfaite '+ex(ctx)+'</h3>'+
-    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont \u00e0 \u00e9galit\u00e9 parfaite.<br>Selon le fair-play, cliquez sur l\'\u00e9quipe \u00e0 classer <b>devant</b> l\'autre :</p>'+
-    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.a.name)+')"><span style="font-size:22px">'+fl(t.a.name)+'</span> <span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.a.name).toUpperCase()+'</span></button>'+
-    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.b.name)+')"><span style="font-size:22px">'+fl(t.b.name)+'</span> <span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.b.name).toUpperCase()+'</span></button>'+
+    '<div class="ph"><h2>&#9878;&#65039; &Eacute;GALIT&Eacute;</h2></div>'+
+    '<div class="ecrd"><h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>'+
+    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>'+
+    'Selon le fair-play, cliquez sur l\'&eacute;quipe &agrave; classer <b>devant</b> l\'autre&nbsp;:</p>'+
+    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.a.name)+')">'+
+    '<span style="font-size:22px">'+fl(t.a.name)+'</span> '+
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.a.name).toUpperCase()+'</span></button>'+
+    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.b.name)+')">'+
+    '<span style="font-size:22px">'+fl(t.b.name)+'</span> '+
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.b.name).toUpperCase()+'</span></button>'+
     '</div>';
 }
-
 function resTie(w){
   var t=curTie,loser=w===t.a.name?t.b.name:t.a.name;
   if(t.type==="g"){
     var arr=clR[t.grp];
-    var wi=arr.findIndex(function(x){return x.name===w;}),li=arr.findIndex(function(x){return x.name===loser;});
+    var wi=arr.findIndex(function(x){return x.name===w;});
+    var li=arr.findIndex(function(x){return x.name===loser;});
     if(wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
   }
   curTie=null;render();
 }
 function goKO(){ph="seize";render();}
-
 function rTeam(key){
   if(!clR)return key;
   var gm=key.match(/^([12])([A-L])$/);
@@ -451,41 +436,54 @@ function rTeam(key){
   }
   return key;
 }
-
 var NXT={seize:"huit",huit:"quart",quart:"demi",demi:"finale",finale:"valid"};
 var NXTL={seize:"1/8E DE FINALE",huit:"QUARTS DE FINALE",quart:"DEMI-FINALES",demi:"FINALE",finale:"VALIDER MA GRILLE"};
-
 function rKO(p){
-  gi("pFill").style.width="100%";gi("pLabel").textContent=KO[p].tit;
-  var pw=koW[p]||{},done=KO[p].ms.every(function(m){return pw[m.n];});
-  var h='<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>'+ex(KO[p].sub)+'</p></div>';
-  KO[p].ms.forEach(function(m){
-    var t1=rTeam(m.t1),t2=rTeam(m.t2),w=pw[m.n];
-    var c1=w===t1?" sel":w&&w!==t1?" elim":"";
-    var c2=w===t2?" sel":w&&w!==t2?" elim":"";
-    h+='<div class="km"><div class="km-meta">'+ex(m.lb)+' \u00b7 '+ex(m.dt)+'</div><div class="km-info">\uD83C\uDFDF\uFE0F '+ex(m.st)+' \u00b7 \uD83D\uDCFA '+ex(m.ch)+'</div>'+
-    '<div class="kt">'+
-    '<button class="kb'+c1+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t1)+')"><span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span><span class="kch">\u2713</span></button>'+
-    '<button class="kb'+c2+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t2)+')"><span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span><span class="kch">\u2713</span></button>'+
-    '</div></div>';
-  });
-  if(done)h+='<div style="padding:14px 18px"><button class="bv" onclick="gNext(\''+NXT[p]+'\')">\u2192 '+NXTL[p]+'</button></div>';
+  gi("pFill").style.width="100%";
+  var ms=KO[p].ms,pw=koW[p]||{};
+  // Avance au premier match non encore pronostique
+  while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n])koIdx[p]++;
+  gi("pLabel").textContent=KO[p].tit+" \u2014 MATCH "+(koIdx[p]+1)+" / "+ms.length;
+  // Tous les matchs de cette phase sont faits
+  if(koIdx[p]>=ms.length){
+    var hd='<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu&eacute;s &#x2714;</p></div>';
+    hd+='<div style="padding:16px 18px"><button class="bv" onclick="gNext(\''+NXT[p]+'\')">'+
+      '&rarr; '+NXTL[p]+'</button></div>';
+    gi("card").innerHTML=hd;return;
+  }
+  var m=ms[koIdx[p]];
+  var t1=rTeam(m.t1),t2=rTeam(m.t2),w=pw[m.n];
+  var c1=w===t1?" sel":w&&w!==t1?" elim":"";
+  var c2=w===t2?" sel":w&&w!==t2?" elim":"";
+  var btnSuiv=w?'<div style="padding-top:14px"><button class="bv" onclick="koIdx[\''+p+'\']++;render()">&rarr; MATCH SUIVANT</button></div>':'';
+  var h='<div class="mh">'+
+    '<div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+    '<div class="mi">&#127903;&#65039; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
+    '<div class="mb"><div class="kt">'+
+    '<button class="kb'+c1+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t1)+')">'+
+    '<span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span>'+
+    '<span class="kch">&#x2713;</span></button>'+
+    '<button class="kb'+c2+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t2)+')">'+
+    '<span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span>'+
+    '<span class="kch">&#x2713;</span></button>'+
+    '</div>'+btnSuiv+'</div>';
   gi("card").innerHTML=h;
 }
-
 function sKO(p,n,t){if(!koW[p])koW[p]={};koW[p][n]=t;render();}
 function gNext(p){ph=p;render();}
-
 function rValid(){
   gi("pLabel").textContent="VALIDATION OFFICIELLE";
   gi("card").innerHTML=
-    '<div class="vf"><h2>\uD83C\uDF89 GRILLE COMPL\u00c8TE !</h2>'+
-    '<p>Vous avez pronostiqu\u00e9 les 72 matchs de poule et toutes les phases finales.<br>Validez officiellement votre grille ci-dessous.</p>'+
-    '<div class="fg"><label>Votre pseudo</label><input type="text" id="ps" placeholder="Ex: Gaspardo" maxlength="30"><div class="errmsg" id="pe">Ce pseudo est d\u00e9j\u00e0 pris. Choisissez-en un autre.</div></div>'+
-    '<div class="fg"><label>Votre adresse mail</label><input type="email" id="em" placeholder="exemple@mail.com"><div class="errmsg" id="ee">Adresse mail invalide.</div></div>'+
-    '<button class="bs" onclick="subG()">\uD83C\uDFC6 VALIDER OFFICIELLEMENT</button></div>';
+    '<div class="vf"><h2>&#127881; GRILLE COMPL&Egrave;TE !</h2>'+
+    '<p>Vous avez pronostiqu&eacute; les 72 matchs de poule et toutes les phases finales.<br>Validez officiellement votre grille ci-dessous.</p>'+
+    '<div class="fg"><label>Votre pseudo</label>'+
+    '<input type="text" id="ps" placeholder="Ex: Gaspardo" maxlength="30">'+
+    '<div class="errmsg" id="pe">Ce pseudo est d&eacute;j&agrave; pris. Choisissez-en un autre.</div></div>'+
+    '<div class="fg"><label>Votre adresse mail</label>'+
+    '<input type="email" id="em" placeholder="exemple@mail.com">'+
+    '<div class="errmsg" id="ee">Adresse mail invalide.</div></div>'+
+    '<button class="bs" onclick="subG()">&#127942; VALIDER OFFICIELLEMENT</button></div>';
 }
-
 function subG(){
   var ps=gi("ps").value.trim(),em=gi("em").value.trim(),ok=true;
   gi("pe").style.display="none";gi("ee").style.display="none";
@@ -495,9 +493,8 @@ function subG(){
   if(!ok)return;
   bExcel(ps,em);
 }
-
 function bExcel(ps,em){
-  var btn=document.querySelector(".bs");btn.textContent="\u23F3 Enregistrement...";btn.disabled=true;
+  var btn=document.querySelector(".bs");btn.textContent="&#x23F3; Enregistrement...";btn.disabled=true;
   var wb=XLSX.utils.book_new();
   var pr=[["Match","Groupe","Date","Heure","Equipe 1","Score 1","Score 2","Equipe 2"]];
   Object.keys(sc).forEach(function(k){
@@ -521,16 +518,14 @@ function bExcel(ps,em){
   try{localStorage.setItem("up2026",JSON.stringify(uPseudos));}catch(e){}
   ph="done";render();
 }
-
 function rDone(){
-  gi("pLabel").textContent="GRILLE VALID\u00c9E \u2713";
+  gi("pLabel").textContent="GRILLE VALID&Eacute;E &#x2713;";
   gi("card").innerHTML=
-    '<div class="scard"><div class="em">\uD83C\uDFC6</div><h2>GRILLE VALID\u00c9E !</h2>'+
-    '<p>Votre grille a \u00e9t\u00e9 t\u00e9l\u00e9charg\u00e9e sur votre appareil.<br><br>'+
-    'Envoyez le fichier Excel \u00e0 :<br><b>olivier.ruchaud@hotmail.fr</b><br><br>'+
+    '<div class="scard"><div class="em">&#127942;</div><h2>GRILLE VALID&Eacute;E !</h2>'+
+    '<p>Votre grille a &eacute;t&eacute; t&eacute;l&eacute;charg&eacute;e sur votre appareil.<br><br>'+
+    'Envoyez le fichier Excel &agrave;&nbsp;:<br><b>olivier.ruchaud@hotmail.fr</b><br><br>'+
     'Bonne chance pour la Coupe du Monde 2026 !</p></div>';
 }
-
 render();
 </script>
 </body>
