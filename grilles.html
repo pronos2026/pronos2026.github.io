@@ -280,7 +280,7 @@ var sc={},koW={},clR=null,curTie=null,idx=0,ph="poule";
 var koIdx={seize:0,huit:0,quart:0,demi:0,finale:0};
 var uPseudos=[];try{uPseudos=JSON.parse(localStorage.getItem("up2026")||"[]");}catch(e){}
 function gi(id){return document.getElementById(id);}
-function fl(t){return F[t]||"?";}
+var SVGF={"Angleterre":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA0MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iMjUiIHk9IjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0NGMTQyQiIvPgo8cmVjdCB4PSIwIiB5PSIxNSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjQ0YxNDJCIi8+Cjwvc3ZnPg==","\u00c9cosse":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA0MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMzM4MCIvPgo8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI2MCIgeTI9IjQwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjgiLz4KPGxpbmUgeDE9IjYwIiB5MT0iMCIgeDI9IjAiIHkyPSI0MCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI4Ii8+Cjwvc3ZnPg=="};function fl(t){if(SVGF[t])return '<img src="'+SVGF[t]+'" style="height:30px;width:auto;vertical-align:middle;border-radius:2px">';return F[t]||"?";}
 function ex(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function render(){
   try{
@@ -383,27 +383,39 @@ function rClass(){
   gi("card").innerHTML=h;
 }
 function rTie(){
-  var t=curTie,ctx=t.type==="g"?"dans le groupe "+t.grp:"parmi les meilleurs 3es";
-  gi("card").innerHTML=
-    '<div class="ph"><h2>&#9878;&#65039; &Eacute;GALIT&Eacute;</h2></div>'+
-    '<div class="ecrd"><h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>'+
-    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>'+
-    'Selon le fair-play, cliquez sur l\'&eacute;quipe &agrave; classer <b>devant</b> l\'autre&nbsp;:</p>'+
-    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.a.name)+')">'+
-    '<span style="font-size:22px">'+fl(t.a.name)+'</span> '+
-    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.a.name).toUpperCase()+'</span></button>'+
-    '<button class="ebtn" onclick="resTie('+JSON.stringify(t.b.name)+')">'+
-    '<span style="font-size:22px">'+fl(t.b.name)+'</span> '+
-    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.b.name).toUpperCase()+'</span></button>'+
-    '</div>';
+  var t=curTie,ctx=t.type==="g"?"dans le groupe "+t.grp:"parmi les meilleurs 3e";
+  window._tieA=t.a.name;
+  window._tieB=t.b.name;
+  var fa=fl(t.a.name),fb=fl(t.b.name);
+  var na=ex(t.a.name).toUpperCase(),nb=ex(t.b.name).toUpperCase();
+  var h='<div class="ph"><h2>&#9878;&#65039; &Eacute;GALIT&Eacute;</h2></div>';
+  h+='<div class="ecrd"><h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>';
+  h+='<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>';
+  h+='Selon le fair-play, cliquez sur l'&eacute;quipe &agrave; classer <b>devant</b> l'autre&nbsp;:</p>';
+  h+='<button class="ebtn" id="tieA"><span style="font-size:22px;margin-right:8px">'+fa+'</span>';
+  h+='<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+na+'</span></button>';
+  h+='<button class="ebtn" id="tieB"><span style="font-size:22px;margin-right:8px">'+fb+'</span>';
+  h+='<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+nb+'</span></button>';
+  h+='</div>';
+  gi("card").innerHTML=h;
+  gi("tieA").addEventListener("click",function(){resTie(window._tieA);});
+  gi("tieB").addEventListener("click",function(){resTie(window._tieB);});
 }
 function resTie(w){
   var t=curTie,loser=w===t.a.name?t.b.name:t.a.name;
   if(t.type==="g"){
     var arr=clR[t.grp];
-    var wi=arr.findIndex(function(x){return x.name===w;});
-    var li=arr.findIndex(function(x){return x.name===loser;});
-    if(wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
+    var wi=-1,li=-1;
+    for(var i=0;i<arr.length;i++){
+      if(arr[i].name===w)wi=i;
+      if(arr[i].name===loser)li=i;
+    }
+    if(wi>li&&wi>=0&&li>=0){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
+  } else {
+    // best3 tie: store manual override order
+    if(!window._b3order)window._b3order=[];
+    window._b3order.push(w);
+    window._b3order.push(loser);
   }
   curTie=null;render();
 }
