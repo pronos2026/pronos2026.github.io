@@ -212,7 +212,7 @@ var F={
 "Canada":"\uD83C\uDDE8\uD83C\uDDE6","Bosnie-Herz\u00e9govine":"\uD83C\uDDE7\uD83C\uDDE6",
 "Qatar":"\uD83C\uDDF6\uD83C\uDDE6","Suisse":"\uD83C\uDDE8\uD83C\uDDED",
 "Br\u00e9sil":"\uD83C\uDDE7\uD83C\uDDF7","Maroc":"\uD83C\uDDF2\uD83C\uDDE6",
-"Ha\u00efti":"\uD83C\uDDED\uD83C\uDDF9","\u00c9cosse":"\uD83C\uDFF4\u200D\uD83D\uDEA9",
+"Ha\u00efti":"\uD83C\uDDED\uD83C\uDDF9","\u00c9cosse":"",
 "\u00c9tats-Unis":"\uD83C\uDDFA\uD83C\uDDF8","Paraguay":"\uD83C\uDDF5\uD83C\uDDFE",
 "Australie":"\uD83C\uDDE6\uD83C\uDDFA","Turquie":"\uD83C\uDDF9\uD83C\uDDF7",
 "Allemagne":"\uD83C\uDDE9\uD83C\uDDEA","Cura\u00e7ao":"\uD83C\uDDE8\uD83C\uDDFC",
@@ -229,7 +229,7 @@ var F={
 "Autriche":"\uD83C\uDDE6\uD83C\uDDF9","Jordanie":"\uD83C\uDDEF\uD83C\uDDF4",
 "Portugal":"\uD83C\uDDF5\uD83C\uDDF9","RD Congo":"\uD83C\uDDE8\uD83C\uDDE9",
 "Ouzb\u00e9kistan":"\uD83C\uDDFA\uD83C\uDDFF","Colombie":"\uD83C\uDDE8\uD83C\uDDF4",
-"Angleterre":"\uD83C\uDFF4\u200D\uD83D\uDEA9","Croatie":"\uD83C\uDDED\uD83C\uDDF7",
+"Angleterre":"","Croatie":"\uD83C\uDDED\uD83C\uDDF7",
 "Ghana":"\uD83C\uDDEC\uD83C\uDDED","Panama":"\uD83C\uDDF5\uD83C\uDDE6"
 };
 var KO={
@@ -374,7 +374,7 @@ function rClass(){
     });
     h+='</tbody></table>';
   }
-  h+='<div class="ct" style="margin-top:12px">MEILLEURS 3es</div>';
+  h+='<div class="ct" style="margin-top:12px">MEILLEURS 3e</div>';
   h+='<table class="ctbl"><thead><tr><th colspan="2">Pays</th><th>Pts</th><th>BP</th><th>DB</th><th>Gr</th><th></th></tr></thead><tbody>';
   b3.forEach(function(t,i){
     h+='<tr'+(i<8?' style="background:#f0fdf4"':'')+'><td>'+fl(t.name)+'</td><td>'+ex(t.name)+'</td><td>'+t.pts+'</td><td>'+t.bm+'</td><td>'+(t.db>0?"+":"")+t.db+'</td><td>'+t.grp+'</td><td>'+(i<8?'<span class="eq">Q</span>':'<span class="eli">E</span>')+'</td></tr>';
@@ -391,7 +391,7 @@ function rTie(){
   var h='<div class="ph"><h2>&#9878;&#65039; &Eacute;GALIT&Eacute;</h2></div>';
   h+='<div class="ecrd"><h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>';
   h+='<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>';
-  h+='Selon le fair-play, cliquez sur l'&eacute;quipe &agrave; classer <b>devant</b> l'autre&nbsp;:</p>';
+  h+='Selon le fair-play, cliquez sur l\'&eacute;quipe &agrave; classer <b>devant</b> l\'autre&nbsp;:</p>';
   h+='<button class="ebtn" id="tieA"><span style="font-size:22px;margin-right:8px">'+fa+'</span>';
   h+='<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+na+'</span></button>';
   h+='<button class="ebtn" id="tieB"><span style="font-size:22px;margin-right:8px">'+fb+'</span>';
