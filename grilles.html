@@ -485,10 +485,8 @@ var NXTL={seize:"1/8E DE FINALE",huit:"QUARTS DE FINALE",quart:"DEMI-FINALES",de
 function rKO(p){
   gi("pFill").style.width="100%";
   var ms=KO[p].ms,pw=koW[p]||{};
-  // Avance au premier match non encore pronostique
   while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n])koIdx[p]++;
   gi("pLabel").textContent=KO[p].tit+" \u2014 MATCH "+(koIdx[p]+1)+" / "+ms.length;
-  // Tous les matchs de cette phase sont faits
   if(koIdx[p]>=ms.length){
     var hd='<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu&eacute;s &#x2714;</p></div>';
     hd+='<div style="padding:16px 18px"><button class="bv" onclick="gNext(\''+NXT[p]+'\')">'+
@@ -496,22 +494,39 @@ function rKO(p){
     gi("card").innerHTML=hd;return;
   }
   var m=ms[koIdx[p]];
-  var t1=rTeam(m.t1),t2=rTeam(m.t2),w=pw[m.n];
-  var c1=w===t1?" sel":w&&w!==t1?" elim":"";
-  var c2=w===t2?" sel":w&&w!==t2?" elim":"";
-  var btnSuiv=w?'<div style="padding-top:14px"><button class="bv" onclick="koIdx[\''+p+'\']++;render()">&rarr; MATCH SUIVANT</button></div>':'';
+  var t1=rTeam(m.t1),t2=rTeam(m.t2);
+  // Use koSelected for pending selection (not yet validated)
+  var sel=window.koSelected&&window.koSelected[p]&&window.koSelected[p][m.n];
+  var c1=sel===t1?" sel":sel&&sel!==t1?" elim":"";
+  var c2=sel===t2?" sel":sel&&sel!==t2?" elim":"";
+  var btnVal=sel?'<div style="padding-top:14px"><button class="bv" onclick="valKO(\''+p+'\','+m.n+')">&#x2714; VALIDER</button></div>':'';
   var h='<div class="mh">'+
     '<div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
     '<div class="mi">&#127903;&#65039; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
     '<div class="mb"><div class="kt">'+
-    '<button class="kb'+c1+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t1)+')">'+
+    '<button class="kb'+c1+'" onclick="selKOteam(\''+p+'\','+m.n+','+JSON.stringify(t1)+')">'+
     '<span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span>'+
     '<span class="kch">&#x2713;</span></button>'+
-    '<button class="kb'+c2+'" onclick="sKO(\''+p+'\','+m.n+','+JSON.stringify(t2)+')">'+
+    '<button class="kb'+c2+'" onclick="selKOteam(\''+p+'\','+m.n+','+JSON.stringify(t2)+')">'+
     '<span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span>'+
     '<span class="kch">&#x2713;</span></button>'+
-    '</div>'+btnSuiv+'</div>';
+    '</div>'+btnVal+'</div>';
   gi("card").innerHTML=h;
+}
+
+function selKOteam(p,n,t){
+  if(!window.koSelected)window.koSelected={};
+  if(!window.koSelected[p])window.koSelected[p]={};
+  window.koSelected[p][n]=t;
+  render();
+}
+function valKO(p,n){
+  var t=window.koSelected&&window.koSelected[p]&&window.koSelected[p][n];
+  if(!t)return;
+  if(!koW[p])koW[p]={};
+  koW[p][n]=t;
+  koIdx[p]++;
+  render();
 }
 function sKO(p,n,t){if(!koW[p])koW[p]={};koW[p][n]=t;render();}
 function gNext(p){ph=p;render();}
