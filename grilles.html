@@ -351,18 +351,30 @@ function gB3(){
 function rClass(){
   gi("pFill").style.width="100%";gi("pLabel").textContent="CLASSEMENT DES GROUPES";
   if(curTie){rTie();return;}
+  if(!window._resolvedTies)window._resolvedTies=[];
   var gks=Object.keys(clR);
   for(var i=0;i<gks.length;i++){
     var tms=clR[gks[i]];
     for(var j=0;j<3;j++){
       var a=tms[j],b=tms[j+1];
-      if(a&&b&&a.pts===b.pts&&a.db===b.db&&a.bm===b.bm){curTie={type:"g",grp:gks[i],a:a,b:b};rTie();return;}
+      if(a&&b&&a.pts===b.pts&&a.db===b.db&&a.bm===b.bm){
+        var tkey=a.name+"|"+b.name;
+        var tkey2=b.name+"|"+a.name;
+        if(window._resolvedTies.indexOf(tkey)<0&&window._resolvedTies.indexOf(tkey2)<0){
+          curTie={type:"g",grp:gks[i],a:a,b:b};rTie();return;
+        }
+      }
     }
   }
   var b3=gB3();
   for(var bi=0;bi<7;bi++){
     var ba=b3[bi],bb=b3[bi+1];
-    if(ba&&bb&&ba.pts===bb.pts&&ba.db===bb.db&&ba.bm===bb.bm){curTie={type:"b",a:ba,b:bb};rTie();return;}
+    if(ba&&bb&&ba.pts===bb.pts&&ba.db===bb.db&&ba.bm===bb.bm){
+      var bkey=ba.name+"|"+bb.name,bkey2=bb.name+"|"+ba.name;
+      if(window._resolvedTies.indexOf(bkey)<0&&window._resolvedTies.indexOf(bkey2)<0){
+        curTie={type:"b",a:ba,b:bb};rTie();return;
+      }
+    }
   }
   var h='<div class="cls"><div class="ct">CLASSEMENTS</div>';
   for(var gi2=0;gi2<gks.length;gi2++){
@@ -410,15 +422,35 @@ function resTie(w){
       if(arr[i].name===w)wi=i;
       if(arr[i].name===loser)li=i;
     }
-    if(wi>li&&wi>=0&&li>=0){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
+    // Always put winner before loser regardless of current order
+    if(wi>=0&&li>=0&&wi!==li){
+      // If winner is already before loser, add tiny pts bonus to keep it that way
+      // Use a tiebreaker flag to prevent re-triggering
+      arr[wi]._tbw=true; arr[li]._tbw=false;
+      if(wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
+    }
   } else {
-    // best3 tie: store manual override order
-    if(!window._b3order)window._b3order=[];
-    window._b3order.push(w);
-    window._b3order.push(loser);
+    // best3 tie: adjust sort order via a small bonus on bm
+    var b3=gB3();
+    var wa=b3.findIndex(function(x){return x.name===w;});
+    var la=b3.findIndex(function(x){return x.name===loser;});
+    // Find which group these teams belong to and give winner a tiny pts bonus
+    var gks=Object.keys(clR);
+    for(var g=0;g<gks.length;g++){
+      var arr2=clR[gks[g]];
+      for(var i=0;i<arr2.length;i++){
+        if(arr2[i].name===w) arr2[i]._tbw=true;
+        if(arr2[i].name===loser) arr2[i]._tbw=false;
+      }
+    }
   }
-  curTie=null;render();
+  // Mark this pair as resolved so we don't re-trigger
+  if(!window._resolvedTies)window._resolvedTies=[];
+  window._resolvedTies.push(w+"|"+loser);
+  curTie=null;
+  render();
 }
+
 function goKO(){ph="seize";render();}
 function rTeam(key){
   if(!clR)return key;
