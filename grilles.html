@@ -447,13 +447,34 @@ function resTie(w){
 }
 
 function goKO(){ph="seize";render();}
+// Permanent assignment of best-3rd teams to specific 1/16 matches
+// Keys: match numbers with "3X" slots, in best-3rd ranking order
+var B3_MATCH_ORDER=[74,77,79,80,81,82,85,87];
+var b3Assign={};  // {matchNum: teamName}
+
+function assignBest3(){
+  if(Object.keys(b3Assign).length>0) return; // already done
+  var b3=gB3();
+  for(var i=0;i<B3_MATCH_ORDER.length&&i<b3.length;i++){
+    b3Assign[B3_MATCH_ORDER[i]]=b3[i].name;
+  }
+}
+
 function rTeam(key){
   if(!clR)return key;
   var gm=key.match(/^([12])([A-L])$/);
-  if(gm){var pos=parseInt(gm[1])-1,grp=gm[2];return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;}
+  if(gm){
+    var pos=parseInt(gm[1])-1,grp=gm[2];
+    return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+  }
   if(key[0]==="3"){
-    var b3=gB3(),used=[];
-    Object.keys(koW).forEach(function(p){Object.values(koW[p]).forEach(function(v){used.push(v);});});
+    // Find which match this "3X" key belongs to by looking at current KO match
+    // The key itself doesn't tell us which match - we need the match number
+    // This function is called with the match context from rKO
+    // We use _currentMatchNum set before calling rTeam
+    if(window._cmn&&b3Assign[window._cmn]) return b3Assign[window._cmn];
+    // Fallback: return first unassigned best3
+    var b3=gB3(),used=Object.values(b3Assign);
     for(var i=0;i<b3.length;i++){if(used.indexOf(b3[i].name)<0)return b3[i].name;}
     return b3.length?b3[0].name:key;
   }
@@ -469,7 +490,10 @@ function rTeam(key){
     for(var p2=0;p2<phs2.length;p2++){
       var phd=KO[phs2[p2]],match=null;
       for(var mi=0;mi<phd.ms.length;mi++){if(phd.ms[mi].n===pmn){match=phd.ms[mi];break;}}
-      if(match&&koW[phs2[p2]]&&koW[phs2[p2]][pmn]){var r1=rTeam(match.t1),r2=rTeam(match.t2);return koW[phs2[p2]][pmn]===r1?r2:r1;}
+      if(match&&koW[phs2[p2]]&&koW[phs2[p2]][pmn]){
+        var r1=rTeam(match.t1),r2=rTeam(match.t2);
+        return koW[phs2[p2]][pmn]===r1?r2:r1;
+      }
     }
     return key;
   }
@@ -814,6 +838,7 @@ function rTeam(key){
 
 function rKO(p){
   gi('pFill').style.width='100%';
+  if(p==='seize') assignBest3(); // assign best-3rd teams once
   var ms=KO[p].ms, pw=koW[p]||{};
   while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n]) koIdx[p]++;
   gi('pLabel').textContent=KO[p].tit+' — MATCH '+(koIdx[p]+1)+' / '+ms.length;
@@ -828,6 +853,7 @@ function rKO(p){
   }
 
   var m=ms[koIdx[p]];
+  window._cmn=m.n; // tell rTeam which match we're resolving
   var t1=rTeam(m.t1), t2=rTeam(m.t2);
 
   gi('card').innerHTML=
