@@ -1089,202 +1089,245 @@ function rValid(){
 }
 
 function bExcel(ps,em){
-  var btn=gi('btnSub');btn.textContent='\u23F3 Enregistrement...';btn.disabled=true;
-  var wb=XLSX.utils.book_new();
+  var btn=gi('btnSub');
+  btn.textContent='\u23F3 Enregistrement...';
+  btn.disabled=true;
 
-  // ===== FEUILLE 1 : GRILLE COMPLETE =====
-  // Couleurs
-  var BLU='002B5C', AZU='0077C8', RGE='D0021B', OR='C9A84C', WHT='FFFFFF', GRY='F4F6FA', LGR='DCE6F1';
+  // ── Palette (calquée sur le modèle ODS)
+  var C={
+    BLU:'FF004586', AZU:'FF0066CC', GRN:'FFCCFF99',
+    YEL:'FFFFFF99', WHT:'FFFFFFFF', NON:'00000000',
+    BLK:'FF000000', GRY:'FF7F7F7F'
+  };
 
-  function hdr(v,bold,bg,fg,sz){
-    return {v:v,t:'s',s:{font:{bold:bold||false,color:{rgb:fg||'000000'},sz:sz||10},
-      fill:bg?{fgColor:{rgb:bg}}:{},alignment:{horizontal:'center',vertical:'center',wrapText:true}}};
-  }
-  function cel(v,bold,align,bg,fg,sz,num){
-    var o={v:v,s:{font:{bold:bold||false,color:{rgb:fg||'000000'},sz:sz||10},
-      fill:bg?{fgColor:{rgb:bg}}:{},alignment:{horizontal:align||'left',vertical:'center'}}};
-    if(typeof v==='number'){o.t='n';}else{o.t='s';}
-    if(num)o.z=num;
+  // ── Helpers de style
+  function f(bold,sz,rgb,italic){return {bold:!!bold,sz:sz||11,color:{rgb:rgb||C.BLK},italic:!!italic};}
+  function bg(rgb){return {fgColor:{rgb:rgb}};}
+  function al(h,v,wrap){return {horizontal:h||'general',vertical:v||'bottom',wrapText:!!wrap};}
+  function cel(v,fnt,fil,aln){
+    var o={v:v,s:{}};
+    if(v==null)o.v='';
+    if(typeof v==='number')o.t='n'; else o.t='s';
+    if(fnt)o.s.font=fnt;
+    if(fil)o.s.fill=fil;
+    if(aln)o.s.alignment=aln;
     return o;
   }
-  function score(v){
-    return {v:v,t:'n',s:{font:{bold:true,color:{rgb:RGE},sz:12},
-      alignment:{horizontal:'center',vertical:'center'},
-      border:{left:{style:'thin',color:{rgb:'CCCCCC'}},right:{style:'thin',color:{rgb:'CCCCCC'}}}}};
+  function emp(){return {v:'',t:'s',s:{}};}
+
+  var wb=XLSX.utils.book_new();
+  var rows=[];
+  var merges=[];
+  var colWidths=[14,8.5,18.5,1.7,6.4,4.2,6.4,1.8,21.5,21,6.5,13,13,13];
+
+  function addRow(cells){
+    // cells = array of 14 values (cols A-N)
+    var row=[];
+    for(var i=0;i<14;i++) row.push(cells[i]||emp());
+    rows.push(row);
+    return rows.length-1; // 0-based row index
   }
 
-  var ws1=[]; // array of rows
-  var merges=[];
+  function mg(r,c1,c2){merges.push({s:{r:r,c:c1},e:{r:r,c:c2}});}
 
-  // Titre principal
-  ws1.push([
-    hdr('LA COUPE DU MONDE DES PRONOSTIQUEURS \u2013 USA 2026',true,BLU,WHT,14),
-    null,null,null,null,null,null,null,null,null,
-    hdr('PSEUDO : '+ps,true,OR,'000000',12),null,null,null,null,null,null,null
+  // ════ LIGNE 1 – Titre + Pseudo ════
+  var r0=addRow([
+    cel('LA COUPE DU MONDE DES PRONOSTIQUEURS \u2013 USA 2026',f(1,16,C.WHT),bg(C.BLU),al('general','center')),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
+    cel('PSEUDO\u00a0: '+ps,f(1,14,C.BLU),bg(C.WHT),al('center','center')),
+    emp(),emp(),emp(),emp()
   ]);
-  merges.push({s:{r:0,c:0},e:{r:0,c:9}});
-  merges.push({s:{r:0,c:10},e:{r:0,c:17}});
+  mg(r0,0,8); mg(r0,9,13);
 
-  ws1.push([]); // ligne vide
+  // ════ GROUPES ════
+  var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
 
-  // Groupes en 2 colonnes (A-F gauche, G-L droite)
-  var groups=['A','B','C','D','E','F','G','H','I','J','K','L'];
-  // Layout: cols 0-8 = groupe gauche, cols 9-17 = groupe droite
-  // Pour chaque groupe: Date | Heure | Eq1 | S1 | - | S2 | Eq2 | | Classement|Pts|BP|BC|DB
-
-  var groupRows={}; // grp -> rows start index in ws1
-  var rowCursor=ws1.length;
-
-  groups.forEach(function(gr,gi_){
-    var leftCol = (gi_<6)?0:9; // groupes A-F colonne 0, G-L colonne 9
-    // On construit les matchs du groupe
-    var gmatches=MATCHES.filter(function(m){return m.gr===gr;});
-    var gteams=GROUPES[gr]||[];
-
-    // En-tête groupe
-    var row1=new Array(18).fill(null);
-    row1[leftCol]=hdr('GROUPE '+gr+' \u2013 Pronostics',true,AZU,WHT,10);
-    row1[leftCol+4]=hdr('Score',false,AZU,WHT,9);
-    row1[leftCol+8]=hdr('Classement',false,AZU,WHT,9);
-    ws1.push(row1);
-    merges.push({s:{r:rowCursor,c:leftCol},e:{r:rowCursor,c:leftCol+3}});
-    merges.push({s:{r:rowCursor,c:leftCol+4},e:{r:rowCursor,c:leftCol+5}});
-    merges.push({s:{r:rowCursor,c:leftCol+6},e:{r:rowCursor,c:leftCol+7}});
-    merges.push({s:{r:rowCursor,c:leftCol+8},e:{r:rowCursor,c:leftCol+8}});
-    rowCursor++;
-
-    // Sous-en-tête
-    var row2=new Array(18).fill(null);
-    ['Date','Heure','Equipe 1','','S1','-','S2','','Equipe 2'].forEach(function(h,i){
-      row2[leftCol+i]=hdr(h,false,LGR,'002B5C',8);
-    });
-    row2[leftCol+9]=hdr('Pts',false,LGR,'002B5C',8);
-    row2[leftCol+10]=hdr('BP',false,LGR,'002B5C',8);
-    row2[leftCol+11]=hdr('BC',false,LGR,'002B5C',8);
-    row2[leftCol+12]=hdr('DB',false,LGR,'002B5C',8);
-    ws1.push(row2);
-    rowCursor++;
-
-    // Matchs (3 par groupe)
-    gmatches.forEach(function(m,mi){
-      var s=scores[m.num]||{};
-      var row=new Array(18).fill(null);
-      row[leftCol]=cel(m.date,false,'center');
-      row[leftCol+1]=cel(m.h,false,'center');
-      row[leftCol+2]=cel(m.e1,true,'left','',AZU);
-      row[leftCol+3]=null;
-      row[leftCol+4]=score(s.a!=null?s.a:'');
-      row[leftCol+5]=hdr('-');
-      row[leftCol+6]=score(s.b!=null?s.b:'');
-      row[leftCol+7]=null;
-      row[leftCol+8]=cel(m.e2,true,'left','',AZU);
-      // Classement colonne - 4 equipes, on les met sur les 4 premiers matchs
-      if(mi<4&&gteams[mi]){
-        // calcul pts etc depuis clR
-        var stats=(clR&&clR[gr]&&clR[gr][mi])||{pts:0,bm:0,be:0,db:0};
-        var nm=clR&&clR[gr]?clR[gr][mi].name:gteams[mi];
-        var db=(stats.db>0?'+':'')+stats.db;
-        row[leftCol+9]=cel(nm,false,'left');
-        row[leftCol+10]=cel(stats.pts,true,'center','','D0021B');
-        row[leftCol+11]=cel(stats.bm,false,'center');
-        row[leftCol+12]=cel(stats.be,false,'center');
-        row[leftCol+13]=cel(db,false,'center');
-      }
-      ws1.push(row);
-      rowCursor++;
-    });
+  GROUPS.forEach(function(grp){
     // Ligne vide entre groupes
-    if(gi_<11){ws1.push(new Array(18).fill(null));rowCursor++;}
-  });
+    if(grp!=='A'){
+      addRow([]);
+    }
 
-  // ===== PHASES FINALES =====
-  ws1.push([]);rowCursor++;
-  var phRow=new Array(18).fill(null);
-  phRow[0]=hdr('PHASES FINALES',true,BLU,WHT,12);
-  ws1.push(phRow);
-  merges.push({s:{r:rowCursor,c:0},e:{r:rowCursor,c:17}});
-  rowCursor++;
+    var cl=clR[grp]||[];
+    var gmatches=MATCHES.filter(function(m){return m.gr===grp;})
+                        .sort(function(a,b){return a.num-b.num;});
 
-  var phaseNames={seize:'1/16e DE FINALE',huit:'1/8e DE FINALE',quart:'QUARTS DE FINALE',demi:'DEMI-FINALES',finale:'FINALE'};
-  var phaseOrder=['seize','huit','quart','demi','finale'];
-  phaseOrder.forEach(function(p){
-    if(!KO[p])return;
-    var hrow=new Array(18).fill(null);
-    hrow[0]=hdr(phaseNames[p],true,AZU,WHT,10);
-    hrow[3]=hdr('Equipe 1',false,LGR,'002B5C',9);
-    hrow[5]=hdr('VS',false,LGR,'002B5C',9);
-    hrow[7]=hdr('Equipe 2',false,LGR,'002B5C',9);
-    hrow[9]=hdr('Vainqueur pronostique',true,LGR,RGE,9);
-    ws1.push(hrow);
-    merges.push({s:{r:rowCursor,c:0},e:{r:rowCursor,c:2}});
-    merges.push({s:{r:rowCursor,c:3},e:{r:rowCursor,c:4}});
-    merges.push({s:{r:rowCursor,c:7},e:{r:rowCursor,c:8}});
-    merges.push({s:{r:rowCursor,c:9},e:{r:rowCursor,c:11}});
-    rowCursor++;
-    KO[p].ms.forEach(function(m){
-      var t1=rTeam(m.t1),t2=rTeam(m.t2);
-      var w=(koW[p]&&koW[p][m.n])||'';
-      var mrow=new Array(18).fill(null);
-      mrow[0]=cel(m.lb,false,'center');
-      mrow[1]=cel(m.dt,false,'center');
-      mrow[2]=null;
-      mrow[3]=cel(t1,true,'center','',AZU);
-      mrow[4]=null;
-      mrow[5]=hdr('VS');
-      mrow[6]=null;
-      mrow[7]=cel(t2,true,'center','',AZU);
-      mrow[8]=null;
-      mrow[9]=cel(w,true,'center',w?'E2EFDA':'',(w===t1||w===t2)?'006400':'000000');
-      ws1.push(mrow);
-      merges.push({s:{r:rowCursor,c:3},e:{r:rowCursor,c:4}});
-      merges.push({s:{r:rowCursor,c:7},e:{r:rowCursor,c:8}});
-      merges.push({s:{r:rowCursor,c:9},e:{r:rowCursor,c:11}});
-      rowCursor++;
+    // Header groupe
+    var rH=addRow([
+      cel('GROUPE '+grp+' \u2013 Pronostics',f(1,12,C.WHT),bg(C.AZU)),
+      emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
+      cel('Classement',f(0,12,C.WHT),bg(C.AZU)),
+      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU)),
+      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU))
+    ]);
+    mg(rH,0,8); mg(rH,9,13);
+
+    // Matchs
+    gmatches.forEach(function(m,i){
+      var s=scores[m.num]||{};
+      var s1=(s.a!=null&&s.a!=='')?s.a:null;
+      var s2=(s.b!=null&&s.b!=='')?s.b:null;
+      var rowArr=[
+        cel(m.date,f(0,8,C.BLK),null,al('general','bottom')),
+        cel(m.h,   f(0,8,C.GRY),null,al('general','bottom')),
+        cel(m.e1,  f(1,12,C.BLK),null,al('general','bottom')),
+        emp(),
+        cel(s1!=null?s1:'',f(0,12,C.BLK),null,al('center','bottom')),
+        cel('-',   f(0,12,C.BLK),null,al('center','bottom')),
+        cel(s2!=null?s2:'',f(0,12,C.BLK),null,al('center','bottom')),
+        emp(),
+        cel(m.e2,  f(1,12,C.BLK),null,al('general','bottom')),
+        emp(),emp(),emp(),emp(),emp()
+      ];
+      // Classement (4 premières lignes du groupe)
+      if(i<4&&cl[i]){
+        var tm=cl[i];
+        var db=(tm.db>0?'+':'')+tm.db;
+        rowArr[9] =cel(tm.name,f(0,12,C.BLK),bg(C.GRN),al('general','bottom'));
+        rowArr[10]=cel(tm.pts, f(1,12,C.BLK),bg(C.GRN),al('center','bottom'));
+        rowArr[11]=cel(tm.bm,  f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
+        rowArr[12]=cel(tm.be,  f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
+        rowArr[13]=cel(db,     f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
+      }
+      addRow(rowArr);
     });
-    ws1.push([]);rowCursor++;
   });
 
-  // ===== CHAMPION DU MONDE =====
-  var champ=(koW.finale&&koW.finale[104])||'?';
-  var crow=new Array(18).fill(null);
-  crow[0]=hdr('\uD83C\uDFC6 CHAMPION DU MONDE : '+champ,true,OR,'002B5C',14);
-  ws1.push(crow);
-  merges.push({s:{r:rowCursor,c:0},e:{r:rowCursor,c:17}});
-  rowCursor++;
+  // ════ PHASES FINALES ════
+  addRow([]);
+  var rPH=addRow([cel('PHASES FINALES',f(1,14,C.WHT),bg(C.BLU),al('general','center')),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()]);
+  mg(rPH,0,13);
 
-  // Ligne pronostiqueur
-  ws1.push([]);rowCursor++;
-  var prow=new Array(18).fill(null);
-  prow[0]=hdr('Pronostiqueur : '+ps+' | Mail : '+em,false,GRY,'555555',9);
-  ws1.push(prow);
-  merges.push({s:{r:rowCursor,c:0},e:{r:rowCursor,c:17}});
+  var PHASE_ORDER=['seize','huit','quart','demi','finale'];
+  var PHASE_NAMES={seize:'1/16e DE FINALE',huit:'1/8e DE FINALE',
+    quart:'QUARTS DE FINALE',demi:'DEMI-FINALES',finale:'FINALE'};
 
-  // Build worksheet
-  var ws=XLSX.utils.aoa_to_sheet(ws1.map(function(r){
-    return r.map(function(c){return c&&c.v!=null?c.v:null;});
+  PHASE_ORDER.forEach(function(phase){
+    var phd=KO[phase]; if(!phd)return;
+    var pw=koW[phase]||{};
+
+    // Header phase
+    var rPh=addRow([
+      cel(PHASE_NAMES[phase],f(1,12,C.WHT),bg(C.AZU)),
+      emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
+      cel('Vainqueur pronostic',f(1,12,C.WHT),bg(C.AZU)),
+      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU)),
+      emp(),emp()
+    ]);
+    mg(rPh,0,8); mg(rPh,9,11);
+
+    phd.ms.forEach(function(m){
+      var mn=m.n;
+
+      // Résolution des équipes
+      function resolveKey(key){
+        if(!key)return key;
+        var gm=key.match(/^([12])([A-L])$/);
+        if(gm){
+          var pos=parseInt(gm[1])-1,grp=gm[2];
+          return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+        }
+        if(key[0]==='3'){
+          // Utiliser b3Assign (assignation FIFA définitive)
+          var assigned=b3Assign[String(mn)]||b3Assign[mn];
+          return assigned||key;
+        }
+        if(key[0]==='V'){
+          var vmn=parseInt(key.slice(1));
+          for(var pp=0;pp<PHASE_ORDER.length;pp++){
+            var ppw=koW[PHASE_ORDER[pp]]||{};
+            if(ppw[vmn])return ppw[vmn];
+            if(ppw[String(vmn)])return ppw[String(vmn)];
+          }
+          return key;
+        }
+        if(key[0]==='P'){
+          var pmn=parseInt(key.slice(1));
+          for(var pp2=0;pp2<PHASE_ORDER.length;pp2++){
+            var phd2=KO[PHASE_ORDER[pp2]]; if(!phd2)continue;
+            for(var mi=0;mi<phd2.ms.length;mi++){
+              if(phd2.ms[mi].n===pmn){
+                var ppw2=koW[PHASE_ORDER[pp2]]||{};
+                var ww=ppw2[pmn]||ppw2[String(pmn)];
+                if(ww){
+                  var rr1=resolveKey(phd2.ms[mi].t1);
+                  var rr2=resolveKey(phd2.ms[mi].t2);
+                  return ww===rr1?rr2:rr1;
+                }
+              }
+            }
+          }
+          return key;
+        }
+        return key;
+      }
+
+      var t1=resolveKey(m.t1);
+      var t2=resolveKey(m.t2);
+      var w=pw[mn]||pw[String(mn)]||'';
+
+      var rM=addRow([
+        cel(m.dt,f(0,8,C.BLK),null,al('general','bottom')),
+        emp(),
+        cel(t1,f(1,12,C.BLK),null,al('general','bottom')),
+        emp(),
+        cel('VS',f(0,8,C.BLK),null,al('center','bottom')),
+        emp(),
+        cel(t2,f(1,12,C.BLK),null,al('general','bottom')),
+        emp(),emp(),
+        cel(w,f(0,12,C.BLK),bg(C.GRN),al('general','bottom')),
+        cel(null,null,bg(C.GRN)),cel(null,null,bg(C.GRN)),
+        emp(),emp()
+      ]);
+      mg(rM,2,3); mg(rM,6,8); mg(rM,9,11);
+    });
+
+    // Ligne vide entre phases
+    addRow([]);
+  });
+
+  // ════ CHAMPION ════
+  var champ='?';
+  var pfw=koW['finale']||{};
+  var pfkeys=Object.keys(pfw);
+  if(pfkeys.length>0) champ=pfw[pfkeys[0]];
+
+  var rC=addRow([cel('\uD83C\uDFC6 CHAMPION DU MONDE\u00a0: '+champ,
+    f(0,32,C.BLK),bg(C.YEL),al('general','bottom')),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
+    emp(),emp(),emp(),emp(),emp()]);
+  mg(rC,0,13);
+
+  addRow([]);
+
+  var rFoot=addRow([cel('Pronostiqueur\u00a0: '+ps+'  |  Mail\u00a0: '+em,
+    f(0,12,C.BLK),null,al('general','bottom')),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
+    emp(),emp(),emp(),emp(),emp()]);
+  mg(rFoot,0,13);
+
+  // ════ ASSEMBLAGE FEUILLE ════
+  var ws2=XLSX.utils.aoa_to_sheet(rows.map(function(row){
+    return row.map(function(c){return(c&&c.v!=null)?c.v:null;});
   }));
 
-  // Apply styles
-  ws1.forEach(function(row,ri){
+  // Appliquer les styles
+  rows.forEach(function(row,ri){
     row.forEach(function(cell,ci){
-      if(!cell||cell.v==null)return;
+      if(!cell||!cell.s)return;
       var addr=XLSX.utils.encode_cell({r:ri,c:ci});
-      if(ws[addr])ws[addr].s=cell.s;
+      if(!ws2[addr])ws2[addr]={t:'s',v:''};
+      ws2[addr].s=cell.s;
     });
   });
 
-  // Column widths
-  ws['!cols']=[
-    {wch:12},{wch:7},{wch:16},{wch:4},{wch:5},{wch:3},{wch:5},{wch:4},{wch:16},
-    {wch:16},{wch:5},{wch:5},{wch:5},{wch:5},{wch:5},{wch:5},{wch:5},{wch:5}
-  ];
-  ws['!merges']=merges;
-  ws['!rows']=[];
-  ws['!rows'][0]={hpt:22};
-
-  XLSX.utils.book_append_sheet(wb,ws,'Grille CDM 2026');
+  ws2['!cols']=colWidths.map(function(w){return{wch:w};});
+  ws2['!merges']=merges;
+  XLSX.utils.book_append_sheet(wb,ws2,'Grille CDM 2026');
 
   XLSX.writeFile(wb,'grille_'+ps+'_CDM2026.xlsx',{cellStyles:true});
+
   uPseudos.push(ps.toLowerCase());
   try{localStorage.setItem('up2026',JSON.stringify(uPseudos));}catch(e){}
   ph='done';render();
