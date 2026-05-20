@@ -116,8 +116,7 @@ footer a{color:var(--a);text-decoration:none;}
 <div class="main"><div class="card" id="card">Chargement...</div></div>
 <div class="fs"></div>
 <footer>Contact : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
-<script>
-var MATCHES=[
+<script>var MATCHES=[
 {num:1,gr:"A",date:"Jeudi 11 juin",h:"21h00",e1:"Mexique",e2:"Afrique du Sud",st:"Estadio Azteca, Mexico",ch:"M6/beIN Sports"},
 {num:2,gr:"A",date:"Vendredi 12 juin",h:"04h00",e1:"Cor\u00e9e du Sud",e2:"Tch\u00e9quie",st:"Estadio Akron, Guadalajara",ch:"beIN Sports"},
 {num:3,gr:"B",date:"Vendredi 12 juin",h:"21h00",e1:"Canada",e2:"Bosnie-Herz\u00e9govine",st:"BMO Field, Toronto",ch:"M6/beIN Sports"},
@@ -276,10 +275,6 @@ finale:{tit:"\u26BD FINALE",sub:"Cliquez sur votre Champion du Monde !",ms:[
 {n:104,lb:"FINALE",dt:"19 juil \u00b7 21h00",st:"MetLife Stadium, New York",ch:"M6/beIN Sports",t1:"V101",t2:"V102"}
 ]}
 };
-var sc={},koW={},clR=null,curTie=null,idx=0,ph="poule";
-var koIdx={seize:0,huit:0,quart:0,demi:0,finale:0};
-var uPseudos=[];try{uPseudos=JSON.parse(localStorage.getItem("up2026")||"[]");}catch(e){}
-function gi(id){return document.getElementById(id);}
 var SVGF={"Angleterre":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA0MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iMjUiIHk9IjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0NGMTQyQiIvPgo8cmVjdCB4PSIwIiB5PSIxNSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjQ0YxNDJCIi8+Cjwvc3ZnPg==","\u00c9cosse":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCA0MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0iIzAwMzM4MCIvPgo8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI2MCIgeTI9IjQwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjgiLz4KPGxpbmUgeDE9IjYwIiB5MT0iMCIgeDI9IjAiIHkyPSI0MCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI4Ii8+Cjwvc3ZnPg=="};function fl(t){if(SVGF[t])return '<img src="'+SVGF[t]+'" style="height:30px;width:auto;vertical-align:middle;border-radius:2px">';return F[t]||"?";}
 function ex(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 function render(){
@@ -594,6 +589,347 @@ function rDone(){
     'Envoyez le fichier Excel &agrave;&nbsp;:<br><b>olivier.ruchaud@hotmail.fr</b><br><br>'+
     'Bonne chance pour la Coupe du Monde 2026 !</p></div>';
 }
+render();
+function fl(t){
+  if(SVGF[t])return '<img src="'+SVGF[t]+'" style="height:28px;width:auto;vertical-align:middle;border-radius:2px">';
+  return F[t]||'';
+}
+function ex(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function gi(id){return document.getElementById(id);}
+
+// ===== STATE =====
+var scores={}, koW={}, clR=null, curTie=null, idx=0, ph='poule';
+var koIdx={seize:0,huit:0,quart:0,demi:0,finale:0};
+var _resolved=[];
+var uPseudos=[];
+try{uPseudos=JSON.parse(localStorage.getItem('up2026')||'[]');}catch(e){}
+
+// ===== RENDER =====
+function render(){
+  try{
+    if(ph==='poule') rPoule();
+    else if(ph==='classement') rClass();
+    else if(ph==='seize'||ph==='huit'||ph==='quart'||ph==='demi'||ph==='finale') rKO(ph);
+    else if(ph==='valid') rValid();
+    else rDone();
+  }catch(e){
+    gi('card').innerHTML='<div style="padding:20px;color:red"><b>Erreur:</b> '+e.message+'</div>';
+  }
+}
+
+// ===== POULE =====
+function rPoule(){
+  var m=MATCHES[idx];
+  var pct=Math.max(1,Math.round((idx/72)*100));
+  gi('pFill').style.width=pct+'%';
+  gi('pLabel').textContent='MATCH '+(idx+1)+' / 72 — GROUPE '+m.gr;
+  var sv=scores[m.num]||{a:'',b:''};
+  gi('card').innerHTML=
+    '<div class="mh"><div class="mm">&#128197; '+ex(m.date)+' &middot; '+ex(m.h)+' &middot; Groupe '+m.gr+'</div>'+
+    '<div class="mi">&#127903; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
+    '<div class="mb">'+
+    '<div class="tr"><span class="tf">'+fl(m.e1)+'</span><span class="tn">'+ex(m.e1).toUpperCase()+'</span>'+
+    '<input class="si" id="s1" type="number" min="0" max="30" value="'+ex(sv.a)+'" placeholder="-"></div>'+
+    '<div class="sep"></div>'+
+    '<div class="tr"><span class="tf">'+fl(m.e2)+'</span><span class="tn">'+ex(m.e2).toUpperCase()+'</span>'+
+    '<input class="si" id="s2" type="number" min="0" max="30" value="'+ex(sv.b)+'" placeholder="-"></div>'+
+    '<button class="bv" id="btnVal">&#x2714; VALIDER</button></div>';
+  gi('s1').focus();
+  gi('btnVal').addEventListener('click', function(){
+    var v1=gi('s1').value, v2=gi('s2').value;
+    if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+    scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
+    idx++;
+    if(idx>=72){cClass();ph='classement';}
+    render();
+  });
+}
+
+// ===== CLASSEMENT =====
+function cClass(){
+  clR={};
+  var gks=Object.keys(GROUPES);
+  for(var i=0;i<gks.length;i++){
+    clR[gks[i]]={};
+    var eq=GROUPES[gks[i]];
+    for(var j=0;j<eq.length;j++) clR[gks[i]][eq[j]]={pts:0,bm:0,be:0,db:0,v:0,n:0,d:0,j:0};
+  }
+  var sks=Object.keys(scores);
+  for(var k=0;k<sks.length;k++){
+    var s=scores[sks[k]], cg=clR[s.gr];
+    if(!cg) continue;
+    var t1=cg[s.t1], t2=cg[s.t2];
+    if(!t1||!t2) continue;
+    t1.j++;t2.j++;t1.bm+=s.a;t1.be+=s.b;t1.db+=(s.a-s.b);t2.bm+=s.b;t2.be+=s.a;t2.db+=(s.b-s.a);
+    if(s.a>s.b){t1.pts+=3;t1.v++;t2.d++;}
+    else if(s.a<s.b){t2.pts+=3;t2.v++;t1.d++;}
+    else{t1.pts++;t2.pts++;t1.n++;t2.n++;}
+  }
+  var gks2=Object.keys(clR);
+  for(var g=0;g<gks2.length;g++){
+    var arr=Object.entries(clR[gks2[g]]);
+    arr.sort(function(a,b){
+      if(b[1].pts!==a[1].pts) return b[1].pts-a[1].pts;
+      if(b[1].db!==a[1].db) return b[1].db-a[1].db;
+      return b[1].bm-a[1].bm;
+    });
+    clR[gks2[g]]=arr.map(function(x){return Object.assign({name:x[0]},x[1]);});
+  }
+}
+
+function gB3(){
+  var b3=[]; var gks=Object.keys(clR);
+  for(var i=0;i<gks.length;i++){var t=clR[gks[i]][2];if(t)b3.push(Object.assign({grp:gks[i]},t));}
+  b3.sort(function(a,b){
+    if(b.pts!==a.pts) return b.pts-a.pts;
+    if(b.db!==a.db) return b.db-a.db;
+    return b.bm-a.bm;
+  });
+  return b3;
+}
+
+function rClass(){
+  gi('pFill').style.width='100%';
+  gi('pLabel').textContent='CLASSEMENT DES GROUPES';
+  if(curTie){rTie();return;}
+  // Check group ties
+  var gks=Object.keys(clR);
+  for(var i=0;i<gks.length;i++){
+    var tms=clR[gks[i]];
+    for(var j=0;j<3;j++){
+      var a=tms[j],b=tms[j+1];
+      if(a&&b&&a.pts===b.pts&&a.db===b.db&&a.bm===b.bm){
+        var k1=a.name+'|'+b.name, k2=b.name+'|'+a.name;
+        if(_resolved.indexOf(k1)<0&&_resolved.indexOf(k2)<0){
+          curTie={type:'g',grp:gks[i],a:a,b:b}; rTie(); return;
+        }
+      }
+    }
+  }
+  // Check best3 ties
+  var b3=gB3();
+  for(var bi=0;bi<7;bi++){
+    var ba=b3[bi],bb=b3[bi+1];
+    if(ba&&bb&&ba.pts===bb.pts&&ba.db===bb.db&&ba.bm===bb.bm){
+      var bk1=ba.name+'|'+bb.name, bk2=bb.name+'|'+ba.name;
+      if(_resolved.indexOf(bk1)<0&&_resolved.indexOf(bk2)<0){
+        curTie={type:'b',a:ba,b:bb}; rTie(); return;
+      }
+    }
+  }
+  // Show full classement
+  var h='<div class="cls"><div class="ct">CLASSEMENTS</div>';
+  for(var gi2=0;gi2<gks.length;gi2++){
+    var gn=gks[gi2];
+    h+='<table class="ctbl"><thead><tr><th colspan="2">Gr.'+gn+'</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th><th></th></tr></thead><tbody>';
+    clR[gn].forEach(function(tm,ti){
+      var bd=ti<2?'<span class="eq">Q</span>':ti===2?'<span class="t3b">3e</span>':'<span class="eli">E</span>';
+      var db=(tm.db>0?'+':'')+tm.db;
+      h+='<tr><td>'+fl(tm.name)+'</td><td><b>'+ex(tm.name)+'</b></td><td>'+tm.j+'</td><td>'+tm.v+'</td><td>'+tm.n+'</td><td>'+tm.d+'</td><td>'+tm.bm+'</td><td>'+tm.be+'</td><td>'+db+'</td><td><b>'+tm.pts+'</b></td><td>'+bd+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+  var b3r=gB3();
+  h+='<div class="ct" style="margin-top:12px">MEILLEURS 3e</div>';
+  h+='<table class="ctbl"><thead><tr><th colspan="2">Pays</th><th>Pts</th><th>BP</th><th>DB</th><th>Gr</th><th></th></tr></thead><tbody>';
+  b3r.forEach(function(t,i){
+    var db=(t.db>0?'+':'')+t.db;
+    h+='<tr'+(i<8?' style="background:#f0fdf4"':'')+'><td>'+fl(t.name)+'</td><td>'+ex(t.name)+'</td><td>'+t.pts+'</td><td>'+t.bm+'</td><td>'+db+'</td><td>'+t.grp+'</td><td>'+(i<8?'<span class="eq">Q</span>':'<span class="eli">E</span>')+'</td></tr>';
+  });
+  h+='</tbody></table><button class="bv" id="btnKO">&rarr; PASSER AUX 1/16e</button></div>';
+  gi('card').innerHTML=h;
+  gi('btnKO').addEventListener('click',function(){ph='seize';render();});
+}
+
+function rTie(){
+  var t=curTie;
+  var ctx=t.type==='g'?'dans le groupe '+t.grp:'parmi les meilleurs 3e';
+  gi('card').innerHTML=
+    '<div class="ph"><h2>&#9878; &Eacute;GALIT&Eacute;</h2></div>'+
+    '<div class="ecrd">'+
+    '<h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>'+
+    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>'+
+    'Selon le fair-play, cliquez sur l'&eacute;quipe &agrave; classer <b>devant</b> l'autre&nbsp;:</p>'+
+    '<button class="ebtn" id="tieA"><span style="font-size:22px;margin-right:8px">'+fl(t.a.name)+'</span>'+
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.a.name).toUpperCase()+'</span></button>'+
+    '<button class="ebtn" id="tieB"><span style="font-size:22px;margin-right:8px">'+fl(t.b.name)+'</span>'+
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.b.name).toUpperCase()+'</span></button>'+
+    '</div>';
+  function doResolve(winner, loser){
+    if(t.type==='g'){
+      var arr=clR[t.grp];
+      var wi=-1, li=-1;
+      for(var i=0;i<arr.length;i++){
+        if(arr[i].name===winner) wi=i;
+        if(arr[i].name===loser) li=i;
+      }
+      if(wi>=0&&li>=0&&wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
+    }
+    _resolved.push(winner+'|'+loser);
+    curTie=null;
+    render();
+  }
+  gi('tieA').addEventListener('click',function(){doResolve(t.a.name,t.b.name);});
+  gi('tieB').addEventListener('click',function(){doResolve(t.b.name,t.a.name);});
+}
+
+// ===== KO PHASES =====
+var NXT={seize:'huit',huit:'quart',quart:'demi',demi:'finale',finale:'valid'};
+var NXTL={seize:'1/8E DE FINALE',huit:'QUARTS DE FINALE',quart:'DEMI-FINALES',demi:'FINALE',finale:'VALIDER MA GRILLE'};
+
+function rTeam(key){
+  if(!clR) return key;
+  var gm=key.match(/^([12])([A-L])$/);
+  if(gm){
+    var pos=parseInt(gm[1])-1, grp=gm[2];
+    return (clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+  }
+  if(key.charAt(0)==='3'){
+    var b3=gB3(), used=[];
+    Object.keys(koW).forEach(function(p){Object.values(koW[p]).forEach(function(v){used.push(v);});});
+    for(var i=0;i<b3.length;i++){if(used.indexOf(b3[i].name)<0)return b3[i].name;}
+    return b3.length?b3[0].name:key;
+  }
+  if(key.charAt(0)==='V'){
+    var mn=parseInt(key.slice(1));
+    var phs=Object.keys(koW);
+    for(var p=0;p<phs.length;p++){if(koW[phs[p]][mn])return koW[phs[p]][mn];}
+    return key;
+  }
+  if(key.charAt(0)==='P'){
+    var pmn=parseInt(key.slice(1));
+    var phs2=Object.keys(KO);
+    for(var p2=0;p2<phs2.length;p2++){
+      var phd=KO[phs2[p2]], match=null;
+      for(var mi=0;mi<phd.ms.length;mi++){if(phd.ms[mi].n===pmn){match=phd.ms[mi];break;}}
+      if(match&&koW[phs2[p2]]&&koW[phs2[p2]][pmn]){
+        var r1=rTeam(match.t1),r2=rTeam(match.t2);
+        return koW[phs2[p2]][pmn]===r1?r2:r1;
+      }
+    }
+    return key;
+  }
+  return key;
+}
+
+function rKO(p){
+  gi('pFill').style.width='100%';
+  var ms=KO[p].ms, pw=koW[p]||{};
+  while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n]) koIdx[p]++;
+  gi('pLabel').textContent=KO[p].tit+' — MATCH '+(koIdx[p]+1)+' / '+ms.length;
+
+  // All matches done for this phase
+  if(koIdx[p]>=ms.length){
+    gi('card').innerHTML=
+      '<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu&eacute;s &#x2714;</p></div>'+
+      '<div style="padding:16px 18px"><button class="bv" id="btnNxt">&rarr; '+NXTL[p]+'</button></div>';
+    gi('btnNxt').addEventListener('click',function(){gNext(NXT[p]);});
+    return;
+  }
+
+  var m=ms[koIdx[p]];
+  var t1=rTeam(m.t1), t2=rTeam(m.t2);
+
+  gi('card').innerHTML=
+    '<div class="mh">'+
+    '<div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+    '<div class="mi">&#127903; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
+    '<div class="mb">'+
+    '<div class="kt">'+
+    '<button class="kb" id="kbt1"><span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
+    '<button class="kb" id="kbt2"><span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
+    '</div>'+
+    '<div id="valzone" style="padding-top:14px"></div>'+
+    '</div>';
+
+  var selected=null;
+
+  function showVal(){
+    gi('valzone').innerHTML='<button class="bv" id="btnVal">&#x2714; VALIDER</button>';
+    gi('btnVal').addEventListener('click',function(){
+      if(!koW[p]) koW[p]={};
+      koW[p][m.n]=selected;
+      koIdx[p]++;
+      render();
+    });
+  }
+
+  gi('kbt1').addEventListener('click',function(){
+    selected=t1;
+    gi('kbt1').className='kb sel';
+    gi('kbt2').className='kb elim';
+    showVal();
+  });
+
+  gi('kbt2').addEventListener('click',function(){
+    selected=t2;
+    gi('kbt2').className='kb sel';
+    gi('kbt1').className='kb elim';
+    showVal();
+  });
+}
+
+function gNext(p){ph=p;render();}
+
+// ===== VALIDATION =====
+function rValid(){
+  gi('pLabel').textContent='VALIDATION OFFICIELLE';
+  gi('card').innerHTML=
+    '<div class="vf"><h2>&#127881; GRILLE COMPL&Egrave;TE !</h2>'+
+    '<p>Vous avez pronostiqu&eacute; les 72 matchs de poule et toutes les phases finales.<br>Validez officiellement votre grille ci-dessous.</p>'+
+    '<div class="fg"><label>Votre pseudo</label>'+
+    '<input type="text" id="ps" placeholder="Ex: Gaspardo" maxlength="30">'+
+    '<div class="errmsg" id="pe">Ce pseudo est d&eacute;j&agrave; pris. Choisissez-en un autre.</div></div>'+
+    '<div class="fg"><label>Votre adresse mail</label>'+
+    '<input type="email" id="em" placeholder="exemple@mail.com">'+
+    '<div class="errmsg" id="ee">Adresse mail invalide.</div></div>'+
+    '<button class="bs" id="btnSub">&#127942; VALIDER OFFICIELLEMENT</button></div>';
+  gi('btnSub').addEventListener('click', function(){
+    var ps=gi('ps').value.trim(), em=gi('em').value.trim(), ok=true;
+    gi('pe').style.display='none'; gi('ee').style.display='none';
+    if(!ps){gi('pe').textContent='Veuillez saisir un pseudo.';gi('pe').style.display='block';ok=false;}
+    else if(uPseudos.indexOf(ps.toLowerCase())>=0){gi('pe').style.display='block';ok=false;}
+    if(!em||em.indexOf('@')<0){gi('ee').style.display='block';ok=false;}
+    if(!ok) return;
+    bExcel(ps,em);
+  });
+}
+
+function bExcel(ps,em){
+  var btn=gi('btnSub'); btn.textContent='&#x23F3; Enregistrement...'; btn.disabled=true;
+  var wb=XLSX.utils.book_new();
+  var pr=[['Match','Groupe','Date','Heure','Equipe 1','Score 1','Score 2','Equipe 2']];
+  Object.keys(scores).forEach(function(k){
+    var s=scores[k], m=MATCHES.find(function(x){return x.num==k;});
+    if(m) pr.push([parseInt(k),m.gr,m.date,m.h,s.t1,s.a,s.b,s.t2]);
+  });
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(pr),'Poules');
+  var kr=[['Phase','Match','Equipe 1','Equipe 2','Vainqueur']];
+  var pn={seize:'1/16e',huit:'1/8e',quart:'Quart',demi:'Demi',finale:'Finale'};
+  Object.keys(koW).forEach(function(p){
+    Object.keys(koW[p]).forEach(function(mn){
+      var phd=KO[p], match=null;
+      for(var i=0;i<phd.ms.length;i++){if(phd.ms[i].n==mn){match=phd.ms[i];break;}}
+      if(match) kr.push([pn[p]||p,match.lb,rTeam(match.t1),rTeam(match.t2),koW[p][mn]]);
+    });
+  });
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(kr),'Phase finale');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Pseudo','Mail'],[ps,em]]),'Pronostiqueur');
+  XLSX.writeFile(wb,'grille_'+ps+'_CDM2026.xlsx');
+  uPseudos.push(ps.toLowerCase());
+  try{localStorage.setItem('up2026',JSON.stringify(uPseudos));}catch(e){}
+  ph='done'; render();
+}
+
+function rDone(){
+  gi('pLabel').textContent='GRILLE VALIDÉE ✓';
+  gi('card').innerHTML=
+    '<div class="scard"><div class="em">&#127942;</div><h2>GRILLE VALID&Eacute;E !</h2>'+
+    '<p>Votre grille a &eacute;t&eacute; t&eacute;l&eacute;charg&eacute;e sur votre appareil.<br><br>'+
+    'Envoyez le fichier Excel &agrave;&nbsp;:<br><b>olivier.ruchaud@hotmail.fr</b><br><br>'+
+    'Bonne chance pour la Coupe du Monde 2026 !</p></div>';
+}
+
 render();
 </script>
 </body>
