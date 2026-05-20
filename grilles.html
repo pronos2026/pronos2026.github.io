@@ -489,29 +489,37 @@ function rKO(p){
   gi("pLabel").textContent=KO[p].tit+" \u2014 MATCH "+(koIdx[p]+1)+" / "+ms.length;
   if(koIdx[p]>=ms.length){
     var hd='<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu&eacute;s &#x2714;</p></div>';
-    hd+='<div style="padding:16px 18px"><button class="bv" onclick="gNext(\''+NXT[p]+'\')">'+
-      '&rarr; '+NXTL[p]+'</button></div>';
-    gi("card").innerHTML=hd;return;
+    hd+='<div style="padding:16px 18px"><button class="bv" id="btnNext">&rarr; '+NXTL[p]+'</button></div>';
+    gi("card").innerHTML=hd;
+    gi("btnNext").addEventListener("click",function(){gNext(NXT[p]);});
+    return;
   }
   var m=ms[koIdx[p]];
   var t1=rTeam(m.t1),t2=rTeam(m.t2);
-  // Use koSelected for pending selection (not yet validated)
-  var sel=window.koSelected&&window.koSelected[p]&&window.koSelected[p][m.n];
-  var c1=sel===t1?" sel":sel&&sel!==t1?" elim":"";
-  var c2=sel===t2?" sel":sel&&sel!==t2?" elim":"";
-  var btnVal=sel?'<div style="padding-top:14px"><button class="bv" onclick="valKO(\''+p+'\','+m.n+')">&#x2714; VALIDER</button></div>':'';
+  window._kop=p; window._kon=m.n; window._kosel=null;
   var h='<div class="mh">'+
     '<div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
     '<div class="mi">&#127903;&#65039; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
     '<div class="mb"><div class="kt">'+
-    '<button class="kb'+c1+'" onclick="selKOteam(\''+p+'\','+m.n+','+JSON.stringify(t1)+')">'+
-    '<span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span>'+
-    '<span class="kch">&#x2713;</span></button>'+
-    '<button class="kb'+c2+'" onclick="selKOteam(\''+p+'\','+m.n+','+JSON.stringify(t2)+')">'+
-    '<span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span>'+
-    '<span class="kch">&#x2713;</span></button>'+
-    '</div>'+btnVal+'</div>';
+    '<button class="kb" id="kbt1"><span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
+    '<button class="kb" id="kbt2"><span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
+    '</div>'+
+    '<div style="padding-top:14px" id="valzone"></div>'+
+    '</div>';
   gi("card").innerHTML=h;
+  function pick(winner,loser,btnW,btnL){
+    window._kosel=winner;
+    btnW.className="kb sel"; btnL.className="kb elim";
+    gi("valzone").innerHTML='<button class="bv" id="btnVal">&#x2714; VALIDER</button>';
+    gi("btnVal").addEventListener("click",function(){
+      if(!koW[p])koW[p]={};
+      koW[p][m.n]=winner;
+      koIdx[p]++;
+      render();
+    });
+  }
+  gi("kbt1").addEventListener("click",function(){pick(t1,t2,gi("kbt1"),gi("kbt2"));});
+  gi("kbt2").addEventListener("click",function(){pick(t2,t1,gi("kbt2"),gi("kbt1"));});
 }
 
 function selKOteam(p,n,t){
@@ -529,6 +537,7 @@ function valKO(p,n){
   render();
 }
 function sKO(p,n,t){if(!koW[p])koW[p]={};koW[p][n]=t;render();}
+
 function gNext(p){ph=p;render();}
 function rValid(){
   gi("pLabel").textContent="VALIDATION OFFICIELLE";
