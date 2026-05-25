@@ -120,6 +120,85 @@ footer a{color:var(--a);text-decoration:none;}
 .td-db-p{color:var(--g);font-weight:700;font-size:12px;}
 .td-db-n{color:var(--r);font-size:12px;}
 .td-db-z{color:#aaa;font-size:12px;}
+
+/* ── Classement final des poules ── */
+.cls-grp-wrap{padding:14px 16px;}
+.cls-grp-block{margin-bottom:20px;}
+.cls-grp-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--b);padding:7px 10px;border-radius:6px 6px 0 0;}
+.cls-grp-hdr-title{
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--w);}
+.cls-grp-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:0;}
+.cls-grp-tbl th{
+  background:#1a3a6b;color:rgba(255,255,255,0.65);
+  padding:5px 6px;font-family:'Barlow Condensed',sans-serif;
+  font-size:9px;letter-spacing:1px;text-transform:uppercase;text-align:center;}
+.cls-grp-tbl th:first-child{text-align:left;width:42%;}
+.cls-grp-tbl td{padding:6px 6px;text-align:center;border-bottom:1px solid #eef1f6;}
+.cls-grp-tbl td:first-child{text-align:left;}
+.cls-grp-tbl tr:last-child td{border-bottom:none;}
+.cls-grp-tbl tr.q-row td{background:#f0fdf4;}
+.cls-grp-tbl tr.e-row td{background:#fff5f5;}
+.cls-tnm{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.3px;}
+.cls-tnm.qual{color:#15803d;text-transform:uppercase;}
+.cls-tnm.elim{color:#dc2626;text-transform:uppercase;}
+.cls-tnm.b3{color:#b45309;text-transform:uppercase;}
+.cls-pts{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--r);}
+.cls-num{font-size:11px;color:#555;}
+.cls-db-p{font-size:11px;color:#16a34a;font-weight:700;}
+.cls-db-n{font-size:11px;color:#dc2626;}
+.cls-db-z{font-size:11px;color:#aaa;}
+.cls-match-row{
+  display:flex;align-items:center;gap:6px;
+  padding:4px 10px;font-size:11px;border-bottom:1px solid #f0f0f0;}
+.cls-match-num{
+  font-family:'Bebas Neue',sans-serif;font-size:12px;
+  color:rgba(0,43,92,0.4);width:22px;flex-shrink:0;text-align:right;}
+.cls-match-date{color:#999;font-size:10px;width:70px;flex-shrink:0;}
+.cls-match-eq{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;flex:1;}
+.cls-match-sc{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--r);
+  width:36px;text-align:center;flex-shrink:0;}
+.cls-match-div{font-size:11px;color:#bbb;flex-shrink:0;}
+.modif-zone{
+  background:#fef9e7;border:1px solid var(--o);border-radius:8px;
+  padding:14px 16px;margin:14px 16px 0;}
+.modif-label{
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:0.5px;color:#92400e;margin-bottom:10px;line-height:1.5;}
+.modif-input-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.modif-num-input{
+  width:64px;padding:8px 10px;border:2px solid #fcd34d;border-radius:8px;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--b);
+  text-align:center;outline:none;}
+.modif-num-input:focus{border-color:var(--o);}
+.modif-btn{
+  padding:8px 16px;background:var(--a);color:var(--w);border:none;
+  border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;
+  letter-spacing:1px;cursor:pointer;}
+.modif-btn:hover{background:var(--b);}
+.modif-match-edit{margin-top:12px;padding-top:12px;border-top:1px solid #fcd34d;}
+.modif-match-title{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;
+  color:var(--b);margin-bottom:10px;}
+.modif-score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.modif-eq{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;flex:1;}
+.modif-si{
+  width:46px;height:42px;border:2px solid #dde2ea;border-radius:8px;
+  text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;
+  color:var(--r);background:#f8f9fc;outline:none;}
+.modif-si:focus{border-color:var(--a);}
+.modif-val-btn{
+  display:block;width:100%;padding:11px;margin-top:10px;
+  background:var(--g);color:var(--w);border:none;border-radius:8px;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;cursor:pointer;}
+.modif-val-btn:hover{background:#15803d;}
+.bv-final{
+  display:block;width:calc(100% - 32px);margin:14px 16px;
+  padding:16px;background:var(--g);color:var(--w);border:none;border-radius:8px;
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;}
+.bv-final:hover{background:#15803d;}
 </style>
 </head>
 <body>
@@ -963,8 +1042,9 @@ function gB3(){
 
 function rClass(){
   gi('pFill').style.width='100%';
-  gi('pLabel').textContent='CLASSEMENT DES GROUPES';
+  gi('pLabel').textContent='CLASSEMENTS DES GROUPES';
   if(curTie){rTie();return;}
+  // Check ties
   var gks=Object.keys(clR);
   for(var i=0;i<gks.length;i++){
     var tms=clR[gks[i]];
@@ -984,26 +1064,123 @@ function rClass(){
       if(_resolved.indexOf(bk1)<0&&_resolved.indexOf(bk2)<0){curTie={type:'b',a:ba,b:bb};rTie();return;}
     }
   }
-  var h='<div class="cls"><div class="ct">CLASSEMENTS</div>';
-  for(var gi2=0;gi2<gks.length;gi2++){
-    var gn=gks[gi2];
-    h+='<table class="ctbl"><thead><tr><th colspan="2">Gr.'+gn+'</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th><th></th></tr></thead><tbody>';
-    clR[gn].forEach(function(tm,ti){
-      var bd=ti<2?'<span class="eq">Q</span>':ti===2?'<span class="t3b">3e</span>':'<span class="eli">E</span>';
-      var db=(tm.db>0?'+':'')+tm.db;
-      h+='<tr><td>'+fl(tm.name)+'</td><td><b>'+ex(tm.name)+'</b></td><td>'+tm.j+'</td><td>'+tm.v+'</td><td>'+tm.n+'</td><td>'+tm.d+'</td><td>'+tm.bm+'</td><td>'+tm.be+'</td><td>'+db+'</td><td><b>'+tm.pts+'</b></td><td>'+bd+'</td></tr>';
+  renderFullClass();
+}
+
+function getB3Qualified(){
+  var b3=gB3();
+  var q={};
+  for(var i=0;i<8&&i<b3.length;i++) q[b3[i].name]=true;
+  return q;
+}
+
+function renderFullClass(){
+  gi('pLabel').textContent='CLASSEMENTS DES GROUPES';
+  var b3q=getB3Qualified();
+  var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
+  var h='<div class="cls-grp-wrap">';
+
+  GROUPS.forEach(function(grp){
+    var cl=clR[grp]||[];
+    var gmatches=MATCHES.filter(function(m){return m.gr===grp;})
+                        .sort(function(a,b){return a.num-b.num;});
+    h+='<div class="cls-grp-block">';
+    // Header
+    h+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
+    // Matchs du groupe avec numéros
+    gmatches.forEach(function(m){
+      var s=scores[m.num]||{};
+      var sc1=(s.a!=null&&s.a!=='')?s.a:'-';
+      var sc2=(s.b!=null&&s.b!=='')?s.b:'-';
+      h+='<div class="cls-match-row">';
+      h+='<span class="cls-match-num">'+m.num+'</span>';
+      h+='<span class="cls-match-date">'+ex(m.h)+'</span>';
+      h+='<span class="cls-match-eq">'+ex(m.e1)+'</span>';
+      h+='<span class="cls-match-sc">'+sc1+'</span>';
+      h+='<span class="cls-match-div">&ndash;</span>';
+      h+='<span class="cls-match-sc">'+sc2+'</span>';
+      h+='<span class="cls-match-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+      h+='</div>';
     });
-    h+='</tbody></table>';
-  }
-  var b3r=gB3();
-  h+='<div class="ct" style="margin-top:12px">MEILLEURS 3e</div>';
-  h+='<table class="ctbl"><thead><tr><th colspan="2">Pays</th><th>Pts</th><th>BP</th><th>DB</th><th>Gr</th><th></th></tr></thead><tbody>';
-  b3r.forEach(function(t,i){
-    var db=(t.db>0?'+':'')+t.db;
-    h+='<tr'+(i<8?' style="background:#f0fdf4"':'')+'><td>'+fl(t.name)+'</td><td>'+ex(t.name)+'</td><td>'+t.pts+'</td><td>'+t.bm+'</td><td>'+db+'</td><td>'+t.grp+'</td><td>'+(i<8?'<span class="eq">Q</span>':'<span class="eli">E</span>')+'</td></tr>';
+    // Tableau classement
+    h+='<table class="cls-grp-tbl"><thead><tr>';
+    h+='<th>Pays</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th>';
+    h+='</tr></thead><tbody>';
+    cl.forEach(function(tm,ti){
+      var isQ1=(ti<2);
+      var isB3=(ti===2&&b3q[tm.name]);
+      var isElim=(!isQ1&&!isB3);
+      var rowcls=isQ1?'q-row':isElim?'e-row':'';
+      var nmcls=isQ1?'qual':isB3?'b3':'elim';
+      var db=(tm.db>0?'+':'')+tm.db;
+      var dbcls=tm.db>0?'cls-db-p':tm.db<0?'cls-db-n':'cls-db-z';
+      h+='<tr class="'+rowcls+'">';
+      h+='<td><span class="cls-tnm '+nmcls+'">'+ex(tm.name)+'</span></td>';
+      h+='<td class="cls-num">'+tm.j+'</td>';
+      h+='<td class="cls-num">'+tm.v+'</td>';
+      h+='<td class="cls-num">'+tm.n+'</td>';
+      h+='<td class="cls-num">'+tm.d+'</td>';
+      h+='<td class="cls-num">'+tm.bm+'</td>';
+      h+='<td class="cls-num">'+tm.be+'</td>';
+      h+='<td class="'+dbcls+'">'+db+'</td>';
+      h+='<td class="cls-pts">'+tm.pts+'</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
   });
-  h+='</tbody></table><button class="bv" id="btnKO">&rarr; PASSER AUX 1/16e DE FINALE</button></div>';
+
+  // Zone modification de score
+  h+='<div class="modif-zone">';
+  h+='<div class="modif-label">Si vous souhaitez modifier le r&eacute;sultat d\'un match,<br>indiquez ici son num&eacute;ro (1 &agrave; 72)&nbsp;:</div>';
+  h+='<div class="modif-input-row">';
+  h+='<input class="modif-num-input" id="modifNum" type="number" min="1" max="72" placeholder="N&deg;">';
+  h+='<button class="modif-btn" id="btnModif">&#x2192; AFFICHER</button>';
+  h+='</div>';
+  h+='<div id="modifEdit"></div>';
+  h+='</div>';
+
+  // Bouton valider définitivement
+  h+='<button class="bv-final" id="btnKO">&#x2714; VALIDER D&Eacute;FINITIVEMENT MES PRONOS</button>';
+  h+='</div>';
+
   gi('card').innerHTML=h;
+
+  // Bouton afficher match
+  gi('btnModif').addEventListener('click',function(){
+    var n=parseInt(gi('modifNum').value);
+    if(!n||n<1||n>72){
+      gi('modifEdit').innerHTML='<p style="color:var(--r);font-size:12px;margin-top:8px">Num&eacute;ro invalide (1-72).</p>';
+      return;
+    }
+    var m=MATCHES.find(function(x){return x.num===n;});
+    if(!m){gi('modifEdit').innerHTML='';return;}
+    var s=scores[m.num]||{};
+    var ed='<div class="modif-match-edit">';
+    ed+='<div class="modif-match-title">MATCH '+n+' &mdash; '+ex(m.date)+' &middot; '+ex(m.h)+'</div>';
+    ed+='<div class="modif-score-row">';
+    ed+='<span class="modif-eq">'+ex(m.e1)+'</span>';
+    ed+='<input class="modif-si" id="ms1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
+    ed+='<span style="font-size:18px;color:#bbb">&ndash;</span>';
+    ed+='<input class="modif-si" id="ms2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
+    ed+='<span class="modif-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+    ed+='</div>';
+    ed+='<button class="modif-val-btn" id="btnModifVal">&#x2714; VALIDER CE SCORE</button>';
+    ed+='</div>';
+    gi('modifEdit').innerHTML=ed;
+
+    gi('btnModifVal').addEventListener('click',function(){
+      var v1=gi('ms1').value, v2=gi('ms2').value;
+      if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+      scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
+      // Recalculer le classement et repartir de zéro sur les ex-aequo
+      _resolved=[];
+      curTie=null;
+      b3Assign={};
+      cClass();
+      render();
+    });
+  });
+
   gi('btnKO').addEventListener('click',function(){ph='seize';render();});
 }
 
