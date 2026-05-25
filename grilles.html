@@ -953,51 +953,43 @@ function fl(t){
 function ex(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function gi(id){return document.getElementById(id);}
 
+// ===== STATE =====
 var scores={}, koW={}, clR=null, curTie=null, idx=0, ph='poule';
 var koIdx={seize:0,huit:0,quart:0,demi:0,finale:0};
-var _resolved=[];
+var _resolved=[], b3Assign={};
 var uPseudos=[];
 try{uPseudos=JSON.parse(localStorage.getItem('up2026')||'[]');}catch(e){}
 
 function render(){
   try{
-    if(ph==='poule') rPoule();
+    if(ph==='poule')         rPoule();
     else if(ph==='classement') rClass();
+    else if(ph==='choix')    rChoix();
+    else if(ph==='tableau')  rTableau();
     else if(ph==='seize'||ph==='huit'||ph==='quart'||ph==='demi'||ph==='finale') rKO(ph);
-    else if(ph==='valid') rValid();
-    else rDone();
+    else if(ph==='valid')    rValid();
+    else                     rDone();
   }catch(e){
-    gi('card').innerHTML='<div style="padding:20px;color:red"><b>Erreur JS :</b> '+e.message+'<br><small>'+e.stack+'</small></div>';
+    gi('card').innerHTML='<div style="padding:20px;color:red"><b>Erreur:</b> '+e.message+'</div>';
   }
 }
 
-function buildLiveClass(grp, e1, e2){
+// ===== POULE =====
+function buildLiveClass(grp,e1,e2){
   var teams=GROUPES[grp]||[];
   var st={};
   teams.forEach(function(t){st[t]={pts:0,bm:0,be:0,db:0,j:0,name:t};});
   Object.keys(scores).forEach(function(k){
-    var s=scores[k];
-    if(s.gr!==grp) return;
-    var t1=st[s.t1],t2=st[s.t2];
-    if(!t1||!t2) return;
-    t1.j++;t2.j++;
-    t1.bm+=s.a;t1.be+=s.b;t1.db+=(s.a-s.b);
+    var s=scores[k]; if(s.gr!==grp)return;
+    var t1=st[s.t1],t2=st[s.t2]; if(!t1||!t2)return;
+    t1.j++;t2.j++;t1.bm+=s.a;t1.be+=s.b;t1.db+=(s.a-s.b);
     t2.bm+=s.b;t2.be+=s.a;t2.db+=(s.b-s.a);
-    if(s.a>s.b){t1.pts+=3;}
-    else if(s.a<s.b){t2.pts+=3;}
-    else{t1.pts++;t2.pts++;}
+    if(s.a>s.b)t1.pts+=3; else if(s.a<s.b)t2.pts+=3; else{t1.pts++;t2.pts++;}
   });
   var arr=Object.values(st);
-  arr.sort(function(a,b){
-    if(b.pts!==a.pts) return b.pts-a.pts;
-    if(b.db!==a.db)   return b.db-a.db;
-    return b.bm-a.bm;
-  });
-  var h='<div class="cls-live-wrap">';
-  h+='<table class="cls-live-tbl">';
-  h+='<thead><tr>';
-  h+='<th class="th-pays">GROUPE '+grp+'</th>';
-  h+='<th>J</th><th>Pts</th><th>BP</th><th>BC</th><th>DB</th>';
+  arr.sort(function(a,b){if(b.pts!==a.pts)return b.pts-a.pts;if(b.db!==a.db)return b.db-a.db;return b.bm-a.bm;});
+  var h='<div class="cls-live-wrap"><table class="cls-live-tbl"><thead><tr>';
+  h+='<th class="th-pays">GROUPE '+grp+'</th><th>J</th><th>Pts</th><th>BP</th><th>BC</th><th>DB</th>';
   h+='</tr></thead><tbody>';
   arr.forEach(function(t,i){
     var isPlay=(t.name===e1||t.name===e2);
@@ -1008,12 +1000,9 @@ function buildLiveClass(grp, e1, e2){
     h+='<td class="td-pays'+(isPlay?' td-playing':'')+'">'+
        '<span class="td-pos '+poscls+'">'+(i+1)+'</span> '+
        '<span class="td-name">'+ex(t.name)+'</span></td>';
-    h+='<td class="td-num">'+t.j+'</td>';
-    h+='<td class="td-pts">'+t.pts+'</td>';
-    h+='<td class="td-num">'+t.bm+'</td>';
-    h+='<td class="td-num">'+t.be+'</td>';
-    h+='<td class="'+dbcls+'">'+db+'</td>';
-    h+='</tr>';
+    h+='<td class="td-num">'+t.j+'</td><td class="td-pts">'+t.pts+'</td>';
+    h+='<td class="td-num">'+t.bm+'</td><td class="td-num">'+t.be+'</td>';
+    h+='<td class="'+dbcls+'">'+db+'</td></tr>';
   });
   h+='</tbody></table></div>';
   return h;
@@ -1025,12 +1014,10 @@ function rPoule(){
   gi('pFill').style.width=pct+'%';
   gi('pLabel').textContent='MATCH '+(idx+1)+' / 72 \u2014 GROUPE '+m.gr;
   var sv=scores[m.num]||{a:'',b:''};
-
   gi('card').innerHTML=
-    '<div class="mh">'+
-    '<div class="mm">&#128197; '+ex(m.date)+' &middot; '+ex(m.h)+' &middot; Groupe '+m.gr+'</div>'+
+    '<div class="mh"><div class="mm">&#128197; '+ex(m.date)+' &middot; '+ex(m.h)+' &middot; Groupe '+m.gr+'</div>'+
     '<div class="mi">&#127903; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
-    buildLiveClass(m.gr, m.e1, m.e2)+
+    buildLiveClass(m.gr,m.e1,m.e2)+
     '<div class="mb">'+
     '<div class="tr"><span class="tf">'+fl(m.e1)+'</span><span class="tn">'+ex(m.e1).toUpperCase()+'</span>'+
     '<input class="si" id="s1" type="number" min="0" max="30" value="'+ex(sv.a)+'" placeholder="-"></div>'+
@@ -1038,7 +1025,6 @@ function rPoule(){
     '<div class="tr"><span class="tf">'+fl(m.e2)+'</span><span class="tn">'+ex(m.e2).toUpperCase()+'</span>'+
     '<input class="si" id="s2" type="number" min="0" max="30" value="'+ex(sv.b)+'" placeholder="-"></div>'+
     '<button class="bv" id="btnVal">&#x2714; VALIDER</button></div>';
-
   gi('s1').focus();
   gi('btnVal').addEventListener('click',function(){
     var v1=gi('s1').value,v2=gi('s2').value;
@@ -1050,54 +1036,41 @@ function rPoule(){
   });
 }
 
+// ===== CLASSEMENT =====
 function cClass(){
   clR={};
   var gks=Object.keys(GROUPES);
   for(var i=0;i<gks.length;i++){
     clR[gks[i]]={};
-    var eq=GROUPES[gks[i]];
-    for(var j=0;j<eq.length;j++) clR[gks[i]][eq[j]]={pts:0,bm:0,be:0,db:0,v:0,n:0,d:0,j:0};
+    GROUPES[gks[i]].forEach(function(t){clR[gks[i]][t]={pts:0,bm:0,be:0,db:0,v:0,n:0,d:0,j:0};});
   }
-  var sks=Object.keys(scores);
-  for(var k=0;k<sks.length;k++){
-    var s=scores[sks[k]],cg=clR[s.gr];
-    if(!cg) continue;
-    var t1=cg[s.t1],t2=cg[s.t2];
-    if(!t1||!t2) continue;
+  Object.keys(scores).forEach(function(k){
+    var s=scores[k],cg=clR[s.gr]; if(!cg)return;
+    var t1=cg[s.t1],t2=cg[s.t2]; if(!t1||!t2)return;
     t1.j++;t2.j++;t1.bm+=s.a;t1.be+=s.b;t1.db+=(s.a-s.b);
     t2.bm+=s.b;t2.be+=s.a;t2.db+=(s.b-s.a);
     if(s.a>s.b){t1.pts+=3;t1.v++;t2.d++;}
     else if(s.a<s.b){t2.pts+=3;t2.v++;t1.d++;}
     else{t1.pts++;t2.pts++;t1.n++;t2.n++;}
-  }
-  var gks2=Object.keys(clR);
-  for(var g=0;g<gks2.length;g++){
-    var arr=Object.entries(clR[gks2[g]]);
-    arr.sort(function(a,b){
-      if(b[1].pts!==a[1].pts) return b[1].pts-a[1].pts;
-      if(b[1].db!==a[1].db) return b[1].db-a[1].db;
-      return b[1].bm-a[1].bm;
-    });
-    clR[gks2[g]]=arr.map(function(x){return Object.assign({name:x[0]},x[1]);});
-  }
+  });
+  Object.keys(clR).forEach(function(g){
+    var arr=Object.entries(clR[g]);
+    arr.sort(function(a,b){if(b[1].pts!==a[1].pts)return b[1].pts-a[1].pts;if(b[1].db!==a[1].db)return b[1].db-a[1].db;return b[1].bm-a[1].bm;});
+    clR[g]=arr.map(function(x){return Object.assign({name:x[0]},x[1]);});
+  });
 }
 
 function gB3(){
-  var b3=[],gks=Object.keys(clR);
-  for(var i=0;i<gks.length;i++){var t=clR[gks[i]][2];if(t)b3.push(Object.assign({grp:gks[i]},t));}
-  b3.sort(function(a,b){
-    if(b.pts!==a.pts) return b.pts-a.pts;
-    if(b.db!==a.db) return b.db-a.db;
-    return b.bm-a.bm;
-  });
+  var b3=[]; Object.keys(clR).forEach(function(g){var t=clR[g][2];if(t)b3.push(Object.assign({grp:g},t));});
+  b3.sort(function(a,b){if(b.pts!==a.pts)return b.pts-a.pts;if(b.db!==a.db)return b.db-a.db;return b.bm-a.bm;});
   return b3;
 }
 
-function rClass(){
-  gi('pFill').style.width='100%';
-  gi('pLabel').textContent='CLASSEMENTS DES GROUPES';
-  if(curTie){rTie();return;}
-  // Check ties
+function getB3Qualified(){
+  var q={}; gB3().slice(0,8).forEach(function(t){q[t.name]=true;}); return q;
+}
+
+function checkTies(){
   var gks=Object.keys(clR);
   for(var i=0;i<gks.length;i++){
     var tms=clR[gks[i]];
@@ -1105,7 +1078,7 @@ function rClass(){
       var a=tms[j],b=tms[j+1];
       if(a&&b&&a.pts===b.pts&&a.db===b.db&&a.bm===b.bm){
         var k1=a.name+'|'+b.name,k2=b.name+'|'+a.name;
-        if(_resolved.indexOf(k1)<0&&_resolved.indexOf(k2)<0){curTie={type:'g',grp:gks[i],a:a,b:b};rTie();return;}
+        if(_resolved.indexOf(k1)<0&&_resolved.indexOf(k2)<0){return {type:'g',grp:gks[i],a:a,b:b};}
       }
     }
   }
@@ -1114,37 +1087,33 @@ function rClass(){
     var ba=b3[bi],bb=b3[bi+1];
     if(ba&&bb&&ba.pts===bb.pts&&ba.db===bb.db&&ba.bm===bb.bm){
       var bk1=ba.name+'|'+bb.name,bk2=bb.name+'|'+ba.name;
-      if(_resolved.indexOf(bk1)<0&&_resolved.indexOf(bk2)<0){curTie={type:'b',a:ba,b:bb};rTie();return;}
+      if(_resolved.indexOf(bk1)<0&&_resolved.indexOf(bk2)<0){return {type:'b',a:ba,b:bb};}
     }
   }
-  renderFullClass();
+  return null;
 }
 
-function getB3Qualified(){
-  var b3=gB3();
-  var q={};
-  for(var i=0;i<8&&i<b3.length;i++) q[b3[i].name]=true;
-  return q;
+function rClass(){
+  gi('pFill').style.width='100%';
+  gi('pLabel').textContent='CLASSEMENT DES GROUPES';
+  var tie=checkTies();
+  if(tie){curTie=tie;rTie();return;}
+  renderClassement(true); // true = show choix at bottom
 }
 
-function renderFullClass(){
-  gi('pLabel').textContent='CLASSEMENTS DES GROUPES';
+function renderClassement(showChoix){
   var b3q=getB3Qualified();
   var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
   var h='<div class="cls-grp-wrap">';
 
   GROUPS.forEach(function(grp){
     var cl=clR[grp]||[];
-    var gmatches=MATCHES.filter(function(m){return m.gr===grp;})
-                        .sort(function(a,b){return a.num-b.num;});
+    var gmatches=MATCHES.filter(function(m){return m.gr===grp;}).sort(function(a,b){return a.num-b.num;});
     h+='<div class="cls-grp-block">';
-    // Header
     h+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
-    // Matchs du groupe avec num\u00e9ros
     gmatches.forEach(function(m){
       var s=scores[m.num]||{};
-      var sc1=(s.a!=null&&s.a!=='')?s.a:'-';
-      var sc2=(s.b!=null&&s.b!=='')?s.b:'-';
+      var sc1=(s.a!=null&&s.a!=='')? s.a:'-', sc2=(s.b!=null&&s.b!=='')? s.b:'-';
       h+='<div class="cls-match-row">';
       h+='<span class="cls-match-num">'+m.num+'</span>';
       h+='<span class="cls-match-date">'+ex(m.h)+'</span>';
@@ -1155,26 +1124,20 @@ function renderFullClass(){
       h+='<span class="cls-match-eq" style="text-align:right">'+ex(m.e2)+'</span>';
       h+='</div>';
     });
-    // Tableau classement
     h+='<table class="cls-grp-tbl"><thead><tr>';
     h+='<th>Pays</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th>';
     h+='</tr></thead><tbody>';
     cl.forEach(function(tm,ti){
-      var isQ1=(ti<2);
-      var isB3=(ti===2&&b3q[tm.name]);
-      var isElim=(!isQ1&&!isB3);
-      var rowcls=isQ1?'q-row':isElim?'e-row':'';
-      var nmcls=(isQ1||isB3)?'qual':'elim';
+      var isQ=(ti<2), isB3=(ti===2&&b3q[tm.name]);
+      var rowcls=isQ||isB3?'q-row':' e-row';
+      var nmcls=isQ||isB3?'qual':'elim';
       var db=(tm.db>0?'+':'')+tm.db;
       var dbcls=tm.db>0?'cls-db-p':tm.db<0?'cls-db-n':'cls-db-z';
       h+='<tr class="'+rowcls+'">';
       h+='<td><span class="cls-tnm '+nmcls+'">'+ex(tm.name)+'</span></td>';
-      h+='<td class="cls-num">'+tm.j+'</td>';
-      h+='<td class="cls-num">'+tm.v+'</td>';
-      h+='<td class="cls-num">'+tm.n+'</td>';
-      h+='<td class="cls-num">'+tm.d+'</td>';
-      h+='<td class="cls-num">'+tm.bm+'</td>';
-      h+='<td class="cls-num">'+tm.be+'</td>';
+      h+='<td class="cls-num">'+tm.j+'</td><td class="cls-num">'+tm.v+'</td>';
+      h+='<td class="cls-num">'+tm.n+'</td><td class="cls-num">'+tm.d+'</td>';
+      h+='<td class="cls-num">'+tm.bm+'</td><td class="cls-num">'+tm.be+'</td>';
       h+='<td class="'+dbcls+'">'+db+'</td>';
       h+='<td class="cls-pts">'+tm.pts+'</td>';
       h+='</tr>';
@@ -1182,235 +1145,97 @@ function renderFullClass(){
     h+='</tbody></table></div>';
   });
 
-  // Zone modification de score
-  h+='<div class="modif-zone">';
-  h+='<div class="modif-label">Si vous souhaitez modifier le r&eacute;sultat d\'un match,<br>indiquez ici son num&eacute;ro (1 &agrave; 72)&nbsp;:</div>';
-  h+='<div class="modif-input-row">';
-  h+='<input class="modif-num-input" id="modifNum" type="number" min="1" max="72" placeholder="N&deg;">';
-  h+='<button class="modif-btn" id="btnModif">&#x2192; AFFICHER</button>';
-  h+='</div>';
-  h+='<div id="modifEdit"></div>';
-  h+='</div>';
+  if(showChoix){
+    // Choix intégré directement ici
+    h+='<div class="choix-wrap">';
+    h+='<div class="choix-titre">Voil\u00e0&nbsp;! Vous \u00eates pr\u00eat pour les 1/16e de finale.<br><b>Souhaitez-vous&nbsp;:</b></div>';
+    h+='<label class="choix-opt"><input type="radio" name="choix" id="choixSurprise" value="surprise">';
+    h+='<div><div class="choix-opt-label">&#x1F381; Avoir la surprise de vos matchs \u00e0 \u00e9limination directe</div>';
+    h+='<div class="choix-opt-sub">Vous passerez directement aux 1/16e de finale sans voir le tableau.</div></div></label>';
+    h+='<label class="choix-opt"><input type="radio" name="choix" id="choixTableau" value="tableau">';
+    h+='<div><div class="choix-opt-label">&#x1F4CB; Voir votre tableau des matchs \u00e0 \u00e9limination directe</div>';
+    h+='<div class="choix-opt-sub">Vous pourrez consulter le tableau et rectifier vos pronostics si n\u00e9cessaire.</div></div></label>';
+    h+='<button class="bv" id="btnChoixOk" style="background:var(--a)">&#x2192; CONTINUER</button>';
+    h+='</div>';
+  } else {
+    // Zone modification + valider définitivement (pour écran tableau)
+    h+=buildModifZone('modifNum','modifEdit','btnModif');
+    h+='<button class="bv-final" id="btnGoSeize">&#x2714; VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
+  }
 
-  // Bouton continuer
-  h+='<div style="padding:0 16px 6px">';
-  h+='<button class="btn-continuer" id="btnKO">CONTINUER &#x2192;</button>';
   h+='</div>';
-  h+='</div>';
-
   gi('card').innerHTML=h;
 
-  // Bouton afficher match
-  gi('btnModif').addEventListener('click',function(){
-    var n=parseInt(gi('modifNum').value);
+  if(showChoix){
+    gi('btnChoixOk').addEventListener('click',function(){
+      var sel=document.querySelector('input[name="choix"]:checked');
+      if(!sel){alert('Veuillez choisir une option.');return;}
+      if(sel.value==='surprise'){ph='seize';render();}
+      else{assignBest3();ph='tableau';render();}
+    });
+  } else {
+    setupModifListeners('modifNum','modifEdit','btnModif','btnGoSeize',false);
+    gi('btnGoSeize').addEventListener('click',function(){
+      b3Assign={};assignBest3();ph='seize';render();
+    });
+  }
+}
+
+function buildModifZone(numId,editId,btnId){
+  var h='<div class="modif-zone">';
+  h+='<div class="modif-label">Si vous souhaitez modifier le r\u00e9sultat d\u2019un match,<br>indiquez ici son num\u00e9ro (1 \u00e0 72)\u00a0:</div>';
+  h+='<div class="modif-input-row">';
+  h+='<input class="modif-num-input" id="'+numId+'" type="number" min="1" max="72" placeholder="N\u00b0">';
+  h+='<button class="modif-btn" id="'+btnId+'">\u2192 AFFICHER</button>';
+  h+='</div><div id="'+editId+'"></div></div>';
+  return h;
+}
+
+function setupModifListeners(numId,editId,btnId,finalBtnId,isTableau){
+  gi(btnId).addEventListener('click',function(){
+    var n=parseInt(gi(numId).value);
     if(!n||n<1||n>72){
-      gi('modifEdit').innerHTML='<p style="color:var(--r);font-size:12px;margin-top:8px">Num&eacute;ro invalide (1-72).</p>';
+      gi(editId).innerHTML='<p style="color:var(--r);font-size:12px;margin-top:8px">Num\u00e9ro invalide (1-72).</p>';
       return;
     }
     var m=MATCHES.find(function(x){return x.num===n;});
-    if(!m){gi('modifEdit').innerHTML='';return;}
+    if(!m){gi(editId).innerHTML='';return;}
     var s=scores[m.num]||{};
     var ed='<div class="modif-match-edit">';
     ed+='<div class="modif-match-title">MATCH '+n+' &mdash; '+ex(m.date)+' &middot; '+ex(m.h)+'</div>';
     ed+='<div class="modif-score-row">';
     ed+='<span class="modif-eq">'+ex(m.e1)+'</span>';
-    ed+='<input class="modif-si" id="ms1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
+    ed+='<input class="modif-si" id="ms1_'+numId+'" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
     ed+='<span style="font-size:18px;color:#bbb">&ndash;</span>';
-    ed+='<input class="modif-si" id="ms2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
+    ed+='<input class="modif-si" id="ms2_'+numId+'" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
     ed+='<span class="modif-eq" style="text-align:right">'+ex(m.e2)+'</span>';
     ed+='</div>';
-    ed+='<button class="modif-val-btn" id="btnModifVal">&#x2714; VALIDER CE SCORE</button>';
+    ed+='<button class="modif-val-btn" id="btnMV_'+numId+'">&#x2714; VALIDER CE SCORE</button>';
     ed+='</div>';
-    gi('modifEdit').innerHTML=ed;
-
-    gi('btnModifVal').addEventListener('click',function(){
-      var v1=gi('ms1').value, v2=gi('ms2').value;
+    gi(editId).innerHTML=ed;
+    gi('btnMV_'+numId).addEventListener('click',function(){
+      var v1=gi('ms1_'+numId).value,v2=gi('ms2_'+numId).value;
       if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
       scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
-      // Recalculer le classement et repartir de z\u00e9ro sur les ex-aequo
-      _resolved=[];
-      curTie=null;
-      b3Assign={};
+      _resolved=[];curTie=null;b3Assign={};
       cClass();
-      render();
+      if(isTableau){ph='tableau';render();}
+      else render();
     });
   });
-
-  gi('btnKO').addEventListener('click',function(){showChoix();});
 }
 
-// \u2500\u2500 \u00c9cran de choix apr\u00e8s classement \u2500\u2500
-function showChoix(){
-  gi('pLabel').textContent='PHASE FINALE';
-  gi('card').innerHTML=
-    '<div class="mh"><div class="mm">&#x1F3C6; PHASE &Agrave; &Eacute;LIMINATION DIRECTE</div></div>'+
-    '<div class="choix-wrap">'+
-    '<div class="choix-titre">'+
-    'Voil&agrave;&nbsp;! Vous &ecirc;tes pr&ecirc;ts pour les 1/16e de finale.<br>'+
-    '<b>Souhaitez-vous&nbsp;:</b>'+
-    '</div>'+
-    '<label class="choix-opt">'+
-    '<input type="radio" name="choix" id="choixSurprise" value="surprise">'+
-    '<div><div class="choix-opt-label">&#x1F381; Avoir la surprise de vos matchs &agrave; &eacute;limination directe</div>'+
-    '<div class="choix-opt-sub">Vous passerez directement &agrave; la validation finale sans voir le tableau.</div></div>'+
-    '</label>'+
-    '<label class="choix-opt">'+
-    '<input type="radio" name="choix" id="choixTableau" value="tableau">'+
-    '<div><div class="choix-opt-label">&#x1F4CB; Voir votre tableau des matchs &agrave; &eacute;limination directe</div>'+
-    '<div class="choix-opt-sub">Vous pourrez consulter le tableau et rectifier vos pronostics si n&eacute;cessaire.</div></div>'+
-    '</label>'+
-    '<button class="choix-btn" id="btnChoixOk">&#x2192; CONTINUER</button>'+
-    '</div>';
-
-  gi('btnChoixOk').addEventListener('click', function(){
-    var sel=document.querySelector('input[name="choix"]:checked');
-    if(!sel){alert('Veuillez choisir une option.');return;}
-    if(sel.value==='surprise'){
-      ph='seize'; render();
-    } else {
-      assignBest3();
-      showTableauKO();
-    }
-  });
-}
-
-// \u2500\u2500 G\u00e9n\u00e8re le bracket KO en HTML \u2500\u2500
-function showTableauKO(){
-  gi('pLabel').textContent='TABLEAU \u2014 PHASES FINALES';
-  assignBest3();
-
-  function team(key){
-    if(!key) return '?';
-    var gm=key.match(/^([12])([A-L])$/);
-    if(gm){
-      var pos=parseInt(gm[1])-1, grp=gm[2];
-      return (clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
-    }
-    if(key[0]==='3'){
-      var mn=window._cmn||0;
-      // find which seize match uses this key
-      var ms=KO.seize.ms;
-      for(var i=0;i<ms.length;i++){
-        if(ms[i].t1===key||ms[i].t2===key){
-          return b3Assign[ms[i].n]||key;
-        }
-      }
-      return key;
-    }
-    return key;
-  }
-
-  // R\u00e9soudre les \u00e9quipes pour chaque match de 1/16
-  function t(m, side){
-    var key = side===1 ? m.t1 : m.t2;
-    var gm=key.match(/^([12])([A-L])$/);
-    if(gm){
-      var pos=parseInt(gm[1])-1, grp=gm[2];
-      return (clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
-    }
-    if(key[0]==='3'){
-      return b3Assign[m.n]||key;
-    }
-    return key;
-  }
-
-  var ms=KO.seize.ms;
-
-  // Build bracket: 16 matches en 2 colonnes de 8
-  // Gauche: M73,M74,M75,M76,M77,M78,M79,M80 (dans l'ordre du mod\u00e8le)
-  // Droite: M81,M82,M83,M84,M85,M86,M87,M88
-  var left  = ms.slice(0,8);
-  var right = ms.slice(8,16);
-
-  function matchBox(m){
-    var t1=t(m,1), t2=t(m,2);
-    return '<div style="margin-bottom:6px;">'+
-      '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;'+
-      'letter-spacing:1px;color:rgba(0,43,92,0.4);text-transform:uppercase;margin-bottom:2px;">'+
-      ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
-      '<div style="display:flex;flex-direction:column;gap:2px;">'+
-      '<div class="ko-node">'+fl(t1)+' <span style="font-size:12px">'+ex(t1)+'</span></div>'+
-      '<div class="ko-node">'+fl(t2)+' <span style="font-size:12px">'+ex(t2)+'</span></div>'+
-      '</div></div>';
-  }
-
-  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; PHASES FINALES</div></div>';
-  h+='<div style="padding:14px 16px 0">';
-
-  // Section 1/16e
-  h+='<div class="ko-section-title">1/16E DE FINALE</div>';
-  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">';
-  left.forEach(function(m){ h+=matchBox(m); });
-  right.forEach(function(m){ h+=matchBox(m); });
-  h+='</div>';
-
-  // Info phases suivantes
-  h+='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;'+
-     'padding:12px;margin-bottom:14px;font-family:Barlow Condensed,sans-serif;'+
-     'font-size:12px;color:#15803d;line-height:1.6;">';
-  h+='<b>1/8e, Quarts, Demies, Finale</b> &mdash; Les adversaires se d&eacute;termineront au fil de vos pronostics&nbsp;!';
-  h+='</div>';
-
-  // Zone modification
-  h+='<div class="modif-zone">';
-  h+='<div class="modif-label">Si vous souhaitez modifier le r&eacute;sultat d\'un match de poule,<br>indiquez ici son num&eacute;ro (1 &agrave; 72)&nbsp;:</div>';
-  h+='<div class="modif-input-row">';
-  h+='<input class="modif-num-input" id="modifNum2" type="number" min="1" max="72" placeholder="N&deg;">';
-  h+='<button class="modif-btn" id="btnModif2">&#x2192; AFFICHER</button>';
-  h+='</div><div id="modifEdit2"></div></div>';
-
-  // Bouton passer aux 1/16e
-  h+='<button class="bv-final" id="btnGoSeize">&#x2714; VALIDER D&Eacute;FINITIVEMENT ET PASSER AUX 1/16e</button>';
-  h+='</div>';
-
-  gi('card').innerHTML=h;
-
-  // Bouton modifier score
-  gi('btnModif2').addEventListener('click',function(){
-    var n=parseInt(gi('modifNum2').value);
-    if(!n||n<1||n>72){
-      gi('modifEdit2').innerHTML='<p style="color:var(--r);font-size:12px;margin-top:8px">Num&eacute;ro invalide (1-72).</p>';
-      return;
-    }
-    var m=MATCHES.find(function(x){return x.num===n;});
-    if(!m){gi('modifEdit2').innerHTML='';return;}
-    var s=scores[m.num]||{};
-    var ed='<div class="modif-match-edit">';
-    ed+='<div class="modif-match-title">MATCH '+n+' &mdash; '+ex(m.date)+' &middot; '+ex(m.h)+'</div>';
-    ed+='<div class="modif-score-row">';
-    ed+='<span class="modif-eq">'+ex(m.e1)+'</span>';
-    ed+='<input class="modif-si" id="mms1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
-    ed+='<span style="font-size:18px;color:#bbb">&ndash;</span>';
-    ed+='<input class="modif-si" id="mms2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
-    ed+='<span class="modif-eq" style="text-align:right">'+ex(m.e2)+'</span>';
-    ed+='</div>';
-    ed+='<button class="modif-val-btn" id="btnModifVal2">&#x2714; VALIDER CE SCORE</button>';
-    ed+='</div>';
-    gi('modifEdit2').innerHTML=ed;
-    gi('btnModifVal2').addEventListener('click',function(){
-      var v1=gi('mms1').value,v2=gi('mms2').value;
-      if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
-      scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
-      _resolved=[]; curTie=null; b3Assign={};
-      cClass(); render();
-    });
-  });
-
-  gi('btnGoSeize').addEventListener('click',function(){
-    b3Assign={}; assignBest3(); ph='seize'; render();
-  });
-}
-
-
+// ===== EGALITIES =====
 function rTie(){
+  gi('pLabel').textContent='CLASSEMENT DES GROUPES';
   var t=curTie;
   var ctx=t.type==='g'?'dans le groupe '+t.grp:'parmi les meilleurs 3e';
   gi('card').innerHTML=
     '<div class="ph"><h2>&#9878; &Eacute;GALIT&Eacute;</h2></div>'+
     '<div class="ecrd">'+
-    '<h3>&Eacute;galit&eacute; parfaite '+ex(ctx)+'</h3>'+
-    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont &agrave; &eacute;galit&eacute; parfaite.<br>'+
-    'Selon le fair-play, cliquez sur l\'&eacute;quipe &agrave; classer <b>devant</b> l\'autre&nbsp;:</p>'+
+    '<h3>&Eacute;galit\u00e9 parfaite '+ex(ctx)+'</h3>'+
+    '<p><b>'+ex(t.a.name)+'</b> et <b>'+ex(t.b.name)+'</b> sont \u00e0 \u00e9galit\u00e9 parfaite.<br>'+
+    'Selon le fair-play, cliquez sur l\'\u00e9quipe \u00e0 classer <b>devant</b> l\'autre\u00a0:</p>'+
     '<button class="ebtn" id="tieA"><span style="font-size:22px;margin-right:8px">'+fl(t.a.name)+'</span>'+
     '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px">'+ex(t.a.name).toUpperCase()+'</span></button>'+
     '<button class="ebtn" id="tieB"><span style="font-size:22px;margin-right:8px">'+fl(t.b.name)+'</span>'+
@@ -1419,73 +1244,59 @@ function rTie(){
   function doResolve(winner,loser){
     if(t.type==='g'){
       var arr=clR[t.grp],wi=-1,li=-1;
-      for(var i=0;i<arr.length;i++){
-        if(arr[i].name===winner) wi=i;
-        if(arr[i].name===loser) li=i;
-      }
+      for(var i=0;i<arr.length;i++){if(arr[i].name===winner)wi=i;if(arr[i].name===loser)li=i;}
       if(wi>=0&&li>=0&&wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
     }
     _resolved.push(winner+'|'+loser);
     curTie=null;
-    render();
+    ph='classement';render();
   }
   gi('tieA').addEventListener('click',function(){doResolve(t.a.name,t.b.name);});
   gi('tieB').addEventListener('click',function(){doResolve(t.b.name,t.a.name);});
 }
 
+// ===== TABLEAU KO =====
 function assignBest3(){
-  if(Object.keys(b3Assign).length>0) return;
-  // Get the 8 qualified best-3rds and their groups
+  if(Object.keys(b3Assign).length>0)return;
   var b3=gB3().slice(0,8);
-  var groups=b3.map(function(t){return t.grp;}).sort().join(",");
+  var groups=b3.map(function(t){return t.grp;}).sort().join(',');
   var tableRow=FIFA_B3_TABLE[groups];
   if(!tableRow){
-    // Fallback: assign in ranking order
     var order=[74,77,79,80,81,82,85,87];
-    for(var i=0;i<order.length&&i<b3.length;i++) b3Assign[order[i]]=b3[i].name;
+    for(var i=0;i<order.length&&i<b3.length;i++)b3Assign[order[i]]=b3[i].name;
     return;
   }
-  // tableRow: {matchNum: groupLetter}
-  // Convert groupLetter -> team name using classement
-  var matchNums=Object.keys(tableRow);
-  for(var j=0;j<matchNums.length;j++){
-    var mn=parseInt(matchNums[j]);
-    var grp=tableRow[matchNums[j]];
-    // Find the 3rd of that group in b3
+  Object.keys(tableRow).forEach(function(mn){
+    var grp=tableRow[mn];
     var found=null;
     for(var k=0;k<b3.length;k++){if(b3[k].grp===grp){found=b3[k].name;break;}}
-    if(found) b3Assign[mn]=found;
-  }
+    if(found)b3Assign[parseInt(mn)]=found;
+  });
 }
 
 function rTeam(key){
-  if(!clR) return key;
+  if(!clR)return key;
   var gm=key.match(/^([12])([A-L])$/);
-  if(gm){
-    var pos=parseInt(gm[1])-1,grp=gm[2];
-    return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
-  }
-  if(key.charAt(0)==='3'){
-    if(window._cmn&&b3Assign[window._cmn]) return b3Assign[window._cmn];
-    var b3=gB3(),used=Object.values(b3Assign);
-    for(var i=0;i<b3.length;i++){if(used.indexOf(b3[i].name)<0)return b3[i].name;}
-    return b3.length?b3[0].name:key;
-  }
-  if(key.charAt(0)==='V'){
+  if(gm){var pos=parseInt(gm[1])-1,grp=gm[2];return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;}
+  if(key&&key[0]==='3'){return b3Assign[window._cmn]||key;}
+  if(key&&key[0]==='V'){
     var mn=parseInt(key.slice(1));
-    var phs=Object.keys(koW);
-    for(var p=0;p<phs.length;p++){if(koW[phs[p]][mn])return koW[phs[p]][mn];}
+    var phs=['seize','huit','quart','demi','finale'];
+    for(var p=0;p<phs.length;p++){var pw=koW[phs[p]]||{};if(pw[mn])return pw[mn];}
     return key;
   }
-  if(key.charAt(0)==='P'){
+  if(key&&key[0]==='P'){
     var pmn=parseInt(key.slice(1));
-    var phlist=Object.keys(KO);
-    for(var p2=0;p2<phlist.length;p2++){
-      var phd=KO[phlist[p2]],match=null;
-      for(var mi=0;mi<phd.ms.length;mi++){if(phd.ms[mi].n===pmn){match=phd.ms[mi];break;}}
-      if(match&&koW[phlist[p2]]&&koW[phlist[p2]][pmn]){
-        var r1=rTeam(match.t1),r2=rTeam(match.t2);
-        return koW[phlist[p2]][pmn]===r1?r2:r1;
+    var phs2=['seize','huit','quart','demi','finale'];
+    for(var p2=0;p2<phs2.length;p2++){
+      var phd=KO[phs2[p2]]; if(!phd)continue;
+      for(var mi=0;mi<phd.ms.length;mi++){
+        if(phd.ms[mi].n===pmn){
+          var pw2=koW[phs2[p2]]||{};
+          var w=pw2[pmn]; if(!w)return key;
+          var r1=rTeam(phd.ms[mi].t1),r2=rTeam(phd.ms[mi].t2);
+          return w===r1?r2:r1;
+        }
       }
     }
     return key;
@@ -1493,82 +1304,171 @@ function rTeam(key){
   return key;
 }
 
+function rTableau(){
+  gi('pFill').style.width='100%';
+  gi('pLabel').textContent='TABLEAU \u2014 1/16E DE FINALE';
+  assignBest3();
+
+  function matchBox(m){
+    window._cmn=m.n;
+    var t1=rTeam(m.t1),t2=rTeam(m.t2);
+    return '<div style="margin-bottom:8px">'+
+      '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;letter-spacing:1px;'+
+      'color:rgba(0,43,92,0.4);text-transform:uppercase;margin-bottom:2px">'+
+      ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+      '<div style="display:flex;flex-direction:column;gap:2px">'+
+      '<div class="ko-node">'+fl(t1)+' <span style="font-size:12px">'+ex(t1)+'</span></div>'+
+      '<div class="ko-node">'+fl(t2)+' <span style="font-size:12px">'+ex(t2)+'</span></div>'+
+      '</div></div>';
+  }
+
+  var ms=KO.seize.ms;
+  var left=ms.slice(0,8),right=ms.slice(8,16);
+
+  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; 1/16E DE FINALE</div></div>';
+  h+='<div style="padding:12px 16px 0">';
+  h+='<div class="ko-section-title">1/16E DE FINALE</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">';
+  left.forEach(function(m){h+=matchBox(m);});
+  right.forEach(function(m){h+=matchBox(m);});
+  h+='</div>';
+
+  // Classements des 12 poules
+  var b3q=getB3Qualified();
+  var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
+  h+='<div class="ko-section-title" style="background:var(--b)">CLASSEMENTS DES GROUPES</div>';
+  GROUPS.forEach(function(grp){
+    var cl=clR[grp]||[];
+    var gmatches=MATCHES.filter(function(m){return m.gr===grp;}).sort(function(a,b){return a.num-b.num;});
+    h+='<div class="cls-grp-block">';
+    h+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
+    gmatches.forEach(function(m){
+      var s=scores[m.num]||{};
+      var sc1=(s.a!=null&&s.a!=='')? s.a:'-',sc2=(s.b!=null&&s.b!=='')? s.b:'-';
+      h+='<div class="cls-match-row">';
+      h+='<span class="cls-match-num">'+m.num+'</span>';
+      h+='<span class="cls-match-date">'+ex(m.h)+'</span>';
+      h+='<span class="cls-match-eq">'+ex(m.e1)+'</span>';
+      h+='<span class="cls-match-sc">'+sc1+'</span>';
+      h+='<span class="cls-match-div">&ndash;</span>';
+      h+='<span class="cls-match-sc">'+sc2+'</span>';
+      h+='<span class="cls-match-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+      h+='</div>';
+    });
+    h+='<table class="cls-grp-tbl"><thead><tr>';
+    h+='<th>Pays</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th>';
+    h+='</tr></thead><tbody>';
+    cl.forEach(function(tm,ti){
+      var isQ=(ti<2),isB3=(ti===2&&b3q[tm.name]);
+      var rowcls=isQ||isB3?'q-row':'e-row';
+      var nmcls=isQ||isB3?'qual':'elim';
+      var db=(tm.db>0?'+':'')+tm.db;
+      var dbcls=tm.db>0?'cls-db-p':tm.db<0?'cls-db-n':'cls-db-z';
+      h+='<tr class="'+rowcls+'">';
+      h+='<td><span class="cls-tnm '+nmcls+'">'+ex(tm.name)+'</span></td>';
+      h+='<td class="cls-num">'+tm.j+'</td><td class="cls-num">'+tm.v+'</td>';
+      h+='<td class="cls-num">'+tm.n+'</td><td class="cls-num">'+tm.d+'</td>';
+      h+='<td class="cls-num">'+tm.bm+'</td><td class="cls-num">'+tm.be+'</td>';
+      h+='<td class="'+dbcls+'">'+db+'</td>';
+      h+='<td class="cls-pts">'+tm.pts+'</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  });
+
+  h+=buildModifZone('modifNum','modifEdit','btnModif');
+  h+='<button class="bv-final" id="btnGoSeize">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
+  h+='</div>';
+
+  gi('card').innerHTML=h;
+  setupModifListeners('modifNum','modifEdit','btnModif','btnGoSeize',true);
+  gi('btnGoSeize').addEventListener('click',function(){
+    b3Assign={};assignBest3();ph='seize';render();
+  });
+}
+
+// ===== PHASES KO =====
 var NXT={seize:'huit',huit:'quart',quart:'demi',demi:'finale',finale:'valid'};
 var NXTL={seize:'1/8E DE FINALE',huit:'QUARTS DE FINALE',quart:'DEMI-FINALES',demi:'FINALE',finale:'VALIDER MA GRILLE'};
+// Suppression du match pour la 3e place : on filtre dans demi
+var KO_DISPLAY={
+  seize:KO.seize.ms,
+  huit:KO.huit.ms,
+  quart:KO.quart.ms,
+  demi:KO.demi.ms.filter(function(m){return m.n!==103;}), // sans 3e place
+  finale:KO.finale.ms
+};
 
 function rKO(p){
   gi('pFill').style.width='100%';
-  if(p==='seize') assignBest3();
-  var ms=KO[p].ms,pw=koW[p]||{};
-  while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n]) koIdx[p]++;
+  if(p==='seize')assignBest3();
+  var ms=KO_DISPLAY[p]||KO[p].ms;
+  var pw=koW[p]||{};
+  while(koIdx[p]<ms.length&&pw[ms[koIdx[p]].n])koIdx[p]++;
   gi('pLabel').textContent=KO[p].tit+' \u2014 MATCH '+(koIdx[p]+1)+' / '+ms.length;
+
   if(koIdx[p]>=ms.length){
     gi('card').innerHTML=
-      '<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu&eacute;s &#x2714;</p></div>'+
-      '<div style="padding:16px 18px"><button class="bv" id="btnNxt">&rarr; '+NXTL[p]+'</button></div>';
+      '<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu\u00e9s \u2714</p></div>'+
+      '<div style="padding:16px 18px"><button class="bv" id="btnNxt">\u2192 '+NXTL[p]+'</button></div>';
     gi('btnNxt').addEventListener('click',function(){ph=NXT[p];render();});
     return;
   }
+
   var m=ms[koIdx[p]];
   window._cmn=m.n;
   var t1=rTeam(m.t1),t2=rTeam(m.t2);
+
   gi('card').innerHTML=
-    '<div class="mh">'+
-    '<div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+    '<div class="mh"><div class="mm">&#9917; '+ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
     '<div class="mi">&#127903; '+ex(m.st)+' &middot; &#128250; '+ex(m.ch)+'</div></div>'+
-    '<div class="mb">'+
-    '<div class="kt">'+
+    '<div class="mb"><div class="kt">'+
     '<button class="kb" id="kbt1"><span class="kf">'+fl(t1)+'</span><span class="kn">'+ex(t1).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
     '<button class="kb" id="kbt2"><span class="kf">'+fl(t2)+'</span><span class="kn">'+ex(t2).toUpperCase()+'</span><span class="kch">&#x2713;</span></button>'+
-    '</div>'+
-    '<div id="valzone" style="padding-top:14px"></div>'+
-    '</div>';
+    '</div><div id="valzone" style="padding-top:14px"></div></div>';
+
   var selected=null;
   function showVal(){
     gi('valzone').innerHTML='<button class="bv" id="btnVal">&#x2714; VALIDER</button>';
     gi('btnVal').addEventListener('click',function(){
-      if(!koW[p]) koW[p]={};
+      if(!koW[p])koW[p]={};
       koW[p][m.n]=selected;
       koIdx[p]++;
       render();
     });
   }
-  gi('kbt1').addEventListener('click',function(){
-    selected=t1;
-    gi('kbt1').className='kb sel';
-    gi('kbt2').className='kb elim';
-    showVal();
-  });
-  gi('kbt2').addEventListener('click',function(){
-    selected=t2;
-    gi('kbt2').className='kb sel';
-    gi('kbt1').className='kb elim';
-    showVal();
-  });
+  gi('kbt1').addEventListener('click',function(){selected=t1;gi('kbt1').className='kb sel';gi('kbt2').className='kb elim';showVal();});
+  gi('kbt2').addEventListener('click',function(){selected=t2;gi('kbt2').className='kb sel';gi('kbt1').className='kb elim';showVal();});
 }
 
+// ===== VALIDATION FINALE =====
 function rValid(){
   gi('pLabel').textContent='VALIDATION OFFICIELLE';
   gi('card').innerHTML=
-    '<div class="vf"><h2>&#127881; GRILLE COMPL&Egrave;TE !</h2>'+
-    '<p>Vous avez pronostiqu&eacute; les 72 matchs de poule et toutes les phases finales.<br>Validez officiellement votre grille ci-dessous.</p>'+
+    '<div class="vf"><h2>&#127881; GRILLE COMPL\u00c8TE !</h2>'+
+    '<p>Vous avez pronostiqu\u00e9 tous vos matchs. Validez officiellement votre grille ci-dessous.</p>'+
     '<div class="fg"><label>Votre pseudo</label>'+
     '<input type="text" id="ps" placeholder="Ex: Gaspardo" maxlength="30">'+
-    '<div class="errmsg" id="pe">Ce pseudo est d&eacute;j&agrave; pris. Choisissez-en un autre.</div></div>'+
+    '<div class="errmsg" id="pe">Ce pseudo est d\u00e9j\u00e0 pris. Choisissez-en un autre.</div></div>'+
     '<div class="fg"><label>Votre adresse mail</label>'+
     '<input type="email" id="em" placeholder="exemple@mail.com">'+
     '<div class="errmsg" id="ee">Adresse mail invalide.</div></div>'+
-    '<button class="bs" id="btnSub">&#127942; VALIDER OFFICIELLEMENT</button></div>';
+    '<div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;color:#92400e;line-height:1.6">'+
+    '<b>ATTENTION</b> : n\u2019utilisez votre pseudo d\u00e9finitif que lorsque vous aurez d\u00e9finitivement valid\u00e9 votre grille.<br>'+
+    'T\u00e9l\u00e9chargez votre grille d\u00e9finitive et envoyez-la \u00e0 <b>olivier.ruchaud@hotmail.fr</b></div>'+
+    '<button class="bs" id="btnSub">&#127942; VALIDER ET T\u00c9L\u00c9CHARGER MA GRILLE</button></div>';
+
   gi('btnSub').addEventListener('click',function(){
     var ps=gi('ps').value.trim(),em=gi('em').value.trim(),ok=true;
     gi('pe').style.display='none';gi('ee').style.display='none';
     if(!ps){gi('pe').textContent='Veuillez saisir un pseudo.';gi('pe').style.display='block';ok=false;}
     else if(uPseudos.indexOf(ps.toLowerCase())>=0){gi('pe').style.display='block';ok=false;}
     if(!em||em.indexOf('@')<0){gi('ee').style.display='block';ok=false;}
-    if(!ok) return;
+    if(!ok)return;
     bExcel(ps,em);
   });
 }
+
 
 function bExcel(ps,em){
   var btn=gi('btnSub');
@@ -1815,6 +1715,7 @@ function bExcel(ps,em){
   ph='done';render();
 }
 
+
 function rDone(){
   gi('pLabel').textContent='GRILLE VALID\u00c9E \u2713';
   gi('card').innerHTML=
@@ -1825,7 +1726,6 @@ function rDone(){
 }
 
 render();
-
 </script>
 </body>
 </html>
