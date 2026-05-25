@@ -244,6 +244,14 @@ footer a{color:var(--a);text-decoration:none;}
   color:var(--w);background:var(--a);padding:4px 10px;border-radius:4px;
   text-align:center;margin-bottom:6px;}
 .ko-finale-title{background:var(--r);}
+
+/* ── Bouton Continuer bleu ── */
+.btn-continuer{
+  display:block;width:100%;padding:15px;
+  background:var(--a);color:var(--w);border:none;border-radius:8px;
+  font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:3px;
+  cursor:pointer;margin-top:6px;}
+.btn-continuer:hover{background:var(--b);}
 </style>
 </head>
 <body>
@@ -1184,8 +1192,10 @@ function renderFullClass(){
   h+='<div id="modifEdit"></div>';
   h+='</div>';
 
-  // Bouton valider d\u00e9finitivement
-  h+='<button class="bv-final" id="btnKO">&#x2714; VALIDER D&Eacute;FINITIVEMENT MES PRONOS</button>';
+  // Bouton continuer
+  h+='<div style="padding:0 16px 6px">';
+  h+='<button class="btn-continuer" id="btnKO">CONTINUER &#x2192;</button>';
+  h+='</div>';
   h+='</div>';
 
   gi('card').innerHTML=h;
