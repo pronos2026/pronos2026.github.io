@@ -1396,11 +1396,22 @@ function rTableau(){
 var NXT={seize:'huit',huit:'quart',quart:'demi',demi:'finale',finale:'valid'};
 var NXTL={seize:'1/8E DE FINALE',huit:'QUARTS DE FINALE',quart:'DEMI-FINALES',demi:'FINALE',finale:'VALIDER MA GRILLE'};
 // Suppression du match pour la 3e place : on filtre dans demi
+function sortByCalendar(ms){
+  // Tri chronologique par date/heure extraite du champ dt
+  var monthOrd={juin:6,juil:7};
+  function dt2num(dt){
+    var p=dt.replace('\u00b7','').replace(/\s+/g,' ').trim().split(' ');
+    var day=parseInt(p[0]),mon=monthOrd[p[1]]||0;
+    var t=(p[2]||'0h00').split('h');
+    return mon*10000+day*100+parseInt(t[0])+parseInt(t[1]||0)/60;
+  }
+  return ms.slice().sort(function(a,b){return dt2num(a.dt)-dt2num(b.dt);});
+}
 var KO_DISPLAY={
-  seize:KO.seize.ms,
-  huit:KO.huit.ms,
-  quart:KO.quart.ms,
-  demi:KO.demi.ms.filter(function(m){return m.n!==103;}), // sans 3e place
+  seize:sortByCalendar(KO.seize.ms),
+  huit:sortByCalendar(KO.huit.ms),
+  quart:sortByCalendar(KO.quart.ms),
+  demi:sortByCalendar(KO.demi.ms.filter(function(m){return m.n!==103;})),
   finale:KO.finale.ms
 };
 
