@@ -1323,14 +1323,19 @@ function rTableau(){
   }
 
   var ms=KO.seize.ms;
-  var left=ms.slice(0,8),right=ms.slice(8,16);
+  // Ordre d'affichage: paires (gauche, droite) par ligne
+  var BRACKET_ORDER=[[74,77],[73,75],[83,84],[81,82],[76,78],[79,80],[86,88],[85,87]];
+  function findMatch(n){return ms.find(function(m){return m.n===n;});}
 
   var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; 1/16E DE FINALE</div></div>';
   h+='<div style="padding:12px 16px 0">';
   h+='<div class="ko-section-title">1/16E DE FINALE</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">';
-  left.forEach(function(m){h+=matchBox(m);});
-  right.forEach(function(m){h+=matchBox(m);});
+  BRACKET_ORDER.forEach(function(pair){
+    var ml=findMatch(pair[0]),mr=findMatch(pair[1]);
+    if(ml)h+=matchBox(ml);
+    if(mr)h+=matchBox(mr);
+  });
   h+='</div>';
 
   // Classements des 12 poules
