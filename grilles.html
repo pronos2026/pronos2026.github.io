@@ -199,6 +199,51 @@ footer a{color:var(--a);text-decoration:none;}
   padding:16px;background:var(--g);color:var(--w);border:none;border-radius:8px;
   font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;}
 .bv-final:hover{background:#15803d;}
+
+/* ── Choix surprise / tableau KO ── */
+.choix-wrap{padding:18px 16px 0;}
+.choix-titre{
+  font-family:"Barlow Condensed",sans-serif;font-size:15px;font-weight:700;
+  color:var(--b);margin-bottom:14px;line-height:1.6;letter-spacing:0.3px;}
+.choix-titre b{color:var(--a);}
+.choix-opt{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 14px;border:2px solid #dde2ea;border-radius:10px;
+  background:#f8f9fc;cursor:pointer;margin-bottom:10px;
+  transition:border-color 0.2s,background 0.2s;}
+.choix-opt:hover{border-color:var(--a);background:#eef5fc;}
+.choix-opt input[type=radio]{
+  margin-top:3px;accent-color:var(--a);width:18px;height:18px;flex-shrink:0;cursor:pointer;}
+.choix-opt-label{
+  font-family:"Barlow Condensed",sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:0.3px;color:var(--b);cursor:pointer;line-height:1.4;}
+.choix-opt-sub{
+  font-size:11px;color:#888;font-weight:400;font-family:"Barlow",sans-serif;
+  margin-top:2px;}
+.choix-btn{
+  display:block;width:100%;margin-top:14px;padding:15px;
+  background:var(--g);color:var(--w);border:none;border-radius:8px;
+  font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:3px;cursor:pointer;}
+.choix-btn:hover{background:#15803d;}
+/* ── Tableau KO SVG ── */
+.ko-bracket-wrap{padding:12px 0 0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ko-bracket-scroll{min-width:340px;max-width:100%;}
+/* ── Nœuds du bracket ── */
+.ko-node{
+  background:var(--w);border:1.5px solid #dde2ea;border-radius:6px;
+  padding:4px 8px;font-family:"Barlow Condensed",sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:0.2px;color:var(--b);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  box-shadow:0 1px 4px rgba(0,43,92,0.08);}
+.ko-node.winner{border-color:var(--g);background:#f0fdf4;color:#15803d;}
+.ko-node.match-lbl{
+  background:var(--b);color:var(--w);border-color:var(--b);
+  font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;}
+.ko-section-title{
+  font-family:"Bebas Neue",sans-serif;font-size:13px;letter-spacing:2px;
+  color:var(--w);background:var(--a);padding:4px 10px;border-radius:4px;
+  text-align:center;margin-bottom:6px;}
+.ko-finale-title{background:var(--r);}
 </style>
 </head>
 <body>
@@ -1087,7 +1132,7 @@ function renderFullClass(){
     h+='<div class="cls-grp-block">';
     // Header
     h+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
-    // Matchs du groupe avec numéros
+    // Matchs du groupe avec num\u00e9ros
     gmatches.forEach(function(m){
       var s=scores[m.num]||{};
       var sc1=(s.a!=null&&s.a!=='')?s.a:'-';
@@ -1111,7 +1156,7 @@ function renderFullClass(){
       var isB3=(ti===2&&b3q[tm.name]);
       var isElim=(!isQ1&&!isB3);
       var rowcls=isQ1?'q-row':isElim?'e-row':'';
-      var nmcls=isQ1?'qual':isB3?'b3':'elim';
+      var nmcls=(isQ1||isB3)?'qual':'elim';
       var db=(tm.db>0?'+':'')+tm.db;
       var dbcls=tm.db>0?'cls-db-p':tm.db<0?'cls-db-n':'cls-db-z';
       h+='<tr class="'+rowcls+'">';
@@ -1139,7 +1184,7 @@ function renderFullClass(){
   h+='<div id="modifEdit"></div>';
   h+='</div>';
 
-  // Bouton valider définitivement
+  // Bouton valider d\u00e9finitivement
   h+='<button class="bv-final" id="btnKO">&#x2714; VALIDER D&Eacute;FINITIVEMENT MES PRONOS</button>';
   h+='</div>';
 
@@ -1172,7 +1217,7 @@ function renderFullClass(){
       var v1=gi('ms1').value, v2=gi('ms2').value;
       if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
       scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
-      // Recalculer le classement et repartir de zéro sur les ex-aequo
+      // Recalculer le classement et repartir de z\u00e9ro sur les ex-aequo
       _resolved=[];
       curTie=null;
       b3Assign={};
@@ -1181,8 +1226,171 @@ function renderFullClass(){
     });
   });
 
-  gi('btnKO').addEventListener('click',function(){ph='seize';render();});
+  gi('btnKO').addEventListener('click',function(){showChoix();});
 }
+
+// \u2500\u2500 \u00c9cran de choix apr\u00e8s classement \u2500\u2500
+function showChoix(){
+  gi('pLabel').textContent='PHASE FINALE';
+  gi('card').innerHTML=
+    '<div class="mh"><div class="mm">&#x1F3C6; PHASE &Agrave; &Eacute;LIMINATION DIRECTE</div></div>'+
+    '<div class="choix-wrap">'+
+    '<div class="choix-titre">'+
+    'Voil&agrave;&nbsp;! Vous &ecirc;tes pr&ecirc;ts pour les 1/16e de finale.<br>'+
+    '<b>Souhaitez-vous&nbsp;:</b>'+
+    '</div>'+
+    '<label class="choix-opt">'+
+    '<input type="radio" name="choix" id="choixSurprise" value="surprise">'+
+    '<div><div class="choix-opt-label">&#x1F381; Avoir la surprise de vos matchs &agrave; &eacute;limination directe</div>'+
+    '<div class="choix-opt-sub">Vous passerez directement &agrave; la validation finale sans voir le tableau.</div></div>'+
+    '</label>'+
+    '<label class="choix-opt">'+
+    '<input type="radio" name="choix" id="choixTableau" value="tableau">'+
+    '<div><div class="choix-opt-label">&#x1F4CB; Voir votre tableau des matchs &agrave; &eacute;limination directe</div>'+
+    '<div class="choix-opt-sub">Vous pourrez consulter le tableau et rectifier vos pronostics si n&eacute;cessaire.</div></div>'+
+    '</label>'+
+    '<button class="choix-btn" id="btnChoixOk">&#x2192; CONTINUER</button>'+
+    '</div>';
+
+  gi('btnChoixOk').addEventListener('click', function(){
+    var sel=document.querySelector('input[name="choix"]:checked');
+    if(!sel){alert('Veuillez choisir une option.');return;}
+    if(sel.value==='surprise'){
+      ph='seize'; render();
+    } else {
+      assignBest3();
+      showTableauKO();
+    }
+  });
+}
+
+// \u2500\u2500 G\u00e9n\u00e8re le bracket KO en HTML \u2500\u2500
+function showTableauKO(){
+  gi('pLabel').textContent='TABLEAU \u2014 PHASES FINALES';
+  assignBest3();
+
+  function team(key){
+    if(!key) return '?';
+    var gm=key.match(/^([12])([A-L])$/);
+    if(gm){
+      var pos=parseInt(gm[1])-1, grp=gm[2];
+      return (clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+    }
+    if(key[0]==='3'){
+      var mn=window._cmn||0;
+      // find which seize match uses this key
+      var ms=KO.seize.ms;
+      for(var i=0;i<ms.length;i++){
+        if(ms[i].t1===key||ms[i].t2===key){
+          return b3Assign[ms[i].n]||key;
+        }
+      }
+      return key;
+    }
+    return key;
+  }
+
+  // R\u00e9soudre les \u00e9quipes pour chaque match de 1/16
+  function t(m, side){
+    var key = side===1 ? m.t1 : m.t2;
+    var gm=key.match(/^([12])([A-L])$/);
+    if(gm){
+      var pos=parseInt(gm[1])-1, grp=gm[2];
+      return (clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+    }
+    if(key[0]==='3'){
+      return b3Assign[m.n]||key;
+    }
+    return key;
+  }
+
+  var ms=KO.seize.ms;
+
+  // Build bracket: 16 matches en 2 colonnes de 8
+  // Gauche: M73,M74,M75,M76,M77,M78,M79,M80 (dans l'ordre du mod\u00e8le)
+  // Droite: M81,M82,M83,M84,M85,M86,M87,M88
+  var left  = ms.slice(0,8);
+  var right = ms.slice(8,16);
+
+  function matchBox(m){
+    var t1=t(m,1), t2=t(m,2);
+    return '<div style="margin-bottom:6px;">'+
+      '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;'+
+      'letter-spacing:1px;color:rgba(0,43,92,0.4);text-transform:uppercase;margin-bottom:2px;">'+
+      ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+      '<div style="display:flex;flex-direction:column;gap:2px;">'+
+      '<div class="ko-node">'+fl(t1)+' <span style="font-size:12px">'+ex(t1)+'</span></div>'+
+      '<div class="ko-node">'+fl(t2)+' <span style="font-size:12px">'+ex(t2)+'</span></div>'+
+      '</div></div>';
+  }
+
+  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; PHASES FINALES</div></div>';
+  h+='<div style="padding:14px 16px 0">';
+
+  // Section 1/16e
+  h+='<div class="ko-section-title">1/16E DE FINALE</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">';
+  left.forEach(function(m){ h+=matchBox(m); });
+  right.forEach(function(m){ h+=matchBox(m); });
+  h+='</div>';
+
+  // Info phases suivantes
+  h+='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;'+
+     'padding:12px;margin-bottom:14px;font-family:Barlow Condensed,sans-serif;'+
+     'font-size:12px;color:#15803d;line-height:1.6;">';
+  h+='<b>1/8e, Quarts, Demies, Finale</b> &mdash; Les adversaires se d&eacute;termineront au fil de vos pronostics&nbsp;!';
+  h+='</div>';
+
+  // Zone modification
+  h+='<div class="modif-zone">';
+  h+='<div class="modif-label">Si vous souhaitez modifier le r&eacute;sultat d\'un match de poule,<br>indiquez ici son num&eacute;ro (1 &agrave; 72)&nbsp;:</div>';
+  h+='<div class="modif-input-row">';
+  h+='<input class="modif-num-input" id="modifNum2" type="number" min="1" max="72" placeholder="N&deg;">';
+  h+='<button class="modif-btn" id="btnModif2">&#x2192; AFFICHER</button>';
+  h+='</div><div id="modifEdit2"></div></div>';
+
+  // Bouton passer aux 1/16e
+  h+='<button class="bv-final" id="btnGoSeize">&#x2714; VALIDER D&Eacute;FINITIVEMENT ET PASSER AUX 1/16e</button>';
+  h+='</div>';
+
+  gi('card').innerHTML=h;
+
+  // Bouton modifier score
+  gi('btnModif2').addEventListener('click',function(){
+    var n=parseInt(gi('modifNum2').value);
+    if(!n||n<1||n>72){
+      gi('modifEdit2').innerHTML='<p style="color:var(--r);font-size:12px;margin-top:8px">Num&eacute;ro invalide (1-72).</p>';
+      return;
+    }
+    var m=MATCHES.find(function(x){return x.num===n;});
+    if(!m){gi('modifEdit2').innerHTML='';return;}
+    var s=scores[m.num]||{};
+    var ed='<div class="modif-match-edit">';
+    ed+='<div class="modif-match-title">MATCH '+n+' &mdash; '+ex(m.date)+' &middot; '+ex(m.h)+'</div>';
+    ed+='<div class="modif-score-row">';
+    ed+='<span class="modif-eq">'+ex(m.e1)+'</span>';
+    ed+='<input class="modif-si" id="mms1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
+    ed+='<span style="font-size:18px;color:#bbb">&ndash;</span>';
+    ed+='<input class="modif-si" id="mms2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
+    ed+='<span class="modif-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+    ed+='</div>';
+    ed+='<button class="modif-val-btn" id="btnModifVal2">&#x2714; VALIDER CE SCORE</button>';
+    ed+='</div>';
+    gi('modifEdit2').innerHTML=ed;
+    gi('btnModifVal2').addEventListener('click',function(){
+      var v1=gi('mms1').value,v2=gi('mms2').value;
+      if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+      scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
+      _resolved=[]; curTie=null; b3Assign={};
+      cClass(); render();
+    });
+  });
+
+  gi('btnGoSeize').addEventListener('click',function(){
+    b3Assign={}; assignBest3(); ph='seize'; render();
+  });
+}
+
 
 function rTie(){
   var t=curTie;
@@ -1357,14 +1565,14 @@ function bExcel(ps,em){
   btn.textContent='\u23F3 Enregistrement...';
   btn.disabled=true;
 
-  // ── Palette (calquée sur le modèle ODS)
+  // \u2500\u2500 Palette (calqu\u00e9e sur le mod\u00e8le ODS)
   var C={
     BLU:'FF004586', AZU:'FF0066CC', GRN:'FFCCFF99',
     YEL:'FFFFFF99', WHT:'FFFFFFFF', NON:'00000000',
     BLK:'FF000000', GRY:'FF7F7F7F'
   };
 
-  // ── Helpers de style
+  // \u2500\u2500 Helpers de style
   function f(bold,sz,rgb,italic){return {bold:!!bold,sz:sz||11,color:{rgb:rgb||C.BLK},italic:!!italic};}
   function bg(rgb){return {fgColor:{rgb:rgb}};}
   function al(h,v,wrap){return {horizontal:h||'general',vertical:v||'bottom',wrapText:!!wrap};}
@@ -1394,7 +1602,7 @@ function bExcel(ps,em){
 
   function mg(r,c1,c2){merges.push({s:{r:r,c:c1},e:{r:r,c:c2}});}
 
-  // ════ LIGNE 1 – Titre + Pseudo ════
+  // \u2550\u2550\u2550\u2550 LIGNE 1 \u2013 Titre + Pseudo \u2550\u2550\u2550\u2550
   var r0=addRow([
     cel('LA COUPE DU MONDE DES PRONOSTIQUEURS \u2013 USA 2026',f(1,16,C.WHT),bg(C.BLU),al('general','center')),
     emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
@@ -1403,7 +1611,7 @@ function bExcel(ps,em){
   ]);
   mg(r0,0,8); mg(r0,9,13);
 
-  // ════ GROUPES ════
+  // \u2550\u2550\u2550\u2550 GROUPES \u2550\u2550\u2550\u2550
   var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
 
   GROUPS.forEach(function(grp){
@@ -1443,7 +1651,7 @@ function bExcel(ps,em){
         cel(m.e2,  f(1,12,C.BLK),null,al('general','bottom')),
         emp(),emp(),emp(),emp(),emp()
       ];
-      // Classement (4 premières lignes du groupe)
+      // Classement (4 premi\u00e8res lignes du groupe)
       if(i<4&&cl[i]){
         var tm=cl[i];
         var db=(tm.db>0?'+':'')+tm.db;
@@ -1457,7 +1665,7 @@ function bExcel(ps,em){
     });
   });
 
-  // ════ PHASES FINALES ════
+  // \u2550\u2550\u2550\u2550 PHASES FINALES \u2550\u2550\u2550\u2550
   addRow([]);
   var rPH=addRow([cel('PHASES FINALES',f(1,14,C.WHT),bg(C.BLU),al('general','center')),
     emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()]);
@@ -1484,7 +1692,7 @@ function bExcel(ps,em){
     phd.ms.forEach(function(m){
       var mn=m.n;
 
-      // Résolution des équipes
+      // R\u00e9solution des \u00e9quipes
       function resolveKey(key){
         if(!key)return key;
         var gm=key.match(/^([12])([A-L])$/);
@@ -1493,7 +1701,7 @@ function bExcel(ps,em){
           return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
         }
         if(key[0]==='3'){
-          // Utiliser b3Assign (assignation FIFA définitive)
+          // Utiliser b3Assign (assignation FIFA d\u00e9finitive)
           var assigned=b3Assign[String(mn)]||b3Assign[mn];
           return assigned||key;
         }
@@ -1551,7 +1759,7 @@ function bExcel(ps,em){
     addRow([]);
   });
 
-  // ════ CHAMPION ════
+  // \u2550\u2550\u2550\u2550 CHAMPION \u2550\u2550\u2550\u2550
   var champ='?';
   var pfw=koW['finale']||{};
   var pfkeys=Object.keys(pfw);
@@ -1571,7 +1779,7 @@ function bExcel(ps,em){
     emp(),emp(),emp(),emp(),emp()]);
   mg(rFoot,0,13);
 
-  // ════ ASSEMBLAGE FEUILLE ════
+  // \u2550\u2550\u2550\u2550 ASSEMBLAGE FEUILLE \u2550\u2550\u2550\u2550
   var ws2=XLSX.utils.aoa_to_sheet(rows.map(function(row){
     return row.map(function(c){return(c&&c.v!=null)?c.v:null;});
   }));
