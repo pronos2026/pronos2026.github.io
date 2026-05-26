@@ -1587,11 +1587,11 @@ function rTeam(key){
 
 function rTableau(){
   gi('pFill').style.width='100%';
-  gi('pLabel').textContent='TABLEAU \u2014 1/16E DE FINALE';
+  gi('pLabel').textContent='TABLEAU \u2014 PHASE FINALE';
   assignBest3();
 
-  // ── Helper: build match row (no horaire, num cliquable)
-  function matchRow(m, sideClass){
+  // ── Helper: match row for groups panel
+  function matchRow(m){
     var s=scores[m.num]||{};
     var sc1=(s.a!=null&&s.a!=='')? s.a:'-', sc2=(s.b!=null&&s.b!=='')? s.b:'-';
     return '<div class="cls-match-row">'+
@@ -1604,31 +1604,253 @@ function rTableau(){
       '</div>';
   }
 
-  // ── Build 1/16 bracket HTML
-  function matchBox(m){
-    window._cmn=m.n;
-    var t1=rTeam(m.t1),t2=rTeam(m.t2);
-    return '<div style="margin-bottom:8px">'+
-      '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;letter-spacing:1px;'+
-      'color:rgba(0,43,92,0.4);text-transform:uppercase;margin-bottom:2px">'+
-      ex(m.lb)+' \u00b7 '+ex(m.dt)+'</div>'+
-      '<div style="display:flex;flex-direction:column;gap:2px">'+
-      '<div class="ko-node">'+fl(t1)+' <span style="font-size:12px">'+ex(t1)+'</span></div>'+
-      '<div class="ko-node">'+fl(t2)+' <span style="font-size:12px">'+ex(t2)+'</span></div>'+
-      '</div></div>';
-  }
-  var ms=KO.seize.ms;
-  var BRACKET_ORDER=[[74,77],[73,75],[83,84],[81,82],[76,78],[79,80],[86,88],[85,87]];
-  function findMatch(n){return ms.find(function(m){return m.n===n;});}
+  // ── SVG Bracket complet ──────────────────────────────────
+  function buildBracketSVG(){
+    // Helpers
+    function findM16(n){ return KO.seize.ms.find(function(m){return m.n===n;}); }
+    function findM8(n){  return KO.huit.ms.find(function(m){return m.n===n;}); }
+    function findMQ(n){  return KO.quart.ms.find(function(m){return m.n===n;}); }
+    function findMD(n){  return KO.demi.ms.find(function(m){return m.n===n;}); }
+    function findMF(n){  return KO.finale.ms.find(function(m){return m.n===n;}); }
 
-  var bracketHtml='<div class="ko-section-title">1/16E DE FINALE</div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">';
-  BRACKET_ORDER.forEach(function(pair){
-    var ml=findMatch(pair[0]),mr=findMatch(pair[1]);
-    if(ml)bracketHtml+=matchBox(ml);
-    if(mr)bracketHtml+=matchBox(mr);
-  });
-  bracketHtml+='</div>';
+    function team(mn, key){
+      window._cmn = mn;
+      return rTeam(key);
+    }
+
+    // Layout
+    var BW = 110;   // box width
+    var BH = 17;    // box height per team
+    var LH = 11;    // label height above box
+    var MH = LH + BH*2 + 3; // total match block height (label+2teams+gap)
+    var COL = 30;   // gap between columns
+
+    // X positions for columns
+    var X16  = 8;
+    var X8   = X16 + BW + COL;
+    var XQF  = X8  + BW + COL;
+    var XDF  = XQF + BW + COL;
+    var XFIN = XDF + BW + COL;
+    var SVG_W = XFIN + BW + 8;
+
+    // Colors
+    var CB   = '#002B5C';  // dark blue (text, borders)
+    var CA   = '#0077C8';  // azure (phase headers)
+    var CR   = '#D0021B';  // red (pts / highlight)
+    var CW   = '#FFFFFF';  // white
+    var CLN  = '#93B4D4';  // connector line color
+    var CBRD = '#C8D6E8';  // box border
+    var CSUB = '#6B84A0';  // label text
+    var CWIN = '#f0fdf4';  // winner tint
+    var CWBRD= '#16a34a';  // winner border
+
+    // ── draw one matchbox ──────────────────────────────────
+    // Returns SVG string + midY (center between 2 team boxes)
+    function matchBox(x, y, mn, t1key, t2key, label, phaseLabel){
+      var t1 = team(mn, t1key);
+      var t2 = team(mn, t2key);
+      var midY = y + LH + BH + 1.5; // center between team 1 bottom and team 2 top
+
+      var w = koW[phaseLabel]||{};
+      var winner = w[mn]||w[String(mn)]||'';
+
+      var b1fill = (winner&&winner===t1) ? CWIN : CW;
+      var b2fill = (winner&&winner===t2) ? CWIN : CW;
+      var b1brd  = (winner&&winner===t1) ? CWBRD : CBRD;
+      var b2brd  = (winner&&winner===t2) ? CWBRD : CBRD;
+
+      var out = '';
+      // Label
+      out += '<text x="'+(x+2)+'" y="'+(y+8)+'" font-family="Barlow Condensed,sans-serif" font-size="8.5" fill="'+CSUB+'" letter-spacing="0.3">'+ex(label)+'</text>';
+      // Team 1 box
+      out += '<rect x="'+x+'" y="'+(y+LH)+'" width="'+BW+'" height="'+BH+'" rx="2.5" fill="'+b1fill+'" stroke="'+b1brd+'" stroke-width="0.8"/>';
+      out += '<text x="'+(x+5)+'" y="'+(y+LH+BH-4)+'" font-family="Barlow Condensed,sans-serif" font-size="10.5" font-weight="700" fill="'+CB+'" clip-path="">'+ex(t1)+'</text>';
+      // Team 2 box
+      out += '<rect x="'+x+'" y="'+(y+LH+BH+3)+'" width="'+BW+'" height="'+BH+'" rx="2.5" fill="'+b2fill+'" stroke="'+b2brd+'" stroke-width="0.8"/>';
+      out += '<text x="'+(x+5)+'" y="'+(y+LH+BH+3+BH-4)+'" font-family="Barlow Condensed,sans-serif" font-size="10.5" font-weight="700" fill="'+CB+'">'+ex(t2)+'</text>';
+      return {svg:out, midY:midY};
+    }
+
+    // ── draw elbow connector ───────────────────────────────
+    // Connects right-edge of box at y1 to left-edge of next box at y2,
+    // meeting at a vertical midpoint with horizontal arms
+    function elbow(x1, y1, y2, x2){
+      var elbX = x1 + (x2-x1)*0.5;
+      var midY = (y1+y2)*0.5;
+      return '<polyline points="'+x1+','+y1+' '+elbX+','+y1+' '+elbX+','+y2+' '+x1+','+y2+'" fill="none" stroke="'+CLN+'" stroke-width="1.2" stroke-linecap="round"/>'+
+             '<line x1="'+elbX+'" y1="'+midY+'" x2="'+x2+'" y2="'+midY+'" stroke="'+CLN+'" stroke-width="1.2" stroke-linecap="round"/>';
+    }
+
+    // ── Phase header band ──────────────────────────────────
+    function phaseHdr(x, y, w, label, color){
+      var bg = color||CA;
+      return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="14" rx="2.5" fill="'+bg+'"/>'+
+             '<text x="'+(x+w/2)+'" y="'+(y+10)+'" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="9.5" letter-spacing="1.5" fill="#fff">'+label+'</text>';
+    }
+
+    // ── BRACKET STRUCTURE ──────────────────────────────────
+    // Top half: 8 m16 -> 4 m8 -> 2 QF -> 1 DF
+    // Bot half: 8 m16 -> 4 m8 -> 2 QF -> 1 DF
+    // Both DFs -> FINALE
+    //
+    // Top groups (pairs of m16 -> one m8):
+    //  G0: M74+M77 -> M89 -> QF1(M97) -> DF1(M101)
+    //  G1: M73+M75 -> M90 -> QF1(M97)
+    //  G2: M83+M84 -> M93 -> QF2(M98) -> DF1(M101)
+    //  G3: M81+M82 -> M94 -> QF2(M98)
+    // Bot groups:
+    //  G4: M76+M78 -> M91 -> QF3(M99) -> DF2(M102)
+    //  G5: M79+M80 -> M92 -> QF3(M99)
+    //  G6: M86+M88 -> M95 -> QF4(M100) -> DF2(M102)
+    //  G7: M85+M87 -> M96 -> QF4(M100)
+
+    var GROUPS = [
+      // top half
+      {m16a:74, m16b:77, m8:89,  qf:97,  df:101, fin:104},
+      {m16a:73, m16b:75, m8:90,  qf:97,  df:101, fin:104},
+      {m16a:83, m16b:84, m8:93,  qf:98,  df:101, fin:104},
+      {m16a:81, m16b:82, m8:94,  qf:98,  df:101, fin:104},
+      // bottom half
+      {m16a:76, m16b:78, m8:91,  qf:99,  df:102, fin:104},
+      {m16a:79, m16b:80, m8:92,  qf:99,  df:102, fin:104},
+      {m16a:86, m16b:88, m8:95,  qf:100, df:102, fin:104},
+      {m16a:85, m16b:87, m8:96,  qf:100, df:102, fin:104}
+    ];
+
+    // Vertical spacing
+    var PAD_TOP = 22;          // below phase headers
+    var GAP_16  = 6;           // gap between m16a and m16b within a group
+    var GAP_GRP = 14;          // gap between groups
+    var GAP_HALF= 20;          // extra gap between top and bottom halves
+
+    // Compute Y positions for each of 8 groups
+    var groupY = [];
+    var y = PAD_TOP;
+    for(var gi=0; gi<8; gi++){
+      if(gi===4) y += GAP_HALF; // extra separation between halves
+      groupY.push(y);
+      y += MH + GAP_16 + MH + GAP_GRP;
+    }
+    var SVG_H = y + 20;
+
+    var svg = '';
+
+    // Phase header row
+    svg += phaseHdr(X16,  4, BW, '1/16E DE FINALE');
+    svg += phaseHdr(X8,   4, BW, '1/8E DE FINALE');
+    svg += phaseHdr(XQF,  4, BW, 'QUARTS');
+    svg += phaseHdr(XDF,  4, BW, 'DEMI-FINALES');
+    svg += phaseHdr(XFIN, 4, BW, 'FINALE', '#D0021B');
+
+    // Draw all groups
+    var m8MidYByN  = {};
+    var qfMidYByN  = {};
+    var dfMidYByN  = {};
+
+    GROUPS.forEach(function(g, gi){
+      var gy = groupY[gi];
+      var ma16 = findM16(g.m16a);
+      var mb16 = findM16(g.m16b);
+      var m8   = findM8(g.m8);
+
+      // ── Draw two m16 matchboxes ──────────────
+      var y16a = gy;
+      var y16b = gy + MH + GAP_16;
+
+      var lbl16a = 'M'+g.m16a + (ma16?' \u00b7 '+ma16.dt:'');
+      var lbl16b = 'M'+g.m16b + (mb16?' \u00b7 '+mb16.dt:'');
+      var ta16 = ma16||{t1:'?',t2:'?'};
+      var tb16 = mb16||{t1:'?',t2:'?'};
+
+      var ra = matchBox(X16, y16a, g.m16a, ta16.t1, ta16.t2, lbl16a, 'seize');
+      var rb = matchBox(X16, y16b, g.m16b, tb16.t1, tb16.t2, lbl16b, 'seize');
+      svg += ra.svg;
+      svg += rb.svg;
+
+      // ── Connector m16 -> m8 ──────────────────
+      var midTop = ra.midY;
+      var midBot = rb.midY;
+      var x1conn = X16 + BW;
+      var x2conn = X8;
+      svg += elbow(x1conn, midTop, midBot, x2conn);
+
+      // ── Draw m8 matchbox ─────────────────────
+      var ym8 = (midTop + midBot) / 2 - (LH + BH + 1.5);
+      var lbl8 = 'M'+g.m8 + (m8?' \u00b7 '+m8.dt:'');
+      var tm8 = m8||{t1:'V'+g.m16a, t2:'V'+g.m16b};
+      var rm8 = matchBox(X8, ym8, g.m8, tm8.t1, tm8.t2, lbl8, 'huit');
+      svg += rm8.svg;
+      m8MidYByN[g.m8] = rm8.midY;
+
+      // QF and DF are rendered after all m8s are placed (need pairs)
+    });
+
+    // ── Draw QF matchboxes (after m8 midY known) ──
+    // QF pairs: (G0.m8+G1.m8 -> G0.qf=G1.qf), (G2.m8+G3.m8 -> G2.qf), etc.
+    var qfPairs = [
+      {m8a:89, m8b:90, qfn:97,  dfn:101},
+      {m8a:93, m8b:94, qfn:98,  dfn:101},
+      {m8a:91, m8b:92, qfn:99,  dfn:102},
+      {m8a:95, m8b:96, qfn:100, dfn:102}
+    ];
+    qfPairs.forEach(function(p){
+      var ya = m8MidYByN[p.m8a];
+      var yb = m8MidYByN[p.m8b];
+      if(ya==null||yb==null)return;
+      svg += elbow(X8+BW, ya, yb, XQF);
+      var yqf = (ya+yb)/2 - (LH+BH+1.5);
+      var mq  = findMQ(p.qfn);
+      var tmq = mq||{t1:'V'+p.m8a, t2:'V'+p.m8b};
+      var lblq= (mq?mq.lb:('QF'+p.qfn))+' \u00b7 '+(mq?mq.dt:'');
+      var rq  = matchBox(XQF, yqf, p.qfn, tmq.t1, tmq.t2, lblq, 'quart');
+      svg += rq.svg;
+      qfMidYByN[p.qfn] = rq.midY;
+    });
+
+    // ── Draw DF matchboxes ──
+    var dfPairs = [
+      {qfa:97, qfb:98, dfn:101, finn:104},
+      {qfa:99, qfb:100,dfn:102, finn:104}
+    ];
+    dfPairs.forEach(function(p){
+      var ya = qfMidYByN[p.qfa];
+      var yb = qfMidYByN[p.qfb];
+      if(ya==null||yb==null)return;
+      svg += elbow(XQF+BW, ya, yb, XDF);
+      var ydf = (ya+yb)/2 - (LH+BH+1.5);
+      var md  = findMD(p.dfn);
+      var tmd = md||{t1:'V'+p.qfa, t2:'V'+p.qfb};
+      var lbld= (md?md.lb:('DF'+p.dfn))+' \u00b7 '+(md?md.dt:'');
+      var rd  = matchBox(XDF, ydf, p.dfn, tmd.t1, tmd.t2, lbld, 'demi');
+      svg += rd.svg;
+      dfMidYByN[p.dfn] = rd.midY;
+    });
+
+    // ── Draw FINALE ──
+    var yda = dfMidYByN[101];
+    var ydb = dfMidYByN[102];
+    if(yda!=null && ydb!=null){
+      svg += elbow(XDF+BW, yda, ydb, XFIN);
+      var yfin = (yda+ydb)/2 - (LH+BH+1.5);
+      var mf   = findMF(104);
+      var tmf  = mf||{t1:'V101', t2:'V102'};
+      var lblf = '\u26BD FINALE \u00b7 '+(mf?mf.dt:'19 juil');
+      var rf   = matchBox(XFIN, yfin, 104, tmf.t1, tmf.t2, lblf, 'finale');
+      svg += rf.svg;
+
+      // Champion
+      var win = (koW.finale&&(koW.finale[104]||koW.finale['104']))||'';
+      if(win){
+        var ywin = yfin + LH + BH*2 + 3 + 14;
+        svg += '<rect x="'+(XFIN-1)+'" y="'+ywin+'" width="'+(BW+2)+'" height="16" rx="3" fill="#fef9e7" stroke="#fcd34d" stroke-width="0.8"/>';
+        svg += '<text x="'+(XFIN+BW/2)+'" y="'+(ywin+11)+'" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="10.5" fill="#b45309" letter-spacing="1">\uD83C\uDFC6 '+ex(win)+'</text>';
+      }
+    }
+
+    return '<svg viewBox="0 0 '+SVG_W+' '+SVG_H+'" width="100%" style="display:block;min-width:480px" xmlns="http://www.w3.org/2000/svg">'+svg+'</svg>';
+  }
+
+  var bracketHtml = '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px">'+buildBracketSVG()+'</div>';
 
   // ── Build groups HTML (no horaire, clickable num)
   var b3q=getB3Qualified();
@@ -1658,20 +1880,20 @@ function rTableau(){
     groupsHtml+='</tbody></table></div>';
   });
 
-  // ── Edit zone HTML (shared, rendered in left panel on desktop / below on mobile)
+  // ── Edit zone
   var editZoneHtml='<div id="editZone"></div>';
-  var hintHtml='<div class="modif-hint">Pour modifier un r\u00e9sultat, cliquez sur le num\u00e9ro du match</div>';
+  var hintHtml='<div class="modif-hint" style="margin-top:10px">Pour modifier un r\u00e9sultat, cliquez sur le num\u00e9ro du match dans la colonne de droite</div>';
 
   // ── Final button
   var finalBtn='<button class="bv-final" id="btnGoSeize">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
 
-  // ── Assemble : desktop = 2 colonnes, mobile = stack
-  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; 1/16E DE FINALE</div></div>';
+  // ── Assemble layout
+  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; PHASE FINALE</div></div>';
   h+='<div class="tab-desktop-wrap">';
 
-  // Colonne gauche
   h+='<div class="tab-left">';
   h+='<div class="tab-left-inner">';
+  h+='<div class="ko-section-title" style="margin-bottom:8px">1/16E DE FINALE &rarr; FINALE</div>';
   h+=bracketHtml;
   h+=hintHtml;
   h+=editZoneHtml;
@@ -1679,33 +1901,29 @@ function rTableau(){
   h+='<div class="tab-left-footer">'+finalBtn+'</div>';
   h+='</div>';
 
-  // Colonne droite
   h+='<div class="tab-right">';
   h+='<div class="tab-right-inner">';
   h+='<div class="ko-section-title" style="background:var(--b)">CLASSEMENTS DES GROUPES</div>';
   h+=groupsHtml;
-  // Mobile only: old modif zone + button
   h+='<div class="tab-old-modif">';
   h+=buildModifZone('modifNum2','modifEdit2','btnModif2');
   h+='<button class="bv-final" id="btnGoSeize2">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
   h+='</div>';
-  h+='</div></div>'; // tab-right-inner, tab-right
+  h+='</div></div>';
 
-  h+='</div>'; // tab-desktop-wrap
+  h+='</div>';
 
   gi('card').innerHTML=h;
-  // Activate wide mode for desktop tableau
   gi('card').classList.add('tableau-mode');
   var mainEl=document.querySelector('.main');
   if(mainEl)mainEl.classList.add('tableau-mode');
 
-  // ── Click handler on match number buttons (works on both desktop & mobile)
+  // ── Click handlers on match number buttons
   function setupNumClicks(){
     var btns=gi('card').querySelectorAll('.cls-match-num-btn');
     btns.forEach(function(btn){
       btn.addEventListener('click',function(){
         var mn=parseInt(btn.getAttribute('data-mn'));
-        // Highlight active
         btns.forEach(function(b){b.classList.remove('active');});
         btn.classList.add('active');
         showEditMatch(mn);
@@ -1744,16 +1962,12 @@ function rTableau(){
 
   setupNumClicks();
 
-  // Mobile: also setup old modif zone
   if(gi('btnModif2')){
     setupModifListeners('modifNum2','modifEdit2','btnModif2','btnGoSeize2',true);
     gi('btnGoSeize2').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
   }
-
-  // Final button (desktop left panel)
   gi('btnGoSeize').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
 }
-
 
 // ===== PHASES KO =====
 var NXT={seize:'huit',huit:'quart',quart:'demi',demi:'finale',finale:'valid'};
