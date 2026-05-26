@@ -255,27 +255,47 @@ footer a{color:var(--a);text-decoration:none;}
 
 /* ══ LAYOUT DESKTOP TABLEAU ══ */
 @media (min-width:900px) and (orientation:landscape),(min-width:1100px){
+  /* Etendre le conteneur principal en mode tableau */
+  .main.tableau-mode{
+    max-width:98vw;
+    padding:12px 8px;
+  }
+  .card.tableau-mode{
+    overflow:visible;
+  }
   .tab-desktop-wrap{
-    display:flex;height:calc(100vh - 140px);overflow:hidden;
+    display:flex;
+    height:calc(100vh - 130px);
+    overflow:hidden;
+    width:100%;
   }
   /* Colonne gauche fixe */
   .tab-left{
-    width:380px;min-width:320px;flex-shrink:0;
+    width:340px;min-width:280px;flex-shrink:0;
     display:flex;flex-direction:column;
     overflow-y:auto;
     border-right:2px solid #eef1f6;
     background:var(--w);
   }
-  .tab-left-inner{padding:14px 16px;flex:1;}
+  .tab-left-inner{padding:12px 14px;flex:1;}
   .tab-left-footer{
-    padding:12px 16px;border-top:2px solid #eef1f6;
+    padding:10px 14px;border-top:2px solid #eef1f6;
     background:#f8f9fc;flex-shrink:0;
   }
   /* Colonne droite scrollable */
   .tab-right{
-    flex:1;overflow-y:auto;background:var(--gr);
+    flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;background:var(--gr);
   }
-  .tab-right-inner{padding:12px 14px;}
+  .tab-right-inner{padding:10px 12px;}
+  /* Adapter le tableau de classement pour la colonne droite */
+  .tab-right .cls-grp-tbl{font-size:11px;}
+  .tab-right .cls-grp-tbl th,.tab-right .cls-grp-tbl td{padding:5px 4px;}
+  .tab-right .cls-tnm{font-size:11px;}
+  .tab-right .cls-match-row{padding:3px 8px;font-size:11px;}
+  .tab-right .cls-match-num-btn{width:24px;height:24px;font-size:13px;}
+  .tab-right .cls-match-eq{font-size:11px;}
+  .tab-right .cls-match-sc{font-size:12px;}
+  .tab-right .cls-pts{font-size:13px;}
   /* Mobile : stack normal */
   .tab-desktop-wrap .tab-left,
   .tab-desktop-wrap .tab-right{display:flex;}
@@ -344,6 +364,31 @@ footer a{color:var(--a);text-decoration:none;}
 @media (min-width:900px) and (orientation:landscape),(min-width:1100px){
   .tab-old-modif{display:none;}
 }
+
+/* ── Bouton page précédente ── */
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px 5px 7px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:rgba(255,255,255,0.7);
+  cursor:pointer;
+  transition:background 0.2s,color 0.2s;
+  margin-bottom:4px;
+}
+.back-btn:hover{background:rgba(255,255,255,0.22);color:#fff;}
+.back-btn svg{flex-shrink:0;}
+.pb-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 16px 2px;background:var(--b);
+}
+.pb-row-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;letter-spacing:2px;color:#aac8e8;
+}
 </style>
 </head>
 <body>
@@ -368,6 +413,7 @@ footer a{color:var(--a);text-decoration:none;}
   <li><a href="favoris.html">Favoris</a></li>
   <li><a href="grilles.html" class="active">Grilles</a></li>
 </ul></nav>
+<div id="backRow" class="pb-row" style="display:none"><button class="back-btn" id="backBtn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Page précédente</button><span class="pb-row-label" id="backLabel"></span></div>
 <div class="pb">
   <div class="pl" id="pLabel">MATCH 1 / 72 &mdash; PHASE DE GROUPES</div>
   <div class="pbr"><div class="pf" id="pFill"></div></div>
@@ -1052,7 +1098,99 @@ var _resolved=[], b3Assign={};
 var uPseudos=[];
 try{uPseudos=JSON.parse(localStorage.getItem('up2026')||'[]');}catch(e){}
 
+// ── HISTORIQUE de navigation (pour "page précédente") ──
+var navHistory=[];  // pile des états passés
+
+function saveSnapshot(){
+  // Capture l'état complet
+  return {
+    ph:ph, idx:idx,
+    scores:JSON.parse(JSON.stringify(scores)),
+    koW:JSON.parse(JSON.stringify(koW)),
+    koIdx:JSON.parse(JSON.stringify(koIdx)),
+    clR:clR?JSON.parse(JSON.stringify(clR)):null,
+    _resolved:_resolved.slice(),
+    b3Assign:JSON.parse(JSON.stringify(b3Assign)),
+    curTie:curTie?JSON.parse(JSON.stringify(curTie)):null
+  };
+}
+
+function restoreSnapshot(snap){
+  ph=snap.ph; idx=snap.idx;
+  scores=snap.scores;
+  koW=snap.koW;
+  koIdx=snap.koIdx;
+  clR=snap.clR;
+  _resolved=snap._resolved;
+  b3Assign=snap.b3Assign;
+  curTie=snap.curTie;
+}
+
+function pushHistory(){
+  navHistory.push(saveSnapshot());
+  if(navHistory.length>50) navHistory.shift();
+}
+
+function goBack(){
+  if(navHistory.length===0) return;
+  var snap=navHistory.pop();
+  restoreSnapshot(snap);
+  render();
+}
+
+// ── SAUVEGARDE AUTO en localStorage ──
+var SAVE_KEY='grille2026_save';
+
+function saveProgress(){
+  try{
+    var snap=saveSnapshot();
+    localStorage.setItem(SAVE_KEY, JSON.stringify(snap));
+  }catch(e){}
+}
+
+function loadProgress(){
+  try{
+    var raw=localStorage.getItem(SAVE_KEY);
+    if(!raw) return false;
+    var snap=JSON.parse(raw);
+    if(!snap||!snap.ph) return false;
+    // Ne pas restaurer si déjà commencé
+    if(idx===0&&ph==='poule'&&Object.keys(scores).length===0){
+      restoreSnapshot(snap);
+      return true;
+    }
+    return false;
+  }catch(e){return false;}
+}
+
+function clearSave(){
+  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+}
+
+function updateBackBtn(){
+  var row=document.getElementById('backRow');
+  var btn=document.getElementById('backBtn');
+  if(!row||!btn) return;
+  if(navHistory.length===0){
+    row.style.display='none';
+  } else {
+    row.style.display='flex';
+    btn.onclick=function(){goBack();};
+  }
+}
+
 function render(){
+  // Remove tableau-mode when leaving tableau
+  if(ph!=='tableau'){
+    var m2=document.querySelector('.main');
+    var c2=document.querySelector('.card');
+    if(m2)m2.classList.remove('tableau-mode');
+    if(c2)c2.classList.remove('tableau-mode');
+  }
+  // Update back button
+  updateBackBtn();
+  // Auto-save
+  saveProgress();
   try{
     if(ph==='poule')         rPoule();
     else if(ph==='classement') rClass();
@@ -1121,6 +1259,7 @@ function rPoule(){
   gi('btnVal').addEventListener('click',function(){
     var v1=gi('s1').value,v2=gi('s2').value;
     if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+    pushHistory();
     scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
     idx++;
     if(idx>=72){cClass();ph='classement';}
@@ -1304,6 +1443,7 @@ function renderClassement(showChoix){
     gi('btnChoixOk').addEventListener('click',function(){
       var sel=document.querySelector('input[name="choix"]:checked');
       if(!sel){alert('Veuillez choisir une option.');return;}
+      pushHistory();
       if(sel.value==='surprise'){ph='seize';render();}
       else{assignBest3();ph='tableau';render();}
     });
@@ -1381,6 +1521,7 @@ function rTie(){
       for(var i=0;i<arr.length;i++){if(arr[i].name===winner)wi=i;if(arr[i].name===loser)li=i;}
       if(wi>=0&&li>=0&&wi>li){var tmp=arr[wi];arr[wi]=arr[li];arr[li]=tmp;}
     }
+    pushHistory();
     _resolved.push(winner+'|'+loser);
     curTie=null;
     ph='classement';render();
@@ -1547,6 +1688,10 @@ function rTableau(){
   h+='</div>'; // tab-desktop-wrap
 
   gi('card').innerHTML=h;
+  // Activate wide mode for desktop tableau
+  gi('card').classList.add('tableau-mode');
+  var mainEl=document.querySelector('.main');
+  if(mainEl)mainEl.classList.add('tableau-mode');
 
   // ── Click handler on match number buttons (works on both desktop & mobile)
   function setupNumClicks(){
@@ -1639,7 +1784,7 @@ function rKO(p){
     gi('card').innerHTML=
       '<div class="ph"><h2>'+ex(KO[p].tit)+'</h2><p>Tous les matchs pronostiqu\u00e9s \u2714</p></div>'+
       '<div style="padding:16px 18px"><button class="bv" id="btnNxt">\u2192 '+NXTL[p]+'</button></div>';
-    gi('btnNxt').addEventListener('click',function(){ph=NXT[p];render();});
+    gi('btnNxt').addEventListener('click',function(){pushHistory();ph=NXT[p];render();});
     return;
   }
 
@@ -1659,6 +1804,7 @@ function rKO(p){
   function showVal(){
     gi('valzone').innerHTML='<button class="bv" id="btnVal">&#x2714; VALIDER</button>';
     gi('btnVal').addEventListener('click',function(){
+      pushHistory();
       if(!koW[p])koW[p]={};
       koW[p][m.n]=selected;
       koIdx[p]++;
@@ -1940,6 +2086,7 @@ function bExcel(ps,em){
 
   uPseudos.push(ps.toLowerCase());
   try{localStorage.setItem('up2026',JSON.stringify(uPseudos));}catch(e){}
+  clearSave();
   ph='done';render();
 }
 
@@ -1953,7 +2100,24 @@ function rDone(){
     'Bonne chance pour la Coupe du Monde 2026&nbsp;!</p></div>';
 }
 
-render();
+// ── Restauration automatique si sauvegarde existante ──
+(function(){
+  var restored=loadProgress();
+  if(restored&&ph!=='done'){
+    var msg=document.createElement('div');
+    msg.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);'+
+      'background:#002B5C;color:#fff;padding:10px 18px;border-radius:8px;'+
+      'font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;'+
+      'letter-spacing:1px;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.3);'+
+      'text-align:center;';
+    msg.innerHTML='&#x21BA; Reprise de votre grille en cours...';
+    document.body.appendChild(msg);
+    setTimeout(function(){
+      if(msg.parentNode)msg.parentNode.removeChild(msg);
+    },2500);
+  }
+  render();
+})();
 </script>
 </body>
 </html>
