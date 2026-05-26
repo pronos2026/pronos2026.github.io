@@ -194,6 +194,21 @@
     }
   
     .desktop-hero { display: none; }
+    /* Mobile-promo : image alignée avec le contenu */
+    .mobile-promo {
+      background: var(--noir);
+      padding: 0 40px 0;
+      line-height: 0;
+      text-align: center;
+    }
+    .mobile-promo img {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
     @media (min-width: 700px) and (orientation: landscape),
            (min-width: 900px) {
       .mobile-promo { display: none; }
