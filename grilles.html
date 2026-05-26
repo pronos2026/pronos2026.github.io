@@ -388,6 +388,7 @@ footer a{color:var(--a);text-decoration:none;}
   display:flex;align-items:center;justify-content:space-between;
   padding:6px 16px 2px;background:var(--b);
 }
+.refresh-btn{margin-left:auto;}
 .pb-row-label{
   font-family:'Barlow Condensed',sans-serif;
   font-size:11px;letter-spacing:2px;color:#aac8e8;
@@ -416,7 +417,7 @@ footer a{color:var(--a);text-decoration:none;}
   <li><a href="favoris.html">Favoris</a></li>
   <li><a href="grilles.html" class="active">Grilles</a></li>
 </ul></nav>
-<div id="backRow" class="pb-row" style="display:none"><button class="back-btn" id="backBtn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Page précédente</button><span class="pb-row-label" id="backLabel"></span></div>
+<div id="backRow" class="pb-row" style="display:none"><button class="back-btn" id="backBtn"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Page pr&eacute;c&eacute;dente</button><span class="pb-row-label" id="backLabel"></span><button class="back-btn refresh-btn" id="refreshBtn" onclick="if(confirm('Recommencer \u00e0 z\u00e9ro\u00a0? Tous vos pronostics seront effac\u00e9s.')){try{localStorage.removeItem('grille2026_save');}catch(e){}location.reload();}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7a5 5 0 1 0 1.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 3.5V7h3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Rafra&icirc;chir</button></div>
 <div class="pb">
   <div class="pl" id="pLabel">MATCH 1 / 72 &mdash; PHASE DE GROUPES</div>
   <div class="pbr"><div class="pf" id="pFill"></div></div>
@@ -1174,10 +1175,12 @@ function updateBackBtn(){
   var row=document.getElementById('backRow');
   var btn=document.getElementById('backBtn');
   if(!row||!btn) return;
+  // La barre est toujours visible (bouton Rafraichir toujours present)
+  row.style.display='flex';
   if(navHistory.length===0){
-    row.style.display='none';
+    btn.style.visibility='hidden';
   } else {
-    row.style.display='flex';
+    btn.style.visibility='visible';
     btn.onclick=function(){goBack();};
   }
 }
