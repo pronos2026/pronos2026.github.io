@@ -1752,12 +1752,11 @@ function rTableau(){
 
   // Mobile: also setup old modif zone
   if(gi('btnModif2')){
-    setupModifListeners('modifNum2','modifEdit2','btnModif2','btnGoSeize2',true);
-    gi('btnGoSeize2').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
+    setupModifListeners('modifNum2','modifEdit2','btnModif2',null,true);
   }
 
   // Final button (desktop left panel)
-  gi('btnGoSeize').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
+  if(gi('btnGoSeize'))gi('btnGoSeize').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
 }
 
 
