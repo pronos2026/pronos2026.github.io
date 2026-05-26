@@ -252,6 +252,98 @@ footer a{color:var(--a);text-decoration:none;}
   font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:3px;
   cursor:pointer;margin-top:6px;}
 .btn-continuer:hover{background:var(--b);}
+
+/* ══ LAYOUT DESKTOP TABLEAU ══ */
+@media (min-width:900px) and (orientation:landscape),(min-width:1100px){
+  .tab-desktop-wrap{
+    display:flex;height:calc(100vh - 140px);overflow:hidden;
+  }
+  /* Colonne gauche fixe */
+  .tab-left{
+    width:380px;min-width:320px;flex-shrink:0;
+    display:flex;flex-direction:column;
+    overflow-y:auto;
+    border-right:2px solid #eef1f6;
+    background:var(--w);
+  }
+  .tab-left-inner{padding:14px 16px;flex:1;}
+  .tab-left-footer{
+    padding:12px 16px;border-top:2px solid #eef1f6;
+    background:#f8f9fc;flex-shrink:0;
+  }
+  /* Colonne droite scrollable */
+  .tab-right{
+    flex:1;overflow-y:auto;background:var(--gr);
+  }
+  .tab-right-inner{padding:12px 14px;}
+  /* Mobile : stack normal */
+  .tab-desktop-wrap .tab-left,
+  .tab-desktop-wrap .tab-right{display:flex;}
+}
+@media not all and ((min-width:900px) and (orientation:landscape)){
+  @media (max-width:1099px){
+    .tab-desktop-wrap{display:block;}
+    .tab-left{width:100%;}
+    .tab-right{width:100%;}
+    .tab-left-footer{padding:0;}
+  }
+}
+/* Numéro de match cliquable */
+.cls-match-num-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;
+  border:1.5px solid #b0bec5;border-radius:4px;
+  font-family:'Bebas Neue',sans-serif;font-size:15px;
+  color:var(--b);background:var(--w);
+  cursor:pointer;flex-shrink:0;
+  transition:background 0.15s,border-color 0.15s,color 0.15s;
+  text-decoration:none;
+}
+.cls-match-num-btn:hover{
+  background:var(--a);border-color:var(--a);color:var(--w);
+}
+.cls-match-num-btn.active{
+  background:var(--r);border-color:var(--r);color:var(--w);
+}
+/* Zone d'édition inline (côté gauche desktop / bas mobile) */
+.edit-inline{
+  background:#fef9e7;border:1.5px solid var(--o);
+  border-radius:8px;padding:14px;margin-top:12px;
+}
+.edit-inline-title{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;
+  letter-spacing:1px;color:var(--b);margin-bottom:10px;
+}
+.edit-score-row{
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;
+}
+.edit-eq{
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;
+  font-weight:700;flex:1;min-width:80px;
+}
+.edit-si{
+  width:44px;height:40px;border:2px solid #dde2ea;border-radius:6px;
+  text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;
+  color:var(--r);background:#f8f9fc;outline:none;flex-shrink:0;
+}
+.edit-si:focus{border-color:var(--a);}
+.edit-val-btn{
+  width:100%;padding:10px;background:var(--g);color:var(--w);border:none;
+  border-radius:6px;font-family:'Bebas Neue',sans-serif;
+  font-size:16px;letter-spacing:2px;cursor:pointer;
+}
+.edit-val-btn:hover{background:#15803d;}
+/* Instruction modification */
+.modif-hint{
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;
+  font-weight:700;letter-spacing:0.3px;color:#92400e;
+  background:#fef9e7;border:1px solid #fcd34d;border-radius:8px;
+  padding:10px 12px;margin-bottom:12px;line-height:1.5;
+}
+/* Cacher l'ancienne modif-zone sur desktop dans le tableau */
+@media (min-width:900px) and (orientation:landscape),(min-width:1100px){
+  .tab-old-modif{display:none;}
+}
 </style>
 </head>
 <body>
@@ -1101,6 +1193,37 @@ function rClass(){
   renderClassement(true); // true = show choix at bottom
 }
 
+function showInlineEdit(mn){
+  var m=MATCHES.find(function(x){return x.num===mn;});
+  if(!m)return;
+  var ez=gi('editZoneCls');
+  if(!ez)return;
+  var s=scores[m.num]||{};
+  var ed='<div class="edit-inline">';
+  ed+='<div class="edit-inline-title">MATCH '+mn+' &mdash; '+ex(m.date)+' &middot; Gr.'+m.gr+'</div>';
+  ed+='<div class="edit-score-row">';
+  ed+='<span class="edit-eq">'+ex(m.e1)+'</span>';
+  ed+='<input class="edit-si" id="cesi1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
+  ed+='<span style="font-size:16px;color:#bbb">&ndash;</span>';
+  ed+='<input class="edit-si" id="cesi2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
+  ed+='<span class="edit-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+  ed+='</div>';
+  ed+='<button class="edit-val-btn" id="btnCEditVal">&#x2714; VALIDER LE NOUVEAU SCORE</button>';
+  ed+='</div>';
+  ez.innerHTML=ed;
+  gi('cesi1').focus();
+  gi('btnCEditVal').addEventListener('click',function(){
+    var v1=gi('cesi1').value,v2=gi('cesi2').value;
+    if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+    scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
+    _resolved=[];curTie=null;b3Assign={};
+    cClass();
+    var tie=checkTies();
+    if(tie){curTie=tie;ph='classement';render();}
+    else render();
+  });
+}
+
 function renderClassement(showChoix){
   var b3q=getB3Qualified();
   var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
@@ -1115,8 +1238,7 @@ function renderClassement(showChoix){
       var s=scores[m.num]||{};
       var sc1=(s.a!=null&&s.a!=='')? s.a:'-', sc2=(s.b!=null&&s.b!=='')? s.b:'-';
       h+='<div class="cls-match-row">';
-      h+='<span class="cls-match-num">'+m.num+'</span>';
-      h+='<span class="cls-match-date">'+ex(m.h)+'</span>';
+      h+='<button class="cls-match-num-btn" data-mn="'+m.num+'">'+m.num+'</button>';
       h+='<span class="cls-match-eq">'+ex(m.e1)+'</span>';
       h+='<span class="cls-match-sc">'+sc1+'</span>';
       h+='<span class="cls-match-div">&ndash;</span>';
@@ -1155,7 +1277,9 @@ function renderClassement(showChoix){
     h+='<label class="choix-opt"><input type="radio" name="choix" id="choixTableau" value="tableau">';
     h+='<div><div class="choix-opt-label">&#x1F4CB; Voir votre tableau des matchs \u00e0 \u00e9limination directe</div>';
     h+='<div class="choix-opt-sub">Vous pourrez consulter le tableau et rectifier vos pronostics si n\u00e9cessaire.</div></div></label>';
-    h+='<button class="bv" id="btnChoixOk" style="background:var(--a)">&#x2192; CONTINUER</button>';
+    // Mobile edit zone (inline above choix)
+  h+='<div id="editZoneCls" style="margin:0 0 12px"></div>';
+  h+='<button class="bv" id="btnChoixOk" style="background:var(--a)">&#x2192; CONTINUER</button>';
     h+='</div>';
   } else {
     // Zone modification + valider définitivement (pour écran tableau)
@@ -1165,6 +1289,16 @@ function renderClassement(showChoix){
 
   h+='</div>';
   gi('card').innerHTML=h;
+
+  // Clickable match numbers in classement view (mobile)
+  gi('card').querySelectorAll('.cls-match-num-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var mn=parseInt(btn.getAttribute('data-mn'));
+      gi('card').querySelectorAll('.cls-match-num-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      showInlineEdit(mn);
+    });
+  });
 
   if(showChoix){
     gi('btnChoixOk').addEventListener('click',function(){
@@ -1309,88 +1443,166 @@ function rTableau(){
   gi('pLabel').textContent='TABLEAU \u2014 1/16E DE FINALE';
   assignBest3();
 
+  // ── Helper: build match row (no horaire, num cliquable)
+  function matchRow(m, sideClass){
+    var s=scores[m.num]||{};
+    var sc1=(s.a!=null&&s.a!=='')? s.a:'-', sc2=(s.b!=null&&s.b!=='')? s.b:'-';
+    return '<div class="cls-match-row">'+
+      '<button class="cls-match-num-btn" data-mn="'+m.num+'">'+m.num+'</button>'+
+      '<span class="cls-match-eq">'+ex(m.e1)+'</span>'+
+      '<span class="cls-match-sc">'+sc1+'</span>'+
+      '<span class="cls-match-div">&ndash;</span>'+
+      '<span class="cls-match-sc">'+sc2+'</span>'+
+      '<span class="cls-match-eq" style="text-align:right">'+ex(m.e2)+'</span>'+
+      '</div>';
+  }
+
+  // ── Build 1/16 bracket HTML
   function matchBox(m){
     window._cmn=m.n;
     var t1=rTeam(m.t1),t2=rTeam(m.t2);
     return '<div style="margin-bottom:8px">'+
       '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;letter-spacing:1px;'+
       'color:rgba(0,43,92,0.4);text-transform:uppercase;margin-bottom:2px">'+
-      ex(m.lb)+' &middot; '+ex(m.dt)+'</div>'+
+      ex(m.lb)+' \u00b7 '+ex(m.dt)+'</div>'+
       '<div style="display:flex;flex-direction:column;gap:2px">'+
       '<div class="ko-node">'+fl(t1)+' <span style="font-size:12px">'+ex(t1)+'</span></div>'+
       '<div class="ko-node">'+fl(t2)+' <span style="font-size:12px">'+ex(t2)+'</span></div>'+
       '</div></div>';
   }
-
   var ms=KO.seize.ms;
-  // Ordre d'affichage: paires (gauche, droite) par ligne
   var BRACKET_ORDER=[[74,77],[73,75],[83,84],[81,82],[76,78],[79,80],[86,88],[85,87]];
   function findMatch(n){return ms.find(function(m){return m.n===n;});}
 
-  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; 1/16E DE FINALE</div></div>';
-  h+='<div style="padding:12px 16px 0">';
-  h+='<div class="ko-section-title">1/16E DE FINALE</div>';
-  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">';
+  var bracketHtml='<div class="ko-section-title">1/16E DE FINALE</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">';
   BRACKET_ORDER.forEach(function(pair){
     var ml=findMatch(pair[0]),mr=findMatch(pair[1]);
-    if(ml)h+=matchBox(ml);
-    if(mr)h+=matchBox(mr);
+    if(ml)bracketHtml+=matchBox(ml);
+    if(mr)bracketHtml+=matchBox(mr);
   });
-  h+='</div>';
+  bracketHtml+='</div>';
 
-  // Classements des 12 poules
+  // ── Build groups HTML (no horaire, clickable num)
   var b3q=getB3Qualified();
   var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
-  h+='<div class="ko-section-title" style="background:var(--b)">CLASSEMENTS DES GROUPES</div>';
+  var groupsHtml='';
   GROUPS.forEach(function(grp){
     var cl=clR[grp]||[];
     var gmatches=MATCHES.filter(function(m){return m.gr===grp;}).sort(function(a,b){return a.num-b.num;});
-    h+='<div class="cls-grp-block">';
-    h+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
-    gmatches.forEach(function(m){
-      var s=scores[m.num]||{};
-      var sc1=(s.a!=null&&s.a!=='')? s.a:'-',sc2=(s.b!=null&&s.b!=='')? s.b:'-';
-      h+='<div class="cls-match-row">';
-      h+='<span class="cls-match-num">'+m.num+'</span>';
-      h+='<span class="cls-match-date">'+ex(m.h)+'</span>';
-      h+='<span class="cls-match-eq">'+ex(m.e1)+'</span>';
-      h+='<span class="cls-match-sc">'+sc1+'</span>';
-      h+='<span class="cls-match-div">&ndash;</span>';
-      h+='<span class="cls-match-sc">'+sc2+'</span>';
-      h+='<span class="cls-match-eq" style="text-align:right">'+ex(m.e2)+'</span>';
-      h+='</div>';
-    });
-    h+='<table class="cls-grp-tbl"><thead><tr>';
-    h+='<th>Pays</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th>';
-    h+='</tr></thead><tbody>';
+    groupsHtml+='<div class="cls-grp-block">';
+    groupsHtml+='<div class="cls-grp-hdr"><span class="cls-grp-hdr-title">GROUPE '+grp+'</span></div>';
+    gmatches.forEach(function(m){ groupsHtml+=matchRow(m); });
+    groupsHtml+='<table class="cls-grp-tbl"><thead><tr>';
+    groupsHtml+='<th>Pays</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>DB</th><th>Pts</th>';
+    groupsHtml+='</tr></thead><tbody>';
     cl.forEach(function(tm,ti){
       var isQ=(ti<2),isB3=(ti===2&&b3q[tm.name]);
       var rowcls=isQ||isB3?'q-row':'e-row';
       var nmcls=isQ||isB3?'qual':'elim';
       var db=(tm.db>0?'+':'')+tm.db;
       var dbcls=tm.db>0?'cls-db-p':tm.db<0?'cls-db-n':'cls-db-z';
-      h+='<tr class="'+rowcls+'">';
-      h+='<td><span class="cls-tnm '+nmcls+'">'+ex(tm.name)+'</span></td>';
-      h+='<td class="cls-num">'+tm.j+'</td><td class="cls-num">'+tm.v+'</td>';
-      h+='<td class="cls-num">'+tm.n+'</td><td class="cls-num">'+tm.d+'</td>';
-      h+='<td class="cls-num">'+tm.bm+'</td><td class="cls-num">'+tm.be+'</td>';
-      h+='<td class="'+dbcls+'">'+db+'</td>';
-      h+='<td class="cls-pts">'+tm.pts+'</td>';
-      h+='</tr>';
+      groupsHtml+='<tr class="'+rowcls+'"><td><span class="cls-tnm '+nmcls+'">'+ex(tm.name)+'</span></td>';
+      groupsHtml+='<td class="cls-num">'+tm.j+'</td><td class="cls-num">'+tm.v+'</td>';
+      groupsHtml+='<td class="cls-num">'+tm.n+'</td><td class="cls-num">'+tm.d+'</td>';
+      groupsHtml+='<td class="cls-num">'+tm.bm+'</td><td class="cls-num">'+tm.be+'</td>';
+      groupsHtml+='<td class="'+dbcls+'">'+db+'</td><td class="cls-pts">'+tm.pts+'</td></tr>';
     });
-    h+='</tbody></table></div>';
+    groupsHtml+='</tbody></table></div>';
   });
 
-  h+=buildModifZone('modifNum','modifEdit','btnModif');
-  h+='<button class="bv-final" id="btnGoSeize">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
+  // ── Edit zone HTML (shared, rendered in left panel on desktop / below on mobile)
+  var editZoneHtml='<div id="editZone"></div>';
+  var hintHtml='<div class="modif-hint">Pour modifier un r\u00e9sultat, cliquez sur le num\u00e9ro du match</div>';
+
+  // ── Final button
+  var finalBtn='<button class="bv-final" id="btnGoSeize">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
+
+  // ── Assemble : desktop = 2 colonnes, mobile = stack
+  var h='<div class="mh"><div class="mm">&#x1F3C6; TABLEAU &mdash; 1/16E DE FINALE</div></div>';
+  h+='<div class="tab-desktop-wrap">';
+
+  // Colonne gauche
+  h+='<div class="tab-left">';
+  h+='<div class="tab-left-inner">';
+  h+=bracketHtml;
+  h+=hintHtml;
+  h+=editZoneHtml;
+  h+='</div>';
+  h+='<div class="tab-left-footer">'+finalBtn+'</div>';
   h+='</div>';
 
+  // Colonne droite
+  h+='<div class="tab-right">';
+  h+='<div class="tab-right-inner">';
+  h+='<div class="ko-section-title" style="background:var(--b)">CLASSEMENTS DES GROUPES</div>';
+  h+=groupsHtml;
+  // Mobile only: old modif zone + button
+  h+='<div class="tab-old-modif">';
+  h+=buildModifZone('modifNum2','modifEdit2','btnModif2');
+  h+='<button class="bv-final" id="btnGoSeize2">\u2714 VALIDER D\u00c9FINITIVEMENT ET PASSER AUX 1/16e</button>';
+  h+='</div>';
+  h+='</div></div>'; // tab-right-inner, tab-right
+
+  h+='</div>'; // tab-desktop-wrap
+
   gi('card').innerHTML=h;
-  setupModifListeners('modifNum','modifEdit','btnModif','btnGoSeize',true);
-  gi('btnGoSeize').addEventListener('click',function(){
-    b3Assign={};assignBest3();ph='seize';render();
-  });
+
+  // ── Click handler on match number buttons (works on both desktop & mobile)
+  function setupNumClicks(){
+    var btns=gi('card').querySelectorAll('.cls-match-num-btn');
+    btns.forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var mn=parseInt(btn.getAttribute('data-mn'));
+        // Highlight active
+        btns.forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        showEditMatch(mn);
+      });
+    });
+  }
+
+  function showEditMatch(mn){
+    var m=MATCHES.find(function(x){return x.num===mn;});
+    if(!m)return;
+    var s=scores[m.num]||{};
+    var ed='<div class="edit-inline">';
+    ed+='<div class="edit-inline-title">MATCH '+mn+' &mdash; '+ex(m.date)+' &middot; Gr.'+m.gr+'</div>';
+    ed+='<div class="edit-score-row">';
+    ed+='<span class="edit-eq">'+ex(m.e1)+'</span>';
+    ed+='<input class="edit-si" id="esi1" type="number" min="0" max="30" value="'+(s.a!=null&&s.a!==''?s.a:'')+'" placeholder="-">';
+    ed+='<span style="font-size:16px;color:#bbb">&ndash;</span>';
+    ed+='<input class="edit-si" id="esi2" type="number" min="0" max="30" value="'+(s.b!=null&&s.b!==''?s.b:'')+'" placeholder="-">';
+    ed+='<span class="edit-eq" style="text-align:right">'+ex(m.e2)+'</span>';
+    ed+='</div>';
+    ed+='<button class="edit-val-btn" id="btnEditVal">&#x2714; VALIDER LE NOUVEAU SCORE</button>';
+    ed+='</div>';
+    gi('editZone').innerHTML=ed;
+    gi('esi1').focus();
+    gi('btnEditVal').addEventListener('click',function(){
+      var v1=gi('esi1').value,v2=gi('esi2').value;
+      if(v1===''||v2===''){alert('Veuillez saisir les deux scores.');return;}
+      scores[m.num]={a:parseInt(v1),b:parseInt(v2),t1:m.e1,t2:m.e2,gr:m.gr};
+      _resolved=[];curTie=null;b3Assign={};
+      cClass();
+      var tie=checkTies();
+      if(tie){curTie=tie;ph='classement';render();}
+      else{ph='tableau';render();}
+    });
+  }
+
+  setupNumClicks();
+
+  // Mobile: also setup old modif zone
+  if(gi('btnModif2')){
+    setupModifListeners('modifNum2','modifEdit2','btnModif2','btnGoSeize2',true);
+    gi('btnGoSeize2').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
+  }
+
+  // Final button (desktop left panel)
+  gi('btnGoSeize').addEventListener('click',function(){b3Assign={};assignBest3();ph='seize';render();});
 }
+
 
 // ===== PHASES KO =====
 var NXT={seize:'huit',huit:'quart',quart:'demi',demi:'finale',finale:'valid'};
