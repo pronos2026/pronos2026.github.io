@@ -178,9 +178,16 @@
     .col-data .nom { color: var(--bleu-marine); font-size: 14px; }
 
     .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--rouge), var(--bleu-azur), var(--or)); }
-    footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
+    footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px 24px; font-size: 13px; }
     footer a { color: var(--bleu-azur); text-decoration: none; }
     footer a:hover { color: var(--or); }
+    .visit-counter-wrap { margin-top: 18px; display: flex; justify-content: center; }
+    .visit-counter-box { display: inline-flex; align-items: center; gap: 14px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 10px 24px; backdrop-filter: blur(4px); }
+    .visit-counter-eye { font-size: 15px; opacity: 0.6; }
+    .visit-counter-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .visit-counter-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.15); }
+    .visit-counter-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: #fff; min-width: 60px; text-align: center; }
+    .visit-counter-num.loading { opacity: 0.3; }
 
     @media (max-width: 600px) {
       .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .header-trophy { height: 50px; }
@@ -318,6 +325,31 @@
   </section>
 
   <div class="footer-stripe"></div>
-  <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
+  <footer>
+    Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a>
+    <div class="visit-counter-wrap">
+      <div class="visit-counter-box">
+        <span class="visit-counter-eye">👁</span>
+        <span class="visit-counter-label">Visites</span>
+        <div class="visit-counter-sep"></div>
+        <span class="visit-counter-num loading" id="visit-count">···</span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function() {
+      var el = document.getElementById('visit-count');
+      fetch('https://api.countapi.xyz/hit/pronostiqueurs-cm2026/visits')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          el.textContent = data.value.toLocaleString('fr-FR');
+          el.classList.remove('loading');
+        })
+        .catch(function() {
+          el.textContent = '—';
+          el.classList.remove('loading');
+        });
+    })();
+  </script>
 </body>
 </html>
