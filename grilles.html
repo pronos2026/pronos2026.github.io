@@ -2069,221 +2069,244 @@ function bExcel(ps,em){
   btn.textContent='\u23F3 Enregistrement...';
   btn.disabled=true;
 
-  // \u2500\u2500 Palette (calqu\u00e9e sur le mod\u00e8le ODS)
-  var C={
-    BLU:'FF004586', AZU:'FF0066CC', GRN:'FFCCFF99',
-    YEL:'FFFFFF99', WHT:'FFFFFFFF', NON:'00000000',
-    BLK:'FF000000', GRY:'FF7F7F7F'
-  };
-
-  // \u2500\u2500 Helpers de style
-  function f(bold,sz,rgb,italic){return {bold:!!bold,sz:sz||11,color:{rgb:rgb||C.BLK},italic:!!italic};}
-  function bg(rgb){return {fgColor:{rgb:rgb}};}
-  function al(h,v,wrap){return {horizontal:h||'general',vertical:v||'bottom',wrapText:!!wrap};}
-  function cel(v,fnt,fil,aln){
-    var o={v:v,s:{}};
-    if(v==null)o.v='';
-    if(typeof v==='number')o.t='n'; else o.t='s';
-    if(fnt)o.s.font=fnt;
-    if(fil)o.s.fill=fil;
-    if(aln)o.s.alignment=aln;
-    return o;
-  }
-  function emp(){return {v:'',t:'s',s:{}};}
-
   var wb=XLSX.utils.book_new();
   var rows=[];
   var merges=[];
-  var colWidths=[14,8.5,18.5,1.7,6.4,4.2,6.4,1.8,21.5,21,6.5,13,13,13];
+
+  // Largeurs colonnes calquées sur le modèle ODS (A=date 14, B=heure 8.5, C=équipe 18.5,
+  // D=vide 1.7, E=score 6.4, F=tiret 4.2, G=score 6.4, H=vide 1.8,
+  // I=équipe2 21.5, J=classement 21, K=pts 6.5, L=bp 13, M=bc 13, N=db 13)
+  var colWidths=[14,8.5,18.5,1.7,6.4,4.2,6.4,1.8,21.5,21,6.5,6.5,6.5,8];
+
+  // ── Helpers style ──────────────────────────────────────────
+  function f(bold,sz){return {name:'Calibri',bold:!!bold,sz:sz||12,color:{rgb:'FF000000'}};}
+  function al(h,v){return {horizontal:h||'general',vertical:v||'bottom'};}
+  function bdrJ(){return {left:{style:'thin',color:{rgb:'FF000000'}}};}  // bordure left sur col J
+  function bdrN(){return {right:{style:'thin',color:{rgb:'FF000000'}}};}// bordure right sur col N
+  function bdrJN(){return {left:{style:'thin',color:{rgb:'FF000000'}},right:{style:'thin',color:{rgb:'FF000000'}}};}
+
+  function cel(v, fontBold, fontSize, hAlign, border){
+    var o={s:{}};
+    o.v = (v==null)?'':v;
+    o.t = (typeof v==='number')?'n':'s';
+    o.s.font = f(fontBold||false, fontSize||12);
+    if(hAlign) o.s.alignment = al(hAlign,'bottom');
+    if(border) o.s.border = border;
+    return o;
+  }
+  function emp(){return {v:'',t:'s',s:{font:f(false,12)}};}
 
   function addRow(cells){
-    // cells = array of 14 values (cols A-N)
     var row=[];
     for(var i=0;i<14;i++) row.push(cells[i]||emp());
     rows.push(row);
-    return rows.length-1; // 0-based row index
+    return rows.length-1;
   }
-
   function mg(r,c1,c2){merges.push({s:{r:r,c:c1},e:{r:r,c:c2}});}
+  function emptyRow(){addRow([]);}
 
-  // \u2550\u2550\u2550\u2550 LIGNE 1 \u2013 Titre + Pseudo \u2550\u2550\u2550\u2550
+  // ── Ligne 1 : Titre ──────────────────────────────────────────
+  // A1: "LA COUPE DU MONDE DES PRONOSTIQUEURS – USA 2026" Calibri 32 Bold
   var r0=addRow([
-    cel('LA COUPE DU MONDE DES PRONOSTIQUEURS \u2013 USA 2026',f(1,16,C.WHT),bg(C.BLU),al('general','center')),
-    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
-    cel('PSEUDO\u00a0: '+ps,f(1,14,C.BLU),bg(C.WHT),al('center','center')),
-    emp(),emp(),emp(),emp()
+    cel('LA COUPE DU MONDE DES PRONOSTIQUEURS \u2013 USA 2026',true,32,'general'),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()
   ]);
-  mg(r0,0,8); mg(r0,9,13);
+  mg(r0,0,13);
 
-  // \u2550\u2550\u2550\u2550 GROUPES \u2550\u2550\u2550\u2550
+  // ── Ligne 2 vide ──
+  emptyRow();
+
+  // ── Ligne 3 : Pseudo ──────────────────────────────────────────
+  // A3: "PSEUDO :" Calibri 12 Bold center
+  var r2=addRow([
+    cel('PSEUDO\u00a0:',true,12,'center'),
+    emp(),emp(),emp(),
+    cel(ps,false,12,'general'),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()
+  ]);
+  mg(r2,0,3); mg(r2,4,13);
+
+  // ── Ligne 4 vide ──
+  emptyRow();
+
+  // ── GROUPES ──────────────────────────────────────────────────
   var GROUPS=['A','B','C','D','E','F','G','H','I','J','K','L'];
 
-  GROUPS.forEach(function(grp){
-    // Ligne vide entre groupes
-    if(grp!=='A'){
-      addRow([]);
-    }
-
+  GROUPS.forEach(function(grp,gi2){
     var cl=clR[grp]||[];
     var gmatches=MATCHES.filter(function(m){return m.gr===grp;})
                         .sort(function(a,b){return a.num-b.num;});
 
-    // Header groupe
+    // Ligne d'entête groupe: "GROUPE X – Pronostics" (A, bold 14) + "Classement" (J, bold 14)
     var rH=addRow([
-      cel('GROUPE '+grp+' \u2013 Pronostics',f(1,12,C.WHT),bg(C.AZU)),
+      cel('GROUPE '+grp+' \u2013 Pronostics',true,14,'general'),
       emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
-      cel('Classement',f(0,12,C.WHT),bg(C.AZU)),
-      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU)),
-      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU))
+      cel('Classement',true,14,'general'),
+      emp(),emp(),emp(),emp()
     ]);
-    mg(rH,0,8); mg(rH,9,13);
+    mg(rH,0,8);
 
-    // Matchs
-    gmatches.forEach(function(m,i){
+    // 6 matchs du groupe
+    gmatches.forEach(function(m,mi){
       var s=scores[m.num]||{};
       var s1=(s.a!=null&&s.a!=='')?s.a:null;
       var s2=(s.b!=null&&s.b!=='')?s.b:null;
-      var rowArr=[
-        cel(m.date,f(0,8,C.BLK),null,al('general','bottom')),
-        cel(m.h,   f(0,8,C.GRY),null,al('general','bottom')),
-        cel(m.e1,  f(1,12,C.BLK),null,al('general','bottom')),
-        emp(),
-        cel(s1!=null?s1:'',f(0,12,C.BLK),null,al('center','bottom')),
-        cel('-',   f(0,12,C.BLK),null,al('center','bottom')),
-        cel(s2!=null?s2:'',f(0,12,C.BLK),null,al('center','bottom')),
-        emp(),
-        cel(m.e2,  f(1,12,C.BLK),null,al('general','bottom')),
-        emp(),emp(),emp(),emp(),emp()
-      ];
-      // Classement (4 premi\u00e8res lignes du groupe)
-      if(i<4&&cl[i]){
-        var tm=cl[i];
+
+      // Classement: 4 premières lignes (positions 0-3)
+      var clCell_J=emp(), clCell_K=emp(), clCell_L=emp(), clCell_M=emp(), clCell_N=emp();
+      if(mi<4 && cl[mi]){
+        var tm=cl[mi];
         var db=(tm.db>0?'+':'')+tm.db;
-        rowArr[9] =cel(tm.name,f(0,12,C.BLK),bg(C.GRN),al('general','bottom'));
-        rowArr[10]=cel(tm.pts, f(1,12,C.BLK),bg(C.GRN),al('center','bottom'));
-        rowArr[11]=cel(tm.bm,  f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
-        rowArr[12]=cel(tm.be,  f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
-        rowArr[13]=cel(db,     f(0,12,C.BLK),bg(C.GRN),al('center','bottom'));
+        clCell_J = cel(tm.name, false,12,'general', bdrJ());
+        clCell_K = cel(tm.pts,  false,12,'center');
+        clCell_L = cel(tm.bm,   false,12,'center');
+        clCell_M = cel(tm.be,   false,12,'center');
+        clCell_N = cel(db,      false,12,'center', bdrN());
       }
-      addRow(rowArr);
+
+      addRow([
+        cel(m.date, false,8, 'general'),    // A: date
+        cel(m.h,    false,8, 'general'),    // B: heure
+        cel(m.e1,   false,12,'general'),    // C: équipe 1
+        emp(),                              // D: vide
+        s1!=null?cel(s1,false,12,'center'):emp(), // E: score 1
+        cel('-',    false,12,'center'),     // F: tiret
+        s2!=null?cel(s2,false,12,'center'):emp(), // G: score 2
+        emp(),                              // H: vide
+        cel(m.e2,   false,12,'general'),    // I: équipe 2
+        clCell_J,                           // J: classement nom (bord gauche)
+        clCell_K,                           // K: pts
+        clCell_L,                           // L: bp
+        clCell_M,                           // M: bc
+        clCell_N                            // N: db (bord droit)
+      ]);
     });
+
+    // Ligne vide entre groupes (sauf dernier)
+    emptyRow();
   });
 
-  // \u2550\u2550\u2550\u2550 PHASES FINALES \u2550\u2550\u2550\u2550
-  addRow([]);
-  var rPH=addRow([cel('PHASES FINALES',f(1,14,C.WHT),bg(C.BLU),al('general','center')),
-    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()]);
+  // ── PHASES FINALES ──────────────────────────────────────────
+  // Titre "PHASES FINALES" A bold 18, fusionné A..N, bordures left+right
+  var rPH=addRow([
+    cel('PHASES FINALES',true,18,'center',{left:{style:'thin'},right:{style:'thin'}}),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()
+  ]);
   mg(rPH,0,13);
 
   var PHASE_ORDER=['seize','huit','quart','demi','finale'];
-  var PHASE_NAMES={seize:'1/16e DE FINALE',huit:'1/8e DE FINALE',
-    quart:'QUARTS DE FINALE',demi:'DEMI-FINALES',finale:'FINALE'};
+  var PHASE_NAMES={
+    seize:'1/16e DE FINALE', huit:'1/8e DE FINALE',
+    quart:'QUARTS DE FINALE', demi:'DEMI-FINALES', finale:'FINALE'
+  };
+
+  // Résolution des équipes pour les phases KO
+  function resolveKey(key,matchNum){
+    if(!key)return key;
+    var gm=key.match(/^([12])([A-L])$/);
+    if(gm){
+      var pos=parseInt(gm[1])-1,grp=gm[2];
+      return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
+    }
+    if(key[0]==='3'){
+      var assigned=b3Assign[String(matchNum)]||b3Assign[matchNum];
+      return assigned||key;
+    }
+    if(key[0]==='V'){
+      var vmn=parseInt(key.slice(1));
+      for(var pp=0;pp<PHASE_ORDER.length;pp++){
+        var ppw=koW[PHASE_ORDER[pp]]||{};
+        if(ppw[vmn])return ppw[vmn];
+        if(ppw[String(vmn)])return ppw[String(vmn)];
+      }
+      return key;
+    }
+    if(key[0]==='P'){
+      var pmn=parseInt(key.slice(1));
+      for(var pp2=0;pp2<PHASE_ORDER.length;pp2++){
+        var phd2=KO[PHASE_ORDER[pp2]]; if(!phd2)continue;
+        for(var mi=0;mi<phd2.ms.length;mi++){
+          if(phd2.ms[mi].n===pmn){
+            var ppw2=koW[PHASE_ORDER[pp2]]||{};
+            var ww=ppw2[pmn]||ppw2[String(pmn)];
+            if(ww){
+              var rr1=resolveKey(phd2.ms[mi].t1,pmn);
+              var rr2=resolveKey(phd2.ms[mi].t2,pmn);
+              return ww===rr1?rr2:rr1;
+            }
+          }
+        }
+      }
+      return key;
+    }
+    return key;
+  }
 
   PHASE_ORDER.forEach(function(phase){
     var phd=KO[phase]; if(!phd)return;
     var pw=koW[phase]||{};
 
-    // Header phase
+    // Header phase: "1/16e DE FINALE" (A bold 14) + "Vainqueur pronostic" (J bold 12)
+    var isFinale=(phase==='finale');
     var rPh=addRow([
-      cel(PHASE_NAMES[phase],f(1,12,C.WHT),bg(C.AZU)),
+      cel(PHASE_NAMES[phase],true,14,'general'),
       emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
-      cel('Vainqueur pronostic',f(1,12,C.WHT),bg(C.AZU)),
-      cel(null,null,bg(C.AZU)),cel(null,null,bg(C.AZU)),
-      emp(),emp()
+      cel('Vainqueur pronostic',isFinale?true:false,isFinale?14:12,'general'),
+      emp(),emp(),emp(),emp()
     ]);
-    mg(rPh,0,8); mg(rPh,9,11);
+    mg(rPh,0,8);
 
     phd.ms.forEach(function(m){
       var mn=m.n;
-
-      // R\u00e9solution des \u00e9quipes
-      function resolveKey(key){
-        if(!key)return key;
-        var gm=key.match(/^([12])([A-L])$/);
-        if(gm){
-          var pos=parseInt(gm[1])-1,grp=gm[2];
-          return(clR[grp]&&clR[grp][pos])?clR[grp][pos].name:key;
-        }
-        if(key[0]==='3'){
-          // Utiliser b3Assign (assignation FIFA d\u00e9finitive)
-          var assigned=b3Assign[String(mn)]||b3Assign[mn];
-          return assigned||key;
-        }
-        if(key[0]==='V'){
-          var vmn=parseInt(key.slice(1));
-          for(var pp=0;pp<PHASE_ORDER.length;pp++){
-            var ppw=koW[PHASE_ORDER[pp]]||{};
-            if(ppw[vmn])return ppw[vmn];
-            if(ppw[String(vmn)])return ppw[String(vmn)];
-          }
-          return key;
-        }
-        if(key[0]==='P'){
-          var pmn=parseInt(key.slice(1));
-          for(var pp2=0;pp2<PHASE_ORDER.length;pp2++){
-            var phd2=KO[PHASE_ORDER[pp2]]; if(!phd2)continue;
-            for(var mi=0;mi<phd2.ms.length;mi++){
-              if(phd2.ms[mi].n===pmn){
-                var ppw2=koW[PHASE_ORDER[pp2]]||{};
-                var ww=ppw2[pmn]||ppw2[String(pmn)];
-                if(ww){
-                  var rr1=resolveKey(phd2.ms[mi].t1);
-                  var rr2=resolveKey(phd2.ms[mi].t2);
-                  return ww===rr1?rr2:rr1;
-                }
-              }
-            }
-          }
-          return key;
-        }
-        return key;
-      }
-
-      var t1=resolveKey(m.t1);
-      var t2=resolveKey(m.t2);
+      var t1=resolveKey(m.t1,mn);
+      var t2=resolveKey(m.t2,mn);
       var w=pw[mn]||pw[String(mn)]||'';
 
+      // Format date: m.dt ex "29 juin · 22h30" → "29 juin · 22h30"
       var rM=addRow([
-        cel(m.dt,f(0,8,C.BLK),null,al('general','bottom')),
-        emp(),
-        cel(t1,f(1,12,C.BLK),null,al('general','bottom')),
-        emp(),
-        cel('VS',f(0,8,C.BLK),null,al('center','bottom')),
-        emp(),
-        cel(t2,f(1,12,C.BLK),null,al('general','bottom')),
-        emp(),emp(),
-        cel(w,f(0,12,C.BLK),bg(C.GRN),al('general','bottom')),
-        cel(null,null,bg(C.GRN)),cel(null,null,bg(C.GRN)),
-        emp(),emp()
+        cel(m.dt,  false,8,'general'),  // A: date·heure
+        emp(),                          // B
+        cel(t1,    false,12,'general'), // C: équipe 1
+        emp(),                          // D
+        cel('VS',  false,12,'center'),  // E: VS (modèle utilise "VS" en col E)
+        emp(),                          // F
+        cel(t2,    false,12,'left'),    // G: équipe 2
+        emp(),emp(),                    // H,I
+        cel(w,     false,12,'general',bdrJN()), // J: vainqueur (left+right border)
+        emp(),emp(),emp(),emp()
       ]);
-      mg(rM,2,3); mg(rM,6,8); mg(rM,9,11);
     });
 
-    // Ligne vide entre phases
-    addRow([]);
+    // Ligne vide entre phases (sauf finale)
+    if(phase!=='finale') emptyRow();
   });
 
-  // \u2550\u2550\u2550\u2550 CHAMPION \u2550\u2550\u2550\u2550
+  // ── Ligne vide ──
+  emptyRow();
+
+  // ── CHAMPION DU MONDE ──────────────────────────────────────────
   var champ='?';
   var pfw=koW['finale']||{};
   var pfkeys=Object.keys(pfw);
-  if(pfkeys.length>0) champ=pfw[pfkeys[0]];
+  if(pfkeys.length>0) champ=pfw[pfkeys[0]]||'?';
 
-  var rC=addRow([cel('\uD83C\uDFC6 CHAMPION DU MONDE\u00a0: '+champ,
-    f(0,32,C.BLK),bg(C.YEL),al('general','bottom')),
-    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
-    emp(),emp(),emp(),emp(),emp()]);
+  var rC=addRow([
+    cel('\uD83C\uDFC6 CHAMPION DU MONDE\u00a0: '+champ,true,26,'general'),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()
+  ]);
   mg(rC,0,13);
 
-  addRow([]);
+  // ── Ligne vide ──
+  emptyRow();
 
-  var rFoot=addRow([cel('Pronostiqueur\u00a0: '+ps+'  |  Mail\u00a0: '+em,
-    f(0,12,C.BLK),null,al('general','bottom')),
-    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),
-    emp(),emp(),emp(),emp(),emp()]);
+  // ── Pied de page ──────────────────────────────────────────────
+  var rFoot=addRow([
+    cel('Pronostiqueur\u00a0: '+ps+'  |  Mail\u00a0: '+em,false,12,'general'),
+    emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp(),emp()
+  ]);
   mg(rFoot,0,13);
 
-  // \u2550\u2550\u2550\u2550 ASSEMBLAGE FEUILLE \u2550\u2550\u2550\u2550
+  // ── Assemblage feuille ─────────────────────────────────────────
   var ws2=XLSX.utils.aoa_to_sheet(rows.map(function(row){
     return row.map(function(c){return(c&&c.v!=null)?c.v:null;});
   }));
@@ -2309,7 +2332,6 @@ function bExcel(ps,em){
   clearSave();
   ph='done';render();
 }
-
 
 function rDone(){
   gi('pLabel').textContent='GRILLE VALID\u00c9E \u2713';
