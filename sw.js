@@ -1,20 +1,8 @@
 /* Service Worker – Les Pronostiqueurs CM 2026 */
-var CACHE = 'pronostiqueurs-v1';
-var ASSETS = [
-  '/',
-  '/index.html',
-  '/grilles.html',
-  '/messi_1.jpg',
-  '/manifest.json'
-];
+var CACHE = 'pronostiqueurs-v2';
 
-/* Installation : mise en cache des ressources clés */
+/* Installation : on ne pré-cache rien pour éviter les blocages */
 self.addEventListener('install', function(e) {
-  e.waitUntil(
-    caches.open(CACHE).then(function(cache) {
-      return cache.addAll(ASSETS);
-    })
-  );
   self.skipWaiting();
 });
 
@@ -31,18 +19,25 @@ self.addEventListener('activate', function(e) {
   self.clients.claim();
 });
 
-/* Fetch : réseau en priorité, cache en fallback */
+/* Fetch : réseau EN PRIORITÉ, cache uniquement en fallback */
 self.addEventListener('fetch', function(e) {
+  /* On ignore les requêtes non-GET (formulaires, etc.) */
+  if (e.request.method !== 'GET') return;
+
   e.respondWith(
     fetch(e.request)
       .then(function(response) {
-        var clone = response.clone();
-        caches.open(CACHE).then(function(cache) {
-          cache.put(e.request, clone);
-        });
+        /* On met en cache uniquement les réponses valides */
+        if (response && response.status === 200) {
+          var clone = response.clone();
+          caches.open(CACHE).then(function(cache) {
+            cache.put(e.request, clone);
+          });
+        }
         return response;
       })
       .catch(function() {
+        /* Hors connexion : on essaie le cache */
         return caches.match(e.request);
       })
   );
