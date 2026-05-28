@@ -181,13 +181,24 @@
     footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px 24px; font-size: 13px; }
     footer a { color: var(--bleu-azur); text-decoration: none; }
     footer a:hover { color: var(--or); }
-    .visit-counter-wrap { margin-top: 18px; display: flex; justify-content: center; }
-    .visit-counter-box { display: inline-flex; align-items: center; gap: 14px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 10px 24px; backdrop-filter: blur(4px); }
-    .visit-counter-eye { font-size: 15px; opacity: 0.6; }
-    .visit-counter-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-    .visit-counter-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.15); }
-    .visit-counter-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: #fff; min-width: 60px; text-align: center; }
-    .visit-counter-num.loading { opacity: 0.3; }
+    /* Section Actualités */
+    .zone-actu { background: #fff; padding: 50px 40px 60px; border-top: 4px solid var(--rouge); }
+    .actu-titre { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: var(--bleu-marine); margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
+    .actu-titre::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--rouge), transparent); }
+    .actu-card { display: flex; gap: 30px; align-items: flex-start; background: var(--gris-clair); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,43,92,0.08); }
+    .actu-card img { width: 320px; min-width: 320px; height: 240px; object-fit: cover; object-position: center top; display: block; }
+    .actu-card-body { padding: 28px 28px 28px 0; flex: 1; }
+    .actu-card-body p { font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.75; color: #333; }
+    .actu-card-body p + p { margin-top: 14px; }
+    .actu-card-body a { color: var(--bleu-azur); text-decoration: none; font-weight: 600; }
+    .actu-card-body a:hover { color: var(--rouge); text-decoration: underline; }
+    .actu-source { margin-top: 16px; font-size: 12px; color: #999; font-style: italic; }
+    @media (max-width: 700px) {
+      .actu-card { flex-direction: column; }
+      .actu-card img { width: 100%; min-width: unset; height: 220px; }
+      .actu-card-body { padding: 20px; }
+      .zone-actu { padding: 40px 20px 50px; }
+    }
 
     @media (max-width: 600px) {
       .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .header-trophy { height: 50px; }
@@ -248,7 +259,7 @@
   <section class="zone-match">
     <p class="countdown-label">Coupe du Monde 2026</p>
     <p class="countdown-titre">D&#233;but du grand concours</p>
-    <p class="countdown-jours">J <span>&#8722;</span> 15</p>
+    <p class="countdown-jours">J <span>&#8722;</span> 14</p>
     <div class="deco-line"></div>
   </section>
   <section class="mobile-promo">
@@ -262,7 +273,7 @@
       <p class="hero-line l2">DU GRAND</p>
       <p class="hero-line l3">CONCOURS</p>
       <div class="hero-deco"></div>
-      <p class="hero-jours">J &minus; 15</p>
+      <p class="hero-jours">J &minus; 14</p>
     </div>
   </section>
   <section class="zone-contenu">
@@ -324,32 +335,21 @@
     </a>
   </section>
 
+  <section class="zone-actu">
+    <div class="actu-titre">📰 Actualités de la Coupe du Monde</div>
+    <div class="actu-card">
+      <img src="messi_1.jpg" alt="Lionel Messi avec l'Argentine">
+      <div class="actu-card-body">
+        <p>À quelques semaines de la <a href="https://www.footmercato.net/international/coupe-du-monde/" target="_blank" rel="noopener">Coupe du Monde</a> (11 juin – 19 juillet), <a href="https://www.footmercato.net/joueur/lionel-messi/" target="_blank" rel="noopener">Lionel Messi</a> a fait trembler ses fans. En effet, l'attaquant argentin de l'Inter Miami <a href="https://www.footmercato.net/a8394156325032514360-argentine-miami-le-communique-medical-sur-lionel-messi-est-tombe" target="_blank" rel="noopener">avait suscité une forte inquiétude physique le week-end dernier</a>, ressentant une douleur à l'ischio-jambier gauche. Le sélectionneur de l'Albiceleste, <a href="https://www.footmercato.net/entraineur/lionel-sebastian-scaloni" target="_blank" rel="noopener">Lionel Scaloni</a>, s'est ainsi montré rassurant concernant l'état de santé de la Pulga hier. Le coach a affirmé que « les premières nouvelles n'étaient pas si mauvaises » sur la chaîne DSports.</p>
+        <p>Scaloni a aussi expliqué la situation du numéro 10, attendu par des millions de fans au Mondial. « Logiquement, on préférerait qu'il ne lui soit rien arrivé. Maintenant, il faut attendre de voir comment il évolue et, surtout, les nouveaux examens qu'ils vont lui faire, j'imagine, pour voir si c'est vraiment comme on le dit » a indiqué le sélectionneur. Si l'Inter Miami peut souffler, un peuple sud-américain sort la tête de l'eau pour son octuple Ballon d'Or.</p>
+        <p class="actu-source">Source : footmercato.net</p>
+      </div>
+    </div>
+  </section>
+
   <div class="footer-stripe"></div>
   <footer>
     Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a>
-    <div class="visit-counter-wrap">
-      <div class="visit-counter-box">
-        <span class="visit-counter-eye">👁</span>
-        <span class="visit-counter-label">Visites</span>
-        <div class="visit-counter-sep"></div>
-        <span class="visit-counter-num loading" id="visit-count">···</span>
-      </div>
-    </div>
   </footer>
-  <script>
-    (function() {
-      var el = document.getElementById('visit-count');
-      fetch('https://api.countapi.xyz/hit/pronostiqueurs-cm2026/visits')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          el.textContent = data.value.toLocaleString('fr-FR');
-          el.classList.remove('loading');
-        })
-        .catch(function() {
-          el.textContent = '—';
-          el.classList.remove('loading');
-        });
-    })();
-  </script>
 </body>
 </html>
