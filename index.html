@@ -229,6 +229,11 @@
       .desktop-hero { display: flex; }
     }
   </style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#002B5C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pronostiqueurs">
 </head>
 <body>
   <header>
@@ -259,7 +264,7 @@
   <section class="zone-match">
     <p class="countdown-label">Coupe du Monde 2026</p>
     <p class="countdown-titre">D&#233;but du grand concours</p>
-    <p class="countdown-jours">J <span>&#8722;</span> 14</p>
+    <p class="countdown-jours" id="countdown-mobile">J <span>&#8722;</span> <span id="jours-mobile">…</span></p>
     <div class="deco-line"></div>
   </section>
   <section class="mobile-promo">
@@ -273,7 +278,7 @@
       <p class="hero-line l2">DU GRAND</p>
       <p class="hero-line l3">CONCOURS</p>
       <div class="hero-deco"></div>
-      <p class="hero-jours">J &minus; 14</p>
+      <p class="hero-jours">J &minus; <span id="jours-desktop">…</span></p>
     </div>
   </section>
   <section class="zone-contenu">
@@ -351,5 +356,23 @@
   <footer>
     Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a>
   </footer>
+  <script>
+    /* ── Countdown automatique jusqu'au 11 juin 2026 ── */
+    function updateCountdown() {
+      var cible = new Date('2026-06-11T00:00:00');
+      var now = new Date();
+      var diff = cible - now;
+      var jours = diff > 0 ? Math.ceil(diff / (1000 * 60 * 60 * 24)) : 0;
+      var txt = diff <= 0 ? "C'est parti !" : jours;
+      var m = document.getElementById('jours-mobile');
+      var d = document.getElementById('jours-desktop');
+      if (m) m.textContent = txt;
+      if (d) d.textContent = txt;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    }
+  </script>
 </body>
-</html>
