@@ -193,6 +193,7 @@
     .actu-card-body a { color: var(--bleu-azur); text-decoration: none; font-weight: 600; }
     .actu-card-body a:hover { color: var(--rouge); text-decoration: underline; }
     .actu-source { margin-top: 16px; font-size: 12px; color: #999; font-style: italic; }
+    .actu-card + .actu-card { margin-top: 30px; }
     @media (max-width: 700px) {
       .actu-card { flex-direction: column; }
       .actu-card img { width: 100%; min-width: unset; height: 220px; }
@@ -342,14 +343,40 @@
 
   <section class="zone-actu">
     <div class="actu-titre">📰 Actualités de la Coupe du Monde</div>
+
+    <!-- Article 1 : Neymar -->
+    <div class="actu-card" style="margin-bottom: 30px;">
+      <img src="Neymar_1.jpg" alt="Neymar blessé avec le Brésil">
+      <div class="actu-card-body">
+        <p style="font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; color:var(--bleu-marine); margin-bottom:14px;">Absence de plusieurs semaines pour Neymar</p>
+        <p>Touché au mollet depuis plusieurs jours, Neymar souffre d'une blessure plus grave que prévu. L'ancien joueur du PSG s'est vu diagnostiquer une lésion qui le tiendra éloigné des terrains pendant 2 à 3 semaines. Il manquera les matchs de préparation, et sûrement celui d'ouverture face au Maroc. Ce jeudi, le médecin de la Canarinha, Rodrigo Lasmar, a confirmé la nouvelle : «&nbsp;Neymar s'est présenté hier à Granja Comary et a passé tous les examens médicaux, dont une IRM qui a révélé une lésion de grade 2 au mollet, et non un simple œdème. On prévoit qu'il sera rétabli d'ici deux à trois semaines&nbsp;», a-t-il indiqué dans des propos relayés par la presse brésilienne.</p>
+        <p>Son absence face à l'Égypte et le Panama pour les deux matchs de préparation du <a href="https://www.footmercato.net/selection/bresil/" target="_blank" rel="noopener">Brésil</a> est d'ores et déjà actée. D'après Globo Esporte, Neymar devrait également être forfait pour <a href="https://www.footmercato.net/live/348751573635215553-bresil-vs-maroc" target="_blank" rel="noopener">le premier choc</a> qui attend la Selecao au Mondial face au Maroc.</p>
+        <p class="actu-source">Source : Footmercato</p>
+      </div>
+    </div>
+
+    <!-- Article 2 : Yildiz -->
+    <div class="actu-card" style="margin-bottom: 30px;">
+      <img src="Yildiz.jpg" alt="Kenan Yildiz avec la Juventus">
+      <div class="actu-card-body">
+        <p style="font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; color:var(--bleu-marine); margin-bottom:14px;">Kenan Yildiz forfait pour le début du Mondial</p>
+        <p>Une première grosse mauvaise nouvelle pour la <a href="https://www.footmercato.net/selection/turquie/" target="_blank" rel="noopener">Turquie</a>. Qualifié pour le Mondial de cet été, Vincenzo Montella a un groupe à sa portée avec notamment le pays hôte, les États-Unis, mais aussi l'Australie et le Paraguay. Avec une génération talentueuse, la Turquie peut rêver grand. Mais une première mauvaise nouvelle est tombée ce jeudi.</p>
+        <p>Selon les informations de TRT Spor, la Turquie va devoir se passer de sa pépite <a href="https://www.footmercato.net/joueur/kenan-yildiz/" target="_blank" rel="noopener">Kenan Yildiz</a>. L'attaquant de la Juventus, touché depuis quelques jours, va manquer au moins le premier match des siens au Mondial. Un gros coup dur tant l'attaquant de 21 ans est un élément important de l'équipe.</p>
+        <p class="actu-source">Source : Footmercato</p>
+      </div>
+    </div>
+
+    <!-- Article 3 : Messi -->
     <div class="actu-card">
       <img src="messi_1.jpg" alt="Lionel Messi avec l'Argentine">
       <div class="actu-card-body">
+        <p style="font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; color:var(--bleu-marine); margin-bottom:14px;">Scaloni donne des nouvelles de Messi</p>
         <p>À quelques semaines de la <a href="https://www.footmercato.net/international/coupe-du-monde/" target="_blank" rel="noopener">Coupe du Monde</a> (11 juin – 19 juillet), <a href="https://www.footmercato.net/joueur/lionel-messi/" target="_blank" rel="noopener">Lionel Messi</a> a fait trembler ses fans. En effet, l'attaquant argentin de l'Inter Miami <a href="https://www.footmercato.net/a8394156325032514360-argentine-miami-le-communique-medical-sur-lionel-messi-est-tombe" target="_blank" rel="noopener">avait suscité une forte inquiétude physique le week-end dernier</a>, ressentant une douleur à l'ischio-jambier gauche. Le sélectionneur de l'Albiceleste, <a href="https://www.footmercato.net/entraineur/lionel-sebastian-scaloni" target="_blank" rel="noopener">Lionel Scaloni</a>, s'est ainsi montré rassurant concernant l'état de santé de la Pulga hier. Le coach a affirmé que « les premières nouvelles n'étaient pas si mauvaises » sur la chaîne DSports.</p>
         <p>Scaloni a aussi expliqué la situation du numéro 10, attendu par des millions de fans au Mondial. « Logiquement, on préférerait qu'il ne lui soit rien arrivé. Maintenant, il faut attendre de voir comment il évolue et, surtout, les nouveaux examens qu'ils vont lui faire, j'imagine, pour voir si c'est vraiment comme on le dit » a indiqué le sélectionneur. Si l'Inter Miami peut souffler, un peuple sud-américain sort la tête de l'eau pour son octuple Ballon d'Or.</p>
-        <p class="actu-source">Source : footmercato.net</p>
+        <p class="actu-source">Source : Footmercato</p>
       </div>
     </div>
+
   </section>
 
   <div class="footer-stripe"></div>
