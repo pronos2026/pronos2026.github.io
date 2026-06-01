@@ -198,7 +198,14 @@
     .match-row .team-left { text-align: left; }
     .match-row .team-right { text-align: right; }
     .match-row .score { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: var(--bleu-marine); background: #F4F6FA; border: 1px solid #dde3ee; border-radius: 4px; padding: 2px 12px; text-align: center; white-space: nowrap; }
-    @media(max-width:600px) { .match-row { font-size: 12px; padding: 8px 10px; } }
+    .match-day { margin-bottom: 28px; }
+    .match-date { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #fff; background: var(--bleu-marine); display: inline-block; padding: 6px 18px; border-radius: 4px; margin-bottom: 14px; }
+    .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+    .match-col { display: flex; flex-direction: column; gap: 8px; }
+    @media(max-width:700px) {
+      .match-grid { grid-template-columns: 1fr; }
+      .match-row { font-size: 12px; padding: 8px 10px; }
+    }
     @media (max-width: 700px) {
       .actu-card { flex-direction: column; }
       .actu-card img { width: 100%; min-width: unset; height: 220px; }
@@ -363,64 +370,82 @@
       <span style="flex:1;height:2px;background:linear-gradient(90deg,var(--rouge),transparent);display:inline-block;"></span>
     </p>
 
-    <!-- 31 mai -->
-    <div style="margin-bottom:28px;">
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Dimanche 31 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🇧🇷 Brésil</span><span class="score">6 – 2</span><span class="team-right">Panama 🇵🇦</span></div>
-        <div class="match-row"><span class="team-left">🇺🇸 États-Unis</span><span class="score">3 – 2</span><span class="team-right">Sénégal 🇸🇳</span></div>
-        <div class="match-row"><span class="team-left">🇩🇪 Allemagne</span><span class="score">4 – 0</span><span class="team-right">Finlande 🇫🇮</span></div>
-        <div class="match-row"><span class="team-left">🇨🇻 Cap Vert</span><span class="score">3 – 0</span><span class="team-right">Serbie 🇷🇸</span></div>
-        <div class="match-row"><span class="team-left">🇨🇿 Tchéquie</span><span class="score">2 – 1</span><span class="team-right">Kosovo 🇽🇰</span></div>
-        <div class="match-row"><span class="team-left">🇨🇭 Suisse</span><span class="score">4 – 1</span><span class="team-right">Jordanie 🇯🇴</span></div>
-        <div class="match-row"><span class="team-left">🇯🇵 Japon</span><span class="score">1 – 0</span><span class="team-right">Islande 🇮🇸</span></div>
-        <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">1 – 0</span><span class="team-right">Australie 🇦🇺</span></div>
-        <div class="match-row"><span class="team-left">🇰🇷 Corée du Sud</span><span class="score">5 – 0</span><span class="team-right">Trinité-et-Tobago 🇹🇹</span></div>
-        <div class="match-row"><span class="team-left">🇪🇨 Équateur</span><span class="score">2 – 1</span><span class="team-right">Arabie Saoudite 🇸🇦</span></div>
+    <!-- 31 mai : 10 matchs → 2 colonnes de 5 -->
+    <div class="match-day">
+      <p class="match-date">Dimanche 31 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇧🇷 Brésil</span><span class="score">6 – 2</span><span class="team-right">Panama 🇵🇦</span></div>
+          <div class="match-row"><span class="team-left">🇺🇸 États-Unis</span><span class="score">3 – 2</span><span class="team-right">Sénégal 🇸🇳</span></div>
+          <div class="match-row"><span class="team-left">🇩🇪 Allemagne</span><span class="score">4 – 0</span><span class="team-right">Finlande 🇫🇮</span></div>
+          <div class="match-row"><span class="team-left">🇨🇻 Cap Vert</span><span class="score">3 – 0</span><span class="team-right">Serbie 🇷🇸</span></div>
+          <div class="match-row"><span class="team-left">🇨🇿 Tchéquie</span><span class="score">2 – 1</span><span class="team-right">Kosovo 🇽🇰</span></div>
+        </div>
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇨🇭 Suisse</span><span class="score">4 – 1</span><span class="team-right">Jordanie 🇯🇴</span></div>
+          <div class="match-row"><span class="team-left">🇯🇵 Japon</span><span class="score">1 – 0</span><span class="team-right">Islande 🇮🇸</span></div>
+          <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">1 – 0</span><span class="team-right">Australie 🇦🇺</span></div>
+          <div class="match-row"><span class="team-left">🇰🇷 Corée du Sud</span><span class="score">5 – 0</span><span class="team-right">Trinité-et-Tobago 🇹🇹</span></div>
+          <div class="match-row"><span class="team-left">🇪🇨 Équateur</span><span class="score">2 – 1</span><span class="team-right">Arabie Saoudite 🇸🇦</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- 30 mai -->
-    <div style="margin-bottom:28px;">
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Samedi 30 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse</span><span class="score">4 – 1</span><span class="team-right">Curaçao 🇨🇼</span></div>
+    <!-- 30 mai : 1 match -->
+    <div class="match-day">
+      <p class="match-date">Samedi 30 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse</span><span class="score">4 – 1</span><span class="team-right">Curaçao 🇨🇼</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- 29 mai -->
-    <div style="margin-bottom:28px;">
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Vendredi 29 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🇧🇦 Bosnie</span><span class="score">0 – 0</span><span class="team-right">Macédoine 🇲🇰</span></div>
-        <div class="match-row"><span class="team-left">🇿🇦 Afrique du Sud</span><span class="score">0 – 0</span><span class="team-right">Nicaragua 🇳🇮</span></div>
-        <div class="match-row"><span class="team-left">🇦🇩 Andorre</span><span class="score">0 – 1</span><span class="team-right">Irak 🇮🇶</span></div>
-        <div class="match-row"><span class="team-left">🇮🇷 Iran</span><span class="score">3 – 1</span><span class="team-right">Gambie 🇬🇲</span></div>
+    <!-- 29 mai : 4 matchs → 2 colonnes de 2 -->
+    <div class="match-day">
+      <p class="match-date">Vendredi 29 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇧🇦 Bosnie</span><span class="score">0 – 0</span><span class="team-right">Macédoine 🇲🇰</span></div>
+          <div class="match-row"><span class="team-left">🇿🇦 Afrique du Sud</span><span class="score">0 – 0</span><span class="team-right">Nicaragua 🇳🇮</span></div>
+        </div>
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇦🇩 Andorre</span><span class="score">0 – 1</span><span class="team-right">Irak 🇮🇶</span></div>
+          <div class="match-row"><span class="team-left">🇮🇷 Iran</span><span class="score">3 – 1</span><span class="team-right">Gambie 🇬🇲</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- 28 mai -->
-    <div style="margin-bottom:28px;">
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Jeudi 28 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🇮🇪 Irlande</span><span class="score">1 – 0</span><span class="team-right">Qatar 🇶🇦</span></div>
-        <div class="match-row"><span class="team-left">🇪🇬 Égypte</span><span class="score">1 – 0</span><span class="team-right">Russie 🇷🇺</span></div>
+    <!-- 28 mai : 2 matchs → 2 colonnes de 1 -->
+    <div class="match-day">
+      <p class="match-date">Jeudi 28 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇮🇪 Irlande</span><span class="score">1 – 0</span><span class="team-right">Qatar 🇶🇦</span></div>
+        </div>
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇪🇬 Égypte</span><span class="score">1 – 0</span><span class="team-right">Russie 🇷🇺</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- 26 mai -->
-    <div style="margin-bottom:28px;">
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Mardi 26 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🇲🇦 Maroc</span><span class="score">5 – 0</span><span class="team-right">Burundi 🇧🇮</span></div>
+    <!-- 26 mai : 1 match -->
+    <div class="match-day">
+      <p class="match-date">Mardi 26 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇲🇦 Maroc</span><span class="score">5 – 0</span><span class="team-right">Burundi 🇧🇮</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- 23 mai -->
-    <div>
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Samedi 23 mai 2026</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">2 – 0</span><span class="team-right">Ghana 🇬🇭</span></div>
+    <!-- 23 mai : 1 match -->
+    <div class="match-day">
+      <p class="match-date">Samedi 23 mai 2026</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">2 – 0</span><span class="team-right">Ghana 🇬🇭</span></div>
+        </div>
       </div>
     </div>
 
