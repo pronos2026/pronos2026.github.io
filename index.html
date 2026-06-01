@@ -194,6 +194,11 @@
     .actu-card-body a:hover { color: var(--rouge); text-decoration: underline; }
     .actu-source { margin-top: 16px; font-size: 12px; color: #999; font-style: italic; }
     .actu-card + .actu-card { margin-top: 30px; }
+    .match-row { font-family: 'Barlow', sans-serif; font-size: 15px; color: #333; background: #fff; border-radius: 6px; padding: 10px 18px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,43,92,0.07); }
+    .match-row .team-left { text-align: left; }
+    .match-row .team-right { text-align: right; }
+    .match-row .score { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: var(--bleu-marine); background: #F4F6FA; border: 1px solid #dde3ee; border-radius: 4px; padding: 2px 12px; text-align: center; white-space: nowrap; }
+    @media(max-width:600px) { .match-row { font-size: 12px; padding: 8px 10px; } }
     @media (max-width: 700px) {
       .actu-card { flex-direction: column; }
       .actu-card img { width: 100%; min-width: unset; height: 220px; }
@@ -339,6 +344,86 @@
     " onmouseover="this.style.background='#0077C8'" onmouseout="this.style.background='#002B5C'">
       &#9917;&nbsp; REMPLIR MA GRILLE EN LIGNE
     </a>
+  </section>
+
+  <!-- ── Compteur de grilles reçues ── -->
+  <section style="background:#002B5C;padding:40px 40px;text-align:center;border-top:4px solid #C9A84C;">
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">Participation en temps réel</p>
+    <p style="font-family:'Barlow',sans-serif;font-size:15px;color:rgba(255,255,255,0.75);margin-bottom:18px;">Nombre de grilles reçues et enregistrées à cet instant</p>
+    <div style="display:inline-flex;align-items:center;justify-content:center;background:#0a1a2e;border:2px solid #C9A84C;border-radius:12px;padding:18px 50px;box-shadow:0 0 40px rgba(201,168,76,0.2);">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:8px;color:#C9A84C;line-height:1;">10</span>
+    </div>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:14px;">grilles enregistrées</p>
+  </section>
+
+  <!-- ── Matchs de préparation ── -->
+  <section style="background:#F4F6FA;padding:50px 40px 60px;border-top:4px solid var(--rouge);">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:30px;display:flex;align-items:center;gap:12px;">
+      ⚽ Le point sur les matchs de préparation
+      <span style="flex:1;height:2px;background:linear-gradient(90deg,var(--rouge),transparent);display:inline-block;"></span>
+    </p>
+
+    <!-- 31 mai -->
+    <div style="margin-bottom:28px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Dimanche 31 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🇧🇷 Brésil</span><span class="score">6 – 2</span><span class="team-right">Panama 🇵🇦</span></div>
+        <div class="match-row"><span class="team-left">🇺🇸 États-Unis</span><span class="score">3 – 2</span><span class="team-right">Sénégal 🇸🇳</span></div>
+        <div class="match-row"><span class="team-left">🇩🇪 Allemagne</span><span class="score">4 – 0</span><span class="team-right">Finlande 🇫🇮</span></div>
+        <div class="match-row"><span class="team-left">🇨🇻 Cap Vert</span><span class="score">3 – 0</span><span class="team-right">Serbie 🇷🇸</span></div>
+        <div class="match-row"><span class="team-left">🇨🇿 Tchéquie</span><span class="score">2 – 1</span><span class="team-right">Kosovo 🇽🇰</span></div>
+        <div class="match-row"><span class="team-left">🇨🇭 Suisse</span><span class="score">4 – 1</span><span class="team-right">Jordanie 🇯🇴</span></div>
+        <div class="match-row"><span class="team-left">🇯🇵 Japon</span><span class="score">1 – 0</span><span class="team-right">Islande 🇮🇸</span></div>
+        <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">1 – 0</span><span class="team-right">Australie 🇦🇺</span></div>
+        <div class="match-row"><span class="team-left">🇰🇷 Corée du Sud</span><span class="score">5 – 0</span><span class="team-right">Trinité-et-Tobago 🇹🇹</span></div>
+        <div class="match-row"><span class="team-left">🇪🇨 Équateur</span><span class="score">2 – 1</span><span class="team-right">Arabie Saoudite 🇸🇦</span></div>
+      </div>
+    </div>
+
+    <!-- 30 mai -->
+    <div style="margin-bottom:28px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Samedi 30 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Écosse</span><span class="score">4 – 1</span><span class="team-right">Curaçao 🇨🇼</span></div>
+      </div>
+    </div>
+
+    <!-- 29 mai -->
+    <div style="margin-bottom:28px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Vendredi 29 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🇧🇦 Bosnie</span><span class="score">0 – 0</span><span class="team-right">Macédoine 🇲🇰</span></div>
+        <div class="match-row"><span class="team-left">🇿🇦 Afrique du Sud</span><span class="score">0 – 0</span><span class="team-right">Nicaragua 🇳🇮</span></div>
+        <div class="match-row"><span class="team-left">🇦🇩 Andorre</span><span class="score">0 – 1</span><span class="team-right">Irak 🇮🇶</span></div>
+        <div class="match-row"><span class="team-left">🇮🇷 Iran</span><span class="score">3 – 1</span><span class="team-right">Gambie 🇬🇲</span></div>
+      </div>
+    </div>
+
+    <!-- 28 mai -->
+    <div style="margin-bottom:28px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Jeudi 28 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🇮🇪 Irlande</span><span class="score">1 – 0</span><span class="team-right">Qatar 🇶🇦</span></div>
+        <div class="match-row"><span class="team-left">🇪🇬 Égypte</span><span class="score">1 – 0</span><span class="team-right">Russie 🇷🇺</span></div>
+      </div>
+    </div>
+
+    <!-- 26 mai -->
+    <div style="margin-bottom:28px;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Mardi 26 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🇲🇦 Maroc</span><span class="score">5 – 0</span><span class="team-right">Burundi 🇧🇮</span></div>
+      </div>
+    </div>
+
+    <!-- 23 mai -->
+    <div>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;background:var(--bleu-marine);display:inline-block;padding:6px 18px;border-radius:4px;margin-bottom:14px;">Samedi 23 mai 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="match-row"><span class="team-left">🇲🇽 Mexique</span><span class="score">2 – 0</span><span class="team-right">Ghana 🇬🇭</span></div>
+      </div>
+    </div>
+
   </section>
 
   <section class="zone-actu">
