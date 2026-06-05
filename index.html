@@ -301,6 +301,43 @@
     @media (max-width:600px) {
       .zm-img { height: 140px; }
     }
+
+    /* ── Compteur 4 unités ── */
+    .cd-bloc-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0 16px;
+    }
+    .cd-bloc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .cd-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(54px, 8vw, 82px);
+      color: #5BC8F5;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    .cd-unit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(13px, 1.8vw, 17px);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(46px, 7vw, 70px);
+      color: #C9A84C;
+      line-height: 1;
+      padding-bottom: 22px;
+    }
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#002B5C">
@@ -428,7 +465,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#006aa7,#0d5eaf);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 4 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇸🇪</span>
@@ -443,7 +480,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#0055a4,#f77f00);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 4 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇫🇷</span>
@@ -458,7 +495,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#c60b1e,#007a3d);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 4 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇪🇸</span>
@@ -473,7 +510,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#db161b,#002d62);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 4 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇵🇦</span>
@@ -492,7 +529,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ff6600,#006233);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 3 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇳🇱</span>
@@ -507,7 +544,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#007fff,#c60c30);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 3 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇩</span>
@@ -522,7 +559,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#00209f,#000000);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mercredi 3 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇭🇹</span>
@@ -541,7 +578,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#c8102e,#006b3f);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 2 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span>
@@ -556,7 +593,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#000000);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 2 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇭🇷</span>
@@ -571,7 +608,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#c1272d,#fc3d32);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 2 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇲🇦</span>
@@ -586,7 +623,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#1eb53a);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 2 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇦</span>
@@ -601,7 +638,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#fcd116,#002b7f);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 2 juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇴</span>
@@ -620,7 +657,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ED2939,#E70013);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Lundi 1er juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇦🇹</span>
@@ -635,7 +672,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#EF2B2D,#006aa7);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Lundi 1er juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇳🇴</span>
@@ -650,7 +687,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#E30A17,#ce2028);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Lundi 1er juin 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇹🇷</span>
@@ -669,7 +706,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#009c3b,#db161b);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇧🇷</span>
@@ -684,7 +721,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#b22234,#00853f);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇺🇸</span>
@@ -699,7 +736,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#000000,#003580);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇩🇪</span>
@@ -714,7 +751,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#003893,#c6363c);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇻</span>
@@ -729,7 +766,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#d7141a,#244aa5);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇿</span>
@@ -744,7 +781,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#007a3d);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇨🇭</span>
@@ -759,7 +796,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#bc002d,#003897);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇯🇵</span>
@@ -774,7 +811,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#006847,#00843d);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇲🇽</span>
@@ -789,7 +826,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#003478,#CE1126);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇰🇷</span>
@@ -804,7 +841,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#ffd100,#006c35);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Dimanche 31 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇪🇨</span>
@@ -823,7 +860,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#003087,#002b7f);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Samedi 30 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
@@ -842,7 +879,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#002395,#ce2028);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Vendredi 29 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇧🇦</span>
@@ -857,7 +894,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#007a4d,#3e9bda);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Vendredi 29 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇿🇦</span>
@@ -872,7 +909,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#003DA5,#007a3d);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Vendredi 29 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇦🇩</span>
@@ -887,7 +924,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#239f40,#3a7728);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Vendredi 29 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇮🇷</span>
@@ -906,7 +943,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#169b62,#8D1B3D);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Jeudi 28 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇮🇪</span>
@@ -921,7 +958,7 @@
         </div>
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#CE1126,#003580);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Jeudi 28 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇪🇬</span>
@@ -940,7 +977,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#c1272d,#18B637);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Mardi 26 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇲🇦</span>
@@ -959,7 +996,7 @@
     <div class="match-cards-grid">
       <div class="match-card">
           <div class="match-card-accent" style="background:linear-gradient(90deg,#006847,#006b3f);"></div>
-          <div class="match-card-date"></div>
+          <div class="match-card-date">Samedi 23 mai 2026</div>
           <div class="match-card-teams">
             <div class="match-card-team">
               <span class="match-card-flag">🇲🇽</span>
@@ -1016,7 +1053,7 @@
   <script>
     /* ── Countdown automatique jusqu'au 11 juin 2026 ── */
     function updateCountdown() {
-      var cible = new Date('2026-06-11T00:00:00');
+      var cible = new Date('2026-06-11T21:00:00');
       var now   = new Date();
       var diff  = cible - now;
       if (diff <= 0) {
