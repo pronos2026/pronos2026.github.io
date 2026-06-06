@@ -385,6 +385,65 @@
     .zm-right .deco-line {
       margin-left: 0;
     }
+
+    /* ── Corrections mobile portrait ── */
+    @media (max-width: 600px) {
+
+      /* (1) Cartes matchs : date et score plus larges */
+      .match-cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+      }
+      .match-card {
+        padding: 10px 14px;
+      }
+      .match-card-date {
+        font-size: 12px;
+        white-space: normal;
+        margin-bottom: 8px;
+      }
+      .match-card-score {
+        font-size: 20px;
+        padding: 6px 14px;
+        min-width: 64px;
+        text-align: center;
+      }
+      .match-card-flag { font-size: 24px; }
+      .match-card-name { font-size: 12px; }
+
+      /* (2) Palmarès pleine largeur */
+      .zone-contenu {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .historique-titre {
+        padding-left: 12px !important;
+        font-size: 20px !important;
+      }
+      .historique-table {
+        font-size: 11px !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+      }
+      .historique-table thead th {
+        padding: 6px 4px !important;
+        font-size: 9px !important;
+        letter-spacing: 0 !important;
+      }
+      .historique-table tbody td {
+        padding: 6px 4px !important;
+      }
+
+      /* (3) Footer pleine largeur */
+      footer {
+        padding: 20px 0 24px !important;
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      .footer-stripe {
+        width: 100%;
+      }
+    }
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#002B5C">
