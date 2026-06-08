@@ -542,15 +542,13 @@ function placeDot(row, profIdx, matiere, thirdIdx, niv) {
    HANDLE DOT CLICK (assign)
 ══════════════════════════════════════════ */
 function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
-  // Block if row is fully complete (all matieres done)
+  // Block if row is fully complete
   if (isRowComplete(row)) return;
-  // For single-matiere rows (HGGSP only): block if count already 0
+  // For single-matiere rows (HGGSP): block if count already 0
   const hasPair = row.matieres.find(m => m.countsDown) && row.matieres.find(m => !m.countsDown);
   if (!hasPair && matiere.countsDown && countState[row.id] <= 0) return;
-  // For pair rows: block if this matiere is already filled at this thirdIdx
-  if (hasPair) {
-    if (state[row.id][profIdx][matiere.key][thirdIdx] !== null) return;
-  }
+  // For pair rows: block if this matiere slot is already filled at this thirdIdx
+  if (hasPair && state[row.id][profIdx][matiere.key][thirdIdx] !== null) return;
 
   const slots = state[row.id][profIdx][matiere.key];
   const usedCount = slots.filter(s => s !== null).length;
@@ -580,21 +578,8 @@ function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
     updateChaire(profIdx);
   }
 
-  // Decrement countState only when a HG+EMC pair is completed at this thirdIdx
-  // (for rows with both countsDown and non-countsDown matieres)
-  const hgMat2 = row.matieres.find(m => m.countsDown);
-  const emcMat2 = row.matieres.find(m => !m.countsDown);
-  if (hgMat2 && emcMat2) {
-    // Pair-based: decrement when both HG and EMC are now filled at thirdIdx
-    const hgSlot = state[row.id][profIdx][hgMat2.key][thirdIdx];
-    const emcSlot = state[row.id][profIdx][emcMat2.key][thirdIdx];
-    if (hgSlot !== null && emcSlot !== null) {
-      countState[row.id]--;
-    }
-  } else if (matiere.countsDown) {
-    // Single-matiere rows (HGGSP): decrement on HG click as before
-    countState[row.id]--;
-  }
+  // Update countState based on global HG+EMC totals across all profs
+  recomputeCount(row);
 
   // Always update badge (might now be complete)
   updateBadge(row, niv);
@@ -622,54 +607,30 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
     updateChaire(profIdx);
   }
 
-  // Restore countState: only if this slot had a complete HG+EMC pair
-  const hgMat3 = row.matieres.find(m => m.countsDown);
-  const emcMat3 = row.matieres.find(m => !m.countsDown);
-  if (hgMat3 && emcMat3) {
-    // Before clearing, check if both were filled (the pair was complete)
-    const hgSlot = state[row.id][profIdx][hgMat3.key][thirdIdx];
-    const emcSlot = state[row.id][profIdx][emcMat3.key][thirdIdx];
-    // At this point slots[thirdIdx] is already null (set above), so check the OTHER matiere
-    const otherMat = matiere.countsDown ? emcMat3 : hgMat3;
-    const otherSlot = state[row.id][profIdx][otherMat.key][thirdIdx];
-    if (otherSlot !== null) {
-      countState[row.id]++; // pair was complete, restore 1
-    }
-  } else if (matiere.countsDown) {
-    countState[row.id]++;
-  }
-
-  // Clear this third and put dot back
-  const thirdEl = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${thirdIdx}`);
-  thirdEl.innerHTML = '';
-  placeDot(row, profIdx, matiere, thirdIdx, niv);
-
-  // Also clear all subsequent thirds for this prof/row/matiere (cascade)
+  // Clear subsequent thirds for this prof/matiere (cascade)
   for (let t = thirdIdx + 1; t < 3; t++) {
     if (slots[t] !== null) {
       horaires[profIdx] -= matiere.heures;
       if (niv && (niv.id === 'n1ere' || niv.id === 'ntale')) chaireClicks[profIdx]--;
-      // Pair restore for cascade
-      const hgM = row.matieres.find(m => m.countsDown);
-      const emcM = row.matieres.find(m => !m.countsDown);
-      if (hgM && emcM) {
-        const otherMat2 = matiere.countsDown ? emcM : hgM;
-        if (state[row.id][profIdx][otherMat2.key][t] !== null) {
-          countState[row.id]++;
-        }
-      } else if (matiere.countsDown) {
-        countState[row.id]++;
-      }
       slots[t] = null;
     }
     const el = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${t}`);
     if (el) el.innerHTML = '';
   }
+
+  // Recompute count globally
+  recomputeCount(row);
+
+  // Restore the dot on this third
+  const thirdEl = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${thirdIdx}`);
+  thirdEl.innerHTML = '';
+  placeDot(row, profIdx, matiere, thirdIdx, niv);
+
   updateHoraire(profIdx);
   updateChaire(profIdx);
   updateBadge(row, niv);
 
-  // Re-show dots on all thirds that now need them (row might have been complete)
+  // Re-show dots across row
   refreshRowDots(row, niv);
 }
 
@@ -709,29 +670,36 @@ function getDisplayName(row) {
 }
 
 /* ══════════════════════════════════════════
+   RECOMPUTE COUNT (global HG vs EMC totals)
+   countState = initialCount - min(totalHG, totalEMC)
+   For single-matiere rows: initialCount - totalHG
+══════════════════════════════════════════ */
+function recomputeCount(row) {
+  const hgMat = row.matieres.find(m => m.countsDown);
+  const emcMat = row.matieres.find(m => !m.countsDown);
+  if (hgMat && emcMat) {
+    // Count total HG and total EMC assigned across ALL profs and ALL thirds
+    let totalHG = 0, totalEMC = 0;
+    for (let p = 0; p < 8; p++) {
+      totalHG  += state[row.id][p][hgMat.key].filter(s => s !== null).length;
+      totalEMC += state[row.id][p][emcMat.key].filter(s => s !== null).length;
+    }
+    countState[row.id] = row.count - Math.min(totalHG, totalEMC);
+  } else if (hgMat) {
+    // Single-matiere (HGGSP): count total HG
+    let total = 0;
+    for (let p = 0; p < 8; p++) {
+      total += state[row.id][p][hgMat.key].filter(s => s !== null).length;
+    }
+    countState[row.id] = row.count - total;
+  }
+}
+
+/* ══════════════════════════════════════════
    IS ROW FULLY COMPLETE?
-   Validation only when ALL matieres are fully assigned:
-   - countsDown matieres: countState[row.id] <= 0
-   - non-countsDown (EMC): every prof's slots for that matiere must
-     match the number of HG slots filled by that prof
-   We use a simpler rule: the row is complete when countState <= 0
-   AND for every prof, every non-countsDown matiere has the same
-   number of assigned slots as the countsDown matiere.
 ══════════════════════════════════════════ */
 function isRowComplete(row) {
-  if (countState[row.id] > 0) return false;
-  // Also check non-countsDown matieres are fully matched
-  const hgMat = row.matieres.find(m => m.countsDown);
-  const otherMats = row.matieres.filter(m => !m.countsDown);
-  if (!hgMat || otherMats.length === 0) return true; // single-matiere rows: rely on countState only
-  for (let p = 0; p < 8; p++) {
-    const hgFilled = state[row.id][p][hgMat.key].filter(s => s !== null).length;
-    for (const m of otherMats) {
-      const otherFilled = state[row.id][p][m.key].filter(s => s !== null).length;
-      if (otherFilled < hgFilled) return false;
-    }
-  }
-  return true;
+  return countState[row.id] <= 0;
 }
 
 /* ══════════════════════════════════════════
