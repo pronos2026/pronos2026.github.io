@@ -308,7 +308,7 @@ const NIVEAUX = [
   {
     id: "n1ere",
     rows: [
-      { id: "1g",    label: ["1","ère"," Générale"], count: 5, maxPerCol: 3,
+      { id: "1g",    label: ["1","ère"," Générale"], shortLabel: "1e Gén", count: 5, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:3,   countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:1,   countsDown:false },
@@ -342,7 +342,7 @@ const NIVEAUX = [
   {
     id: "ntale",
     rows: [
-      { id: "tg",    label: "Tale Générale", count: 6, maxPerCol: 3,
+      { id: "tg",    label: "Tale Générale", shortLabel: "Tale Gén", count: 6, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:3,   countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:1,   countsDown:false },
@@ -540,8 +540,7 @@ function placeDot(row, profIdx, matiere, thirdIdx, niv) {
   const thirdEl = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${thirdIdx}`);
   if (!thirdEl) return;
   thirdEl.innerHTML = '';
-  // If row is complete, leave empty (no dot)
-  if (countState[row.id] <= 0) return;
+  if (isRowComplete(row)) return;
   const dot = document.createElement('div');
   dot.className = `dot ${matiere.dotCss}`;
   dot.title = `Attribuer ${matiere.tag} à ${PROFS[profIdx].name}`;
@@ -553,7 +552,20 @@ function placeDot(row, profIdx, matiere, thirdIdx, niv) {
    HANDLE DOT CLICK (assign)
 ══════════════════════════════════════════ */
 function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
-  if (countState[row.id] <= 0) return;
+  // Block if row is fully complete (all matieres done)
+  if (isRowComplete(row)) return;
+  // For countsDown matieres (HG/HGGSP): block if count already 0
+  if (matiere.countsDown && countState[row.id] <= 0) return;
+  // For non-countsDown (EMC): allow as long as the matching HG slot exists for this prof
+  if (!matiere.countsDown) {
+    const hgMat = row.matieres.find(m => m.countsDown);
+    if (hgMat) {
+      const hgFilled = state[row.id][profIdx][hgMat.key].filter(s => s !== null).length;
+      const emcFilled = state[row.id][profIdx][matiere.key].filter(s => s !== null).length;
+      if (emcFilled >= hgFilled) return; // can't assign more EMC than HG for this prof
+    }
+  }
+
   const slots = state[row.id][profIdx][matiere.key];
   const usedCount = slots.filter(s => s !== null).length;
   if (usedCount >= row.maxPerCol) return;
@@ -582,14 +594,16 @@ function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
     updateChaire(profIdx);
   }
 
-  // Decrement count
+  // Decrement count (only for countsDown matieres)
   if (matiere.countsDown) {
     countState[row.id]--;
-    updateBadge(row, niv);
   }
 
+  // Always update badge (might now be complete)
+  updateBadge(row, niv);
+
   // Place next dot in next third if available AND row not complete
-  if (thirdIdx < 2 && slots[thirdIdx + 1] === null && countState[row.id] > 0) {
+  if (thirdIdx < 2 && slots[thirdIdx + 1] === null && !isRowComplete(row)) {
     placeDot(row, profIdx, matiere, thirdIdx + 1, niv);
   }
 }
@@ -644,10 +658,9 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
 
 /* ══════════════════════════════════════════
    REFRESH ALL DOTS FOR A ROW
-   (called when count changes: show/hide dots across all profs)
 ══════════════════════════════════════════ */
 function refreshRowDots(row, niv) {
-  const complete = countState[row.id] <= 0;
+  const complete = isRowComplete(row);
   for (let p = 0; p < 8; p++) {
     row.matieres.forEach(m => {
       for (let t = 0; t < 3; t++) {
@@ -655,15 +668,13 @@ function refreshRowDots(row, niv) {
         const thirdEl = document.getElementById(`third-${row.id}-${p}-${m.key}-${t}`);
         if (!thirdEl) continue;
         if (slots[t] !== null) continue; // already assigned, keep label
-        // Empty slot: show dot only if row not complete AND previous slot is filled (or t===0)
         const prevFilled = t === 0 || slots[t-1] !== null;
         if (!complete && prevFilled) {
-          // Only place dot if not already a dot there
           if (!thirdEl.querySelector('.dot')) {
             placeDot(row, p, m, t, niv);
           }
         } else {
-          thirdEl.innerHTML = ''; // remove dot if row is complete
+          thirdEl.innerHTML = '';
         }
       }
     });
@@ -674,8 +685,35 @@ function refreshRowDots(row, niv) {
    GET DISPLAY NAME
 ══════════════════════════════════════════ */
 function getDisplayName(row) {
+  if (row.shortLabel) return row.shortLabel;
   if (Array.isArray(row.label)) return row.label[0] + row.label[1] + row.label[2];
   return row.label;
+}
+
+/* ══════════════════════════════════════════
+   IS ROW FULLY COMPLETE?
+   Validation only when ALL matieres are fully assigned:
+   - countsDown matieres: countState[row.id] <= 0
+   - non-countsDown (EMC): every prof's slots for that matiere must
+     match the number of HG slots filled by that prof
+   We use a simpler rule: the row is complete when countState <= 0
+   AND for every prof, every non-countsDown matiere has the same
+   number of assigned slots as the countsDown matiere.
+══════════════════════════════════════════ */
+function isRowComplete(row) {
+  if (countState[row.id] > 0) return false;
+  // Also check non-countsDown matieres are fully matched
+  const hgMat = row.matieres.find(m => m.countsDown);
+  const otherMats = row.matieres.filter(m => !m.countsDown);
+  if (!hgMat || otherMats.length === 0) return true; // single-matiere rows: rely on countState only
+  for (let p = 0; p < 8; p++) {
+    const hgFilled = state[row.id][p][hgMat.key].filter(s => s !== null).length;
+    for (const m of otherMats) {
+      const otherFilled = state[row.id][p][m.key].filter(s => s !== null).length;
+      if (otherFilled < hgFilled) return false;
+    }
+  }
+  return true;
 }
 
 /* ══════════════════════════════════════════
@@ -685,18 +723,19 @@ function updateBadge(row, niv) {
   const badge = document.getElementById(`badge-${row.id}`);
   if (!badge) return;
   const c = countState[row.id];
-  if (c <= 0) {
+  const complete = isRowComplete(row);
+  if (complete) {
     badge.classList.add('done');
     badge.textContent = '✓';
-    // Hide all remaining dots in this row
     refreshRowDots(row, niv);
   } else {
     badge.classList.remove('done');
     badge.textContent = c;
-    // Re-show dots if row was previously complete
     refreshRowDots(row, niv);
   }
 }
+
+/* refreshRowDots uses isRowComplete */
 
 /* ══════════════════════════════════════════
    UPDATE HORAIRE
