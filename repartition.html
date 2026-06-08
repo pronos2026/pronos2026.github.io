@@ -102,6 +102,34 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
   animation: sunburst 1s ease-in-out infinite;
 }
 
+/* ── AVATAR EXPANDED ── */
+.h-avatar.expanded {
+  position: fixed;
+  width: 378px !important;
+  height: 378px !important;
+  border-radius: 50%;
+  border-width: 5px !important;
+  z-index: 1000;
+  cursor: zoom-out;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  filter: none;
+  background: #ffffff;
+  transition: width .35s cubic-bezier(.4,0,.2,1),
+              height .35s cubic-bezier(.4,0,.2,1),
+              border-radius .35s,
+              box-shadow .35s,
+              filter .35s;
+}
+.avatar-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  cursor: zoom-out;
+}
+.avatar-overlay.active { display: block; }
+
 /* ── HORAIRES BAND ── */
 .horaires-band {
   background: #f0f3fa;
@@ -258,6 +286,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
   </button>
 </header>
 
+<div class="avatar-overlay" id="avatar-overlay"></div>
 <div class="main-grid" id="main-grid"></div>
 
 <script>
@@ -402,6 +431,10 @@ PROFS.forEach((p, i) => {
   const d = document.createElement('div');
   d.className = 'h-prof';
   d.innerHTML = `<div class="h-avatar" id="avatar-${i}" style="border-color:${p.color}50"><img src="${PROF_PHOTOS[i]}" alt="${p.name}"></div><span class="h-name">${p.name}</span>`;
+  // Click to expand
+  d.querySelector('.h-avatar').addEventListener('click', function() {
+    toggleAvatar(this);
+  });
   hdrRow.appendChild(d);
 });
 grid.appendChild(hdrRow);
@@ -756,8 +789,38 @@ function updateHoraire(profIdx) {
 }
 
 /* ══════════════════════════════════════════
-   UPDATE CHAIRE (capped at 1)
+   AVATAR EXPAND / COLLAPSE
 ══════════════════════════════════════════ */
+let expandedAvatar = null;
+const overlay = document.getElementById('avatar-overlay');
+
+function toggleAvatar(avatarEl) {
+  if (expandedAvatar && expandedAvatar !== avatarEl) {
+    // Collapse the previously expanded one first
+    expandedAvatar.classList.remove('expanded');
+    expandedAvatar = null;
+    overlay.classList.remove('active');
+    return;
+  }
+  if (avatarEl.classList.contains('expanded')) {
+    avatarEl.classList.remove('expanded');
+    expandedAvatar = null;
+    overlay.classList.remove('active');
+  } else {
+    avatarEl.classList.add('expanded');
+    expandedAvatar = avatarEl;
+    overlay.classList.add('active');
+  }
+}
+
+overlay.addEventListener('click', function() {
+  if (expandedAvatar) {
+    expandedAvatar.classList.remove('expanded');
+    expandedAvatar = null;
+    overlay.classList.remove('active');
+  }
+});
+
 function updateChaire(profIdx) {
   const el = document.getElementById(`chaire-${profIdx}`);
   if (!el) return;
