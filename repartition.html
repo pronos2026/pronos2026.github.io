@@ -526,11 +526,25 @@ grid.appendChild(chaireBand);
 /* ══════════════════════════════════════════
    PLACE DOT
 ══════════════════════════════════════════ */
+function totalAssigned(row, matKey) {
+  // Count total assigned slots for a given matiere across all profs and thirds
+  let total = 0;
+  for (let p = 0; p < 8; p++) {
+    total += state[row.id][p][matKey].filter(s => s !== null).length;
+  }
+  return total;
+}
+
+function isMatiereComplete(row, matiere) {
+  return totalAssigned(row, matiere.key) >= row.count;
+}
+
 function placeDot(row, profIdx, matiere, thirdIdx, niv) {
   const thirdEl = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${thirdIdx}`);
   if (!thirdEl) return;
   thirdEl.innerHTML = '';
-  if (isRowComplete(row)) return;
+  // Don't show dot if this specific matiere has reached its cap (row.count)
+  if (isMatiereComplete(row, matiere)) return;
   const dot = document.createElement('div');
   dot.className = `dot ${matiere.dotCss}`;
   dot.title = `Attribuer ${matiere.tag} à ${PROFS[profIdx].name}`;
@@ -544,6 +558,8 @@ function placeDot(row, profIdx, matiere, thirdIdx, niv) {
 function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
   // Block if row is fully complete
   if (isRowComplete(row)) return;
+  // Block if this specific matiere has already reached row.count total clicks
+  if (isMatiereComplete(row, matiere)) return;
   // For single-matiere rows (HGGSP): block if count already 0
   const hasPair = row.matieres.find(m => m.countsDown) && row.matieres.find(m => !m.countsDown);
   if (!hasPair && matiere.countsDown && countState[row.id] <= 0) return;
@@ -584,8 +600,11 @@ function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
   // Always update badge (might now be complete)
   updateBadge(row, niv);
 
-  // Place next dot in next third if available AND row not complete
-  if (thirdIdx < 2 && slots[thirdIdx + 1] === null && !isRowComplete(row)) {
+  // Refresh all dots (some matieres may now be at cap)
+  refreshRowDots(row, niv);
+
+  // Place next dot in next third if available AND matiere not at cap
+  if (thirdIdx < 2 && slots[thirdIdx + 1] === null && !isMatiereComplete(row, matiere)) {
     placeDot(row, profIdx, matiere, thirdIdx + 1, niv);
   }
 }
@@ -638,22 +657,21 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
    REFRESH ALL DOTS FOR A ROW
 ══════════════════════════════════════════ */
 function refreshRowDots(row, niv) {
-  const complete = isRowComplete(row);
   for (let p = 0; p < 8; p++) {
     row.matieres.forEach(m => {
+      const matComplete = isMatiereComplete(row, m);
       for (let t = 0; t < 3; t++) {
         const slots = state[row.id][p][m.key];
         const thirdEl = document.getElementById(`third-${row.id}-${p}-${m.key}-${t}`);
         if (!thirdEl) continue;
-        if (slots[t] !== null) continue; // already assigned, keep label
-        // Show dot if: row not complete AND (t===0 OR any previous third has this matiere filled)
+        if (slots[t] !== null) continue; // already assigned label, keep it
         const prevFilled = t === 0 || slots[t-1] !== null;
-        if (!complete && prevFilled) {
+        if (!matComplete && prevFilled) {
           if (!thirdEl.querySelector('.dot')) {
             placeDot(row, p, m, t, niv);
           }
         } else {
-          thirdEl.innerHTML = '';
+          thirdEl.innerHTML = ''; // matiere cap reached or no prev slot: no dot
         }
       }
     });
