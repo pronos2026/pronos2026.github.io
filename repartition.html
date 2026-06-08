@@ -544,21 +544,12 @@ function placeDot(row, profIdx, matiere, thirdIdx, niv) {
 function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
   // Block if row is fully complete (all matieres done)
   if (isRowComplete(row)) return;
-  // For countsDown matieres (HG/HGGSP with no EMC pair): block if count already 0
+  // For single-matiere rows (HGGSP only): block if count already 0
   const hasPair = row.matieres.find(m => m.countsDown) && row.matieres.find(m => !m.countsDown);
   if (!hasPair && matiere.countsDown && countState[row.id] <= 0) return;
-  // For non-countsDown (EMC): allow as long as matching HG slot exists for this prof at this thirdIdx
-  if (!matiere.countsDown) {
-    const hgMat = row.matieres.find(m => m.countsDown);
-    if (hgMat) {
-      const hgSlotFilled = state[row.id][profIdx][hgMat.key][thirdIdx] !== null;
-      if (!hgSlotFilled) return; // must click HG first for this slot
-    }
-  }
-  // For HG in pair rows: block if EMC already filled at this thirdIdx (shouldn't happen but safety)
-  if (matiere.countsDown && hasPair) {
-    const emcMat = row.matieres.find(m => !m.countsDown);
-    if (emcMat && state[row.id][profIdx][emcMat.key][thirdIdx] !== null) return;
+  // For pair rows: block if this matiere is already filled at this thirdIdx
+  if (hasPair) {
+    if (state[row.id][profIdx][matiere.key][thirdIdx] !== null) return;
   }
 
   const slots = state[row.id][profIdx][matiere.key];
@@ -694,6 +685,7 @@ function refreshRowDots(row, niv) {
         const thirdEl = document.getElementById(`third-${row.id}-${p}-${m.key}-${t}`);
         if (!thirdEl) continue;
         if (slots[t] !== null) continue; // already assigned, keep label
+        // Show dot if: row not complete AND (t===0 OR any previous third has this matiere filled)
         const prevFilled = t === 0 || slots[t-1] !== null;
         if (!complete && prevFilled) {
           if (!thirdEl.querySelector('.dot')) {
