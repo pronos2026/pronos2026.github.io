@@ -87,6 +87,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .h-prof:hover .h-avatar { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,58,107,.18); }
 .h-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .h-name { font-size: .66rem; font-weight: 500; color: var(--muted); text-align: center; letter-spacing: .04em; text-transform: uppercase; }
+.h-subname { font-size: .55rem; font-weight: 400; color: var(--muted); text-align: center; letter-spacing: .03em; opacity: .75; margin-top: 1px; }
 
 /* ── AVATAR SEUIL ATTEINT : rayonnement solaire ── */
 @keyframes sunburst {
@@ -303,7 +304,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 <header class="header-band">
   <span class="header-hg">HG</span>
   <div class="header-sep"></div>
-  <span class="header-title">Répartition des classes</span>
+  <span class="header-title" style="margin-left: 220px;">Répartition des classes</span>
   <span class="header-year">2026 – 2027</span>
   <button class="nav-btn nav-btn-refresh" onclick="location.reload()" style="margin-left:auto;position:relative;z-index:2;">
     Rafraîchir
@@ -456,7 +457,10 @@ hdrRow.innerHTML = '<div class="h-empty"></div><div class="h-empty"></div><div c
 PROFS.forEach((p, i) => {
   const d = document.createElement('div');
   d.className = 'h-prof';
-  d.innerHTML = `<div class="h-avatar" id="avatar-${i}" style="border-color:${p.color}50"><img src="${PROF_PHOTOS[i]}" alt="${p.name}"></div><span class="h-name">${p.name}</span>`;
+  const subName = (i === 5) 
+    ? `<span class="h-name">Charlotte ou BMP</span>`
+    : `<span class="h-name">${p.name}</span>`;
+  d.innerHTML = `<div class="h-avatar" id="avatar-${i}" style="border-color:${p.color}50"><img src="${PROF_PHOTOS[i]}" alt="${p.name}"></div>${subName}`;
   // Click to expand
   d.querySelector('.h-avatar').addEventListener('click', function() {
     toggleAvatar(this);
