@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HG — Répartition des classes 2026-2027</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink: #0f1b2d;
@@ -123,6 +123,20 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
               box-shadow .35s,
               filter .35s;
 }
+
+/* Snow canvas: independent fixed element, clipped to circle, pointer-events none */
+#snow-canvas-el {
+  display: none;
+  position: fixed;
+  border-radius: 50%;
+  z-index: 1002;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  clip-path: circle(50%);
+}
+#snow-canvas-el.active { display: block; }
 .avatar-overlay {
   display: none;
   position: fixed; inset: 0; z-index: 999;
@@ -137,14 +151,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
   position: sticky; top: 184px; z-index: 29;
 }
 .horaires-band .h-empty { display: flex; align-items: center; justify-content: center; }
-.horaires-label { font-family: 'Syne', sans-serif; font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; padding: 0 8px; display: flex; align-items: center; }
+.horaires-label { font-family: 'Inter', Arial, sans-serif; font-size: .85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; padding: 0 10px; display: flex; align-items: center; }
 .horaire-cell {
   border-left: 1px dashed var(--border);
   display: flex; align-items: center; justify-content: center;
   padding: 6px 4px; min-height: 38px;
 }
 .horaire-val {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem;
+  font-family: 'Inter', Arial, sans-serif; font-weight: 700; font-size: 1.4rem;
   color: var(--red);
   transition: color .3s;
 }
@@ -180,21 +194,32 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
   width: 44px; height: 44px; border-radius: 10px;
   border: 2px solid rgba(200,57,43,.25); background: rgba(200,57,43,.06);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--red);
+  font-family: 'Inter', Arial, sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--red);
   transition: all .3s;
 }
 .count-badge.done {
   background: rgba(26,122,58,.08); border-color: rgba(26,122,58,.3); color: var(--green);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 /* col2 */
-.col-label { padding: 8px 8px; display: flex; align-items: center; }
-.classe-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); line-height: 1.2; }
-.classe-label.big { font-size: 1.5rem; }
+.col-label { padding: 6px 4px 6px 10px; display: flex; align-items: center; }
+.classe-label { font-family: 'Inter', Arial, sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; letter-spacing: .01em; }
+.classe-label.big { font-size: 1.65rem; }
+
+/* col2 label glow when row validated */
+@keyframes labelglow {
+  0%   { text-shadow: 0 0 4px rgba(26,180,80,.7), 0 0 10px rgba(26,180,80,.4); }
+  50%  { text-shadow: 0 0 10px rgba(26,180,80,.9), 0 0 22px rgba(26,180,80,.6), 0 0 36px rgba(26,180,80,.3); }
+  100% { text-shadow: 0 0 4px rgba(26,180,80,.7), 0 0 10px rgba(26,180,80,.4); }
+}
+.classe-label.validated {
+  color: var(--green);
+  animation: labelglow 2s ease-in-out infinite;
+}
 
 /* col3 */
-.col-tags { display: flex; flex-direction: column; gap: 0; padding: 0; }
+.col-tags { display: flex; flex-direction: column; gap: 0; padding: 0 2px 0 0; }
 .tag-row {
   display: flex; align-items: center; justify-content: center;
   flex: 1; padding: 5px 6px;
@@ -287,6 +312,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 </header>
 
 <div class="avatar-overlay" id="avatar-overlay"></div>
+<canvas id="snow-canvas-el" width="378" height="378"></canvas>
 <div class="main-grid" id="main-grid"></div>
 
 <script>
@@ -327,30 +353,30 @@ const NIVEAUX = [
   {
     id: "n1ere",
     rows: [
-      { id: "1g",    label: ["1","ère"," Générale"], shortLabel: "1e Gén", count: 5, maxPerCol: 3,
+      { id: "1g",    label: ["1","e"," Générale"], shortLabel: "1e Gén", count: 5, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:3,   countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:1,   countsDown:false },
         ]
       },
-      { id: "1spe",  label: ["1","ère"," Spé"], count: 2, maxPerCol: 3,
+      { id: "1spe",  label: ["1","e"," Spé"], count: 2, maxPerCol: 3,
         matieres: [
           { key:"hggsp", tag:"HGGSP", cssTag:"tag-hggsp", dotCss:"dot-hggsp", bold:true, heures:4, countsDown:true },
         ]
       },
-      { id: "1sti2d", label: ["1","ère"," STI2D"], count: 2, maxPerCol: 3,
+      { id: "1sti2d", label: ["1","e"," STI2D"], count: 2, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
         ]
       },
-      { id: "1stl",  label: ["1","ère"," STL"], count: 1, maxPerCol: 3,
+      { id: "1stl",  label: ["1","e"," STL"], count: 1, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
         ]
       },
-      { id: "1stmg", label: ["1","ère"," STMG"], count: 5, maxPerCol: 3,
+      { id: "1stmg", label: ["1","e"," STMG"], count: 5, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
@@ -361,30 +387,30 @@ const NIVEAUX = [
   {
     id: "ntale",
     rows: [
-      { id: "tg",    label: "Tale Générale", shortLabel: "Tale Gén", count: 6, maxPerCol: 3,
+      { id: "tg",    label: "T. Générale", shortLabel: "T. Gén", count: 6, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:3,   countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:1,   countsDown:false },
         ]
       },
-      { id: "tspe",  label: "Tale Spé", count: 2, maxPerCol: 3,
+      { id: "tspe",  label: "T. Spé", count: 2, maxPerCol: 3,
         matieres: [
           { key:"hggsp", tag:"HGGSP", cssTag:"tag-hggsp", dotCss:"dot-hggsp", bold:true, heures:6, countsDown:true },
         ]
       },
-      { id: "tsti2d", label: "Tale STI2D", count: 2, maxPerCol: 3,
+      { id: "tsti2d", label: "T. STI2D", count: 2, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
         ]
       },
-      { id: "tstl",  label: "Tale STL", count: 1, maxPerCol: 3,
+      { id: "tstl",  label: "T. STL", count: 1, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
         ]
       },
-      { id: "tstmg", label: "Tale STMG", count: 5, maxPerCol: 3,
+      { id: "tstmg", label: "T. STMG", count: 5, maxPerCol: 3,
         matieres: [
           { key:"hg",  tag:"HG",  cssTag:"tag-hg",  dotCss:"dot-hg",  bold:true,  heures:1.5, countsDown:true },
           { key:"emc", tag:"EMC", cssTag:"tag-emc", dotCss:"dot-emc", bold:false, heures:0.5, countsDown:false },
@@ -761,13 +787,18 @@ function updateBadge(row, niv) {
   if (!badge) return;
   const c = countState[row.id];
   const complete = isRowComplete(row);
+  // Find the col2 label in the same row
+  const rowEl = document.getElementById(`row-${row.id}`);
+  const labelEl = rowEl ? rowEl.querySelector('.classe-label') : null;
   if (complete) {
     badge.classList.add('done');
     badge.textContent = '✓';
+    if (labelEl) labelEl.classList.add('validated');
     refreshRowDots(row, niv);
   } else {
     badge.classList.remove('done');
     badge.textContent = c;
+    if (labelEl) labelEl.classList.remove('validated');
     refreshRowDots(row, niv);
   }
 }
@@ -789,33 +820,168 @@ function updateHoraire(profIdx) {
 }
 
 /* ══════════════════════════════════════════
-   AVATAR EXPAND / COLLAPSE
+   AVATAR EXPAND / COLLAPSE + SNOWFLAKES
 ══════════════════════════════════════════ */
 let expandedAvatar = null;
+let snowRAF = null;
 const overlay = document.getElementById('avatar-overlay');
+const snowEl  = document.getElementById('snow-canvas-el');
+const snowCtx = snowEl.getContext('2d');
+
+const SIZE = 378;
+const R = SIZE / 2;
+let flakes = [];
+
+// Off-screen canvas to sample photo pixels
+let photoPixels = null;
+
+function samplePhotoPixels(avatarEl) {
+  const img = avatarEl.querySelector('img');
+  const offscreen = document.createElement('canvas');
+  offscreen.width = SIZE; offscreen.height = SIZE;
+  const octx = offscreen.getContext('2d');
+  octx.beginPath(); octx.arc(R, R, R, 0, Math.PI*2); octx.clip();
+  octx.drawImage(img, 0, 0, SIZE, SIZE);
+  return octx.getImageData(0, 0, SIZE, SIZE).data;
+}
+
+function isBackground(pixels, x, y) {
+  const idx = (Math.round(y) * SIZE + Math.round(x)) * 4;
+  const r = pixels[idx], g = pixels[idx+1], b = pixels[idx+2];
+  // Background = bluish-grey: blue dominant, not skin-toned
+  return (b > r && b > g && b > 90) && !(r > 160 && g > 100 && b < 150);
+}
+
+function initFlakes(avatarEl) {
+  photoPixels = null;
+  try { photoPixels = samplePhotoPixels(avatarEl); } catch(e) {}
+  flakes = [];
+  let attempts = 0;
+  while (flakes.length < 42 && attempts < 4000) {
+    attempts++;
+    const angle = Math.random() * Math.PI * 2;
+    const dist  = Math.random() * (R - 8);
+    const x = R + Math.cos(angle) * dist;
+    const y = R + Math.sin(angle) * dist;
+    if (photoPixels && !isBackground(photoPixels, x, y)) continue;
+    flakes.push({
+      x, y,
+      r: 3 + Math.random() * 7,
+      alpha: Math.random() * 0.4,
+      alphaMax: 0.75 + Math.random() * 0.25,
+      alphaDir: Math.random() > 0.5 ? 1 : -1,
+      alphaSpeed: 0.01 + Math.random() * 0.03,
+    });
+  }
+  // Fallback if not enough found
+  while (flakes.length < 25) {
+    const angle = Math.random() * Math.PI * 2;
+    const dist  = (R * 0.7) + Math.random() * (R * 0.25);
+    flakes.push({
+      x: R + Math.cos(angle) * dist,
+      y: R + Math.sin(angle) * dist,
+      r: 3 + Math.random() * 6,
+      alpha: Math.random() * 0.4,
+      alphaMax: 0.7 + Math.random() * 0.3,
+      alphaDir: Math.random() > 0.5 ? 1 : -1,
+      alphaSpeed: 0.01 + Math.random() * 0.025,
+    });
+  }
+}
+
+function animateSnow() {
+  snowCtx.clearRect(0, 0, SIZE, SIZE);
+
+  flakes.forEach(f => {
+    const dx = f.x - R, dy = f.y - R;
+    if (dx*dx + dy*dy >= (R-4)*(R-4)) return;
+
+    snowCtx.save();
+
+    // Halo extérieur large et doux
+    const halo = snowCtx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * 3.5);
+    halo.addColorStop(0,   `rgba(255,210,40,${f.alpha * 0.5})`);
+    halo.addColorStop(0.4, `rgba(220,160,10,${f.alpha * 0.25})`);
+    halo.addColorStop(1,   'rgba(200,140,0,0)');
+    snowCtx.beginPath();
+    snowCtx.arc(f.x, f.y, f.r * 3.5, 0, Math.PI*2);
+    snowCtx.fillStyle = halo;
+    snowCtx.fill();
+
+    // Point central brillant
+    const grd = snowCtx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r);
+    grd.addColorStop(0,   `rgba(255,255,220,${f.alpha})`);
+    grd.addColorStop(0.25,`rgba(255,230,80,${f.alpha})`);
+    grd.addColorStop(0.6, `rgba(240,180,20,${f.alpha * 0.7})`);
+    grd.addColorStop(1,   'rgba(210,140,0,0)');
+    snowCtx.beginPath();
+    snowCtx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+    snowCtx.fillStyle = grd;
+    snowCtx.fill();
+
+    // Croix lumineuse bien visible
+    snowCtx.globalAlpha = f.alpha * 0.85;
+    snowCtx.strokeStyle = 'rgba(255,248,180,1)';
+    snowCtx.lineWidth = 1.2;
+    snowCtx.lineCap = 'round';
+    snowCtx.shadowColor = 'rgba(255,220,50,0.95)';
+    snowCtx.shadowBlur = 8;
+    const len = f.r * 2.2;
+    snowCtx.beginPath(); snowCtx.moveTo(f.x-len, f.y); snowCtx.lineTo(f.x+len, f.y); snowCtx.stroke();
+    snowCtx.beginPath(); snowCtx.moveTo(f.x, f.y-len); snowCtx.lineTo(f.x, f.y+len); snowCtx.stroke();
+    // Diagonales à 45°
+    const len2 = len * 0.6;
+    snowCtx.lineWidth = 0.7;
+    snowCtx.beginPath(); snowCtx.moveTo(f.x-len2, f.y-len2); snowCtx.lineTo(f.x+len2, f.y+len2); snowCtx.stroke();
+    snowCtx.beginPath(); snowCtx.moveTo(f.x+len2, f.y-len2); snowCtx.lineTo(f.x-len2, f.y+len2); snowCtx.stroke();
+
+    snowCtx.restore();
+
+    f.alpha += f.alphaDir * f.alphaSpeed;
+    if (f.alpha > f.alphaMax) { f.alpha = f.alphaMax; f.alphaDir = -1; }
+    if (f.alpha < 0.02)       { f.alpha = 0.02;       f.alphaDir =  1; }
+  });
+
+  snowRAF = requestAnimationFrame(animateSnow);
+}
+
+function startSnow(avatarEl) {
+  snowEl.classList.add('active');
+  initFlakes(avatarEl);
+  animateSnow();
+}
+
+function stopSnow() {
+  if (snowRAF) { cancelAnimationFrame(snowRAF); snowRAF = null; }
+  snowEl.classList.remove('active');
+  snowCtx.clearRect(0, 0, SIZE, SIZE);
+}
 
 function toggleAvatar(avatarEl) {
   if (expandedAvatar && expandedAvatar !== avatarEl) {
-    // Collapse the previously expanded one first
     expandedAvatar.classList.remove('expanded');
+    stopSnow();
     expandedAvatar = null;
     overlay.classList.remove('active');
     return;
   }
   if (avatarEl.classList.contains('expanded')) {
     avatarEl.classList.remove('expanded');
+    stopSnow();
     expandedAvatar = null;
     overlay.classList.remove('active');
   } else {
     avatarEl.classList.add('expanded');
     expandedAvatar = avatarEl;
     overlay.classList.add('active');
+    setTimeout(() => startSnow(avatarEl), 360);
   }
 }
 
 overlay.addEventListener('click', function() {
   if (expandedAvatar) {
     expandedAvatar.classList.remove('expanded');
+    stopSnow();
     expandedAvatar = null;
     overlay.classList.remove('active');
   }
