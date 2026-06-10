@@ -431,7 +431,7 @@ const NIVEAUX = [
 const state = {};       // state[rowId][profIdx][matKey] = [null|tag, null|tag, null|tag]
 const countState = {};  // remaining classes per row
 const horaires = new Array(8).fill(0);
-const chaireClicks = new Array(8).fill(0); // clicks in 1ere+tale for heures de chaire
+const chaireHeures = new Array(8).fill(0); // 10% of hours in 1ere+tale, capped at 1h
 
 NIVEAUX.forEach(niv => {
   niv.rows.forEach(row => {
@@ -679,9 +679,9 @@ function handleDotClick(row, profIdx, matiere, thirdIdx, niv) {
   horaires[profIdx] += matiere.heures;
   updateHoraire(profIdx);
 
-  // Track chaire clicks (1ere + tale)
+  // Track heures de chaire: 10% of hours in 1ere + tale, capped at 1h total
   if (niv && (niv.id === 'n1ere' || niv.id === 'ntale')) {
-    chaireClicks[profIdx]++;
+    chaireHeures[profIdx] = Math.min(chaireHeures[profIdx] + matiere.heures * 0.1, 1);
     updateChaire(profIdx);
   }
 
@@ -711,9 +711,9 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
   horaires[profIdx] -= matiere.heures;
   updateHoraire(profIdx);
 
-  // Restore chaire
+  // Restore chaire: recompute from scratch
   if (niv && (niv.id === 'n1ere' || niv.id === 'ntale')) {
-    chaireClicks[profIdx]--;
+    recomputeChaire(profIdx);
     updateChaire(profIdx);
   }
 
@@ -721,7 +721,7 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
   for (let t = thirdIdx + 1; t < 3; t++) {
     if (slots[t] !== null) {
       horaires[profIdx] -= matiere.heures;
-      if (niv && (niv.id === 'n1ere' || niv.id === 'ntale')) chaireClicks[profIdx]--;
+      // chaire recomputed globally below
       slots[t] = null;
     }
     const el = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${t}`);
@@ -730,6 +730,11 @@ function handleUnassign(row, profIdx, matiere, thirdIdx, niv) {
 
   // Recompute count globally
   recomputeCount(row);
+  // Recompute chaire from scratch (cascade may have removed hours)
+  if (niv && (niv.id === 'n1ere' || niv.id === 'ntale')) {
+    recomputeChaire(profIdx);
+    updateChaire(profIdx);
+  }
 
   // Restore the dot on this third
   const thirdEl = document.getElementById(`third-${row.id}-${profIdx}-${matiere.key}-${thirdIdx}`);
@@ -1019,12 +1024,24 @@ overlay.addEventListener('click', function() {
   }
 });
 
+function recomputeChaire(profIdx) {
+  // Recompute heures de chaire from scratch based on current state
+  let total = 0;
+  [NIVEAUX[1], NIVEAUX[2]].forEach(niv => {
+    niv.rows.forEach(row => {
+      row.matieres.forEach(m => {
+        const assigned = state[row.id][profIdx][m.key].filter(s => s !== null).length;
+        total += assigned * m.heures * 0.1;
+      });
+    });
+  });
+  chaireHeures[profIdx] = Math.min(Math.round(total * 1000) / 1000, 1);
+}
+
 function updateChaire(profIdx) {
   const el = document.getElementById(`chaire-${profIdx}`);
   if (!el) return;
-  const raw = chaireClicks[profIdx] / 10;
-  const val = Math.min(raw, 1);
-  el.textContent = fmtNum(val);
+  el.textContent = fmtNum(chaireHeures[profIdx]);
 }
 
 </script>
@@ -1161,7 +1178,8 @@ function showRecap() {
     const hStr = fmtHours(h);
     const supStr = fmtHours(Math.abs(heuresSup));
     const supSign = heuresSup >= 0 ? '+' : '-';
-    const chaireH = Math.min(chaireClicks[profIdx] / 10, 1);
+    recomputeChaire(profIdx);
+    const chaireH = chaireHeures[profIdx];
     const chaireStr = fmtHours(chaireH);
     totalsDiv.innerHTML = `
       <div style="display:flex; align-items:center; gap:18px; white-space:nowrap;">
@@ -1255,7 +1273,8 @@ function exportTxt() {
     const supSign = heuresSup >= 0 ? '+' : '-';
     const supStr = fmtHours(Math.abs(heuresSup));
     const hStr = fmtHours(h);
-    const chaireH = Math.min(chaireClicks[profIdx] / 10, 1);
+    recomputeChaire(profIdx);
+    const chaireH = chaireHeures[profIdx];
     const chaireStr = fmtHours(chaireH);
 
     // Prof header
