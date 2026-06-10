@@ -165,7 +165,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 }
 .horaire-val.ok { color: var(--green); }
 
-/* ── HEURES DE CHAIRE BAND ── */
+/* ── RECAP FOOTER ── */
+.recap-footer-sep {
+  height: 2.5px;
+  background: #7b3fa0;
+  margin: 0 32px;
+  border-radius: 2px;
+}
 .chaire-band {
   background: #f8f5ff;
   border-top: 2.5px solid var(--border-level);
@@ -586,6 +592,28 @@ for (let p = 0; p < 8; p++) {
 }
 grid.appendChild(chaireBand);
 
+/* ── Recap footer (below grid) ── */
+const recapSep = document.createElement('div');
+recapSep.className = 'recap-footer-sep';
+const recapFooter = document.createElement('div');
+recapFooter.style.cssText = 'padding: 32px 32px 48px; max-width: 1600px; margin: 0 auto; display:flex; justify-content:center;';
+recapFooter.innerHTML = `
+  <button id="btn-recap" onclick="showRecap()" style="
+    background: linear-gradient(135deg, #1a7a3a, #2ea855);
+    color: white; border: none; border-radius: 14px;
+    padding: 18px 48px; cursor: pointer;
+    box-shadow: 0 4px 18px rgba(26,122,58,.3);
+    transition: transform .15s, box-shadow .15s;
+    text-align: center; line-height: 1.3;
+  " onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+    <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; letter-spacing:.08em;">RÉCAPITULATIF</div>
+    <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.9rem; margin-top:3px;">des services</div>
+  </button>
+`;
+const gridEl = document.getElementById('main-grid');
+gridEl.after(recapSep);
+recapSep.after(recapFooter);
+
 /* ══════════════════════════════════════════
    PLACE DOT
 ══════════════════════════════════════════ */
@@ -999,6 +1027,293 @@ function updateChaire(profIdx) {
   el.textContent = fmtNum(val);
 }
 
+</script>
+
+<!-- ════════ RECAP PAGE ════════ -->
+<div id="recap-page" style="display:none; position:fixed; inset:0; background:#f4f6fa; z-index:2000; overflow-y:auto; font-family:'Inter',Arial,sans-serif;">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(135deg,#0f1b2d,#1a3a6b); padding:18px 40px; display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:10; box-shadow:0 4px 16px rgba(0,0,0,.3);">
+    <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.8rem; color:#fff;">HG</span>
+    <div style="width:2px; height:28px; background:rgba(212,168,67,.6); border-radius:2px;"></div>
+    <span style="font-family:'Syne',sans-serif; font-weight:600; font-size:1rem; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:.08em;">Récapitulatif des services 2026–2027</span>
+  </div>
+
+  <!-- Content -->
+  <div id="recap-content" style="padding: 32px 40px 120px;"></div>
+
+  <!-- Bottom buttons -->
+  <div style="position:fixed; bottom:0; left:0; right:0; background:#f4f6fa; border-top:2px solid #c5cfe0; padding:16px 40px; display:flex; justify-content:space-between; align-items:center; z-index:10;">
+    <button onclick="hideRecap()" style="background:linear-gradient(135deg,#1a3a6b,#1e4d8c); color:white; border:none; border-radius:12px; padding:14px 36px; cursor:pointer; text-align:center; line-height:1.3; box-shadow:0 3px 12px rgba(26,58,107,.3); transition:transform .15s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; letter-spacing:.06em;">RETOUR</div>
+      <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">à la répartition</div>
+    </button>
+    <button onclick="exportTxt()" style="background:linear-gradient(135deg,#1a7a3a,#2ea855); color:white; border:none; border-radius:12px; padding:14px 36px; cursor:pointer; text-align:center; line-height:1.3; box-shadow:0 3px 12px rgba(26,122,58,.3); transition:transform .15s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; letter-spacing:.06em;">VALIDATION</div>
+      <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">pour impression</div>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   RECAP PAGE
+══════════════════════════════════════════ */
+
+// Storage for class numbers entered in recap inputs
+// classNumbers[profIdx][rowId] = string
+const classNumbers = {};
+for (let p = 0; p < 8; p++) { classNumbers[p] = {}; }
+
+function fmtHours(h) {
+  if (h === 0) return '0h';
+  const intPart = Math.floor(h);
+  const dec = Math.round((h - intPart) * 60);
+  if (dec === 0) return intPart + 'h';
+  return intPart + 'h' + String(dec).padStart(2,'0');
+}
+
+function getAssignedClasses(profIdx) {
+  // Returns ordered groups: each group = { row, matieres with assigned count }
+  const groups = [];
+  const ORDER = [
+    { niv: NIVEAUX[0], row: NIVEAUX[0].rows[0] },
+    ...NIVEAUX[1].rows.map(r => ({ niv: NIVEAUX[1], row: r })),
+    ...NIVEAUX[2].rows.map(r => ({ niv: NIVEAUX[2], row: r })),
+  ];
+  ORDER.forEach(({ niv, row }) => {
+    // Count per matiere
+    const matCounts = row.matieres.map(m => ({
+      matiere: m,
+      count: state[row.id][profIdx][m.key].filter(s => s !== null).length
+    }));
+    const maxCount = Math.max(...matCounts.map(x => x.count));
+    if (maxCount === 0) return;
+    // Build slot rows: one per index (0,1,2)
+    for (let slotIdx = 0; slotIdx < maxCount; slotIdx++) {
+      groups.push({ row, matCounts, slotIdx });
+    }
+  });
+  return groups;
+}
+
+function getShortLabel(row) {
+  if (row.shortLabel) return row.shortLabel;
+  if (Array.isArray(row.label)) return row.label[0] + row.label[1] + row.label[2];
+  return row.label;
+}
+
+function showRecap() {
+  const content = document.getElementById('recap-content');
+  content.innerHTML = '';
+
+  // Column widths: avatar=80 name=200 classes=260 input=130
+  const COL = { av:80, name:200, cls:280, inp:140 };
+  const TOTAL = COL.av + COL.name + COL.cls + COL.inp;
+
+  // Header row
+  const hdr = document.createElement('div');
+  hdr.style.cssText = `display:flex; padding:0 0 8px 0; margin-bottom:4px;`;
+  hdr.innerHTML = `
+    <div style="width:${COL.av + COL.name}px; flex-shrink:0;"></div>
+    <div style="width:${COL.cls}px; flex-shrink:0; font-family:'Inter',sans-serif; font-size:.78rem; font-weight:700; color:#7b3fa0; text-transform:uppercase; letter-spacing:.06em; padding-bottom:6px; border-bottom:2px solid #7b3fa0;">Classes</div>
+    <div style="width:${COL.inp}px; flex-shrink:0; font-family:'Inter',sans-serif; font-size:.78rem; font-weight:700; color:#7b3fa0; text-transform:uppercase; letter-spacing:.06em; padding-bottom:6px; border-bottom:2px solid #7b3fa0; padding-left:12px;">N° de classe</div>
+    <div style="flex:1;"></div>
+  `;
+  content.appendChild(hdr);
+
+  PROFS.forEach((prof, profIdx) => {
+    const groups = getAssignedClasses(profIdx);
+
+    const profBlock = document.createElement('div');
+    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0;';
+
+    // Top row: avatar + name
+    const topRow = document.createElement('div');
+    topRow.style.cssText = 'display:flex; align-items:center; margin-bottom:10px;';
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.style.cssText = `width:${COL.av}px; flex-shrink:0; display:flex; justify-content:center;`;
+    avatarDiv.innerHTML = `<div style="width:58px;height:58px;border-radius:50%;overflow:hidden;border:3px solid ${prof.color}60;box-shadow:0 2px 8px rgba(0,0,0,.12);">
+      <img src="${PROF_PHOTOS[profIdx]}" style="width:100%;height:100%;object-fit:cover;" alt="${prof.name}">
+    </div>`;
+
+    const nameDiv = document.createElement('div');
+    nameDiv.style.cssText = `width:${COL.name}px; flex-shrink:0;`;
+    const dispName = profIdx === 5
+      ? 'CHARLOTTE<br><span style="font-size:.7rem;font-weight:500;opacity:.7;">ou BMP</span>'
+      : prof.name.toUpperCase();
+    nameDiv.innerHTML = `<span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#0f1b2d;">${dispName}</span>`;
+
+    topRow.appendChild(avatarDiv);
+    topRow.appendChild(nameDiv);
+    profBlock.appendChild(topRow);
+
+    // Totals block (right side, vertically centered in the prof block)
+    const totalsDiv = document.createElement('div');
+    totalsDiv.style.cssText = `
+      position:absolute; right:40px; top:50%; transform:translateY(-50%);
+      display:flex; flex-direction:column; align-items:flex-start; gap:6px;
+    `;
+    const h = horaires[profIdx];
+    const threshold = PROFS[profIdx].threshold;
+    const heuresSup = Math.round((h - threshold) * 100) / 100;
+    const hStr = fmtHours(h);
+    const supStr = fmtHours(Math.abs(heuresSup));
+    const supSign = heuresSup >= 0 ? '+' : '-';
+    const chaireH = Math.min(chaireClicks[profIdx] / 10, 1);
+    const chaireStr = fmtHours(chaireH);
+    totalsDiv.innerHTML = `
+      <div style="display:flex; align-items:center; gap:18px; white-space:nowrap;">
+        <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:2rem; color:#1a7a3a; line-height:1;">
+          Total : ${hStr}
+        </div>
+        <div style="width:72px; height:72px; border-radius:50%; background:#1a7a3a;
+          display:flex; align-items:center; justify-content:center; flex-shrink:0;
+          box-shadow:0 3px 12px rgba(26,122,58,.35);">
+          <span style="font-family:'Inter',Arial,sans-serif; font-weight:800; font-size:1rem; color:white; text-align:center; line-height:1.2;">${supSign}${supStr}</span>
+        </div>
+      </div>
+      <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:1rem; color:#1a7a3a; line-height:1.4; white-space:nowrap; margin-top:8px;">
+        Heures supplémentaires : ${supSign}${supStr}
+      </div>
+      <div style="font-family:'Inter',Arial,sans-serif; font-weight:400; font-size:1rem; color:#1a7a3a; line-height:1.4; white-space:nowrap;">
+        dont heure de chaire : ${chaireStr}
+      </div>
+    `;
+    profBlock.style.position = 'relative';
+    profBlock.appendChild(totalsDiv);
+
+    if (groups.length === 0) {
+      const empty = document.createElement('div');
+      empty.style.cssText = `padding-left:${COL.av + COL.name}px; color:#aaa; font-size:.85rem; font-style:italic;`;
+      empty.textContent = 'Aucune classe attribuée';
+      profBlock.appendChild(empty);
+    } else {
+      // Group by row+slotIdx: show all matieres of same row+slot on consecutive lines
+      // Actually groups already has one entry per slotIdx per row
+      // We want: for each group, show all matieres of that row at that slotIdx
+      // Rebuild: unique (row,slotIdx) already done; for each, show matieres as sub-lines
+      groups.forEach(({ row, matCounts, slotIdx }) => {
+        matCounts.forEach(({ matiere, count }) => {
+          if (slotIdx >= count) return; // this matiere not assigned this many times
+          const key = `${row.id}-${matiere.key}-${slotIdx}`;
+          const label = getShortLabel(row);
+
+          const lineRow = document.createElement('div');
+          lineRow.style.cssText = `display:flex; align-items:center; margin-bottom:5px; padding-left:${COL.av + COL.name}px;`;
+
+          // Class label
+          const clsSpan = document.createElement('div');
+          clsSpan.style.cssText = `width:${COL.cls}px; flex-shrink:0; font-size:.85rem; font-weight:${matiere.bold?'700':'400'}; color:${matiere.bold?'#0f1b2d':'#3a4a5a'}; line-height:1.4;`;
+          clsSpan.textContent = `${label} — ${matiere.tag}`;
+
+          // Input
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.placeholder = '…';
+          inp.value = classNumbers[profIdx][key] || '';
+          inp.style.cssText = `width:${COL.inp - 16}px; height:26px; border:1.5px solid #7b3fa060; border-radius:6px; padding:0 8px; font-family:'Inter',sans-serif; font-size:.82rem; background:white; color:#0f1b2d; outline:none; margin-left:12px;`;
+          inp.addEventListener('focus', () => inp.style.borderColor = '#7b3fa0');
+          inp.addEventListener('blur',  () => { inp.style.borderColor = '#7b3fa060'; classNumbers[profIdx][key] = inp.value; });
+          inp.addEventListener('input', () => classNumbers[profIdx][key] = inp.value);
+
+          lineRow.appendChild(clsSpan);
+          lineRow.appendChild(inp);
+          profBlock.appendChild(lineRow);
+        });
+      });
+    }
+
+    content.appendChild(profBlock);
+  });
+
+  document.getElementById('recap-page').style.display = 'block';
+  document.getElementById('recap-page').scrollTop = 0;
+}
+
+function hideRecap() {
+  document.getElementById('recap-page').style.display = 'none';
+}
+
+function exportTxt() {
+  const lines = [];
+  const SEP1 = '═'.repeat(60);
+  const SEP2 = '─'.repeat(60);
+  const SEP3 = '·'.repeat(40);
+
+  lines.push('');
+  lines.push('  RÉCAPITULATIF DES SERVICES — HG 2026-2027');
+  lines.push(SEP1);
+  lines.push('');
+
+  PROFS.forEach((prof, profIdx) => {
+    const groups = getAssignedClasses(profIdx);
+    const h = horaires[profIdx];
+    const threshold = PROFS[profIdx].threshold;
+    const heuresSup = Math.round((h - threshold) * 100) / 100;
+    const supSign = heuresSup >= 0 ? '+' : '-';
+    const supStr = fmtHours(Math.abs(heuresSup));
+    const hStr = fmtHours(h);
+    const chaireH = Math.min(chaireClicks[profIdx] / 10, 1);
+    const chaireStr = fmtHours(chaireH);
+
+    // Prof header
+    lines.push(`  ▶  ${prof.name.toUpperCase()}`);
+    lines.push(SEP2);
+
+    // Classes
+    if (groups.length === 0) {
+      lines.push('     Aucune classe attribuée');
+    } else {
+      lines.push('     CLASSES ATTRIBUÉES :');
+      lines.push('');
+
+      // Track current row to group HG+EMC together
+      let lastRowId = null;
+      groups.forEach(({ row, matCounts, slotIdx }) => {
+        matCounts.forEach(({ matiere, count }) => {
+          if (slotIdx >= count) return;
+          const label = getShortLabel(row);
+          const key = `${row.id}-${matiere.key}-${slotIdx}`;
+          const num = classNumbers[profIdx][key] || '';
+          const numStr = num ? `  →  Classe n° ${num}` : '';
+          const indent = matiere.countsDown ? '     • ' : '       ◦ ';
+          lines.push(`${indent}${label} — ${matiere.tag}${numStr}`);
+        });
+        // Add small blank line between different row groups
+        const rowId = groups[groups.indexOf(groups.find(g => g === groups[groups.indexOf({row, matCounts, slotIdx})]))];
+        if (lastRowId && lastRowId !== row.id) lines.push('');
+        lastRowId = row.id;
+      });
+    }
+
+    lines.push('');
+    lines.push(SEP3);
+
+    // Totals
+    lines.push(`     Total horaire          :  ${hStr}`);
+    lines.push(`     Service théorique      :  ${fmtHours(threshold)}`);
+    lines.push(`     Heures supplémentaires :  ${supSign}${supStr}`);
+    lines.push(`     dont heures de chaire  :  ${chaireStr}`);
+    lines.push('');
+    lines.push(SEP1);
+    lines.push('');
+  });
+
+  lines.push('  Fichier généré le ' + new Date().toLocaleDateString('fr-FR', {
+    weekday:'long', year:'numeric', month:'long', day:'numeric'
+  }));
+  lines.push('');
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'repartition_HG_2026-2027.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
 </script>
 </body>
 </html>
