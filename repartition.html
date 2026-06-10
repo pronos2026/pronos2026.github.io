@@ -1143,15 +1143,14 @@ function showRecap() {
     const groups = getAssignedClasses(profIdx);
 
     const profBlock = document.createElement('div');
-    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0;';
+    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0; display:flex; align-items:flex-start; position:relative;';
 
-    // Top row: avatar + name
-    const topRow = document.createElement('div');
-    topRow.style.cssText = 'display:flex; align-items:center; margin-bottom:10px;';
+    // topRow not used anymore — identity sits directly in profBlock
+    const topRow = document.createElement('div'); // kept as unused shim
 
-    // Left identity block: name on top, avatar below, stacked vertically
+    // Left identity block: name + avatar, aligned with first class line
     const identityDiv = document.createElement('div');
-    identityDiv.style.cssText = `width:${COL.av + COL.name}px; flex-shrink:0; display:flex; flex-direction:column; align-items:flex-start; gap:10px; padding-bottom:8px;`;
+    identityDiv.style.cssText = `width:${COL.av + COL.name}px; flex-shrink:0; display:flex; flex-direction:column; align-items:flex-start; gap:10px;`;
 
     const dispName = profIdx === 5
       ? 'CHARLOTTE<br><span style="font-size:.8rem;font-weight:600;opacity:.65;letter-spacing:.02em;">ou BMP</span>'
@@ -1163,17 +1162,17 @@ function showRecap() {
     const avatarEl2 = document.createElement('div');
     avatarEl2.style.cssText = `padding-left:8px;`;
     avatarEl2.innerHTML = `<div style="
-      width:90px; height:90px; border-radius:50%; overflow:hidden;
-      border:4px solid ${prof.color}; box-shadow:0 4px 16px rgba(0,0,0,.18);
+      width:135px; height:135px; border-radius:50%; overflow:hidden;
+      border:4px solid ${prof.color}; box-shadow:0 4px 20px rgba(0,0,0,.2);
       transition: transform .2s;
-    " onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
       <img src="${PROF_PHOTOS[profIdx]}" style="width:100%;height:100%;object-fit:cover;" alt="${prof.name}">
     </div>`;
 
     identityDiv.appendChild(nameEl);
     identityDiv.appendChild(avatarEl2);
-    topRow.appendChild(identityDiv);
-    profBlock.appendChild(topRow);
+    // Don't add to topRow — place directly in profBlock alongside classes
+    profBlock.appendChild(identityDiv);
 
     // Totals block (right side, vertically centered in the prof block)
     const totalsDiv = document.createElement('div');
@@ -1213,7 +1212,7 @@ function showRecap() {
 
     if (groups.length === 0) {
       const empty = document.createElement('div');
-      empty.style.cssText = `padding-left:${COL.av + COL.name}px; color:#aaa; font-size:.85rem; font-style:italic;`;
+      empty.style.cssText = `color:#aaa; font-size:.85rem; font-style:italic; padding-top:8px;`;
       empty.textContent = 'Aucune classe attribuée';
       profBlock.appendChild(empty);
     } else {
@@ -1228,7 +1227,7 @@ function showRecap() {
           const label = getShortLabel(row);
 
           const lineRow = document.createElement('div');
-          lineRow.style.cssText = `display:flex; align-items:center; margin-bottom:5px; padding-left:${COL.av + COL.name}px;`;
+          lineRow.style.cssText = `display:flex; align-items:center; margin-bottom:5px;`;
 
           // Class label
           const clsSpan = document.createElement('div');
@@ -1251,6 +1250,17 @@ function showRecap() {
         });
       });
     }
+
+    // Wrap classes+numbers+totals into a column, beside the identity block
+    const classesCol = document.createElement('div');
+    classesCol.style.cssText = 'display:flex; flex-direction:column; flex:1; position:relative; padding-top:4px;';
+    // Move everything that was appended to profBlock (except identityDiv) into classesCol
+    profBlock.appendChild(classesCol);
+    Array.from(profBlock.children).forEach(child => {
+      if (child !== identityDiv && child !== classesCol) {
+        classesCol.appendChild(child);
+      }
+    });
 
     content.appendChild(profBlock);
   });
