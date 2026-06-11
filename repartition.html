@@ -1047,17 +1047,20 @@ function updateChaire(profIdx) {
 </script>
 
 <!-- ════════ RECAP PAGE ════════ -->
-<div id="recap-page" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f4f6fa; z-index:2000; font-family:'Inter',Arial,sans-serif;">
+<div id="recap-page" style="display:none; position:fixed; inset:0; background:#f4f6fa; z-index:2000; overflow-y:auto; font-family:'Inter',Arial,sans-serif;">
 
   <!-- Header -->
-  <div id="recap-header" style="background:linear-gradient(135deg,#0f1b2d,#1a3a6b); padding:18px 40px; display:flex; align-items:center; gap:20px; box-shadow:0 4px 16px rgba(0,0,0,.3);">
+  <div style="background:linear-gradient(135deg,#0f1b2d,#1a3a6b); padding:18px 40px; display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:10; box-shadow:0 4px 16px rgba(0,0,0,.3);">
     <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.8rem; color:#fff;">HG</span>
     <div style="width:2px; height:28px; background:rgba(212,168,67,.6); border-radius:2px;"></div>
     <span style="font-family:'Syne',sans-serif; font-weight:600; font-size:1rem; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:.08em;">Récapitulatif des services 2026–2027</span>
   </div>
 
+  <!-- Content -->
+  <div id="recap-content" style="padding: 32px 40px 120px;"></div>
+
   <!-- Bottom buttons -->
-  <div id="recap-footer" style="position:absolute; bottom:0; left:0; right:0; background:#f4f6fa; border-top:2px solid #c5cfe0; padding:16px 40px; display:flex; justify-content:space-between; align-items:center;">
+  <div style="position:fixed; bottom:0; left:0; right:0; background:#f4f6fa; border-top:2px solid #c5cfe0; padding:16px 40px; display:flex; justify-content:space-between; align-items:center; z-index:10;">
     <button onclick="hideRecap()" style="background:linear-gradient(135deg,#1a3a6b,#1e4d8c); color:white; border:none; border-radius:12px; padding:14px 36px; cursor:pointer; text-align:center; line-height:1.3; box-shadow:0 3px 12px rgba(26,58,107,.3); transition:transform .15s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
       <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; letter-spacing:.06em;">RETOUR</div>
       <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">à la répartition</div>
@@ -1067,10 +1070,6 @@ function updateChaire(profIdx) {
       <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">pour impression</div>
     </button>
   </div>
-
-  <!-- Scrollable content — positioned absolutely between header and footer -->
-  <div id="recap-content" style="position:absolute; left:0; right:0; overflow-y:scroll; padding:32px 40px 40px; box-sizing:border-box;"></div>
-
 </div>
 
 <script>
@@ -1159,7 +1158,7 @@ function showRecap() {
     const groups = getAssignedClasses(profIdx);
 
     const profBlock = document.createElement('div');
-    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0; display:flex; align-items:flex-start; gap:0;';
+    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0; display:flex; align-items:flex-start; position:relative;';
 
     // topRow not used anymore — identity sits directly in profBlock
     const topRow = document.createElement('div'); // kept as unused shim
@@ -1193,9 +1192,8 @@ function showRecap() {
     // Totals block (right side, vertically centered in the prof block)
     const totalsDiv = document.createElement('div');
     totalsDiv.style.cssText = `
-      flex-shrink:0; width:260px; padding:4px 16px 4px 24px;
+      position:absolute; right:220px; top:50%; transform:translateY(-50%);
       display:flex; flex-direction:column; align-items:flex-start; gap:6px;
-      overflow:hidden;
     `;
     const h = horaires[profIdx];
     const threshold = PROFS[profIdx].threshold;
@@ -1207,8 +1205,8 @@ function showRecap() {
     const chaireH = chaireHeures[profIdx];
     const chaireStr = fmtHours(chaireH);
     totalsDiv.innerHTML = `
-      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-        <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:2rem; color:#1a7a3a; line-height:1; white-space:normal;">
+      <div style="display:flex; align-items:center; gap:18px; white-space:nowrap;">
+        <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:2rem; color:#1a7a3a; line-height:1;">
           Total : ${hStr}
         </div>
         <div style="width:72px; height:72px; border-radius:50%; background:#1a7a3a;
@@ -1217,13 +1215,16 @@ function showRecap() {
           <span style="font-family:'Inter',Arial,sans-serif; font-weight:800; font-size:1rem; color:white; text-align:center; line-height:1.2;">${supSign}${supStr}</span>
         </div>
       </div>
-      <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:1rem; color:#1a7a3a; line-height:1.4; margin-top:8px;">
+      <div style="font-family:'Inter',Arial,sans-serif; font-weight:700; font-size:1rem; color:#1a7a3a; line-height:1.4; white-space:nowrap; margin-top:8px;">
         Heures supplémentaires : ${supSign}${supStr}
       </div>
-      <div style="font-family:'Inter',Arial,sans-serif; font-weight:400; font-size:1rem; color:#1a7a3a; line-height:1.4;">
+      <div style="font-family:'Inter',Arial,sans-serif; font-weight:400; font-size:1rem; color:#1a7a3a; line-height:1.4; white-space:nowrap;">
         dont heure de chaire : ${chaireStr}
       </div>
     `;
+    profBlock.style.position = 'relative';
+    profBlock.appendChild(totalsDiv);
+
     if (groups.length === 0) {
       const empty = document.createElement('div');
       empty.style.cssText = `color:#aaa; font-size:.85rem; font-style:italic; padding-top:8px;`;
@@ -1272,28 +1273,20 @@ function showRecap() {
 
     // Wrap classes+numbers+totals into a column, beside the identity block
     const classesCol = document.createElement('div');
-    classesCol.style.cssText = 'display:flex; flex-direction:column; flex:1; padding-top:4px;';
-    // Move everything into classesCol (except identity and totalsDiv)
+    classesCol.style.cssText = 'display:flex; flex-direction:column; flex:1; position:relative; padding-top:4px;';
+    // Move everything that was appended to profBlock (except identityDiv) into classesCol
     profBlock.appendChild(classesCol);
     Array.from(profBlock.children).forEach(child => {
-      if (child !== identityDiv && child !== classesCol && child !== totalsDiv) {
+      if (child !== identityDiv && child !== classesCol) {
         classesCol.appendChild(child);
       }
     });
-    // totalsDiv sits as natural right column in the flex row
-    profBlock.appendChild(totalsDiv);
 
     content.appendChild(profBlock);
   });
 
   document.getElementById('recap-page').style.display = 'block';
-  // Position content between header and footer
-  const hdrH = document.getElementById('recap-header').offsetHeight;
-  const ftrH = document.getElementById('recap-footer').offsetHeight;
-  const rc = document.getElementById('recap-content');
-  rc.style.top = hdrH + 'px';
-  rc.style.bottom = ftrH + 'px';
-  rc.scrollTop = 0;
+  document.getElementById('recap-page').scrollTop = 0;
 }
 
 function hideRecap() {
