@@ -36,11 +36,21 @@
     .zone-titre h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 8vw, 70px); color: var(--blanc); letter-spacing: 6px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
     .zone-titre .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 16px auto 0; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .zone-contenu { background: var(--blanc); padding: 80px 40px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .zone-contenu { padding: 80px 40px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
     .zone-contenu::before { content: '⚽'; position: absolute; font-size: 200px; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
     .message p { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(20px, 4vw, 30px); font-weight: 700; color: var(--bleu-marine); line-height: 1.5; letter-spacing: 0.5px; }
     .message p strong { color: var(--rouge); }
-    @media (max-width:600px) { .zone-contenu { padding: 30px 16px; } }
+    /* ── Desktop : fond bleu-gris autour des encarts ── */
+    @media (min-width:601px) {
+      .zone-contenu { background: #dde4ee; }
+    }
+
+    /* ── Mobile portrait ── */
+    @media (max-width:600px) {
+      .zone-contenu { padding: 20px 12px; background: #fff; }
+      .match-block { margin-left: 0 !important; margin-right: 0 !important; width: 100%; border-radius: 10px; }
+      .banner-meta .meta-light { font-weight: 400; opacity: 0.72; letter-spacing: 0.03em; }
+    }
 
     /* ── MATCHS ── */
     .match-block { max-width: 820px; margin: 0 auto 2.4rem; border-radius: 14px; overflow: hidden; box-shadow: 0 3px 16px rgba(0,0,0,0.13); }
@@ -106,9 +116,9 @@
           <span>Jeudi 11 juin</span><span class="sep">·</span>
           <span>21h00</span><span class="sep">·</span>
           <span>Groupe A</span><span class="sep">·</span>
-          <span>Estadio Banorte – Mexico</span><span class="sep">·</span>
-          <span class="chip chip-m6">M6</span>
-          <span class="chip chip-bein">beIN Sports</span>
+          <span class="meta-light">Estadio Banorte – Mexico</span><span class="sep">·</span>
+          <span class="chip chip-m6 meta-light">M6</span>
+          <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
         <div class="banner-teams">
           <div class="team-side left">
@@ -144,8 +154,8 @@
           <span>Vendredi 12 juin – nuit du 11</span><span class="sep">·</span>
           <span>04h00</span><span class="sep">·</span>
           <span>Groupe A</span><span class="sep">·</span>
-          <span>Estadio Akron – Guadalajara</span><span class="sep">·</span>
-          <span class="chip chip-bein">beIN Sports</span>
+          <span class="meta-light">Estadio Akron – Guadalajara</span><span class="sep">·</span>
+          <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
         <div class="banner-teams">
           <div class="team-side left">
