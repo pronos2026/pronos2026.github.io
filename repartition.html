@@ -1047,20 +1047,17 @@ function updateChaire(profIdx) {
 </script>
 
 <!-- ════════ RECAP PAGE ════════ -->
-<div id="recap-page" style="display:none; position:fixed; inset:0; background:#f4f6fa; z-index:2000; font-family:'Inter',Arial,sans-serif; flex-direction:column;">
+<div id="recap-page" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#f4f6fa; z-index:2000; font-family:'Inter',Arial,sans-serif;">
 
   <!-- Header -->
-  <div style="background:linear-gradient(135deg,#0f1b2d,#1a3a6b); padding:18px 40px; display:flex; align-items:center; gap:20px; flex-shrink:0; box-shadow:0 4px 16px rgba(0,0,0,.3);">
+  <div id="recap-header" style="background:linear-gradient(135deg,#0f1b2d,#1a3a6b); padding:18px 40px; display:flex; align-items:center; gap:20px; box-shadow:0 4px 16px rgba(0,0,0,.3);">
     <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.8rem; color:#fff;">HG</span>
     <div style="width:2px; height:28px; background:rgba(212,168,67,.6); border-radius:2px;"></div>
     <span style="font-family:'Syne',sans-serif; font-weight:600; font-size:1rem; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:.08em;">Récapitulatif des services 2026–2027</span>
   </div>
 
-  <!-- Scrollable content -->
-  <div id="recap-content" style="flex:1; overflow-y:auto; padding:32px 40px 40px; box-sizing:border-box; min-height:0;"></div>
-
   <!-- Bottom buttons -->
-  <div style="flex-shrink:0; background:#f4f6fa; border-top:2px solid #c5cfe0; padding:16px 40px; display:flex; justify-content:space-between; align-items:center;">
+  <div id="recap-footer" style="position:absolute; bottom:0; left:0; right:0; background:#f4f6fa; border-top:2px solid #c5cfe0; padding:16px 40px; display:flex; justify-content:space-between; align-items:center;">
     <button onclick="hideRecap()" style="background:linear-gradient(135deg,#1a3a6b,#1e4d8c); color:white; border:none; border-radius:12px; padding:14px 36px; cursor:pointer; text-align:center; line-height:1.3; box-shadow:0 3px 12px rgba(26,58,107,.3); transition:transform .15s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
       <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; letter-spacing:.06em;">RETOUR</div>
       <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">à la répartition</div>
@@ -1070,6 +1067,10 @@ function updateChaire(profIdx) {
       <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:.8rem; margin-top:2px;">pour impression</div>
     </button>
   </div>
+
+  <!-- Scrollable content — positioned absolutely between header and footer -->
+  <div id="recap-content" style="position:absolute; left:0; right:0; overflow-y:scroll; padding:32px 40px 40px; box-sizing:border-box;"></div>
+
 </div>
 
 <script>
@@ -1285,8 +1286,14 @@ function showRecap() {
     content.appendChild(profBlock);
   });
 
-  document.getElementById('recap-page').style.display = 'flex';
-  document.getElementById('recap-page').querySelector('#recap-content').scrollTop = 0;
+  document.getElementById('recap-page').style.display = 'block';
+  // Position content between header and footer
+  const hdrH = document.getElementById('recap-header').offsetHeight;
+  const ftrH = document.getElementById('recap-footer').offsetHeight;
+  const rc = document.getElementById('recap-content');
+  rc.style.top = hdrH + 'px';
+  rc.style.bottom = ftrH + 'px';
+  rc.scrollTop = 0;
 }
 
 function hideRecap() {
