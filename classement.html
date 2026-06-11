@@ -35,12 +35,28 @@
     .zone-titre h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 8vw, 70px); color: var(--blanc); letter-spacing: 6px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
     .zone-titre .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 16px auto 0; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .zone-contenu { background: var(--blanc); padding: 80px 40px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .zone-contenu::before { content: '⚽'; position: absolute; font-size: 200px; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-    .message { position: relative; }
-    .message p { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(20px, 4vw, 30px); font-weight: 700; color: var(--bleu-marine); line-height: 1.5; letter-spacing: 0.5px; }
-    .message p strong { color: var(--rouge); }
-    @media (max-width:600px) { .zone-contenu { padding: 50px 20px; } }
+    .zone-contenu { background: var(--blanc); padding: 60px 40px 80px; position: relative; }
+    .zone-contenu::before { content: '⚽'; position: absolute; font-size: 300px; opacity: 0.025; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .match-titre { font-family: 'Bebas Neue', sans-serif; font-size: clamp(22px, 4vw, 42px); color: var(--bleu-marine); letter-spacing: 3px; text-align: center; margin-bottom: 6px; }
+    .match-score { font-family: 'Bebas Neue', sans-serif; font-size: clamp(50px, 10vw, 90px); color: var(--rouge); letter-spacing: 8px; text-align: center; line-height: 1; margin-bottom: 48px; }
+    .classement-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; position: relative; }
+    .classement-table thead tr { background: var(--bleu-marine); }
+    .classement-table thead th { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--blanc); padding: 12px 20px; text-align: left; }
+    .classement-table thead th:last-child { text-align: right; }
+    .classement-table tbody tr { border-bottom: 1px solid #e8edf5; transition: background 0.15s; }
+    .classement-table tbody tr:hover { background: #f0f5fb; }
+    .classement-table td { padding: 16px 20px; vertical-align: top; }
+    .td-rang { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--bleu-azur); white-space: nowrap; width: 90px; }
+    .td-joueurs { font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--bleu-marine); line-height: 1.7; }
+    .td-pts { text-align: right; white-space: nowrap; }
+    .pts-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px; padding: 6px 16px; border-radius: 4px; }
+    .pts-7 { background: #003d1a; color: #fff; }
+    .pts-4 { background: var(--bleu-marine); color: #fff; }
+    .pts-3 { background: #4a2d7a; color: #fff; }
+    .pts-0 { background: #888; color: #fff; }
+    .rang-or { color: #C9A84C !important; }
+    .nb-joueurs { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+    @media (max-width:600px) { .zone-contenu { padding: 40px 16px 60px; } .classement-table td { padding: 12px 12px; } .td-rang { font-size: 17px; width: 64px; } .td-joueurs { font-size: 13px; } }
   </style>
 </head>
 <body>
@@ -74,8 +90,54 @@
     <div class="deco-line"></div>
   </div>
   <div class="zone-contenu">
-    <div class="message">
-      <p>Premier classement le <strong>11 juin à 23h</strong>,<br>après le match d'ouverture<br><strong>MEXIQUE — AFRIQUE DU SUD</strong></p>
+    <div style="position:relative; width:100%;">
+      <p class="match-titre">CLASSEMENT après le match</p>
+      <p class="match-titre" style="color:var(--rouge); margin-bottom:4px;">MEXIQUE &mdash; AFRIQUE DU SUD</p>
+      <p class="match-score">2 &ndash; 0</p>
+
+      <table class="classement-table">
+        <thead>
+          <tr>
+            <th>Rang</th>
+            <th>Pronostiqueurs</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-rang rang-or">1<sup style="font-size:13px">er</sup></td>
+            <td class="td-joueurs">
+              Anne-Claire, Armandooooo, Arsi, Carl, Cenomanum, Contrôle VAR, Cyril, El Gringo, Faustine, Fc Canaris, Hamkara, Jean-Marc, JOP, Julay, Le scud, LéO, Lino, Mariné, Martinico, Mickaël, Niewfoo, Nikita, NonoStar, Olive, Ozyr, Pascale, Pierre-Alexandre, Poirrierbouffon, Princesse Leia, Schiebercoach, SpeedyNiki, Tariq, Youki
+              <div class="nb-joueurs">33 pronostiqueurs — Score exact (2-0)</div>
+            </td>
+            <td class="td-pts"><span class="pts-badge pts-7">7 pts</span></td>
+          </tr>
+          <tr>
+            <td class="td-rang">34<sup style="font-size:11px">ème</sup></td>
+            <td class="td-joueurs">
+              Abeillefurieuse, Achillinho, Arthur, Baz, Beppolevi, Bouna, Brétivendéen, Didane, El Celestino, Epsilone, Erwan, Etienne, Gaëtan, Hamkara Sayen, HectoPascal, Henrillette du Mans, Hugooooo, Jacques, Jeannot, Juninho, Leo35, LSG, Magicmez, Manu72, Marcattack, Maxime, Moustache, MymyBob, Nono, Paulchen, Phaco, Quialedroit, Ririne, Robinucci, Sambadebrazil, Serge44, Shrek, Thomas, Toulousains, Winwin, Xavier29, Yann, Zakattack
+              <div class="nb-joueurs">43 pronostiqueurs — Bon vainqueur + 0 but AS (1-0 / 2-1 / 3-0 / 4-0)</div>
+            </td>
+            <td class="td-pts"><span class="pts-badge pts-4">4 pts</span></td>
+          </tr>
+          <tr>
+            <td class="td-rang">77<sup style="font-size:11px">ème</sup></td>
+            <td class="td-joueurs">
+              EADN, El Doctor, Fred35, Nitram, PAG, Roi97
+              <div class="nb-joueurs">6 pronostiqueurs — Bon vainqueur (3-1)</div>
+            </td>
+            <td class="td-pts"><span class="pts-badge pts-3">3 pts</span></td>
+          </tr>
+          <tr>
+            <td class="td-rang">83<sup style="font-size:11px">ème</sup></td>
+            <td class="td-joueurs">
+              Claudio, Mamadou, Marco, Melvil, Monsieur Nours, MS, Nesim, Paulovitch, Yvon
+              <div class="nb-joueurs">9 pronostiqueurs — Mauvais vainqueur, aucun bon but (0-1 / 1-1 / 1-2)</div>
+            </td>
+            <td class="td-pts"><span class="pts-badge pts-0">0 pt</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="footer-stripe"></div>
