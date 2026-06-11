@@ -1158,7 +1158,7 @@ function showRecap() {
     const groups = getAssignedClasses(profIdx);
 
     const profBlock = document.createElement('div');
-    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0; display:flex; align-items:flex-start; position:relative;';
+    profBlock.style.cssText = 'padding:18px 0; border-bottom:1px solid #c5cfe0; display:flex; align-items:flex-start; gap:0;';
 
     // topRow not used anymore — identity sits directly in profBlock
     const topRow = document.createElement('div'); // kept as unused shim
@@ -1192,7 +1192,7 @@ function showRecap() {
     // Totals block (right side, vertically centered in the prof block)
     const totalsDiv = document.createElement('div');
     totalsDiv.style.cssText = `
-      position:absolute; right:220px; top:50%; transform:translateY(-50%);
+      flex-shrink:0; width:280px; padding:4px 24px 4px 32px;
       display:flex; flex-direction:column; align-items:flex-start; gap:6px;
     `;
     const h = horaires[profIdx];
@@ -1222,9 +1222,6 @@ function showRecap() {
         dont heure de chaire : ${chaireStr}
       </div>
     `;
-    profBlock.style.position = 'relative';
-    profBlock.appendChild(totalsDiv);
-
     if (groups.length === 0) {
       const empty = document.createElement('div');
       empty.style.cssText = `color:#aaa; font-size:.85rem; font-style:italic; padding-top:8px;`;
@@ -1273,14 +1270,16 @@ function showRecap() {
 
     // Wrap classes+numbers+totals into a column, beside the identity block
     const classesCol = document.createElement('div');
-    classesCol.style.cssText = 'display:flex; flex-direction:column; flex:1; position:relative; padding-top:4px;';
-    // Move everything that was appended to profBlock (except identityDiv) into classesCol
+    classesCol.style.cssText = 'display:flex; flex-direction:column; flex:1; padding-top:4px;';
+    // Move everything into classesCol (except identity and totalsDiv)
     profBlock.appendChild(classesCol);
     Array.from(profBlock.children).forEach(child => {
-      if (child !== identityDiv && child !== classesCol) {
+      if (child !== identityDiv && child !== classesCol && child !== totalsDiv) {
         classesCol.appendChild(child);
       }
     });
+    // totalsDiv sits as natural right column in the flex row
+    profBlock.appendChild(totalsDiv);
 
     content.appendChild(profBlock);
   });
