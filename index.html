@@ -501,6 +501,12 @@
     }
 
     .match-card-date { display: none; }
+
+    /* Matchs du jour mobile */
+    @media (max-width: 600px) {
+      .match-jour-row { flex-direction: column; }
+      .match-jour-row img { width: 100% !important; height: 200px !important; }
+    }
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#002B5C">
@@ -535,73 +541,116 @@
     </ul>
   </nav>
     <div class="flag-banner"><div class="flag-track"><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/mx.png" width="28" height="20" alt="🇲🇽" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Mexique</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/za.png" width="28" height="20" alt="🇿🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Afrique du Sud</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/kr.png" width="28" height="20" alt="🇰🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Corée du Sud</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cz.png" width="28" height="20" alt="🇨🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Tchéquie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ca.png" width="28" height="20" alt="🇨🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Canada</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ba.png" width="28" height="20" alt="🇧🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Bosnie-Herz.</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/qa.png" width="28" height="20" alt="🇶🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Qatar</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ch.png" width="28" height="20" alt="🇨🇭" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Suisse</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/br.png" width="28" height="20" alt="🇧🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Brésil</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ma.png" width="28" height="20" alt="🇲🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Maroc</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ht.png" width="28" height="20" alt="🇭🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Haïti</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gb-sct.png" width="28" height="20" alt="🏴󠁧󠁢󠁳󠁣󠁴󠁿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Écosse</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/us.png" width="28" height="20" alt="🇺🇸" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">États-Unis</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/py.png" width="28" height="20" alt="🇵🇾" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Paraguay</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/au.png" width="28" height="20" alt="🇦🇺" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Australie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/tr.png" width="28" height="20" alt="🇹🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Turquie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/de.png" width="28" height="20" alt="🇩🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Allemagne</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cw.png" width="28" height="20" alt="🇨🇼" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Curaçao</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ci.png" width="28" height="20" alt="🇨🇮" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Côte d'Ivoire</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ec.png" width="28" height="20" alt="🇪🇨" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Équateur</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/nl.png" width="28" height="20" alt="🇳🇱" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Pays-Bas</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/jp.png" width="28" height="20" alt="🇯🇵" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Japon</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/se.png" width="28" height="20" alt="🇸🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Suède</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/tn.png" width="28" height="20" alt="🇹🇳" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Tunisie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/be.png" width="28" height="20" alt="🇧🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Belgique</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/eg.png" width="28" height="20" alt="🇪🇬" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Égypte</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ir.png" width="28" height="20" alt="🇮🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Iran</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/nz.png" width="28" height="20" alt="🇳🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Nouv.-Zélande</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/es.png" width="28" height="20" alt="🇪🇸" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Espagne</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cv.png" width="28" height="20" alt="🇨🇻" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Cap-Vert</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/sa.png" width="28" height="20" alt="🇸🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Arabie Saoud.</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/uy.png" width="28" height="20" alt="🇺🇾" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Uruguay</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/fr.png" width="28" height="20" alt="🇫🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">France</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/sn.png" width="28" height="20" alt="🇸🇳" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Sénégal</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/iq.png" width="28" height="20" alt="🇮🇶" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Irak</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/no.png" width="28" height="20" alt="🇳🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Norvège</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ar.png" width="28" height="20" alt="🇦🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Argentine</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/dz.png" width="28" height="20" alt="🇩🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Algérie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/at.png" width="28" height="20" alt="🇦🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Autriche</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/jo.png" width="28" height="20" alt="🇯🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Jordanie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/pt.png" width="28" height="20" alt="🇵🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Portugal</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cd.png" width="28" height="20" alt="🇨🇩" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">RD Congo</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/uz.png" width="28" height="20" alt="🇺🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Ouzbékistan</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/co.png" width="28" height="20" alt="🇨🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Colombie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gb-eng.png" width="28" height="20" alt="🏴󠁧󠁢󠁥󠁮󠁧󠁿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Angleterre</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/hr.png" width="28" height="20" alt="🇭🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Croatie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gh.png" width="28" height="20" alt="🇬🇭" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Ghana</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/pa.png" width="28" height="20" alt="🇵🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Panama</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/mx.png" width="28" height="20" alt="🇲🇽" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Mexique</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/za.png" width="28" height="20" alt="🇿🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Afrique du Sud</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/kr.png" width="28" height="20" alt="🇰🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Corée du Sud</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cz.png" width="28" height="20" alt="🇨🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Tchéquie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ca.png" width="28" height="20" alt="🇨🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Canada</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ba.png" width="28" height="20" alt="🇧🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Bosnie-Herz.</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/qa.png" width="28" height="20" alt="🇶🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Qatar</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ch.png" width="28" height="20" alt="🇨🇭" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Suisse</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/br.png" width="28" height="20" alt="🇧🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Brésil</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ma.png" width="28" height="20" alt="🇲🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Maroc</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ht.png" width="28" height="20" alt="🇭🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Haïti</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gb-sct.png" width="28" height="20" alt="🏴󠁧󠁢󠁳󠁣󠁴󠁿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Écosse</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/us.png" width="28" height="20" alt="🇺🇸" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">États-Unis</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/py.png" width="28" height="20" alt="🇵🇾" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Paraguay</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/au.png" width="28" height="20" alt="🇦🇺" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Australie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/tr.png" width="28" height="20" alt="🇹🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Turquie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/de.png" width="28" height="20" alt="🇩🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Allemagne</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cw.png" width="28" height="20" alt="🇨🇼" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Curaçao</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ci.png" width="28" height="20" alt="🇨🇮" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Côte d'Ivoire</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ec.png" width="28" height="20" alt="🇪🇨" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Équateur</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/nl.png" width="28" height="20" alt="🇳🇱" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Pays-Bas</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/jp.png" width="28" height="20" alt="🇯🇵" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Japon</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/se.png" width="28" height="20" alt="🇸🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Suède</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/tn.png" width="28" height="20" alt="🇹🇳" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Tunisie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/be.png" width="28" height="20" alt="🇧🇪" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Belgique</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/eg.png" width="28" height="20" alt="🇪🇬" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Égypte</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ir.png" width="28" height="20" alt="🇮🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Iran</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/nz.png" width="28" height="20" alt="🇳🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Nouv.-Zélande</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/es.png" width="28" height="20" alt="🇪🇸" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Espagne</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cv.png" width="28" height="20" alt="🇨🇻" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Cap-Vert</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/sa.png" width="28" height="20" alt="🇸🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Arabie Saoud.</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/uy.png" width="28" height="20" alt="🇺🇾" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Uruguay</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/fr.png" width="28" height="20" alt="🇫🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">France</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/sn.png" width="28" height="20" alt="🇸🇳" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Sénégal</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/iq.png" width="28" height="20" alt="🇮🇶" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Irak</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/no.png" width="28" height="20" alt="🇳🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Norvège</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/ar.png" width="28" height="20" alt="🇦🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Argentine</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/dz.png" width="28" height="20" alt="🇩🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Algérie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/at.png" width="28" height="20" alt="🇦🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Autriche</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/jo.png" width="28" height="20" alt="🇯🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Jordanie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/pt.png" width="28" height="20" alt="🇵🇹" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Portugal</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/cd.png" width="28" height="20" alt="🇨🇩" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">RD Congo</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/uz.png" width="28" height="20" alt="🇺🇿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Ouzbékistan</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/co.png" width="28" height="20" alt="🇨🇴" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Colombie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gb-eng.png" width="28" height="20" alt="🏴󠁧󠁢󠁥󠁮󠁧󠁿" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Angleterre</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/hr.png" width="28" height="20" alt="🇭🇷" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Croatie</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/gh.png" width="28" height="20" alt="🇬🇭" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Ghana</span></div><div class="flag-item"><div class="flag-circle"><img src="https://flagcdn.com/w40/pa.png" width="28" height="20" alt="🇵🇦" style="border-radius:2px;vertical-align:middle;"></div><span class="flag-name">Panama</span></div></div></div><section class="zone-match">
-    <div class="zm-inner">
-      <!-- GAUCHE : deux images côte à côte -->
-      <div class="zm-left">
-        <div class="zm-images">
-          <img src="data:image/jpeg;base64,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"
-               alt="FIFA World Cup 26" class="zm-img"/>
-          <img src="data:image/jpeg;base64,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"
-               alt="Mbappé avec la Coupe du Monde" class="zm-img"/>
-        </div>
-      </div>
-      <!-- DROITE : Compteur -->
-      <div class="zm-right">
-        <p class="countdown-label">Coupe du Monde 2026</p>
-        <p class="countdown-titre">D&#233;but du grand concours</p>
-        <div class="cd-bloc-wrap">
-          <div class="cd-bloc"><span class="cd-num" id="cd-jours">--</span><span class="cd-unit">Jours</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-bloc"><span class="cd-num" id="cd-heures">--</span><span class="cd-unit">Heures</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-bloc"><span class="cd-num" id="cd-minutes">--</span><span class="cd-unit">Minutes</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-bloc"><span class="cd-num" id="cd-secondes">--</span><span class="cd-unit">Secondes</span></div>
-        </div>
-        <div class="deco-line"></div>
-      </div>
+    <div style="padding: 40px 50px; max-width: 900px; margin: 0 auto;">
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,64px);color:#C9A84C;letter-spacing:4px;margin:0 0 24px;line-height:1;">Et c'est parti&nbsp;!</p>
+
+      <p style="font-family:'Barlow',sans-serif;font-size:16px;color:#fff;line-height:1.8;margin:0 0 18px;">C'est un anniversaire pour le concours des meilleurs pronostiqueurs&nbsp;: <strong>20 ans&nbsp;!</strong></p>
+
+      <p style="font-family:'Barlow',sans-serif;font-size:16px;color:#fff;line-height:1.8;margin:0 0 18px;">Nous étions 13 en 2006 (non, Jean-Marc, je ne minimise pas ta victoire… à jamais le premier), nous serons <strong>91 participants</strong> pour l'édition 2026.</p>
+
+      <p style="font-family:'Barlow',sans-serif;font-size:16px;color:#fff;line-height:1.8;margin:0 0 18px;">À partir de ce soir, vous pourrez suivre les pronos de chacun sur la page <strong>PRONOS DU JOUR</strong>. Intéressant également, en allant sur la page <strong>FAVORIS</strong>, vous découvrirez les 8 équipes pronostiquées gagnantes de la Coupe du Monde et les 24 combinaisons envisagées en finale. L'album Panini est presque prêt, il attend les dernières photos.</p>
+
+      <p style="font-family:'Barlow',sans-serif;font-size:16px;color:#fff;line-height:1.8;margin:0 0 18px;">Démarrage en douceur avec 2 matchs seulement ce soir et cette nuit. Le premier classement sera visible vers 23h.</p>
+
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,40px);color:#fff;letter-spacing:3px;margin:24px 0 0;">Bonne Coupe du Monde à toutes et tous&nbsp;!</p>
     </div>
   </section>
+
+  <!-- ── Les matchs du jour ── -->
+  <section style="background:#F4F6FA;padding:40px 40px 50px;border-top:4px solid #7B2D8B;">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:30px;display:flex;align-items:center;gap:12px;">
+      ⚽ Les matchs du jour
+      <span style="flex:1;height:2px;background:linear-gradient(90deg,#7B2D8B,transparent);display:inline-block;"></span>
+    </p>
+
+    <!-- MATCH 1 : Mexique - Afrique du Sud -->
+    <div style="background:#7B2D8B;border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="https://flagcdn.com/w40/mx.png" width="32" height="22" style="border-radius:2px;" alt="Mexique"/>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;">Mexique</span>
+      </div>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.6);letter-spacing:2px;">VS</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;">Afrique du Sud</span>
+        <img src="https://flagcdn.com/w40/za.png" width="32" height="22" style="border-radius:2px;" alt="Afrique du Sud"/>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:32px;flex-wrap:wrap;">
+      <img src="data:image/jpeg;base64,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" alt="Chicharito" style="height:220px;width:220px;object-fit:cover;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15);flex-shrink:0;"/>
+      <div style="flex:1;min-width:200px;">
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="https://flagcdn.com/w40/mx.png" width="24" height="16" style="border-radius:2px;"/>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Mexique gagne :</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B2D8B;">82</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:24px;text-align:center;font-size:16px;">🤝</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Nul :</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B2D8B;">6</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="https://flagcdn.com/w40/za.png" width="24" height="16" style="border-radius:2px;"/>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Afrique du Sud gagne :</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B2D8B;">3</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+        </div>
+        <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#444;line-height:1.7;font-style:italic;"><strong style="color:#7B2D8B;">Nessim</strong>, <strong style="color:#7B2D8B;">Claudio</strong> et <strong style="color:#7B2D8B;">Monsieur Nours</strong> tentent le gros coup dès le premier match. Quel panache&nbsp;!</p>
+      </div>
+    </div>
+
+    <!-- MATCH 2 : Corée du Sud - Tchéquie -->
+    <div style="background:#7B2D8B;border-radius:10px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="https://flagcdn.com/w40/kr.png" width="32" height="22" style="border-radius:2px;" alt="Corée du Sud"/>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;">Corée du Sud</span>
+      </div>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.6);letter-spacing:2px;">VS</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;">Tchéquie</span>
+        <img src="https://flagcdn.com/w40/cz.png" width="32" height="22" style="border-radius:2px;" alt="Tchéquie"/>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;">
+      <img src="data:image/jpeg;base64,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" alt="Son Heung-Min" style="height:220px;width:220px;object-fit:cover;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15);flex-shrink:0;"/>
+      <div style="flex:1;min-width:200px;">
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="https://flagcdn.com/w40/kr.png" width="24" height="16" style="border-radius:2px;"/>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Corée du Sud gagne :</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B2D8B;">28</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:24px;text-align:center;font-size:16px;">🤝</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Nul :</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#7B2D8B;">39</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img src="https://flagcdn.com/w40/cz.png" width="24" height="16" style="border-radius:2px;"/>
+            <span style="font-family:'Barlow',sans-serif;font-size:15px;color:var(--bleu-marine);font-weight:600;">Tchéquie gagne :</span>
+            <span style="font-family:'Bebas Nye',sans-serif;font-size:22px;color:#7B2D8B;">24</span>
+            <span style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;">pronostiqueurs</span>
+          </div>
+        </div>
+        <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#444;line-height:1.7;font-style:italic;">Des pronos très diversifiés pour ce 2e match. C'est ici que se feront probablement les premiers écarts au classement.</p>
+      </div>
+    </div>
+
+  </section>
+
 
   
 
-  <section class="zone-contenu" style="background:#F4F6FA;padding:50px 40px 60px;text-align:center;border-top:4px solid #0077C8;">
-    <p class="historique-titre" style="text-align:center;padding-left:0;color:#002B5C;font-size:26px;margin-bottom:16px;">
-      Vous &ecirc;tes pr&ecirc;ts&nbsp;?
-    </p>
-    <p style="font-family:'Barlow',sans-serif;font-size:16px;color:#444;max-width:600px;margin:0 auto 30px;line-height:1.7;">
-      Vous pouvez d&eacute;sormais remplir votre grille directement en ligne, match par match, en cliquant sur le lien suivant&nbsp;:
-    </p>
-    <a href="grilles.html" style="
-      display:inline-block;
-      background:#002B5C;
-      color:#fff;
-      font-family:'Bebas Neue',sans-serif;
-      font-size:22px;
-      letter-spacing:3px;
-      padding:16px 40px;
-      border-radius:8px;
-      text-decoration:none;
-      border:3px solid #C9A84C;
-      box-shadow:0 4px 20px rgba(0,43,92,0.25);
-      transition:background 0.2s;
-    " onmouseover="this.style.background='#0077C8'" onmouseout="this.style.background='#002B5C'">
-      &#9917;&nbsp; REMPLIR MA GRILLE EN LIGNE
-    </a>
-  </section>
+  
 
 
   <!-- ── Compteur de grilles reçues ── -->
-  <section style="background:#002B5C;padding:40px 40px;text-align:center;border-top:4px solid #C9A84C;">
-    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">Participation en temps réel</p>
-    <p style="font-family:'Barlow',sans-serif;font-size:15px;color:rgba(255,255,255,0.75);margin-bottom:18px;">Nombre de grilles reçues et enregistrées à cet instant</p>
-    <div style="display:flex;align-items:center;justify-content:center;background:#0a1a2e;border:2px solid #C9A84C;border-radius:12px;width:220px;height:120px;margin:0 auto;box-shadow:0 0 40px rgba(201,168,76,0.2);">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:96px;letter-spacing:8px;color:#C9A84C;line-height:1;">87</span>
-    </div>
-    <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:14px;">grilles enregistrées</p>
-    <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#C9A84C;margin-top:22px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;"><strong>Les grilles des traditionnels retardataires doivent arriver ce matin.</strong></p>
-    <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#C9A84C;margin-top:6px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;"><strong>Le chiffre définitif sera annoncé en début d'après-midi.</strong></p>
-  </section>
+  
 
   <!-- ── Le 4-1 de Jacques ── -->
   <section style="background:#F4F6FA;padding:40px 40px 44px;border-top:4px solid var(--bleu-marine);">
@@ -740,858 +789,6 @@
 
 
   <!-- ── Matchs de préparation ── -->
-  <section style="background:#F4F6FA;padding:50px 40px 60px;border-top:4px solid var(--rouge);"><section style="background:#F4F6FA;padding:50px 40px 60px;border-top:4px solid var(--rouge);">
-    <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:30px;display:flex;align-items:center;gap:12px;">
-      ⚽ Le point sur les matchs de préparation
-      <span style="flex:1;height:2px;background:linear-gradient(90deg,var(--rouge),transparent);display:inline-block;"></span>
-    </p>
-
-    <!-- 1 juin -->
-    <!-- 2 juin : 5 matchs → 2 colonnes -->
-    <!-- 3 juin : 3 matchs -->
-    <!-- 4 juin : 4 matchs → 2 colonnes -->
-    
-    <p class="match-date">Mardi 9 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#007fff,#d52b1e);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cd.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">RD Congo</span></div>
-            <span class="match-card-score">1 – 2</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cl.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Chili</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006c35,#00853f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/sa.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Arabie Saoud.</span></div>
-            <span class="match-card-score">0 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/sn.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Sénégal</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#74acdf,#003897);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ar.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Argentine</span></div>
-            <span class="match-card-score">3 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/is.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Islande</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#007a3d,#cf142b);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/iq.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Irak</span></div>
-            <span class="match-card-score">0 – 2</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ve.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Venezuela</span></div>
-          </div>
-      </div>
-    </div>
-
-    <p class="match-date">Lundi 8 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff6600,#1eb53a);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/nl.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Pays-Bas</span></div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/uz.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Ouzbékistan</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#0055a4,#003078);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/fr.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">France</span></div>
-            <span class="match-card-score">3 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/gb-nir.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Irlande du Nord</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#d91023,#c60b1e);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/pe.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Pérou</span></div>
-            <span class="match-card-score">1 – 3</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/es.png" width="28" height="20" alt="" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Espagne</span></div>
-          </div>
-      </div>
-    </div>
-
-    <p class="match-date">Dimanche 7 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#003da5);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/hr.png" width="28" height="20" alt="🇭🇷" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Croatie</span></div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/si.png" width="28" height="20" alt="🇸🇮" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Slovénie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c1272d,#ef2b2d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ma.png" width="28" height="20" alt="🇲🇦" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Maroc</span></div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/no.png" width="28" height="20" alt="🇳🇴" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Norvège</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ffd100,#4495d4);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ec.png" width="28" height="20" alt="🇪🇨" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Équateur</span></div>
-            <span class="match-card-score">3 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/gt.png" width="28" height="20" alt="🇬🇹" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Guatemala</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#fcd116,#007a3d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/co.png" width="28" height="20" alt="🇨🇴" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Colombie</span></div>
-            <span class="match-card-score">2 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/jo.png" width="28" height="20" alt="🇯🇴" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Jordanie</span></div>
-          </div>
-      </div>
-    </div>
-
-    <p class="match-date">Samedi 6 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#009c3b,#ce1126);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/br.png" width="28" height="20" alt="🇧🇷" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Brésil</span></div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/eg.png" width="28" height="20" alt="🇪🇬" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Égypte</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#000000,#e70013);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/be.png" width="28" height="20" alt="🇧🇪" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Belgique</span></div>
-            <span class="match-card-score">5 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/tn.png" width="28" height="20" alt="🇹🇳" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Tunisie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006600,#d52b1e);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/pt.png" width="28" height="20" alt="🇵🇹" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Portugal</span></div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cl.png" width="28" height="20" alt="🇨🇱" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Chili</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#b22234,#000000);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/us.png" width="28" height="20" alt="🇺🇸" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">États-Unis</span></div>
-            <span class="match-card-score">1 – 2</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/de.png" width="28" height="20" alt="🇩🇪" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Allemagne</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#00843d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ch.png" width="28" height="20" alt="🇨🇭" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Suisse</span></div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/au.png" width="28" height="20" alt="🇦🇺" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Australie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#db161b,#002395);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/pa.png" width="28" height="20" alt="🇵🇦" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Panama</span></div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ba.png" width="28" height="20" alt="🇧🇦" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Bosnie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#cf142b,#0077C8);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/gb-eng.png" width="28" height="20" alt="🏴󠁧󠁢󠁥󠁮󠁧󠁿" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Angleterre</span></div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/nz.png" width="28" height="20" alt="🇳🇿" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Nouv.-Zélande</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#007a3d,#003087);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/bo.png" width="28" height="20" alt="🇧🇴" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Bolivie</span></div>
-            <span class="match-card-score">0 – 4</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/gb-sct.png" width="28" height="20" alt="🏴󠁧󠁢󠁳󠁣󠁴󠁿" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Écosse</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#8d1b3d,#0f47af);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/qa.png" width="28" height="20" alt="🇶🇦" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Qatar</span></div>
-            <span class="match-card-score">0 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/sv.png" width="28" height="20" alt="🇸🇻" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Salvador</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#0077C8,#002868);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cv.png" width="28" height="20" alt="🇨🇻" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Cap-Vert</span></div>
-            <span class="match-card-score">3 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/bm.png" width="28" height="20" alt="🇧🇲" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Bermudes</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#cf142b,#e30a17);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ve.png" width="28" height="20" alt="🇻🇪" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Venezuela</span></div>
-            <span class="match-card-score">1 – 2</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/tr.png" width="28" height="20" alt="🇹🇷" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Turquie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#002b7f,#418fde);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cw.png" width="28" height="20" alt="🇨🇼" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Curaçao</span></div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/aw.png" width="28" height="20" alt="🇦🇼" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Aruba</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#74acdf,#0073cf);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ar.png" width="28" height="20" alt="🇦🇷" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Argentine</span></div>
-            <span class="match-card-score">2 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/hn.png" width="28" height="20" alt="🇭🇳" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Honduras</span></div>
-          </div>
-      </div>
-    </div>
-
-    <p class="match-date">Vendredi 5 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c60039,#0047a0);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/kr.png" width="28" height="20" alt="🇰🇷" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Corée du Sud</span></div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/sv.png" width="28" height="20" alt="🇸🇻" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Salvador</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#4495d4,#d7141a);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/gt.png" width="28" height="20" alt="🇬🇹" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Guatemala</span></div>
-            <span class="match-card-score">3 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/cz.png" width="28" height="20" alt="🇨🇿" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Tchéquie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006847,#c60b1e);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/mx.png" width="28" height="20" alt="🇲🇽" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Mexique</span></div>
-            <span class="match-card-score">5 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/rs.png" width="28" height="20" alt="🇷🇸" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Serbie</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#00209f,#d21034);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ht.png" width="28" height="20" alt="🇭🇹" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Haïti</span></div>
-            <span class="match-card-score">1 – 2</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/pe.png" width="28" height="20" alt="🇵🇪" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Pérou</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#169b62);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ca.png" width="28" height="20" alt="🇨🇦" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Canada</span></div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ie.png" width="28" height="20" alt="🇮🇪" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Irlande</span></div>
-          </div>
-      </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#d52b1e,#0038a8);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/py.png" width="28" height="20" alt="🇵🇾" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Paraguay</span></div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team"><span class="match-card-flag"><img src="https://flagcdn.com/w40/ni.png" width="28" height="20" alt="🇳🇮" style="border-radius:2px;vertical-align:middle;"></span><span class="match-card-name">Nicaragua</span></div>
-          </div>
-      </div>
-    </div>
-
-    <p class="match-date">Jeudi 4 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006aa7,#0d5eaf);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/se.png" width="28" height="20" alt="🇸🇪" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Suède</span>
-            </div>
-            <span class="match-card-score">2 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gr.png" width="28" height="20" alt="🇬🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Grèce</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#0055a4,#f77f00);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/fr.png" width="28" height="20" alt="🇫🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">France</span>
-            </div>
-            <span class="match-card-score">1 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ci.png" width="28" height="20" alt="🇨🇮" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Côte d'Ivoire</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c60b1e,#007a3d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/es.png" width="28" height="20" alt="🇪🇸" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Espagne</span>
-            </div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/iq.png" width="28" height="20" alt="🇮🇶" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Irak</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#db161b,#002d62);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/pa.png" width="28" height="20" alt="🇵🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Panama</span>
-            </div>
-            <span class="match-card-score">4 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/do.png" width="28" height="20" alt="🇩🇴" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Rép. dominicaine</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Mercredi 3 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff6600,#006233);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/nl.png" width="28" height="20" alt="🇳🇱" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Pays-Bas</span>
-            </div>
-            <span class="match-card-score">0 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/dz.png" width="28" height="20" alt="🇩🇿" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Algérie</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#007fff,#c60c30);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/cd.png" width="28" height="20" alt="🇨🇩" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">RD Congo</span>
-            </div>
-            <span class="match-card-score">0 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/dk.png" width="28" height="20" alt="🇩🇰" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Danemark</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#00209f,#000000);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ht.png" width="28" height="20" alt="🇭🇹" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Haïti</span>
-            </div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/nz.png" width="28" height="20" alt="🇳🇿" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Nouvelle-Zélande</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Mardi 2 juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c8102e,#006b3f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gb-wls.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Pays de Galles</span>
-            </div>
-            <span class="match-card-score">1 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gh.png" width="28" height="20" alt="🇬🇭" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Ghana</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#000000);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/hr.png" width="28" height="20" alt="🇭🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Croatie</span>
-            </div>
-            <span class="match-card-score">0 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/be.png" width="28" height="20" alt="🇧🇪" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Belgique</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c1272d,#fc3d32);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ma.png" width="28" height="20" alt="🇲🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Maroc</span>
-            </div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/mg.png" width="28" height="20" alt="🇲🇬" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Madagascar</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#1eb53a);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ca.png" width="28" height="20" alt="🇨🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Canada</span>
-            </div>
-            <span class="match-card-score">2 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/uz.png" width="28" height="20" alt="🇺🇿" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Ouzbékistan</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#fcd116,#002b7f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/co.png" width="28" height="20" alt="🇨🇴" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Colombie</span>
-            </div>
-            <span class="match-card-score">3 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/cr.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Costa Rica</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Lundi 1er juin 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ED2939,#E70013);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/at.png" width="28" height="20" alt="🇦🇹" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Autriche</span>
-            </div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/tn.png" width="28" height="20" alt="🇹🇳" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Tunisie</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#EF2B2D,#006aa7);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/no.png" width="28" height="20" alt="🇳🇴" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Norvège</span>
-            </div>
-            <span class="match-card-score">3 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/se.png" width="28" height="20" alt="🇸🇪" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Suède</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#E30A17,#ce2028);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/tr.png" width="28" height="20" alt="🇹🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Turquie</span>
-            </div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/mk.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Macédoine</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Dimanche 31 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#009c3b,#db161b);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/br.png" width="28" height="20" alt="🇧🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Brésil</span>
-            </div>
-            <span class="match-card-score">6 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/pa.png" width="28" height="20" alt="🇵🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Panama</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#b22234,#00853f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/us.png" width="28" height="20" alt="🇺🇸" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">États-Unis</span>
-            </div>
-            <span class="match-card-score">3 – 2</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/sn.png" width="28" height="20" alt="🇸🇳" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Sénégal</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#000000,#003580);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/de.png" width="28" height="20" alt="🇩🇪" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Allemagne</span>
-            </div>
-            <span class="match-card-score">4 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/fi.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Finlande</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#003893,#c6363c);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/cv.png" width="28" height="20" alt="🇨🇻" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Cap Vert</span>
-            </div>
-            <span class="match-card-score">3 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/rs.png" width="28" height="20" alt="🇷🇸" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Serbie</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#d7141a,#244aa5);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/cz.png" width="28" height="20" alt="🇨🇿" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Tchéquie</span>
-            </div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/xk.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Kosovo</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ff0000,#007a3d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ch.png" width="28" height="20" alt="🇨🇭" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Suisse</span>
-            </div>
-            <span class="match-card-score">4 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/jo.png" width="28" height="20" alt="🇯🇴" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Jordanie</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#bc002d,#003897);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/jp.png" width="28" height="20" alt="🇯🇵" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Japon</span>
-            </div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/is.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Islande</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006847,#00843d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/mx.png" width="28" height="20" alt="🇲🇽" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Mexique</span>
-            </div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/au.png" width="28" height="20" alt="🇦🇺" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Australie</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#003478,#CE1126);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/kr.png" width="28" height="20" alt="🇰🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Corée du Sud</span>
-            </div>
-            <span class="match-card-score">5 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/tt.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Trinité-et-Tobago</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#ffd100,#006c35);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ec.png" width="28" height="20" alt="🇪🇨" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Équateur</span>
-            </div>
-            <span class="match-card-score">2 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/sa.png" width="28" height="20" alt="🇸🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Arabie Saoudite</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Samedi 30 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#003087,#002b7f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gb-sct.png" width="28" height="20" alt="🏴󠁧󠁢󠁳󠁣󠁴󠁿" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Écosse</span>
-            </div>
-            <span class="match-card-score">4 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/cw.png" width="28" height="20" alt="🇨🇼" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Curaçao</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Vendredi 29 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#002395,#ce2028);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ba.png" width="28" height="20" alt="🇧🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Bosnie</span>
-            </div>
-            <span class="match-card-score">0 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/mk.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Macédoine</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#007a4d,#3e9bda);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/za.png" width="28" height="20" alt="🇿🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Afrique du Sud</span>
-            </div>
-            <span class="match-card-score">0 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ni.png" width="28" height="20" alt="🇳🇮" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Nicaragua</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#003DA5,#007a3d);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ad.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Andorre</span>
-            </div>
-            <span class="match-card-score">0 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/iq.png" width="28" height="20" alt="🇮🇶" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Irak</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#239f40,#3a7728);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ir.png" width="28" height="20" alt="🇮🇷" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Iran</span>
-            </div>
-            <span class="match-card-score">3 – 1</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gm.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Gambie</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Jeudi 28 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#169b62,#8D1B3D);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ie.png" width="28" height="20" alt="🇮🇪" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Irlande</span>
-            </div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/qa.png" width="28" height="20" alt="🇶🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Qatar</span>
-            </div>
-          </div>
-        </div>
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#CE1126,#003580);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/eg.png" width="28" height="20" alt="🇪🇬" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Égypte</span>
-            </div>
-            <span class="match-card-score">1 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ru.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Russie</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Mardi 26 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#c1272d,#18B637);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/ma.png" width="28" height="20" alt="🇲🇦" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Maroc</span>
-            </div>
-            <span class="match-card-score">5 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/bi.png" width="28" height="20" alt="flag" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Burundi</span>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <p class="match-date">Samedi 23 mai 2026</p>
-    <div class="match-cards-grid">
-      <div class="match-card">
-          <div class="match-card-accent" style="background:linear-gradient(90deg,#006847,#006b3f);"></div>
-          <div class="match-card-date"></div>
-          <div class="match-card-teams">
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/mx.png" width="28" height="20" alt="🇲🇽" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Mexique</span>
-            </div>
-            <span class="match-card-score">2 – 0</span>
-            <div class="match-card-team">
-              <span class="match-card-flag"><img src="https://flagcdn.com/w40/gh.png" width="28" height="20" alt="🇬🇭" style="border-radius:2px;vertical-align:middle;"></span>
-              <span class="match-card-name">Ghana</span>
-            </div>
-          </div>
-        </div>
-    </div>
-</section>
-
   <section class="zone-contenu">
     <p class="historique-titre">Palmar&#232;s du concours <span>depuis 2006</span></p>
     <table class="historique-table">
