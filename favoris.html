@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Les Pronostiqueurs &#8211; Favoris 2026</title>
+  <title>Les Pronostiqueurs – Favoris 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
   <style>
     :root { --bleu-azur: #0077C8; --bleu-marine: #002B5C; --rouge: #D0021B; --noir: #0A0A0A; --blanc: #FFFFFF; --gris-clair: #F4F6FA; --or: #C9A84C; }
@@ -28,16 +28,164 @@
     .zone-titre h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 65px); color: var(--blanc); letter-spacing: 6px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
     .zone-titre .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 12px auto 0; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .zone-contenu { background: var(--blanc); padding: 80px 40px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .zone-contenu::before { content: 'B50'; position: absolute; font-size: 200px; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-    .message { position: relative; max-width: 700px; }
-    .message p { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(20px, 4vw, 30px); font-weight: 700; color: var(--bleu-marine); line-height: 1.5; letter-spacing: 0.5px; }
-    .message p strong { color: var(--rouge); }
+    .zone-contenu { background: var(--blanc); padding: 50px 40px; }
+
+    /* Bandeaux de section */
+    .section-bandeau {
+      background: linear-gradient(135deg, var(--bleu-marine) 0%, var(--bleu-azur) 100%);
+      padding: 22px 32px 16px;
+      text-align: center;
+      margin-bottom: 0;
+      border-radius: 6px 6px 0 0;
+    }
+    .section-bandeau h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(26px, 4vw, 42px);
+      color: var(--blanc);
+      font-weight: 900;
+      letter-spacing: 3px;
+      line-height: 1.1;
+    }
+    .section-sous-titre {
+      background: var(--gris-clair);
+      text-align: center;
+      padding: 10px 32px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bleu-marine);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      border-radius: 0 0 6px 6px;
+      border-bottom: 3px solid var(--bleu-azur);
+    }
+
+    /* Section 1 — Pays vainqueurs */
+    .section-pays { margin-bottom: 60px; }
+    .pays-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 4px;
+    }
+    .pays-card {
+      background: var(--gris-clair);
+      border-radius: 8px;
+      padding: 18px 22px;
+      border-left: 5px solid var(--bleu-azur);
+      box-shadow: 0 2px 8px rgba(0,43,92,0.08);
+    }
+    .pays-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .pays-flag { font-size: 30px; line-height: 1; }
+    .pays-nom {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--bleu-marine);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .pays-count {
+      font-family: 'Barlow', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--rouge);
+      margin-left: 6px;
+    }
+    .pays-parieurs {
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      color: var(--noir);
+      line-height: 1.7;
+    }
+
+    /* Section 2 — Finales */
+    .section-finales { margin-bottom: 20px; }
+    .finales-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .finale-card {
+      background: var(--gris-clair);
+      border-radius: 8px;
+      padding: 16px 20px;
+      border-left: 5px solid var(--or);
+      box-shadow: 0 2px 8px rgba(0,43,92,0.08);
+    }
+    .finale-match {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .finale-equipe-A {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .finale-equipe-B {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .finale-flag { font-size: 22px; line-height: 1; }
+    .equipe-vainqueur {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--bleu-marine);
+      text-transform: uppercase;
+    }
+    .equipe-vaincu {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #555;
+      text-transform: uppercase;
+    }
+    .finale-bat {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--rouge);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 4px;
+    }
+    .finale-parieurs {
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      color: var(--noir);
+      line-height: 1.6;
+      border-top: 1px solid #dde2ec;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
     .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--rouge), var(--bleu-azur), var(--or)); }
     footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
     footer a { color: var(--bleu-azur); text-decoration: none; }
     footer a:hover { color: var(--or); }
-    @media (max-width: 600px) { .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .header-trophy { height: 50px; } .nav-list li a { padding: 10px 12px; font-size: 12px; } .zone-contenu { padding: 50px 20px; } }
+
+    @media (max-width: 600px) {
+      .header-inner { padding: 14px 20px; }
+      .logo-title h1 { font-size: 30px; }
+      .header-trophy { height: 50px; }
+      .nav-list li a { padding: 10px 12px; font-size: 12px; }
+      .zone-contenu { padding: 30px 16px; }
+      .pays-grid, .finales-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -55,11 +203,11 @@
   <nav>
     <ul class="nav-list">
       <li><a href="index.html">Accueil</a></li>
-      <li><a href="reglement.html">R&#232;glement</a></li>
+      <li><a href="reglement.html">Règlement</a></li>
       <li><a href="classement.html">Classement</a></li>
       <li><a href="pronos-jour.html">Pronos du jour</a></li>
-      <li><a href="pronos-hier.html">Pronos d&#8217;hier</a></li>
-      <li><a href="resultats.html">R&#233;sultats</a></li>
+      <li><a href="pronos-hier.html">Pronos d'hier</a></li>
+      <li><a href="resultats.html">Résultats</a></li>
       <li><a href="pacorabannes.html">Pacorabannes</a></li>
       <li><a href="historique.html">Historique</a></li>
       <li><a href="album-panini.html">Album Panini</a></li>
@@ -70,11 +218,331 @@
     <h2>Favoris</h2>
     <div class="deco-line"></div>
   </div>
+
   <div class="zone-contenu">
-    <div class="message">
-      <p>Vous d&#233;couvrirez quels sont les favoris des pronostiqueurs<br><strong>quand tout le monde aura rendu sa grille de pronos</strong></p>
+
+    <!-- SECTION 1 : PAYS VAINQUEURS -->
+    <div class="section-pays">
+      <div class="section-bandeau">
+        <h3>Qui va remporter la Coupe du Monde 2026&nbsp;?</h3>
+      </div>
+      <div class="section-sous-titre">selon les 91 pronostiqueurs du concours</div>
+
+      <div class="pays-grid">
+
+        <!-- France — 48 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇫🇷</span>
+            <span class="pays-nom">France</span>
+            <span class="pays-count">48</span>
+          </div>
+          <div class="pays-parieurs">Abeillefurieuse · Anne-Claire · Brétivendéen · Cenomanum · Claudio · Contrôle VAR · Didane · El Celestino · El Doctor · El Gringo · Etienne · Faustine · Fred35 · Gaëtan · Hamkara · HectoPascal · Hugooooo · Jacques · Jean-Marc · Jeannot · JOP · Julay · Le scud · Lino · LSG · Manu72 · Marco · Mariné · Moustache · MymyBob · Niewfoo · Nikita · Nono · Ozyr · PAG · Pascale · Phaco · Princesse Leia · Quialedroit · Robinucci · Roi97 · Schiebercoach · Serge44 · Shrek · Thomas · Toulousains · Winwin · Xavier29 · Zakattack</div>
+        </div>
+
+        <!-- Espagne — 14 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇪🇸</span>
+            <span class="pays-nom">Espagne</span>
+            <span class="pays-count">14</span>
+          </div>
+          <div class="pays-parieurs">Achillinho · EADN · Epsilone · Juninho · LéO · Leo35 · Mamadou · Marcattack · Martinico · Mickaël · Nesim · Pierre-Alexandre · Tariq · Yvon</div>
+        </div>
+
+        <!-- Portugal -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇵🇹</span>
+            <span class="pays-nom">Portugal</span>
+            <span class="pays-count">12</span>
+          </div>
+          <div class="pays-parieurs">Armandooooo · Arsi · Beppolevi · Carl · Cyril · Maxime · Melvil · Paulchen · Paulovitch · SpeedyNiki · Yann · Youki</div>
+        </div>
+
+        <!-- Angleterre — 6 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+            <span class="pays-nom">Angleterre</span>
+            <span class="pays-count">6</span>
+          </div>
+          <div class="pays-parieurs">Arthur · Erwan · Hamkara Sayen · Magicmez · Poirrierbouffon · Ririne</div>
+        </div>
+
+        <!-- Brésil — 5 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇧🇷</span>
+            <span class="pays-nom">Brésil</span>
+            <span class="pays-count">5</span>
+          </div>
+          <div class="pays-parieurs">Fc Canaris · Henrillette du Mans · Nitram · Olive · Sambadebrazil</div>
+        </div>
+
+        <!-- Argentine — 2 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇦🇷</span>
+            <span class="pays-nom">Argentine</span>
+            <span class="pays-count">2</span>
+          </div>
+          <div class="pays-parieurs">MS · NonoStar</div>
+        </div>
+
+        <!-- Pays-Bas — 2 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇳🇱</span>
+            <span class="pays-nom">Pays-Bas</span>
+            <span class="pays-count">2</span>
+          </div>
+          <div class="pays-parieurs">Baz · Bouna</div>
+        </div>
+
+        <!-- Allemagne — 1 -->
+        <div class="pays-card">
+          <div class="pays-header">
+            <span class="pays-flag">🇩🇪</span>
+            <span class="pays-nom">Allemagne</span>
+            <span class="pays-count">1</span>
+          </div>
+          <div class="pays-parieurs">Monsieur Nours</div>
+        </div>
+
+      </div>
     </div>
-  </div>
+
+    <!-- SECTION 2 : LES FINALES -->
+    <div class="section-finales">
+      <div class="section-bandeau">
+        <h3>Les 24 finales envisagées</h3>
+      </div>
+      <div class="section-sous-titre">par les 91 pronostiqueurs du concours</div>
+
+      <div class="finales-grid">
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇩🇪</span><span class="equipe-vainqueur">Allemagne</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Argentine</span><span class="finale-flag">🇦🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Monsieur Nours</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="equipe-vainqueur">Angleterre</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Allemagne</span><span class="finale-flag">🇩🇪</span></div>
+          </div>
+          <div class="finale-parieurs">Hamkara Sayen · Magicmez</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="equipe-vainqueur">Angleterre</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">Arthur</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="equipe-vainqueur">Angleterre</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Maroc</span><span class="finale-flag">🇲🇦</span></div>
+          </div>
+          <div class="finale-parieurs">Poirrierbouffon</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="equipe-vainqueur">Angleterre</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Pays-Bas</span><span class="finale-flag">🇳🇱</span></div>
+          </div>
+          <div class="finale-parieurs">Erwan · Ririne</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇦🇷</span><span class="equipe-vainqueur">Argentine</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">MS</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇦🇷</span><span class="equipe-vainqueur">Argentine</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">France</span><span class="finale-flag">🇫🇷</span></div>
+          </div>
+          <div class="finale-parieurs">NonoStar</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇧🇷</span><span class="equipe-vainqueur">Brésil</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">Henrillette du Mans · Nitram · Olive · Sambadebrazil</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇧🇷</span><span class="equipe-vainqueur">Brésil</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">France</span><span class="finale-flag">🇫🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Fc Canaris</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇪🇸</span><span class="equipe-vainqueur">Espagne</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Angleterre</span><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span></div>
+          </div>
+          <div class="finale-parieurs">EADN · Leo35 · Pierre-Alexandre · Yvon</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇪🇸</span><span class="equipe-vainqueur">Espagne</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Argentine</span><span class="finale-flag">🇦🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Achillinho · Epsilone · Martinico · Tariq</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇪🇸</span><span class="equipe-vainqueur">Espagne</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Portugal</span><span class="finale-flag">🇵🇹</span></div>
+          </div>
+          <div class="finale-parieurs">Juninho · LéO · Mamadou · Marcattack · Mickaël · Nesim</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Allemagne</span><span class="finale-flag">🇩🇪</span></div>
+          </div>
+          <div class="finale-parieurs">El Gringo · LSG</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Angleterre</span><span class="finale-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span></div>
+          </div>
+          <div class="finale-parieurs">Anne-Claire · Cenomanum · Hamkara · Julay · Lino</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Argentine</span><span class="finale-flag">🇦🇷</span></div>
+          </div>
+          <div class="finale-parieurs">JOP · Marco · MymyBob · Niewfoo · Pascale · Quialedroit · Winwin</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Brésil</span><span class="finale-flag">🇧🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Claudio · Contrôle VAR · El Doctor · Fred35 · Gaëtan · HectoPascal · Jacques · Jean-Marc · Jeannot · Ozyr · Phaco · Princesse Leia · Zakattack</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Croatie</span><span class="finale-flag">🇭🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Roi97</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">Etienne</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Portugal</span><span class="finale-flag">🇵🇹</span></div>
+          </div>
+          <div class="finale-parieurs">Abeillefurieuse · Brétivendéen · Didane · El Celestino · Faustine · Hugooooo · Le scud · Manu72 · Mariné · Moustache · Nikita · Nono · PAG · Robinucci · Schiebercoach · Serge44 · Thomas · Toulousains · Xavier29</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇫🇷</span><span class="equipe-vainqueur">France</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Uruguay</span><span class="finale-flag">🇺🇾</span></div>
+          </div>
+          <div class="finale-parieurs">Shrek</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇳🇱</span><span class="equipe-vainqueur">Pays-Bas</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">Bouna</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇳🇱</span><span class="equipe-vainqueur">Pays-Bas</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Portugal</span><span class="finale-flag">🇵🇹</span></div>
+          </div>
+          <div class="finale-parieurs">Baz</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇵🇹</span><span class="equipe-vainqueur">Portugal</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">Espagne</span><span class="finale-flag">🇪🇸</span></div>
+          </div>
+          <div class="finale-parieurs">Armandooooo · Arsi · Beppolevi · Carl · Cyril · Melvil · Paulovitch · SpeedyNiki · Yann · Youki</div>
+        </div>
+
+        <div class="finale-card">
+          <div class="finale-match">
+            <div class="finale-equipe-A"><span class="finale-flag">🇵🇹</span><span class="equipe-vainqueur">Portugal</span></div>
+            <span class="finale-bat">bat</span>
+            <div class="finale-equipe-B"><span class="equipe-vaincu">France</span><span class="finale-flag">🇫🇷</span></div>
+          </div>
+          <div class="finale-parieurs">Maxime · Paulchen</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- fin zone-contenu -->
+
   <div class="footer-stripe"></div>
   <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
 </body>
