@@ -1082,21 +1082,6 @@ function updateChaire(profIdx) {
 const classNumbers = {};
 for (let p = 0; p < 8; p++) { classNumbers[p] = {}; }
 
-
-const CLASS_OPTIONS = {
-  '2nde':  ['201','202','203','204','205','206','207','208','209','indifférent'],
-  '1g':    ['101','102','103','104','105','indifférent'],
-  '1spe':  ['1HGGSP1','1HGGSP2','indifférent'],
-  '1sti2d':['1STI2D1','1STI2D2','indifférent'],
-  '1stl':  ['1STL','indifférent'],
-  '1stmg': ['1STMG1','1STMG2','1STMG3','1STMG4','1STMG5','indifférent'],
-  'tg':    ['TG1','TG2','TG3','TG4','TG5','TG6','indifférent'],
-  'tspe':  ['T.HGGSP1','T.HGGSP2','indifférent'],
-  'tsti2d':['T.STI2D1','T.STI2D2','indifférent'],
-  'tstl':  ['T.STL','indifférent'],
-  'tstmg': ['T.STMG1','T.STMG2','T.STMG3','T.STMG4','T.STMG5','indifférent'],
-};
-
 function fmtHours(h) {
   if (h === 0) return '0h';
   const intPart = Math.floor(h);
@@ -1192,7 +1177,7 @@ function showRecap() {
     // Totals block (right side, vertically centered in the prof block)
     const totalsDiv = document.createElement('div');
     totalsDiv.style.cssText = `
-      position:absolute; right:220px; top:50%; transform:translateY(-50%);
+      position:absolute; right:40px; top:50%; transform:translateY(-50%);
       display:flex; flex-direction:column; align-items:flex-start; gap:6px;
     `;
     const h = horaires[profIdx];
@@ -1249,20 +1234,15 @@ function showRecap() {
           clsSpan.style.cssText = `width:${COL.cls}px; flex-shrink:0; font-size:.85rem; font-weight:${matiere.bold?'700':'400'}; color:${matiere.bold?'#0f1b2d':'#3a4a5a'}; line-height:1.4;`;
           clsSpan.textContent = `${label} — ${matiere.tag}`;
 
-          // Dropdown select
-          const opts = CLASS_OPTIONS[row.id] || ['indifférent'];
-          const inp = document.createElement('select');
-          inp.style.cssText = `width:${COL.inp - 4}px; height:30px; border:1.5px solid #7b3fa060; border-radius:6px; padding:0 6px; font-family:'Inter',sans-serif; font-size:.82rem; background:white; color:#0f1b2d; outline:none; margin-left:12px; cursor:pointer; appearance:auto;`;
-          opts.forEach(opt => {
-            const o = document.createElement('option');
-            o.value = opt; o.textContent = opt;
-            if ((classNumbers[profIdx][key] || 'indifférent') === opt) o.selected = true;
-            inp.appendChild(o);
-          });
-          if (!classNumbers[profIdx][key]) classNumbers[profIdx][key] = 'indifférent';
+          // Input
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.placeholder = '…';
+          inp.value = classNumbers[profIdx][key] || '';
+          inp.style.cssText = `width:${COL.inp - 16}px; height:26px; border:1.5px solid #7b3fa060; border-radius:6px; padding:0 8px; font-family:'Inter',sans-serif; font-size:.82rem; background:white; color:#0f1b2d; outline:none; margin-left:12px;`;
           inp.addEventListener('focus', () => inp.style.borderColor = '#7b3fa0');
-          inp.addEventListener('blur',  () => inp.style.borderColor = '#7b3fa060');
-          inp.addEventListener('change', () => { classNumbers[profIdx][key] = inp.value; });
+          inp.addEventListener('blur',  () => { inp.style.borderColor = '#7b3fa060'; classNumbers[profIdx][key] = inp.value; });
+          inp.addEventListener('input', () => classNumbers[profIdx][key] = inp.value);
 
           lineRow.appendChild(clsSpan);
           lineRow.appendChild(inp);
@@ -1335,7 +1315,7 @@ function exportTxt() {
           const label = getShortLabel(row);
           const key = `${row.id}-${matiere.key}-${slotIdx}`;
           const num = classNumbers[profIdx][key] || '';
-          const numStr = (num && num !== 'indifférent') ? `  →  Classe n° ${num}` : '';
+          const numStr = num ? `  →  Classe n° ${num}` : '';
           const indent = matiere.countsDown ? '     • ' : '       ◦ ';
           lines.push(`${indent}${label} — ${matiere.tag}${numStr}`);
         });
