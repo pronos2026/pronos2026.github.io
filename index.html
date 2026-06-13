@@ -705,16 +705,20 @@
       .edito-leo-mobile { display: none !important; }
     }
 
-    /* LeO mobile : edito-left passe en dessous du texte centré */
+    /* LeO mobile : en dessous du texte, centré et plus grand */
     @media (max-width: 700px) {
       .edito-left {
         display: flex !important;
         order: 2;
         width: 100%;
         justify-content: center;
+        margin-top: 16px;
       }
       .edito-left .edito-leo {
-        height: 200px !important;
+        height: 280px !important;
+        width: auto !important;
+        margin: 0 auto;
+        display: block;
       }
     }
 </style>
@@ -767,7 +771,7 @@
 
       <!-- Texte -->
       <div style="flex:1;min-width:240px;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#C9A84C;letter-spacing:2px;margin:0 0 18px;line-height:1.1;">Une attaque américaine efficace… sur la pelouse&nbsp;!</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#C9A84C;letter-spacing:2px;margin:0 0 18px;line-height:1.1;">Une attaque américaine enfin efficace&nbsp;!</p>
         <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
           Les Canadiens ne sont pas parvenus à vaincre les Bosniaques mais les Américains ont fait mouche 4 fois. Il y avait des balles au gun, Folarin&nbsp;!
         </p>
