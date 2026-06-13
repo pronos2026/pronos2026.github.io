@@ -61,8 +61,8 @@
     .chip-m6 { background: #0050b3; color: #fff; }
     .chip-bein { background: #b01c2e; color: #fff; }
     .banner-teams { display: flex; align-items: center; justify-content: center; gap: 16px; }
-    .team-side { display: flex; align-items: center; gap: 10px; justify-content: center; }
-    .team-side.right { flex-direction: row-reverse; }
+    .team-side { display: flex; align-items: center; gap: 10px; justify-content: flex-end; flex: 1; }
+    .team-side.right { flex-direction: row-reverse; justify-content: flex-end; }
     .team-flag { font-size: 38px; line-height: 1; }
     .team-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #fff; line-height: 1.1; }
     .vs-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.4); flex-shrink: 0; letter-spacing: 2px; }
@@ -113,79 +113,85 @@
 
     <!-- ══ MATCH 1 ══ -->
     <div class="match-block">
-      <div class="banner" style="background:#4B2E83;">
+      <div class="banner" style="background:#B5501A;">
         <div class="banner-meta">
-          <span>Jeudi 11 juin</span><span class="sep">·</span>
+          <span>Vendredi 12 juin</span><span class="sep">·</span>
           <span>21h00</span><span class="sep">·</span>
-          <span>Groupe A</span><span class="sep">·</span>
-          <span class="meta-light">Estadio Banorte – Mexico</span><span class="sep">·</span>
+          <span>Groupe B</span><span class="sep">·</span>
+          <span class="meta-light">BMO Field – Toronto</span><span class="sep">·</span>
           <span class="chip chip-m6 meta-light">M6</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
         <div class="banner-teams">
           <div class="team-side left">
-            <div class="team-flag">🇲🇽</div>
-            <div class="team-name">Mexique</div>
+            <div class="team-flag">🇨🇦</div>
+            <div class="team-name">Canada</div>
           </div>
           <div class="vs-badge">VS</div>
           <div class="team-side right">
-            <div class="team-name">Afrique du Sud</div>
-            <div class="team-flag">🇿🇦</div>
+            <div class="team-name">Bosnie-Herzégovine</div>
+            <div class="team-flag">🇧🇦</div>
           </div>
         </div>
       </div>
       <div class="pronos-body">
-        <div class="prono-row"><div class="score-badge score-m1">4 – 0</div><div class="pronostiqueurs">MymyBob, Yann</div></div>
-        <div class="prono-row"><div class="score-badge score-m1">3 – 0</div><div class="pronostiqueurs">Achillinho, Arthur, Baz, Bouna, Etienne, Gaëtan, Juninho</div></div>
-        <div class="prono-row"><div class="score-badge score-m1">3 – 1</div><div class="pronostiqueurs">EADN, El Doctor, Fred35, Nitram, PAG, Roi97</div></div>
-        <div class="prono-row prono-row-winner"><div class="score-badge score-m1">2 – 0</div><div class="pronostiqueurs">Anne-Claire, Armandooooo, Arsi, Carl, Cenomanum, Contrôle VAR, Cyril, El Gringo, Faustine, Fc Canaris, Hamkara, Jean-Marc, JOP, Julay, Le scud, LéO, Lino, Mariné, Martinico, Mickaël, Niewfoo, Nikita, NonoStar, Olive, Ozyr, Pascale, Pierre-Alexandre, Poirrierbouffon, Princesse Leia, Schiebercoach, SpeedyNiki, Tariq, Youki</div></div>
-        <div class="prono-row"><div class="score-badge score-m1">2 – 1</div><div class="pronostiqueurs">Beppolevi, Brétivendéen, Epsilone, Erwan, Hamkara Sayen, HectoPascal, Henrillette du Mans, Jacques, Jeannot, Magicmez, Maxime, Moustache, Paulchen, Phaco, Ririne, Sambadebrazil, Serge44, Thomas, Toulousains, Winwin, Xavier29</div></div>
-        <div class="prono-row"><div class="score-badge score-m1">1 – 0</div><div class="pronostiqueurs">Abeillefurieuse, Didane, El Celestino, Hugooooo, Leo35, LSG, Manu72, Marcattack, Nono, Quialedroit, Robinucci, Shrek, Zakattack</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">4 – 0</div><div class="pronostiqueurs">MymyBob</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">3 – 0</div><div class="pronostiqueurs">El Doctor, Melvil, Winwin</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">3 – 1</div><div class="pronostiqueurs">Armandooooo, Paulovitch</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">3 – 2</div><div class="pronostiqueurs">Fc Canaris, Fred35</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">2 – 0</div><div class="pronostiqueurs">Abeillefurieuse, Anne-Claire, Arsi, Bouna, Contrôle VAR, Cyril, El Celestino, Etienne, Julay, Leo35, Lino, Mariné, Pierre-Alexandre, Robinucci, SpeedyNiki, Xavier29</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">2 – 1</div><div class="pronostiqueurs">Achillinho, Claudio, Didane, Erwan, Faustine, Hamkara Sayen, Henrillette du Mans, Jeannot, Marcattack, Martinico, Mickaël, Moustache, Nikita, Princesse Leia, Roi97, Sambadebrazil, Thomas, Youki</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">1 – 0</div><div class="pronostiqueurs">Baz, El Gringo, Epsilone, Marco, Nesim, Nitram, NonoStar, Ozyr, Schiebercoach</div></div>
         <hr class="divider">
-        <div class="prono-row"><div class="score-badge score-m1">1 – 1</div><div class="pronostiqueurs">Mamadou, Marco, Melvil, MS, Paulovitch, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">0 – 0</div><div class="pronostiqueurs">Hugooooo, LéO, LSG, Magicmez, Toulousains</div></div>
+        <div class="prono-row prono-row-winner"><div class="score-badge score-m1">1 – 1</div><div class="pronostiqueurs">EADN, HectoPascal, Jacques, JOP, Juninho, Monsieur Nours, Niewfoo, Olive, Paulchen, Pascale, Quialedroit, Ririne, Shrek, Tariq, Zakattack</div></div>
         <hr class="divider">
-        <div class="prono-row"><div class="score-badge score-m1">0 – 1</div><div class="pronostiqueurs">Nesim</div></div>
-        <div class="prono-row"><div class="score-badge score-m1">1 – 2</div><div class="pronostiqueurs">Claudio, Monsieur Nours</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">0 – 1</div><div class="pronostiqueurs">Arthur, Brétivendéen, Cenomanum, Hamkara, Jean-Marc, Mamadou, MS, PAG</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">1 – 2</div><div class="pronostiqueurs">Carl, Gaëtan, Poirrierbouffon, Serge44, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">0 – 2</div><div class="pronostiqueurs">Beppolevi, Maxime, Nono, Phaco</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">1 – 3</div><div class="pronostiqueurs">Manu72, Yann</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">0 – 4</div><div class="pronostiqueurs">Le scud</div></div>
       </div>
     </div>
 
     <!-- ══ MATCH 2 ══ -->
     <div class="match-block">
-      <div class="banner" style="background:#0B6E6E;">
+      <div class="banner" style="background:#5C3D7A;">
         <div class="banner-meta">
-          <span>Vendredi 12 juin – nuit du 11</span><span class="sep">·</span>
-          <span>04h00</span><span class="sep">·</span>
-          <span>Groupe A</span><span class="sep">·</span>
-          <span class="meta-light">Estadio Akron – Guadalajara</span><span class="sep">·</span>
+          <span>Samedi 13 juin – nuit du 12</span><span class="sep">·</span>
+          <span>03h00</span><span class="sep">·</span>
+          <span>Groupe D</span><span class="sep">·</span>
+          <span class="meta-light">SoFi Stadium – Los Angeles</span><span class="sep">·</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
         <div class="banner-teams">
           <div class="team-side left">
-            <div class="team-flag">🇰🇷</div>
-            <div class="team-name">Corée du Sud</div>
+            <div class="team-flag">🇺🇸</div>
+            <div class="team-name">États-Unis</div>
           </div>
           <div class="vs-badge">VS</div>
           <div class="team-side right">
-            <div class="team-name">Tchéquie</div>
-            <div class="team-flag">🇨🇿</div>
+            <div class="team-name">Paraguay</div>
+            <div class="team-flag">🇵🇾</div>
           </div>
         </div>
       </div>
       <div class="pronos-body">
-        <div class="prono-row"><div class="score-badge score-m2">2 – 0</div><div class="pronostiqueurs">Baz, EADN, Etienne, Melvil, Nesim, Ririne, Roi97, Yvon</div></div>
-        <div class="prono-row prono-row-winner"><div class="score-badge score-m2">2 – 1</div><div class="pronostiqueurs">Achillinho, Armandooooo, Beppolevi, Bouna, Claudio, El Gringo, Gaëtan, Hugooooo, Julay, LéO, Leo35, LSG, Schiebercoach, Shrek</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">1 – 0</div><div class="pronostiqueurs">Cenomanum, Cyril, Juninho, Mariné, Martinico, NonoStar</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">3 – 0</div><div class="pronostiqueurs">Anne-Claire, Contrôle VAR, EADN, Mariné</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">3 – 1</div><div class="pronostiqueurs">Fc Canaris, Henrillette du Mans, Leo35, MymyBob, Thomas</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 0</div><div class="pronostiqueurs">Achillinho, Carl, Didane, Hugooooo, Marco, MS, NonoStar, Paulovitch, Quialedroit, SpeedyNiki</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 1</div><div class="pronostiqueurs">Abeillefurieuse, Cyril, El Doctor, Hamkara Sayen, Jeannot, JOP, Julay, LéO, Manu72, Melvil, Moustache, Niewfoo, Nikita, Olive, Ozyr, PAG, Phaco, Pierre-Alexandre, Princesse Leia, Shrek, Xavier29, Yann</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 0</div><div class="pronostiqueurs">Armandooooo, Beppolevi, Cenomanum, Claudio, Erwan, Fred35, Juninho, Lino, Marcattack, Mickaël, Nono, Paulchen, Sambadebrazil, Winwin, Zakattack</div></div>
         <hr class="divider">
-        <div class="prono-row"><div class="score-badge score-m2">0 – 0</div><div class="pronostiqueurs">Le scud</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">1 – 1</div><div class="pronostiqueurs">Contrôle VAR, Didane, El Celestino, Faustine, Fc Canaris, Hamkara, Hamkara Sayen, Jean-Marc, Jeannot, JOP, Lino, Mamadou, Manu72, Marcattack, Maxime, Mickaël, Moustache, Niewfoo, Nikita, Nono, Ozyr, Pascale, Poirrierbouffon, Princesse Leia, Robinucci, Sambadebrazil, Serge44, SpeedyNiki, Tariq, Xavier29, Yann, Youki, Zakattack</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">2 – 2</div><div class="pronostiqueurs">Arthur, El Doctor, Henrillette du Mans, Paulchen, Winwin</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">0 – 0</div><div class="pronostiqueurs">Nesim, Robinucci, Schiebercoach</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 1</div><div class="pronostiqueurs">Baz, Bouna, Brétivendéen, Etienne, Faustine, HectoPascal, LSG, Magicmez, Mamadou, Nitram, Poirrierbouffon, Roi97</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 2</div><div class="pronostiqueurs">El Celestino, El Gringo, Jean-Marc, Maxime, Monsieur Nours, Yvon</div></div>
         <hr class="divider">
-        <div class="prono-row"><div class="score-badge score-m2">0 – 1</div><div class="pronostiqueurs">Abeillefurieuse, Anne-Claire, Magicmez, Marco, MS, Quialedroit, Thomas, Toulousains</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">1 – 2</div><div class="pronostiqueurs">Brétivendéen, Erwan, Fred35, Olive, PAG, Phaco</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">0 – 2</div><div class="pronostiqueurs">Carl, Epsilone, HectoPascal, Monsieur Nours, Paulovitch, Pierre-Alexandre</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">1 – 3</div><div class="pronostiqueurs">Arsi, Jacques</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">0 – 3</div><div class="pronostiqueurs">MymyBob</div></div>
-        <div class="prono-row"><div class="score-badge score-m2">0 – 4</div><div class="pronostiqueurs">Nitram</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">0 – 1</div><div class="pronostiqueurs">Toulousains</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 2</div><div class="pronostiqueurs">Gaëtan, Hamkara, Jacques, Pascale, Ririne, Tariq, Youki</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 3</div><div class="pronostiqueurs">Arsi, Arthur, Martinico, Serge44</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">0 – 3</div><div class="pronostiqueurs">Epsilone</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">0 – 4</div><div class="pronostiqueurs">Le scud</div></div>
       </div>
     </div>
 
