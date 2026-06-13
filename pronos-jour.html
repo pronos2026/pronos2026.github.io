@@ -43,7 +43,44 @@
     /* ── Desktop : fond bleu-gris autour des encarts ── */
     @media (min-width:601px) {
       .zone-contenu { background: #dde4ee; }
+      .teams-mobile { display: none !important; }
+      .teams-desktop { display: flex !important; }
     }
+    @media (max-width:600px) {
+      .teams-desktop { display: none !important; }
+      .teams-mobile { display: block !important; }
+    }
+    .teams-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+    }
+    .teams-desktop .td-a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-end;
+    }
+    .teams-desktop .td-b {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-start;
+    }
+    .teams-desktop .td-vs {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      flex-shrink: 0;
+      letter-spacing: 2px;
+    }
+    .td-flag { font-size: 38px; line-height: 1; }
+    .td-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #fff; line-height: 1.1; }
 
     /* ── Mobile portrait ── */
     @media (max-width:600px) {
@@ -128,7 +165,18 @@
           <span class="chip chip-m6 meta-light">M6</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;">
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇶🇦</span>
+            <span class="td-name">Qatar</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Suisse</span>
+            <span class="td-flag">🇨🇭</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
           <tr>
             <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
               <span style="font-size:28px;line-height:1;">🇶🇦</span>
@@ -174,7 +222,18 @@
           <span class="chip chip-m6 meta-light">M6</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;">
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇧🇷</span>
+            <span class="td-name">Brésil</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Maroc</span>
+            <span class="td-flag">🇲🇦</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
           <tr>
             <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
               <span style="font-size:28px;line-height:1;">🇧🇷</span>
@@ -224,7 +283,18 @@
           <span class="meta-light">Gillette Stadium – Foxborough</span><span class="sep">·</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;">
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇭🇹</span>
+            <span class="td-name">Haïti</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Écosse</span>
+            <span class="td-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
           <tr>
             <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
               <span style="font-size:28px;line-height:1;">🇭🇹</span>
@@ -273,7 +343,18 @@
           <span class="meta-light">SoFi Stadium – Los Angeles</span><span class="sep">·</span>
           <span class="chip chip-bein meta-light">beIN Sports</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;">
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇦🇺</span>
+            <span class="td-name">Australie</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Turquie</span>
+            <span class="td-flag">🇹🇷</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
           <tr>
             <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
               <span style="font-size:28px;line-height:1;">🇦🇺</span>
