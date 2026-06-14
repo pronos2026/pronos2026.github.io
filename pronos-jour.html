@@ -1,229 +1,354 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pronos du jour — Le Championnat des Pronostiqueurs</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --navy: #0d1b3e;
-  --blue: #1565c0;
-  --red:  #c62828;
-  --or:   #f5c518;
-  --teal: #1a6b7c;
-  --teal2:#1d7a8a;
-  --blanc:#ffffff;
-  --gris-fond:#dce3ec;
-  --sep:#d8dde6;
-  --texte:#222;
-  --texte-doux:#555;
-  --s-b:#1565c0;
-  --s-r:#c62828;
-}
-body { background:var(--gris-fond); color:var(--texte); font-family:'Barlow',sans-serif; min-height:100vh; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Pronostiqueurs – Pronos du jour 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <style>
 
-/* RAINBOW */
-.rainbow-bar { height:5px; background:linear-gradient(90deg,#e53935 0%,#f4511e 14%,#fdd835 28%,#43a047 42%,#1e88e5 57%,#8e24aa 71%,#e53935 100%); }
+    :root { --bleu-azur: #0077C8; --bleu-marine: #002B5C; --rouge: #D0021B; --noir: #0A0A0A; --blanc: #FFFFFF; --gris-clair: #F4F6FA; --or: #C9A84C; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Barlow', sans-serif; background: var(--blanc); color: var(--bleu-marine); overflow-x: hidden; }
+    header { background: var(--bleu-marine); }
+    .header-stripe { height: 5px; background: linear-gradient(90deg, var(--bleu-azur) 0%, var(--rouge) 50%, var(--or) 100%); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; gap: 20px; }
+    .logo-title { display: flex; flex-direction: column; line-height: 1; }
+    .logo-title .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--bleu-azur); }
+    .logo-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--blanc); letter-spacing: 2px; }
+    .logo-title .edition { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--rouge); }
+    nav { background: var(--bleu-azur); }
+    nav::after { content: ''; display: block; height: 3px; background: var(--rouge); }
+    .nav-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; }
+    .nav-list li a { display: block; padding: 12px 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blanc); text-decoration: none; transition: background 0.2s, color 0.2s; border-right: 1px solid rgba(255,255,255,0.15); }
+    .nav-list li:last-child a { border-right: none; }
+    .nav-list li a:hover, .nav-list li a.active { background: var(--bleu-marine); color: var(--or); }
+    .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--rouge), var(--bleu-azur), var(--or)); }
+    footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
+    footer a { color: var(--bleu-azur); text-decoration: none; }
+    footer a:hover { color: var(--or); }
+    @media (max-width:600px) { .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .nav-list li a { padding: 10px 12px; font-size: 12px; } }
 
-/* HEADER */
-header { background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:0.9rem 1.6rem; min-height:88px; }
-.header-eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:0.18em; color:#8899bb; text-transform:uppercase; margin-bottom:0.15rem; }
-.header-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.7rem,5vw,2.6rem); color:#fff; letter-spacing:0.04em; line-height:1; }
-.header-sub { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:0.22em; color:var(--red); text-transform:uppercase; margin-top:0.25rem; }
-.header-trophy { font-size:2.8rem; background:#f5f0e8; padding:0.35rem 0.45rem; border-radius:3px; line-height:1; }
+    .zone-titre { background: var(--noir); padding: 40px; text-align: center; position: relative; overflow: hidden; }
+    .zone-titre::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 50%, rgba(0,119,200,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(208,2,27,0.1) 0%, transparent 50%); pointer-events: none; }
+    .zone-titre h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 8vw, 70px); color: var(--blanc); letter-spacing: 6px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    .zone-titre .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 16px auto 0; opacity: 0; animation: fadeUp 0.6s 0.4s forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .zone-contenu { padding: 80px 40px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .zone-contenu::before { content: '⚽'; position: absolute; font-size: 200px; opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
 
-/* NAV */
-nav { background:var(--blue); border-bottom:3px solid var(--red); }
-.nav-list { list-style:none; display:flex; flex-wrap:wrap; justify-content:center; }
-.nav-list a { display:block; padding:0.65rem 1rem; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,.85); text-decoration:none; transition:background .15s,color .15s; }
-.nav-list a:hover { background:rgba(0,0,0,.2); color:#fff; }
-.nav-list a.active { color:var(--or); }
+    @media (min-width:601px) {
+      .zone-contenu { background: #dde4ee; }
+      .teams-mobile { display: none !important; }
+      .teams-desktop { display: flex !important; }
+    }
+    @media (max-width:600px) {
+      .teams-desktop { display: none !important; }
+      .teams-mobile { display: block !important; }
+      .zone-contenu { padding: 20px 12px; background: #fff; }
+      .match-block { margin-left: 0 !important; margin-right: 0 !important; width: 100%; border-radius: 10px; }
+      .banner-meta .meta-light { font-weight: 400; opacity: 0.72; letter-spacing: 0.03em; }
+      .banner-teams { flex-direction: column; align-items: stretch; gap: 4px; }
+      .team-a { flex: none; width: 100%; gap: 8px; justify-content: flex-start; }
+      .team-b { flex: none; width: 100%; gap: 8px; justify-content: flex-end; flex-direction: row; }
+      .team-flag { font-size: 28px; }
+      .team-name { font-size: 22px; }
+      .vs-badge { padding: 2px 0; font-size: 12px; opacity: 0.5; text-align: center; }
+    }
 
-/* ZONE TITRE */
-.zone-titre { background:#0a0f1e; text-align:center; padding:3.5rem 1rem 3rem; position:relative; overflow:hidden; }
-.zone-titre::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 120%,rgba(21,101,192,.22) 0%,transparent 65%); }
-.zone-titre h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,10vw,6rem); color:#fff; letter-spacing:.09em; position:relative; }
-.titre-deco { width:60px; height:3px; margin:1rem auto 0; background:linear-gradient(90deg,var(--blue),var(--red)); border-radius:2px; position:relative; }
+    .teams-desktop { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; }
+    .teams-desktop .td-a { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
+    .teams-desktop .td-b { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-start; }
+    .teams-desktop .td-vs { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.4); flex-shrink: 0; letter-spacing: 2px; }
+    .td-flag { font-size: 38px; line-height: 1; }
+    .td-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #fff; line-height: 1.1; }
 
-/* ZONE CONTENU */
-.zone-contenu { max-width:830px; margin:0 auto; padding:2.5rem 1rem 4rem; display:flex; flex-direction:column; gap:2rem; }
+    /* ── MATCHS ── */
+    .match-block { max-width: 820px; margin: 0 auto 2.4rem; border-radius: 14px; overflow: hidden; box-shadow: 0 3px 16px rgba(0,0,0,0.13); }
+    .banner { padding: 1rem 1.4rem 0.9rem; color: #fff; }
+    .banner-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; margin-bottom: 0.7rem; }
+    .banner-meta .sep { opacity: 0.35; }
+    .chip { border-radius: 4px; padding: 2px 8px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; }
+    .chip-m6 { background: #0050b3; color: #fff; }
+    .chip-bein { background: #b01c2e; color: #fff; }
+    .banner-teams { display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .team-a { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-start; }
+    .team-b { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; flex-direction: row-reverse; }
+    .team-flag { font-size: 38px; line-height: 1; }
+    .team-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #fff; line-height: 1.1; }
+    .vs-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.4); flex-shrink: 0; letter-spacing: 2px; }
+    .pronos-body { background: #fff; padding: 0.3rem 1.4rem 1rem; }
+    .prono-row { display: flex; align-items: baseline; gap: 14px; min-height: 30px; padding: 4px 0; border-bottom: 0.5px solid #f0f0f0; }
+    .prono-row:last-child { border-bottom: none; }
+    .score-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 900; min-width: 44px; flex-shrink: 0; letter-spacing: 0.03em; }
+    .score-m1 { color: #1a6b2e; }
+    .score-m2 { color: #6B2D6B; }
+    .score-m3 { color: #C45C1A; }
+    .score-m4 { color: #3A5A8A; }
+    .pronostiqueurs { font-family: 'Barlow', sans-serif; font-size: 12.5px; color: #444; line-height: 1.55; text-align: left; }
+    hr.divider { border: none; border-top: 3px solid rgba(0,0,0,0.18); margin: 7px 0; }
 
-/* BLOC MATCH */
-.bloc-match { background:#fff; border-radius:3px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.13); }
-
-/* BANNER */
-.banner { background:linear-gradient(135deg,#155e6e 0%,#1d7a8a 45%,#1a6b7c 100%); padding:.7rem 1.2rem .85rem; }
-.banner-meta { display:flex; flex-wrap:wrap; align-items:center; gap:.35rem; margin-bottom:.6rem; font-family:'Barlow Condensed',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.72); }
-.meta-sep { color:rgba(255,255,255,.3); }
-.chip-tv { background:var(--blue); color:#fff; border-radius:3px; padding:.08rem .42rem; font-size:.66rem; font-weight:700; letter-spacing:.06em; }
-.chip-tv.bein { background:var(--red); }
-.banner-teams { display:flex; align-items:center; justify-content:center; gap:1.1rem; }
-.team { display:flex; align-items:center; gap:.5rem; }
-.team-flag { font-size:1.55rem; line-height:1; }
-.team-name { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.3rem,4vw,1.95rem); color:#fff; letter-spacing:.05em; }
-.vs { font-family:'Barlow Condensed',sans-serif; font-size:.82rem; font-weight:700; color:rgba(255,255,255,.55); letter-spacing:.1em; }
-
-/* PRONOS BODY */
-.pronos-body { background:#fff; }
-.prono-row { display:flex; align-items:baseline; gap:1rem; padding:.62rem 1.2rem; border-bottom:1px solid var(--sep); }
-.prono-row:last-child { border-bottom:none; }
-.score-badge { font-family:'Barlow Condensed',sans-serif; font-size:.95rem; font-weight:700; letter-spacing:.05em; min-width:2.8rem; flex-shrink:0; }
-.s-b { color:var(--s-b); }
-.s-r { color:var(--s-r); }
-.pronostiqueurs { font-size:.87rem; color:var(--texte-doux); line-height:1.5; }
-
-/* FOOTER */
-footer { background:var(--navy); text-align:center; padding:1.2rem 1rem; color:rgba(255,255,255,.4); font-family:'Barlow Condensed',sans-serif; font-size:.76rem; letter-spacing:.08em; border-top:4px solid transparent; border-image:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5,#8e24aa) 1; }
-
-@media(max-width:560px){
-  .header-trophy{display:none;}
-  .nav-list a{padding:.55rem .65rem;font-size:.7rem;}
-  .banner-teams{flex-direction:column;gap:.35rem;}
-  .vs{display:none;}
-  .team{justify-content:center;}
-}
-</style>
+  </style>
 </head>
 <body>
-
-<div class="rainbow-bar"></div>
-
-<header>
-  <div>
-    <p class="header-eyebrow">Le Championnat des</p>
-    <h1 class="header-title">Pronostiqueurs</h1>
-    <p class="header-sub">USA · Canada · Mexique 2026</p>
+  <header>
+    <div class="header-stripe"></div>
+    <div class="header-inner">
+      <div class="logo-title">
+        <span class="eyebrow">Le Championnat des</span>
+        <h1>Pronostiqueurs</h1>
+        <span class="edition">USA · Canada · Mexique 2026</span>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <ul class="nav-list">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="reglement.html">Règlement</a></li>
+      <li><a href="classement.html">Classement</a></li>
+      <li><a href="pronos-jour.html" class="active">Pronos du jour</a></li>
+      <li><a href="pronos-hier.html">Pronos d'hier</a></li>
+      <li><a href="resultats.html">Résultats</a></li>
+      <li><a href="pacorabannes.html">Pacorabannes</a></li>
+      <li><a href="historique.html">Historique</a></li>
+      <li><a href="album-panini.html">Album Panini</a></li>
+      <li><a href="favoris.html">Favoris</a></li>
+    </ul>
+  </nav>
+  <div class="zone-titre">
+    <h2>Pronos du jour</h2>
+    <div class="deco-line"></div>
   </div>
-  <div class="header-trophy">🏆</div>
-</header>
+  <div class="zone-contenu" style="flex-direction:column; align-items:stretch; padding:40px 24px;">
 
-<nav>
-  <ul class="nav-list">
-    <li><a href="#">Accueil</a></li>
-    <li><a href="#">Règlement</a></li>
-    <li><a href="#">Classement</a></li>
-    <li><a href="#" class="active">Pronos du jour</a></li>
-    <li><a href="#">Pronos d'hier</a></li>
-    <li><a href="#">Résultats</a></li>
-    <li><a href="#">Pacorabannes</a></li>
-    <li><a href="#">Historique</a></li>
-    <li><a href="#">Album Panini</a></li>
-    <li><a href="#">Favoris</a></li>
-  </ul>
-</nav>
-
-<section class="zone-titre">
-  <h2>Pronos du jour</h2>
-  <div class="titre-deco"></div>
-</section>
-
-<main class="zone-contenu">
-
-  <!-- MATCH 1 : Allemagne - Curaçao -->
-  <article class="bloc-match">
-    <div class="banner">
-      <div class="banner-teams">
-        <div class="team"><span class="team-flag">🇩🇪</span><span class="team-name">Allemagne</span></div>
-        <span class="vs">vs</span>
-        <div class="team"><span class="team-flag">🇨🇼</span><span class="team-name">Curaçao</span></div>
+    <!-- ══ MATCH 1 : Allemagne - Curaçao ══ -->
+    <div class="match-block">
+      <div class="banner" style="background:#1a6b2e;">
+        <div class="banner-meta">
+          <span>Samedi 14 juin</span><span class="sep">·</span>
+          <span>Groupe A</span>
+        </div>
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇩🇪</span>
+            <span class="td-name">Allemagne</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Curaçao</span>
+            <span class="td-flag">🇨🇼</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
+              <span style="font-size:28px;line-height:1;">🇩🇪</span>
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-left:8px;">Allemagne</span>
+            </td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;"></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;font-size:12px;opacity:0.45;letter-spacing:2px;font-weight:700;padding:2px 0;">VS</td>
+          </tr>
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;"></td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-right:8px;">Curaçao</span>
+              <span style="font-size:28px;line-height:1;">🇨🇼</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pronos-body">
+        <div class="prono-row"><div class="score-badge score-m1">8 – 0</div><div class="pronostiqueurs">Bouna</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">7 – 0</div><div class="pronostiqueurs">Juninho, Tariq</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">6 – 0</div><div class="pronostiqueurs">Baz, Cyril, Etienne, Fred35, Mamadou, Marco, Mariné, Martinico, Melvil, NonoStar</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">5 – 0</div><div class="pronostiqueurs">Brétivendéen, Carl, Cenomanum, Contrôle VAR, EADN, El Gringo, Jean-Marc, Leo35, Marcattack, Maxime, Moustache, Nono, Olive, Roi97, Thomas, Winwin, Yann</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">5 – 1</div><div class="pronostiqueurs">Manu72, MS, Paulovitch</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">4 – 0</div><div class="pronostiqueurs">Anne-Claire, Armandooooo, Arthur, Beppolevi, El Celestino, El Doctor, Fc Canaris, Gaëtan, Hamkara Sayen, Henrillette du Mans, Jacques, Jeannot, Lino, Magicmez, Mickaël, Monsieur Nours, MymyBob, Niewfoo, Phaco, Shrek, Xavier29, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">4 – 1</div><div class="pronostiqueurs">Achillinho, Arsi</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">3 – 0</div><div class="pronostiqueurs">Abeillefurieuse, Claudio, Didane, Epsilone, Faustine, Hamkara, HectoPascal, Hugooooo, JOP, Julay, LéO, Nesim, Nikita, Nitram, Ozyr, PAG, Pascale, Pierre-Alexandre, Poirrierbouffon, Princesse Leia, Ririne, Robinucci, Sambadebrazil, Schiebercoach, Serge44, Toulousains, Youki</div></div>
+        <div class="prono-row"><div class="score-badge score-m1">2 – 0</div><div class="pronostiqueurs">Erwan, LSG, Paulchen, SpeedyNiki, Zakattack</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m1">1 – 1</div><div class="pronostiqueurs">Quialedroit</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m1">0 – 2</div><div class="pronostiqueurs">Le scud</div></div>
       </div>
     </div>
-    <div class="pronos-body">
-      <div class="prono-row"><span class="score-badge s-b">8 – 0</span><span class="pronostiqueurs">Bouna</span></div>
-      <div class="prono-row"><span class="score-badge s-r">7 – 0</span><span class="pronostiqueurs">Juninho, Tariq</span></div>
-      <div class="prono-row"><span class="score-badge s-b">6 – 0</span><span class="pronostiqueurs">Baz, Cyril, Etienne, Fred35, Mamadou, Marco, Mariné, Martinico, Melvil, NonoStar</span></div>
-      <div class="prono-row"><span class="score-badge s-r">5 – 0</span><span class="pronostiqueurs">Brétivendéen, Carl, Cenomanum, Contrôle VAR, EADN, El Gringo, Jean-Marc, Leo35, Marcattack, Maxime, Moustache, Nono, Olive, Roi97, Thomas, Winwin, Yann</span></div>
-      <div class="prono-row"><span class="score-badge s-b">5 – 1</span><span class="pronostiqueurs">Manu72, MS, Paulovitch</span></div>
-      <div class="prono-row"><span class="score-badge s-r">4 – 0</span><span class="pronostiqueurs">Anne-Claire, Armandooooo, Arthur, Beppolevi, El Celestino, El Doctor, Fc Canaris, Gaëtan, Hamkara Sayen, Henrillette du Mans, Jacques, Jeannot, Lino, Magicmez, Mickaël, Monsieur Nours, MymyBob, Niewfoo, Phaco, Shrek, Xavier29, Yvon</span></div>
-      <div class="prono-row"><span class="score-badge s-b">4 – 1</span><span class="pronostiqueurs">Achillinho, Arsi</span></div>
-      <div class="prono-row"><span class="score-badge s-r">3 – 0</span><span class="pronostiqueurs">Abeillefurieuse, Claudio, Didane, Epsilone, Faustine, Hamkara, HectoPascal, Hugooooo, JOP, Julay, LéO, Nesim, Nikita, Nitram, Ozyr, PAG, Pascale, Pierre-Alexandre, Poirrierbouffon, Princesse Leia, Ririne, Robinucci, Sambadebrazil, Schiebercoach, Serge44, Toulousains, Youki</span></div>
-      <div class="prono-row"><span class="score-badge s-b">2 – 0</span><span class="pronostiqueurs">Erwan, LSG, Paulchen, SpeedyNiki, Zakattack</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 1</span><span class="pronostiqueurs">Quialedroit</span></div>
-      <div class="prono-row"><span class="score-badge s-b">0 – 2</span><span class="pronostiqueurs">Le scud</span></div>
-    </div>
-  </article>
 
-  <!-- MATCH 2 : Pays-Bas - Japon -->
-  <article class="bloc-match">
-    <div class="banner">      <div class="banner-teams">
-        <div class="team"><span class="team-flag">🇳🇱</span><span class="team-name">Pays-Bas</span></div>
-        <span class="vs">vs</span>
-        <div class="team"><span class="team-flag">🇯🇵</span><span class="team-name">Japon</span></div>
+    <!-- ══ MATCH 2 : Pays-Bas - Japon ══ -->
+    <div class="match-block">
+      <div class="banner" style="background:#6B2D6B;">
+        <div class="banner-meta">
+          <span>Samedi 14 juin</span><span class="sep">·</span>
+          <span>Groupe B</span>
+        </div>
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇳🇱</span>
+            <span class="td-name">Pays-Bas</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Japon</span>
+            <span class="td-flag">🇯🇵</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
+              <span style="font-size:28px;line-height:1;">🇳🇱</span>
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-left:8px;">Pays-Bas</span>
+            </td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;"></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;font-size:12px;opacity:0.45;letter-spacing:2px;font-weight:700;padding:2px 0;">VS</td>
+          </tr>
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;"></td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-right:8px;">Japon</span>
+              <span style="font-size:28px;line-height:1;">🇯🇵</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pronos-body">
+        <div class="prono-row"><div class="score-badge score-m2">4 – 1</div><div class="pronostiqueurs">Cyril</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">3 – 0</div><div class="pronostiqueurs">Arthur, Leo35, Maxime, Nitram</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">3 – 1</div><div class="pronostiqueurs">Anne-Claire, Arsi, Baz, Beppolevi, Henrillette du Mans, Jean-Marc, Magicmez</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">3 – 2</div><div class="pronostiqueurs">Cenomanum, Fc Canaris, MymyBob, NonoStar</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 0</div><div class="pronostiqueurs">Epsilone, Jacques, Melvil, Nesim, Nono, Olive, Ririne, SpeedyNiki</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 1</div><div class="pronostiqueurs">Claudio, Contrôle VAR, Didane, El Celestino, El Gringo, Erwan, Etienne, Faustine, Gaëtan, Hamkara Sayen, HectoPascal, Hugooooo, Jeannot, JOP, Lino, Mamadou, Moustache, Nikita, Ozyr, Pascale, Princesse Leia, Quialedroit, Robinucci, Sambadebrazil, Schiebercoach, Toulousains, Yann, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 0</div><div class="pronostiqueurs">Pierre-Alexandre, Youki</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m2">1 – 1</div><div class="pronostiqueurs">Abeillefurieuse, Achillinho, Armandooooo, Brétivendéen, Carl, EADN, El Doctor, Hamkara, Julay, LSG, Marcattack, Marco, Martinico, Niewfoo, Serge44, Shrek, Tariq, Thomas, Winwin</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 2</div><div class="pronostiqueurs">Bouna, Manu72, Mariné, Mickaël, Monsieur Nours, Phaco, Poirrierbouffon, Roi97</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m2">0 – 1</div><div class="pronostiqueurs">LéO, PAG</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 2</div><div class="pronostiqueurs">Juninho, Paulchen, Paulovitch, Xavier29, Zakattack</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">2 – 3</div><div class="pronostiqueurs">Fred35</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">0 – 2</div><div class="pronostiqueurs">Le scud</div></div>
+        <div class="prono-row"><div class="score-badge score-m2">1 – 3</div><div class="pronostiqueurs">MS</div></div>
       </div>
     </div>
-    <div class="pronos-body">
-      <div class="prono-row"><span class="score-badge s-b">4 – 1</span><span class="pronostiqueurs">Cyril</span></div>
-      <div class="prono-row"><span class="score-badge s-r">3 – 0</span><span class="pronostiqueurs">Arthur, Leo35, Maxime, Nitram</span></div>
-      <div class="prono-row"><span class="score-badge s-b">3 – 1</span><span class="pronostiqueurs">Anne-Claire, Arsi, Baz, Beppolevi, Henrillette du Mans, Jean-Marc, Magicmez</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 0</span><span class="pronostiqueurs">Epsilone, Jacques, Melvil, Nesim, Nono, Olive, Ririne, SpeedyNiki</span></div>
-      <div class="prono-row"><span class="score-badge s-b">3 – 2</span><span class="pronostiqueurs">Cenomanum, Fc Canaris, MymyBob, NonoStar</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 1</span><span class="pronostiqueurs">Claudio, Contrôle VAR, Didane, El Celestino, El Gringo, Erwan, Etienne, Faustine, Gaëtan, Hamkara Sayen, HectoPascal, Hugooooo, Jeannot, JOP, Lino, Mamadou, Moustache, Nikita, Ozyr, Pascale, Princesse Leia, Quialedroit, Robinucci, Sambadebrazil, Schiebercoach, Toulousains, Yann, Yvon</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 0</span><span class="pronostiqueurs">Pierre-Alexandre, Youki</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 1</span><span class="pronostiqueurs">Abeillefurieuse, Achillinho, Armandooooo, Brétivendéen, Carl, EADN, El Doctor, Hamkara, Julay, LSG, Marcattack, Marco, Martinico, Niewfoo, Serge44, Shrek, Tariq, Thomas, Winwin</span></div>
-      <div class="prono-row"><span class="score-badge s-b">2 – 2</span><span class="pronostiqueurs">Bouna, Manu72, Mariné, Mickaël, Monsieur Nours, Phaco, Poirrierbouffon, Roi97</span></div>
-      <div class="prono-row"><span class="score-badge s-r">0 – 1</span><span class="pronostiqueurs">LéO, PAG</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 2</span><span class="pronostiqueurs">Juninho, Paulchen, Paulovitch, Xavier29, Zakattack</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 3</span><span class="pronostiqueurs">Fred35</span></div>
-      <div class="prono-row"><span class="score-badge s-b">0 – 2</span><span class="pronostiqueurs">Le scud</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 3</span><span class="pronostiqueurs">MS</span></div>
-    </div>
-  </article>
 
-  <!-- MATCH 3 : Côte d'Ivoire - Équateur -->
-  <article class="bloc-match">
-    <div class="banner">      <div class="banner-teams">
-        <div class="team"><span class="team-flag">🇨🇮</span><span class="team-name">Côte d'Ivoire</span></div>
-        <span class="vs">vs</span>
-        <div class="team"><span class="team-flag">🇪🇨</span><span class="team-name">Équateur</span></div>
+    <!-- ══ MATCH 3 : Côte d'Ivoire - Équateur ══ -->
+    <div class="match-block">
+      <div class="banner" style="background:#C45C1A;">
+        <div class="banner-meta">
+          <span>Samedi 14 juin</span><span class="sep">·</span>
+          <span>Groupe C</span>
+        </div>
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇨🇮</span>
+            <span class="td-name">Côte d'Ivoire</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Équateur</span>
+            <span class="td-flag">🇪🇨</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
+              <span style="font-size:28px;line-height:1;">🇨🇮</span>
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-left:8px;">Côte d'Ivoire</span>
+            </td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;"></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;font-size:12px;opacity:0.45;letter-spacing:2px;font-weight:700;padding:2px 0;">VS</td>
+          </tr>
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;"></td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-right:8px;">Équateur</span>
+              <span style="font-size:28px;line-height:1;">🇪🇨</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pronos-body">
+        <div class="prono-row"><div class="score-badge score-m3">5 – 1</div><div class="pronostiqueurs">Arsi</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">3 – 0</div><div class="pronostiqueurs">Brétivendéen</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">3 – 1</div><div class="pronostiqueurs">Henrillette du Mans, Maxime, Olive, Yann, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">3 – 2</div><div class="pronostiqueurs">El Doctor, MymyBob, Poirrierbouffon</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">2 – 0</div><div class="pronostiqueurs">Beppolevi, EADN, Fred35, Hugooooo, Leo35, Nono, Pierre-Alexandre, Quialedroit, Shrek, Xavier29</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">2 – 1</div><div class="pronostiqueurs">Armandooooo, Cenomanum, Didane, HectoPascal, Jacques, Jeannot, LéO, Manu72, Niewfoo, Nitram, Pascale, Paulovitch, Phaco, Ririne, Roi97, Sambadebrazil, SpeedyNiki, Tariq, Toulousains, Youki</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">1 – 0</div><div class="pronostiqueurs">Carl, Julay, Juninho, Le scud, LSG, Melvil, Nesim, NonoStar, Zakattack</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m3">0 – 0</div><div class="pronostiqueurs">Erwan, Jean-Marc, Marco</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">1 – 1</div><div class="pronostiqueurs">Anne-Claire, Arthur, Claudio, Contrôle VAR, Cyril, Faustine, Fc Canaris, Hamkara Sayen, JOP, Marcattack, Mariné, Moustache, MS, Ozyr, Princesse Leia, Robinucci, Schiebercoach, Thomas</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">2 – 2</div><div class="pronostiqueurs">Abeillefurieuse, El Gringo, Etienne, Lino, Magicmez, Mamadou, Serge44, Winwin</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m3">0 – 1</div><div class="pronostiqueurs">Mickaël, PAG</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">1 – 2</div><div class="pronostiqueurs">Achillinho, Baz, Bouna, El Celestino, Gaëtan, Hamkara, Martinico, Monsieur Nours, Nikita, Paulchen</div></div>
+        <div class="prono-row"><div class="score-badge score-m3">1 – 4</div><div class="pronostiqueurs">Epsilone</div></div>
       </div>
     </div>
-    <div class="pronos-body">
-      <div class="prono-row"><span class="score-badge s-b">5 – 1</span><span class="pronostiqueurs">Arsi</span></div>
-      <div class="prono-row"><span class="score-badge s-r">3 – 0</span><span class="pronostiqueurs">Brétivendéen</span></div>
-      <div class="prono-row"><span class="score-badge s-b">3 – 1</span><span class="pronostiqueurs">Henrillette du Mans, Maxime, Olive, Yann, Yvon</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 0</span><span class="pronostiqueurs">Beppolevi, EADN, Fred35, Hugooooo, Leo35, Nono, Pierre-Alexandre, Quialedroit, Shrek, Xavier29</span></div>
-      <div class="prono-row"><span class="score-badge s-b">3 – 2</span><span class="pronostiqueurs">El Doctor, MymyBob, Poirrierbouffon</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 1</span><span class="pronostiqueurs">Armandooooo, Cenomanum, Didane, HectoPascal, Jacques, Jeannot, LéO, Manu72, Niewfoo, Nitram, Pascale, Paulovitch, Phaco, Ririne, Roi97, Sambadebrazil, SpeedyNiki, Tariq, Toulousains, Youki</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 0</span><span class="pronostiqueurs">Carl, Julay, Juninho, Le scud, LSG, Melvil, Nesim, NonoStar, Zakattack</span></div>
-      <div class="prono-row"><span class="score-badge s-r">0 – 0</span><span class="pronostiqueurs">Erwan, Jean-Marc, Marco</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 1</span><span class="pronostiqueurs">Anne-Claire, Arthur, Claudio, Contrôle VAR, Cyril, Faustine, Fc Canaris, Hamkara Sayen, JOP, Marcattack, Mariné, Moustache, MS, Ozyr, Princesse Leia, Robinucci, Schiebercoach, Thomas</span></div>
-      <div class="prono-row"><span class="score-badge s-r">2 – 2</span><span class="pronostiqueurs">Abeillefurieuse, El Gringo, Etienne, Lino, Magicmez, Mamadou, Serge44, Winwin</span></div>
-      <div class="prono-row"><span class="score-badge s-b">0 – 1</span><span class="pronostiqueurs">Mickaël, PAG</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 2</span><span class="pronostiqueurs">Achillinho, Baz, Bouna, El Celestino, Gaëtan, Hamkara, Martinico, Monsieur Nours, Nikita, Paulchen</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 4</span><span class="pronostiqueurs">Epsilone</span></div>
-    </div>
-  </article>
 
-  <!-- MATCH 4 : Suède - Tunisie -->
-  <article class="bloc-match">
-    <div class="banner">      <div class="banner-teams">
-        <div class="team"><span class="team-flag">🇸🇪</span><span class="team-name">Suède</span></div>
-        <span class="vs">vs</span>
-        <div class="team"><span class="team-flag">🇹🇳</span><span class="team-name">Tunisie</span></div>
+    <!-- ══ MATCH 4 : Suède - Tunisie ══ -->
+    <div class="match-block">
+      <div class="banner" style="background:#3A5A8A;">
+        <div class="banner-meta">
+          <span>Samedi 14 juin</span><span class="sep">·</span>
+          <span>Groupe D</span>
+        </div>
+        <div class="teams-desktop">
+          <div class="td-a">
+            <span class="td-flag">🇸🇪</span>
+            <span class="td-name">Suède</span>
+          </div>
+          <div class="td-vs">VS</div>
+          <div class="td-b">
+            <span class="td-name">Tunisie</span>
+            <span class="td-flag">🇹🇳</span>
+          </div>
+        </div>
+        <table class="teams-mobile" style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;">
+              <span style="font-size:28px;line-height:1;">🇸🇪</span>
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-left:8px;">Suède</span>
+            </td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;"></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;font-size:12px;opacity:0.45;letter-spacing:2px;font-weight:700;padding:2px 0;">VS</td>
+          </tr>
+          <tr>
+            <td style="width:50%;text-align:left;padding:2px 0;vertical-align:middle;"></td>
+            <td style="width:50%;text-align:right;padding:2px 0;vertical-align:middle;">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-right:8px;">Tunisie</span>
+              <span style="font-size:28px;line-height:1;">🇹🇳</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pronos-body">
+        <div class="prono-row"><div class="score-badge score-m4">3 – 0</div><div class="pronostiqueurs">Nesim, Paulovitch</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">3 – 1</div><div class="pronostiqueurs">Gaëtan, Henrillette du Mans, Lino, Monsieur Nours, MymyBob</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">3 – 2</div><div class="pronostiqueurs">Winwin</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">2 – 0</div><div class="pronostiqueurs">Armandooooo, El Celestino, Epsilone, Fc Canaris, Jean-Marc, Jeannot, JOP, Mickaël, NonoStar, Pierre-Alexandre, Roi97, Zakattack</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">2 – 1</div><div class="pronostiqueurs">Achillinho, Brétivendéen, Carl, Cenomanum, Claudio, El Doctor, Hugooooo, Jacques, Julay, LéO, Mamadou, Nono, PAG, Ririne, Thomas, Yann</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">1 – 0</div><div class="pronostiqueurs">Abeillefurieuse, El Gringo, Erwan, Faustine, Hamkara Sayen, Manu72, Marcattack, Marco, Ozyr, Sambadebrazil, Schiebercoach, SpeedyNiki, Tariq, Toulousains</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m4">0 – 0</div><div class="pronostiqueurs">Arthur, Beppolevi, Contrôle VAR, Cyril, Juninho, LSG, Martinico, Melvil, Paulchen, Shrek</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">1 – 1</div><div class="pronostiqueurs">Baz, EADN, Etienne, Fred35, Hamkara, HectoPascal, Le scud, Leo35, Mariné, Moustache, Niewfoo, Nikita, Nitram, Princesse Leia, Youki, Yvon</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">2 – 2</div><div class="pronostiqueurs">Phaco, Poirrierbouffon, Xavier29</div></div>
+        <hr class="divider">
+        <div class="prono-row"><div class="score-badge score-m4">0 – 1</div><div class="pronostiqueurs">Anne-Claire, Bouna, Magicmez, Olive, Pascale, Robinucci</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">1 – 2</div><div class="pronostiqueurs">Didane, Maxime, MS, Serge44</div></div>
+        <div class="prono-row"><div class="score-badge score-m4">0 – 2</div><div class="pronostiqueurs">Arsi, Quialedroit</div></div>
       </div>
     </div>
-    <div class="pronos-body">
-      <div class="prono-row"><span class="score-badge s-b">3 – 0</span><span class="pronostiqueurs">Nesim, Paulovitch</span></div>
-      <div class="prono-row"><span class="score-badge s-r">3 – 1</span><span class="pronostiqueurs">Gaëtan, Henrillette du Mans, Lino, Monsieur Nours, MymyBob</span></div>
-      <div class="prono-row"><span class="score-badge s-b">2 – 0</span><span class="pronostiqueurs">Armandooooo, El Celestino, Epsilone, Fc Canaris, Jean-Marc, Jeannot, JOP, Mickaël, NonoStar, Pierre-Alexandre, Roi97, Zakattack</span></div>
-      <div class="prono-row"><span class="score-badge s-r">3 – 2</span><span class="pronostiqueurs">Winwin</span></div>
-      <div class="prono-row"><span class="score-badge s-b">2 – 1</span><span class="pronostiqueurs">Achillinho, Brétivendéen, Carl, Cenomanum, Claudio, El Doctor, Hugooooo, Jacques, Julay, LéO, Mamadou, Nono, PAG, Ririne, Thomas, Yann</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 0</span><span class="pronostiqueurs">Abeillefurieuse, El Gringo, Erwan, Faustine, Hamkara Sayen, Manu72, Marcattack, Marco, Ozyr, Sambadebrazil, Schiebercoach, SpeedyNiki, Tariq, Toulousains</span></div>
-      <div class="prono-row"><span class="score-badge s-b">0 – 0</span><span class="pronostiqueurs">Arthur, Beppolevi, Contrôle VAR, Cyril, Juninho, LSG, Martinico, Melvil, Paulchen, Shrek</span></div>
-      <div class="prono-row"><span class="score-badge s-r">1 – 1</span><span class="pronostiqueurs">Baz, EADN, Etienne, Fred35, Hamkara, HectoPascal, Le scud, Leo35, Mariné, Moustache, Niewfoo, Nikita, Nitram, Princesse Leia, Youki, Yvon</span></div>
-      <div class="prono-row"><span class="score-badge s-b">2 – 2</span><span class="pronostiqueurs">Phaco, Poirrierbouffon, Xavier29</span></div>
-      <div class="prono-row"><span class="score-badge s-r">0 – 1</span><span class="pronostiqueurs">Anne-Claire, Bouna, Magicmez, Olive, Pascale, Robinucci</span></div>
-      <div class="prono-row"><span class="score-badge s-b">1 – 2</span><span class="pronostiqueurs">Didane, Maxime, MS, Serge44</span></div>
-      <div class="prono-row"><span class="score-badge s-r">0 – 2</span><span class="pronostiqueurs">Arsi, Quialedroit</span></div>
-    </div>
-  </article>
 
-</main>
-
-<footer>
-  <p>© 2026 Le Championnat des Pronostiqueurs — USA · Canada · Mexique</p>
-</footer>
+  </div>
+  <div class="footer-stripe"></div>
+  <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
 </body>
 </html>
