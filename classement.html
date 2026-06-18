@@ -63,14 +63,10 @@
     }
 
     /* Couleurs des badges */
-    .badge-or   { background: var(--or); }
-    .badge-arg  { background: #8e9eab; }
-    .badge-bro  { background: #a0673a; }
-    .badge-std  { background: #b0bec5; }
-
-    /* Pour les badges std, texte foncé */
-    .badge-std .cl-rang,
-    .badge-std .cl-pts { color: var(--bleu-marine); }
+    .badge-or1  { background: linear-gradient(135deg, #FFD700 0%, #C9A84C 60%, #A07830 100%); }
+    .badge-or2  { background: linear-gradient(135deg, #D4AF50 0%, #B8943E 60%, #957030 100%); }
+    .badge-or3  { background: linear-gradient(135deg, #C0A040 0%, #A88830 60%, #8A6A20 100%); }
+    .badge-bluegray { background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); }
 
     /* Nom du participant */
     .cl-nom {
@@ -83,6 +79,24 @@
       font-weight: 700;
       color: var(--bleu-marine);
       border-left: 1px solid var(--gris-bord);
+    }
+
+    /* Noms multiples ex-aequo */
+    .cl-noms-multi {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8px 20px;
+      border-left: 1px solid var(--gris-bord);
+      gap: 4px;
+    }
+    .cl-noms-multi .cl-nom-item {
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bleu-marine);
+      line-height: 1.4;
     }
 
     .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--rouge), var(--bleu-azur), var(--or)); }
@@ -118,104 +132,47 @@
   </nav>
 
   <div class="zone-titre">
-    <div class="sous-titre">Classement apr&egrave;s les matchs du 16 juin 2026</div>
-    <h2>20 matchs jou&eacute;s</h2>
+    <div class="sous-titre">Classement apr&egrave;s les matchs du 17 juin 2026</div>
+    <h2>24 matchs jou&eacute;s</h2>
     <div class="deco-line"></div>
   </div>
 
   <div class="zone-contenu">
     <ul class="classement-list">
-      <li><div class="cl-badge badge-or"><span class="cl-rang">1<sup>er</sup></span><span class="cl-pts">75 PTS</span></div><div class="cl-nom">Julay</div></li>
-      <li><div class="cl-badge badge-arg"><span class="cl-rang">2<sup>e</sup></span><span class="cl-pts">71 PTS</span></div><div class="cl-nom">Hugooooo</div></li>
-      <li><div class="cl-badge badge-bro"><span class="cl-rang">3<sup>e</sup></span><span class="cl-pts">67 PTS</span></div><div class="cl-nom">Shrek</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">4<sup>e</sup></span><span class="cl-pts">65 PTS</span></div><div class="cl-nom">Ririne</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">5<sup>e</sup></span><span class="cl-pts">64 PTS</span></div><div class="cl-nom">LSG</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">6<sup>e</sup></span><span class="cl-pts">63 PTS</span></div><div class="cl-nom">Roi97</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">7<sup>e</sup></span><span class="cl-pts">63 PTS</span></div><div class="cl-nom">Marin&eacute;</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">7<sup>e</sup></span><span class="cl-pts">63 PTS</span></div><div class="cl-nom">Niewfoo</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">7<sup>e</sup></span><span class="cl-pts">63 PTS</span></div><div class="cl-nom">NonoStar</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">7<sup>e</sup></span><span class="cl-pts">63 PTS</span></div><div class="cl-nom">Quialedroit</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">11<sup>e</sup></span><span class="cl-pts">62 PTS</span></div><div class="cl-nom">Achillinho</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">11<sup>e</sup></span><span class="cl-pts">62 PTS</span></div><div class="cl-nom">Marco</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">13<sup>e</sup></span><span class="cl-pts">61 PTS</span></div><div class="cl-nom">Zakattack</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">14<sup>e</sup></span><span class="cl-pts">60 PTS</span></div><div class="cl-nom">Manu72</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">15<sup>e</sup></span><span class="cl-pts">59 PTS</span></div><div class="cl-nom">Br&eacute;tivend&eacute;en</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">15<sup>e</sup></span><span class="cl-pts">59 PTS</span></div><div class="cl-nom">Tariq</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">17<sup>e</sup></span><span class="cl-pts">58 PTS</span></div><div class="cl-nom">Claudio</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">18<sup>e</sup></span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">JOP</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">18<sup>e</sup></span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">Juninho</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">18<sup>e</sup></span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">L&eacute;O</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">18<sup>e</sup></span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">Nesim</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">18<sup>e</sup></span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">Schiebercoach</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">23<sup>e</sup></span><span class="cl-pts">56 PTS</span></div><div class="cl-nom">Faustine</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">23<sup>e</sup></span><span class="cl-pts">56 PTS</span></div><div class="cl-nom">Pascale</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">23<sup>e</sup></span><span class="cl-pts">56 PTS</span></div><div class="cl-nom">Poirrierbouffon</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">26<sup>e</sup></span><span class="cl-pts">55 PTS</span></div><div class="cl-nom">EADN</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">26<sup>e</sup></span><span class="cl-pts">55 PTS</span></div><div class="cl-nom">Martinico</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">26<sup>e</sup></span><span class="cl-pts">55 PTS</span></div><div class="cl-nom">Toulousains</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">26<sup>e</sup></span><span class="cl-pts">55 PTS</span></div><div class="cl-nom">Xavier29</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">30<sup>e</sup></span><span class="cl-pts">54 PTS</span></div><div class="cl-nom">Phaco</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">31<sup>e</sup></span><span class="cl-pts">52 PTS</span></div><div class="cl-nom">Armandooooo</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">31<sup>e</sup></span><span class="cl-pts">52 PTS</span></div><div class="cl-nom">Cenomanum</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">31<sup>e</sup></span><span class="cl-pts">52 PTS</span></div><div class="cl-nom">Cyril</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">31<sup>e</sup></span><span class="cl-pts">52 PTS</span></div><div class="cl-nom">Hamkara</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">31<sup>e</sup></span><span class="cl-pts">52 PTS</span></div><div class="cl-nom">Nikita</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">36<sup>e</sup></span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Abeillefurieuse</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">36<sup>e</sup></span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Carl</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">36<sup>e</sup></span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Ga&euml;tan</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">36<sup>e</sup></span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Ozyr</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">36<sup>e</sup></span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Yann</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Bouna</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">El Doctor</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Fred35</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">HectoPascal</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Jacques</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Jean-Marc</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Monsieur Nours</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">MymyBob</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Nono</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">41<sup>e</sup></span><span class="cl-pts">50 PTS</span></div><div class="cl-nom">Pierre-Alexandre</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">51<sup>e</sup></span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Beppolevi</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">51<sup>e</sup></span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Contr&ocirc;le VAR</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">51<sup>e</sup></span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Micka&euml;l</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">51<sup>e</sup></span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Paulovitch</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">51<sup>e</sup></span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Sambadebrazil</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">56<sup>e</sup></span><span class="cl-pts">48 PTS</span></div><div class="cl-nom">Jeannot</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">56<sup>e</sup></span><span class="cl-pts">48 PTS</span></div><div class="cl-nom">Nitram</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">56<sup>e</sup></span><span class="cl-pts">48 PTS</span></div><div class="cl-nom">SpeedyNiki</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">59<sup>e</sup></span><span class="cl-pts">47 PTS</span></div><div class="cl-nom">Winwin</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Didane</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">El Celestino</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Hamkara Sayen</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Henrillette du Mans</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Leo35</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Magicmez</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">60<sup>e</sup></span><span class="cl-pts">46 PTS</span></div><div class="cl-nom">Melvil</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">67<sup>e</sup></span><span class="cl-pts">45 PTS</span></div><div class="cl-nom">PAG</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Le scud</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Marcattack</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Maxime</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Paulchen</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Princesse Leia</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Serge44</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">68<sup>e</sup></span><span class="cl-pts">44 PTS</span></div><div class="cl-nom">Thomas</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">75<sup>e</sup></span><span class="cl-pts">43 PTS</span></div><div class="cl-nom">Arsi</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">75<sup>e</sup></span><span class="cl-pts">43 PTS</span></div><div class="cl-nom">Baz</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">75<sup>e</sup></span><span class="cl-pts">43 PTS</span></div><div class="cl-nom">Epsilone</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">75<sup>e</sup></span><span class="cl-pts">43 PTS</span></div><div class="cl-nom">MS</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">79<sup>e</sup></span><span class="cl-pts">42 PTS</span></div><div class="cl-nom">Lino</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">79<sup>e</sup></span><span class="cl-pts">42 PTS</span></div><div class="cl-nom">Youki</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">81<sup>e</sup></span><span class="cl-pts">41 PTS</span></div><div class="cl-nom">Fc Canaris</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">81<sup>e</sup></span><span class="cl-pts">41 PTS</span></div><div class="cl-nom">Robinucci</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">81<sup>e</sup></span><span class="cl-pts">41 PTS</span></div><div class="cl-nom">Yvon</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">84<sup>e</sup></span><span class="cl-pts">40 PTS</span></div><div class="cl-nom">Anne-Claire</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">84<sup>e</sup></span><span class="cl-pts">40 PTS</span></div><div class="cl-nom">El Gringo</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">84<sup>e</sup></span><span class="cl-pts">40 PTS</span></div><div class="cl-nom">Olive</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">87<sup>e</sup></span><span class="cl-pts">38 PTS</span></div><div class="cl-nom">Arthur</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">88<sup>e</sup></span><span class="cl-pts">37 PTS</span></div><div class="cl-nom">Mamadou</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">89<sup>e</sup></span><span class="cl-pts">36 PTS</span></div><div class="cl-nom">Etienne</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">90<sup>e</sup></span><span class="cl-pts">34 PTS</span></div><div class="cl-nom">Erwan</div></li>
-      <li><div class="cl-badge badge-std"><span class="cl-rang">90<sup>e</sup></span><span class="cl-pts">34 PTS</span></div><div class="cl-nom">Moustache</div></li>
+      <li><div class="cl-badge badge-or1"><span class="cl-rang">1e</span><span class="cl-pts">84 PTS</span></div><div class="cl-nom">Julay</div></li>
+      <li><div class="cl-badge badge-or2"><span class="cl-rang">2e</span><span class="cl-pts">78 PTS</span></div><div class="cl-nom">Hugooooo</div></li>
+      <li><div class="cl-badge badge-or3"><span class="cl-rang">3e</span><span class="cl-pts">77 PTS</span></div><div class="cl-nom">Shrek</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">4e</span><span class="cl-pts">76 PTS</span></div><div class="cl-nom">Quialedroit</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">5e</span><span class="cl-pts">75 PTS</span></div><div class="cl-nom">Achillinho</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">6e</span><span class="cl-pts">74 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Mari&eacute;</span><span class="cl-nom-item">Roi97</span><span class="cl-nom-item">Manu72</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">9e</span><span class="cl-pts">73 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">NonoStar</span><span class="cl-nom-item">Ririne</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">11e</span><span class="cl-pts">72 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Marco</span><span class="cl-nom-item">Niewfoo</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">13e</span><span class="cl-pts">71 PTS</span></div><div class="cl-nom">Faustine</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">14e</span><span class="cl-pts">70 PTS</span></div><div class="cl-nom">Tariq</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">15e</span><span class="cl-pts">69 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">JOP</span><span class="cl-nom-item">LSG</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">18e</span><span class="cl-pts">67 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Claudio</span><span class="cl-nom-item">Juninho</span><span class="cl-nom-item">Nesim</span><span class="cl-nom-item">Poirrierbouffon</span><span class="cl-nom-item">Zakattack</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">23e</span><span class="cl-pts">66 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Br&eacute;tivend&eacute;en</span><span class="cl-nom-item">L&eacute;O</span><span class="cl-nom-item">Pierre-Alexandre</span><span class="cl-nom-item">Schiebercoach</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">27e</span><span class="cl-pts">65 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Bouna</span><span class="cl-nom-item">Hamkara</span><span class="cl-nom-item">Toulousains</span><span class="cl-nom-item">Xavier29</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">31e</span><span class="cl-pts">64 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Cenomanum</span><span class="cl-nom-item">Phaco</span><span class="cl-nom-item">Yann</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">34e</span><span class="cl-pts">63 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Didane</span><span class="cl-nom-item">Fred35</span><span class="cl-nom-item">Ga&euml;tan</span><span class="cl-nom-item">Martinico</span><span class="cl-nom-item">Pascale</span><span class="cl-nom-item">Sambadebrazil</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">40e</span><span class="cl-pts">62 PTS</span></div><div class="cl-nom">Ozyr</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">41e</span><span class="cl-pts">61 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Abeillefurieuse</span><span class="cl-nom-item">Cyril</span><span class="cl-nom-item">El Doctor</span><span class="cl-nom-item">HectoPascal</span><span class="cl-nom-item">Micka&euml;l</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">46e</span><span class="cl-pts">60 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Beppolevi</span><span class="cl-nom-item">El Celestino</span><span class="cl-nom-item">Nikita</span><span class="cl-nom-item">Nitram</span><span class="cl-nom-item">Nono</span><span class="cl-nom-item">Winwin</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">52e</span><span class="cl-pts">59 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Carl</span><span class="cl-nom-item">Hamkara Sayen</span><span class="cl-nom-item">Jean-Marc</span><span class="cl-nom-item">Jeannot</span><span class="cl-nom-item">SpeedyNiki</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">57e</span><span class="cl-pts">58 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Contr&ocirc;le VAR</span><span class="cl-nom-item">Monsieur Nours</span><span class="cl-nom-item">MymyBob</span><span class="cl-nom-item">Princesse Leia</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">61e</span><span class="cl-pts">57 PTS</span></div><div class="cl-nom">Henrillette du Mans</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">62e</span><span class="cl-pts">56 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Armandooooo</span><span class="cl-nom-item">Jacques</span><span class="cl-nom-item">Paulchen</span><span class="cl-nom-item">Thomas</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">66e</span><span class="cl-pts">55 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Maxime</span><span class="cl-nom-item">Melvil</span><span class="cl-nom-item">MS</span><span class="cl-nom-item">PAG</span><span class="cl-nom-item">Paulovitch</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">71e</span><span class="cl-pts">54 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Lino</span><span class="cl-nom-item">Yvon</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">73e</span><span class="cl-pts">53 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Olive</span><span class="cl-nom-item">Serge44</span><span class="cl-nom-item">Youki</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">76e</span><span class="cl-pts">52 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Baz</span><span class="cl-nom-item">Leo35</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">78e</span><span class="cl-pts">51 PTS</span></div><div class="cl-nom">Marcattack</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">79e</span><span class="cl-pts">50 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Epsilone</span><span class="cl-nom-item">Fc Canaris</span><span class="cl-nom-item">Le scud</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">82e</span><span class="cl-pts">49 PTS</span></div><div class="cl-nom">Anne-Claire</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">83e</span><span class="cl-pts">48 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Arsi</span><span class="cl-nom-item">Arthur</span><span class="cl-nom-item">Etienne</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">86e</span><span class="cl-pts">47 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Erwan</span><span class="cl-nom-item">Magicmez</span><span class="cl-nom-item">Robinucci</span></div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">89e</span><span class="cl-pts">45 PTS</span></div><div class="cl-nom">Mamadou</div></li>
+      <li><div class="cl-badge badge-bluegray"><span class="cl-rang">90e</span><span class="cl-pts">44 PTS</span></div><div class="cl-noms-multi"><span class="cl-nom-item">El Gringo</span><span class="cl-nom-item">Moustache</span></div></li>
     </ul>
   </div>
 
