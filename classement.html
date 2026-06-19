@@ -124,6 +124,15 @@
     footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
     footer a { color: var(--bleu-azur); text-decoration: none; }
     @media (max-width: 600px) { .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .nav-list li a { padding: 10px 12px; font-size: 12px; } .zone-contenu { padding: 20px 12px 40px; } }
+    .cl-photo { display: flex; align-items: center; justify-content: center; padding: 6px 8px; }
+    .cl-photo img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
+    .cl-photo img:hover { transform: scale(1.1); }
+    .cl-photos-multi { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 8px; gap: 4px; }
+    .cl-photos-multi img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
+    .cl-photos-multi img:hover { transform: scale(1.1); }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
   </style>
 </head>
 <body>
@@ -160,9 +169,9 @@
 
   <div class="zone-contenu">
     <ul class="classement-list">
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">1er</span></div><div class="cl-nom">Julay</div><div class="cl-pts-right">95 PTS</div></li>
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">2e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Achillinho</span><span class="cl-nom-item">Roi97</span><span class="cl-nom-item">Tariq</span></div><div class="cl-pts-right">88 PTS</div></li>
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">5e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">Mari&eacute;</span><span class="cl-nom-item">NonoStar</span><span class="cl-nom-item">Shrek</span></div><div class="cl-pts-right">87 PTS</div></li>
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">1er</span></div><div class="cl-nom">Julay</div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Julay.jpg" alt="Julay" onclick="openPhoto(this.src)"></div><div class="cl-pts-right">95 PTS</div></li>
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">2e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Achillinho</span><span class="cl-nom-item">Roi97</span><span class="cl-nom-item">Tariq</span></div><div class="cl-photos-multi"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinhos.jpg" alt="Achillinho" onclick="openPhoto(this.src)"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Roi97.jpg" alt="Roi97" onclick="openPhoto(this.src)"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Tariq.jpg" alt="Tariq" onclick="openPhoto(this.src)"></div><div class="cl-pts-right">88 PTS</div></li>
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">5e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">Marin&eacute;</span><span class="cl-nom-item">NonoStar</span><span class="cl-nom-item">Shrek</span></div><div class="cl-pts-right">87 PTS</div></li>
       <li><div class="cl-badge badge-d1"><span class="cl-rang">9e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Hugooooo</span><span class="cl-nom-item">Marco</span><span class="cl-nom-item">Zakattack</span></div><div class="cl-pts-right">86 PTS</div></li>
       <li><div class="cl-badge badge-d2"><span class="cl-rang">12e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Hamkara</span><span class="cl-nom-item">Quialedroit</span></div><div class="cl-pts-right">85 PTS</div></li>
       <li><div class="cl-badge badge-d2"><span class="cl-rang">14e</span></div><div class="cl-nom">Faustine</div><div class="cl-pts-right">84 PTS</div></li>
@@ -197,5 +206,9 @@
 
   <div class="footer-stripe"></div>
   <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')"><img id="lightbox-img" src="" alt=""></div>
+  <script>
+    function openPhoto(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
+  </script>
 </body>
 </html>
