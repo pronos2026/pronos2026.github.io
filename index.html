@@ -689,6 +689,17 @@
 
     html, body { overflow-x: hidden; max-width: 100%; }
 
+    /* Julay image dans l'édito */
+    @media (max-width: 700px), (orientation: portrait) and (max-width: 900px) {
+      .edito-julay-desktop { display: none !important; }
+      .edito-julay-mobile { display: block !important; }
+    }
+    @media (min-width: 700px) and (orientation: landscape),
+           (min-width: 900px) {
+      .edito-julay-desktop { display: block !important; }
+      .edito-julay-mobile { display: none !important; }
+    }
+
     /* Édito : layout desktop (photo USA haut-gauche + LeO bas-gauche) */
     .edito-left {
       display: flex;
@@ -750,7 +761,13 @@
 <section class="zone-match">
     <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;padding:36px 30px;max-width:1100px;margin:0 auto;text-align:left;">
 
-      
+      <!-- Image Julay2 (gauche sur desktop, cachée sur mobile portrait) -->
+      <div class="edito-left" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Julay2.png"
+             alt="Julay"
+             class="edito-julay-desktop"
+             style="height:365px;width:auto;display:block;object-fit:contain;background:transparent;" />
+      </div>
 
       <!-- Texte édito -->
       <div style="flex:1;min-width:240px;">
@@ -772,9 +789,14 @@
           De très belles affiches ce soir avec, notamment, <strong style="color:#2ecc71;font-weight:bold;">PAYS-BAS – SUEDE</strong> et <strong style="color:#2ecc71;font-weight:bold;">ALLEMAGNE – COTE D'IVOIRE</strong>.
         </p>
       </div>
-    </div>
 
-    <!-- Photo mobile (sous le texte sur portrait, masquée sur desktop) -->
+      <!-- Image Julay2 mobile portrait (sous le texte) -->
+      <div class="edito-julay-mobile" style="width:100%;text-align:center;display:none;">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Julay2.png"
+             alt="Julay"
+             style="max-width:80%;height:auto;object-fit:contain;background:transparent;" />
+      </div>
+    </div>
   </section>
 
 <section style="background:#F4F6FA;padding:40px 40px 50px;border-top:4px solid #7B2D8B;">
