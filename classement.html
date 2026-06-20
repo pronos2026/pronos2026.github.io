@@ -124,10 +124,10 @@
     footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
     footer a { color: var(--bleu-azur); text-decoration: none; }
     @media (max-width: 600px) { .header-inner { padding: 14px 20px; } .logo-title h1 { font-size: 30px; } .nav-list li a { padding: 10px 12px; font-size: 12px; } .zone-contenu { padding: 20px 12px 40px; } }
-    .cl-photo { display: flex; align-items: center; justify-content: center; padding: 6px 8px; }
+    .cl-photo { display: flex; align-items: center; justify-content: center; padding: 6px 8px; min-width: 62px; }
     .cl-photo img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
     .cl-photo img:hover { transform: scale(1.1); }
-    .cl-photos-multi { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 8px; gap: 4px; }
+    .cl-photos-multi { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 8px; gap: 4px; min-width: 62px; }
     .cl-photos-multi img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
     .cl-photos-multi img:hover { transform: scale(1.1); }
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
@@ -162,89 +162,91 @@
   </nav>
 
   <div class="zone-titre">
-    <div class="sous-titre">Classement apr&egrave;s les matchs du 19 juin 2026</div>
+    <div class="sous-titre">Classement apr&egrave;s 32 matchs</div>
     <h2>32 MATCHS JOUES</h2>
     <div class="deco-line"></div>
   </div>
 
   <div class="zone-contenu">
     <ul class="classement-list">
-      <!-- 1er : Julay 109 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">1er</span></div><div class="cl-nom">Julay</div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Julay.jpg" alt="Julay" onclick="openPhoto(this.src)"></div><div class="cl-pts-right">109 PTS</div></li>
-      <!-- 2e ex-æquo : Mariné & NonoStar 105 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">2e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Marin&eacute;</span><span class="cl-nom-item">NonoStar</span></div><div class="cl-photos-multi"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Marin%C3%A9.jpg" alt="Mariné" onclick="openPhoto(this.src)"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Nonostar.jpg" alt="NonoStar" onclick="openPhoto(this.src)"></div><div class="cl-pts-right">105 PTS</div></li>
+      <!-- 1er : Julay 110 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">1er</span></div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Julay.jpg" alt="Julay" onclick="openPhoto(this.src)"></div><div class="cl-nom">Julay</div><div class="cl-pts-right">110 PTS</div></li>
+      <!-- 2e : NonoStar 106 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">2e</span></div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Nonostar.jpg" alt="NonoStar" onclick="openPhoto(this.src)"></div><div class="cl-nom">NonoStar</div><div class="cl-pts-right">106 PTS</div></li>
+      <!-- 3e : Mariné 105 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">3e</span></div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Marin%C3%A9.jpg" alt="Mariné" onclick="openPhoto(this.src)"></div><div class="cl-nom">Marin&eacute;</div><div class="cl-pts-right">105 PTS</div></li>
       <!-- 4e : Achillinho 104 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">4e</span></div><div class="cl-nom">Achillinho</div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinhos.jpg" alt="Achillinho" onclick="openPhoto(this.src)"></div><div class="cl-pts-right">104 PTS</div></li>
-      <!-- 5e : Tariq 103 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">5e</span></div><div class="cl-nom">Tariq</div><div class="cl-pts-right">103 PTS</div></li>
-      <!-- 6e : Marco 102 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">6e</span></div><div class="cl-nom">Marco</div><div class="cl-pts-right">102 PTS</div></li>
-      <!-- 7e : Hugooooo 101 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">7e</span></div><div class="cl-nom">Hugooooo</div><div class="cl-pts-right">101 PTS</div></li>
-      <!-- 8e : Pierre-Alexandre 100 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">8e</span></div><div class="cl-nom">Pierre-Alexandre</div><div class="cl-pts-right">100 PTS</div></li>
-      <!-- 9e ex-æquo : Mickaël & Ririne 99 pts -->
-      <li><div class="cl-badge badge-d1"><span class="cl-rang">9e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Micka&euml;l</span><span class="cl-nom-item">Ririne</span></div><div class="cl-pts-right">99 PTS</div></li>
-      <!-- 11e ex-æquo : Niewfoo, Quialedroit, Schiebercoach, Shrek 98 pts -->
-      <li><div class="cl-badge badge-d2"><span class="cl-rang">11e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Niewfoo</span><span class="cl-nom-item">Quialedroit</span><span class="cl-nom-item">Schiebercoach</span><span class="cl-nom-item">Shrek</span></div><div class="cl-pts-right">98 PTS</div></li>
-      <!-- 15e ex-æquo : EADN, Faustine, Roi97 97 pts -->
-      <li><div class="cl-badge badge-d2"><span class="cl-rang">15e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">Faustine</span><span class="cl-nom-item">Roi97</span></div><div class="cl-pts-right">97 PTS</div></li>
-      <!-- 18e ex-æquo : Bouna, Cyril, Hamkara, Xavier29, Zakattack 95 pts -->
-      <li><div class="cl-badge badge-d2"><span class="cl-rang">18e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Bouna</span><span class="cl-nom-item">Cyril</span><span class="cl-nom-item">Hamkara</span><span class="cl-nom-item">Xavier29</span><span class="cl-nom-item">Zakattack</span></div><div class="cl-pts-right">95 PTS</div></li>
-      <!-- 23e ex-æquo : Martinico, SpeedyNiki, Youki 92 pts -->
-      <li><div class="cl-badge badge-d3"><span class="cl-rang">23e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Martinico</span><span class="cl-nom-item">SpeedyNiki</span><span class="cl-nom-item">Youki</span></div><div class="cl-pts-right">92 PTS</div></li>
-      <!-- 26e : PAG 91 pts -->
-      <li><div class="cl-badge badge-d3"><span class="cl-rang">26e</span></div><div class="cl-nom">PAG</div><div class="cl-pts-right">91 PTS</div></li>
-      <!-- 27e ex-æquo : Gaëtan, JOP, LéO, Nikita, Pascale, Sambadebrazil 90 pts -->
-      <li><div class="cl-badge badge-d3"><span class="cl-rang">27e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Ga&euml;tan</span><span class="cl-nom-item">JOP</span><span class="cl-nom-item">L&eacute;O</span><span class="cl-nom-item">Nikita</span><span class="cl-nom-item">Pascale</span><span class="cl-nom-item">Sambadebrazil</span></div><div class="cl-pts-right">90 PTS</div></li>
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">4e</span></div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinhos.jpg" alt="Achillinho" onclick="openPhoto(this.src)"></div><div class="cl-nom">Achillinho</div><div class="cl-pts-right">104 PTS</div></li>
+      <!-- 5e ex-æquo : Marco & Tariq 103 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">5e</span></div><div class="cl-photos-multi"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Marco.jpg" alt="Marco" onclick="openPhoto(this.src)"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Tariq.jpg" alt="Tariq" onclick="openPhoto(this.src)"></div><div class="cl-noms-multi"><span class="cl-nom-item">Marco</span><span class="cl-nom-item">Tariq</span></div><div class="cl-pts-right">103 PTS</div></li>
+      <!-- 7e : Hugooooo 102 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">7e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Hugooooo</div><div class="cl-pts-right">102 PTS</div></li>
+      <!-- 8e ex-æquo : Hamkara & Pierre-Alexandre 100 pts -->
+      <li><div class="cl-badge badge-d1"><span class="cl-rang">8e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Hamkara</span><span class="cl-nom-item">Pierre-Alexandre</span></div><div class="cl-pts-right">100 PTS</div></li>
+      <!-- 10e ex-æquo : Mickaël & Ririne 99 pts -->
+      <li><div class="cl-badge badge-d2"><span class="cl-rang">10e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Micka&euml;l</span><span class="cl-nom-item">Ririne</span></div><div class="cl-pts-right">99 PTS</div></li>
+      <!-- 12e ex-æquo : EADN, Niewfoo, Quialedroit, Roi97, Schiebercoach, Shrek 98 pts -->
+      <li><div class="cl-badge badge-d2"><span class="cl-rang">12e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">Niewfoo</span><span class="cl-nom-item">Quialedroit</span><span class="cl-nom-item">Roi97</span><span class="cl-nom-item">Schiebercoach</span><span class="cl-nom-item">Shrek</span></div><div class="cl-pts-right">98 PTS</div></li>
+      <!-- 18e : Faustine 97 pts -->
+      <li><div class="cl-badge badge-d2"><span class="cl-rang">18e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Faustine</div><div class="cl-pts-right">97 PTS</div></li>
+      <!-- 19e ex-æquo : Bouna, Cyril, Xavier29, Zakattack 95 pts -->
+      <li><div class="cl-badge badge-d2"><span class="cl-rang">19e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Bouna</span><span class="cl-nom-item">Cyril</span><span class="cl-nom-item">Xavier29</span><span class="cl-nom-item">Zakattack</span></div><div class="cl-pts-right">95 PTS</div></li>
+      <!-- 23e : SpeedyNiki 93 pts -->
+      <li><div class="cl-badge badge-d3"><span class="cl-rang">23e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">SpeedyNiki</div><div class="cl-pts-right">93 PTS</div></li>
+      <!-- 24e ex-æquo : Martinico, Youki 92 pts -->
+      <li><div class="cl-badge badge-d3"><span class="cl-rang">24e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Martinico</span><span class="cl-nom-item">Youki</span></div><div class="cl-pts-right">92 PTS</div></li>
+      <!-- 26e ex-æquo : JOP, PAG, Pascale 91 pts -->
+      <li><div class="cl-badge badge-d3"><span class="cl-rang">26e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">JOP</span><span class="cl-nom-item">PAG</span><span class="cl-nom-item">Pascale</span></div><div class="cl-pts-right">91 PTS</div></li>
+      <!-- 29e ex-æquo : Gaëtan, LéO, Nikita, Sambadebrazil 90 pts -->
+      <li><div class="cl-badge badge-d3"><span class="cl-rang">29e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Ga&euml;tan</span><span class="cl-nom-item">L&eacute;O</span><span class="cl-nom-item">Nikita</span><span class="cl-nom-item">Sambadebrazil</span></div><div class="cl-pts-right">90 PTS</div></li>
       <!-- 33e ex-æquo : LSG, MS 89 pts -->
-      <li><div class="cl-badge badge-d4"><span class="cl-rang">33e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">LSG</span><span class="cl-nom-item">MS</span></div><div class="cl-pts-right">89 PTS</div></li>
-      <!-- 35e ex-æquo : Claudio, Manu72, Nitram 88 pts -->
-      <li><div class="cl-badge badge-d4"><span class="cl-rang">35e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Claudio</span><span class="cl-nom-item">Manu72</span><span class="cl-nom-item">Nitram</span></div><div class="cl-pts-right">88 PTS</div></li>
-      <!-- 38e ex-æquo : Didane, HectoPascal, Leo35, Phaco 87 pts -->
-      <li><div class="cl-badge badge-d4"><span class="cl-rang">38e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Didane</span><span class="cl-nom-item">HectoPascal</span><span class="cl-nom-item">Leo35</span><span class="cl-nom-item">Phaco</span></div><div class="cl-pts-right">87 PTS</div></li>
-      <!-- 42e ex-æquo : Hamkara Sayen, Nesim, Nono, Ozyr, Poirrierbouffon, Toulousains 86 pts -->
-      <li><div class="cl-badge badge-d5"><span class="cl-rang">42e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Hamkara Sayen</span><span class="cl-nom-item">Nesim</span><span class="cl-nom-item">Nono</span><span class="cl-nom-item">Ozyr</span><span class="cl-nom-item">Poirrierbouffon</span><span class="cl-nom-item">Toulousains</span></div><div class="cl-pts-right">86 PTS</div></li>
-      <!-- 48e ex-æquo : Abeillefurieuse, Beppolevi, El Doctor 85 pts -->
-      <li><div class="cl-badge badge-d5"><span class="cl-rang">48e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Abeillefurieuse</span><span class="cl-nom-item">Beppolevi</span><span class="cl-nom-item">El Doctor</span></div><div class="cl-pts-right">85 PTS</div></li>
-      <!-- 51e ex-æquo : Carl, Fred35, Yann 84 pts -->
-      <li><div class="cl-badge badge-d6"><span class="cl-rang">51e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Carl</span><span class="cl-nom-item">Fred35</span><span class="cl-nom-item">Yann</span></div><div class="cl-pts-right">84 PTS</div></li>
-      <!-- 54e ex-æquo : Brétivendéen, Juninho, Lino 83 pts -->
-      <li><div class="cl-badge badge-d6"><span class="cl-rang">54e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Br&eacute;tivend&eacute;en</span><span class="cl-nom-item">Juninho</span><span class="cl-nom-item">Lino</span></div><div class="cl-pts-right">83 PTS</div></li>
-      <!-- 57e ex-æquo : Cenomanum, Jacques, Winwin 82 pts -->
-      <li><div class="cl-badge badge-d6"><span class="cl-rang">57e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Cenomanum</span><span class="cl-nom-item">Jacques</span><span class="cl-nom-item">Winwin</span></div><div class="cl-pts-right">82 PTS</div></li>
-      <!-- 60e : Jeannot 81 pts -->
-      <li><div class="cl-badge badge-d7"><span class="cl-rang">60e</span></div><div class="cl-nom">Jeannot</div><div class="cl-pts-right">81 PTS</div></li>
-      <!-- 61e : Armandooooo 80 pts -->
-      <li><div class="cl-badge badge-d7"><span class="cl-rang">61e</span></div><div class="cl-nom">Armandooooo</div><div class="cl-pts-right">80 PTS</div></li>
-      <!-- 62e : Princesse Leia 79 pts -->
-      <li><div class="cl-badge badge-d7"><span class="cl-rang">62e</span></div><div class="cl-nom">Princesse Leia</div><div class="cl-pts-right">79 PTS</div></li>
-      <!-- 63e ex-æquo : Contrôle VAR, El Celestino, Epsilone, Henrillette du Mans, Thomas 78 pts -->
-      <li><div class="cl-badge badge-d7"><span class="cl-rang">63e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Contr&ocirc;le VAR</span><span class="cl-nom-item">El Celestino</span><span class="cl-nom-item">Epsilone</span><span class="cl-nom-item">Henrillette du Mans</span><span class="cl-nom-item">Thomas</span></div><div class="cl-pts-right">78 PTS</div></li>
-      <!-- 68e ex-æquo : Erwan, Maxime, Robinucci 77 pts -->
-      <li><div class="cl-badge badge-d7"><span class="cl-rang">68e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Erwan</span><span class="cl-nom-item">Maxime</span><span class="cl-nom-item">Robinucci</span></div><div class="cl-pts-right">77 PTS</div></li>
-      <!-- 71e ex-æquo : Mamadou, Monsieur Nours, Paulovitch 76 pts -->
-      <li><div class="cl-badge badge-d8"><span class="cl-rang">71e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Mamadou</span><span class="cl-nom-item">Monsieur Nours</span><span class="cl-nom-item">Paulovitch</span></div><div class="cl-pts-right">76 PTS</div></li>
-      <!-- 74e ex-æquo : Arsi, Etienne, Jean-Marc, MymyBob 75 pts -->
-      <li><div class="cl-badge badge-d8"><span class="cl-rang">74e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Arsi</span><span class="cl-nom-item">Etienne</span><span class="cl-nom-item">Jean-Marc</span><span class="cl-nom-item">MymyBob</span></div><div class="cl-pts-right">75 PTS</div></li>
-      <!-- 78e ex-æquo : Melvil, Serge44 74 pts -->
-      <li><div class="cl-badge badge-d8"><span class="cl-rang">78e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Melvil</span><span class="cl-nom-item">Serge44</span></div><div class="cl-pts-right">74 PTS</div></li>
-      <!-- 80e : Baz 72 pts -->
-      <li><div class="cl-badge badge-d8"><span class="cl-rang">80e</span></div><div class="cl-nom">Baz</div><div class="cl-pts-right">72 PTS</div></li>
-      <!-- 81e : Yvon 71 pts -->
-      <li><div class="cl-badge badge-d9"><span class="cl-rang">81e</span></div><div class="cl-nom">Yvon</div><div class="cl-pts-right">71 PTS</div></li>
-      <!-- 82e ex-æquo : El Gringo, Paulchen 70 pts -->
-      <li><div class="cl-badge badge-d9"><span class="cl-rang">82e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">El Gringo</span><span class="cl-nom-item">Paulchen</span></div><div class="cl-pts-right">70 PTS</div></li>
+      <li><div class="cl-badge badge-d4"><span class="cl-rang">33e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">LSG</span><span class="cl-nom-item">MS</span></div><div class="cl-pts-right">89 PTS</div></li>
+      <!-- 35e ex-æquo : Claudio, Didane, Manu72, Nitram 88 pts -->
+      <li><div class="cl-badge badge-d4"><span class="cl-rang">35e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Claudio</span><span class="cl-nom-item">Didane</span><span class="cl-nom-item">Manu72</span><span class="cl-nom-item">Nitram</span></div><div class="cl-pts-right">88 PTS</div></li>
+      <!-- 39e ex-æquo : Hamkara Sayen, HectoPascal, Leo35, Ozyr, Phaco, Toulousains 87 pts -->
+      <li><div class="cl-badge badge-d4"><span class="cl-rang">39e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Hamkara Sayen</span><span class="cl-nom-item">HectoPascal</span><span class="cl-nom-item">Leo35</span><span class="cl-nom-item">Ozyr</span><span class="cl-nom-item">Phaco</span><span class="cl-nom-item">Toulousains</span></div><div class="cl-pts-right">87 PTS</div></li>
+      <!-- 45e ex-æquo : Abeillefurieuse, Nesim, Nono, Poirrierbouffon 86 pts -->
+      <li><div class="cl-badge badge-d5"><span class="cl-rang">45e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Abeillefurieuse</span><span class="cl-nom-item">Nesim</span><span class="cl-nom-item">Nono</span><span class="cl-nom-item">Poirrierbouffon</span></div><div class="cl-pts-right">86 PTS</div></li>
+      <!-- 49e ex-æquo : Beppolevi, Carl, El Doctor, Fred35 85 pts -->
+      <li><div class="cl-badge badge-d5"><span class="cl-rang">49e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Beppolevi</span><span class="cl-nom-item">Carl</span><span class="cl-nom-item">El Doctor</span><span class="cl-nom-item">Fred35</span></div><div class="cl-pts-right">85 PTS</div></li>
+      <!-- 53e : Yann 84 pts -->
+      <li><div class="cl-badge badge-d6"><span class="cl-rang">53e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Yann</div><div class="cl-pts-right">84 PTS</div></li>
+      <!-- 54e ex-æquo : Brétivendéen, Jacques, Juninho, Lino, Winwin 83 pts -->
+      <li><div class="cl-badge badge-d6"><span class="cl-rang">54e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Br&eacute;tivend&eacute;en</span><span class="cl-nom-item">Jacques</span><span class="cl-nom-item">Juninho</span><span class="cl-nom-item">Lino</span><span class="cl-nom-item">Winwin</span></div><div class="cl-pts-right">83 PTS</div></li>
+      <!-- 59e ex-æquo : Cenomanum, Jeannot 82 pts -->
+      <li><div class="cl-badge badge-d6"><span class="cl-rang">59e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Cenomanum</span><span class="cl-nom-item">Jeannot</span></div><div class="cl-pts-right">82 PTS</div></li>
+      <!-- 61e ex-æquo : Armandooooo, Princesse Leia 80 pts -->
+      <li><div class="cl-badge badge-d7"><span class="cl-rang">61e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Armandooooo</span><span class="cl-nom-item">Princesse Leia</span></div><div class="cl-pts-right">80 PTS</div></li>
+      <!-- 63e : El Celestino 79 pts -->
+      <li><div class="cl-badge badge-d7"><span class="cl-rang">63e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">El Celestino</div><div class="cl-pts-right">79 PTS</div></li>
+      <!-- 64e ex-æquo : Contrôle VAR, Epsilone, Henrillette du Mans, Maxime, Robinucci, Thomas 78 pts -->
+      <li><div class="cl-badge badge-d7"><span class="cl-rang">64e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Contr&ocirc;le VAR</span><span class="cl-nom-item">Epsilone</span><span class="cl-nom-item">Henrillette du Mans</span><span class="cl-nom-item">Maxime</span><span class="cl-nom-item">Robinucci</span><span class="cl-nom-item">Thomas</span></div><div class="cl-pts-right">78 PTS</div></li>
+      <!-- 70e ex-æquo : Erwan, Mamadou 77 pts -->
+      <li><div class="cl-badge badge-d7"><span class="cl-rang">70e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Erwan</span><span class="cl-nom-item">Mamadou</span></div><div class="cl-pts-right">77 PTS</div></li>
+      <!-- 72e ex-æquo : Monsieur Nours, MymyBob, Paulovitch 76 pts -->
+      <li><div class="cl-badge badge-d8"><span class="cl-rang">72e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Monsieur Nours</span><span class="cl-nom-item">MymyBob</span><span class="cl-nom-item">Paulovitch</span></div><div class="cl-pts-right">76 PTS</div></li>
+      <!-- 75e ex-æquo : Arsi, Etienne, Jean-Marc, Serge44 75 pts -->
+      <li><div class="cl-badge badge-d8"><span class="cl-rang">75e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Arsi</span><span class="cl-nom-item">Etienne</span><span class="cl-nom-item">Jean-Marc</span><span class="cl-nom-item">Serge44</span></div><div class="cl-pts-right">75 PTS</div></li>
+      <!-- 79e : Melvil 74 pts -->
+      <li><div class="cl-badge badge-d8"><span class="cl-rang">79e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Melvil</div><div class="cl-pts-right">74 PTS</div></li>
+      <!-- 80e : Baz 73 pts -->
+      <li><div class="cl-badge badge-d8"><span class="cl-rang">80e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Baz</div><div class="cl-pts-right">73 PTS</div></li>
+      <!-- 81e : Yvon 72 pts -->
+      <li><div class="cl-badge badge-d9"><span class="cl-rang">81e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Yvon</div><div class="cl-pts-right">72 PTS</div></li>
+      <!-- 82e : Paulchen 71 pts -->
+      <li><div class="cl-badge badge-d9"><span class="cl-rang">82e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Paulchen</div><div class="cl-pts-right">71 PTS</div></li>
+      <!-- 83e : El Gringo 70 pts -->
+      <li><div class="cl-badge badge-d9"><span class="cl-rang">83e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">El Gringo</div><div class="cl-pts-right">70 PTS</div></li>
       <!-- 84e ex-æquo : Marcattack, Olive 68 pts -->
-      <li><div class="cl-badge badge-d9"><span class="cl-rang">84e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Marcattack</span><span class="cl-nom-item">Olive</span></div><div class="cl-pts-right">68 PTS</div></li>
-      <!-- 86e ex-æquo : Le scud, Moustache 67 pts -->
-      <li><div class="cl-badge badge-d9"><span class="cl-rang">86e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Le scud</span><span class="cl-nom-item">Moustache</span></div><div class="cl-pts-right">67 PTS</div></li>
-      <!-- 88e ex-æquo : Anne-Claire, Fc Canaris 66 pts -->
-      <li><div class="cl-badge badge-d10"><span class="cl-rang">88e</span></div><div class="cl-noms-multi"><span class="cl-nom-item">Anne-Claire</span><span class="cl-nom-item">Fc Canaris</span></div><div class="cl-pts-right">66 PTS</div></li>
+      <li><div class="cl-badge badge-d9"><span class="cl-rang">84e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Marcattack</span><span class="cl-nom-item">Olive</span></div><div class="cl-pts-right">68 PTS</div></li>
+      <!-- 86e : Moustache 67 pts -->
+      <li><div class="cl-badge badge-d9"><span class="cl-rang">86e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Moustache</div><div class="cl-pts-right">67 PTS</div></li>
+      <!-- 87e ex-æquo : Anne-Claire, Fc Canaris, Le scud 66 pts -->
+      <li><div class="cl-badge badge-d10"><span class="cl-rang">87e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Anne-Claire</span><span class="cl-nom-item">Fc Canaris</span><span class="cl-nom-item">Le scud</span></div><div class="cl-pts-right">66 PTS</div></li>
       <!-- 90e : Magicmez 65 pts -->
-      <li><div class="cl-badge badge-d10"><span class="cl-rang">90e</span></div><div class="cl-nom">Magicmez</div><div class="cl-pts-right">65 PTS</div></li>
+      <li><div class="cl-badge badge-d10"><span class="cl-rang">90e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Magicmez</div><div class="cl-pts-right">65 PTS</div></li>
       <!-- 91e : Arthur 63 pts -->
-      <li><div class="cl-badge badge-d10"><span class="cl-rang">91e</span></div><div class="cl-nom">Arthur</div><div class="cl-pts-right">63 PTS</div></li>
+      <li><div class="cl-badge badge-d10"><span class="cl-rang">91e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Arthur</div><div class="cl-pts-right">63 PTS</div></li>
     </ul>
   </div>
 
