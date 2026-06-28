@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poupoules &#8211; Classement final 72 matchs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bleu-azur: #0077C8; --bleu-marine: #002B5C; --rouge: #D0021B; --noir: #0A0A0A; --blanc: #FFFFFF; --gris-clair: #F4F6FA; --or: #C9A84C; --gris-bord: #dde2ea; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Barlow', sans-serif; background: var(--gris-clair); color: var(--bleu-marine); overflow-x: hidden; }
+    header { background: var(--bleu-marine); }
+    .header-stripe { height: 5px; background: linear-gradient(90deg, var(--bleu-azur) 0%, var(--rouge) 50%, var(--or) 100%); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; gap: 20px; }
+    .logo-title { display: flex; flex-direction: column; line-height: 1; }
+    .logo-title .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--bleu-azur); }
+    .logo-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--blanc); letter-spacing: 2px; }
+    .logo-title .edition { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--rouge); }
+    nav { background: var(--bleu-azur); }
+    nav::after { content: ''; display: block; height: 3px; background: var(--rouge); }
+    .nav-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; }
+    .nav-list li a { display: block; padding: 12px 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blanc); text-decoration: none; transition: background 0.2s, color 0.2s; border-right: 1px solid rgba(255,255,255,0.15); }
+    .nav-list li:last-child a { border-right: none; }
+    .nav-list li a:hover, .nav-list li a.active { background: var(--bleu-marine); color: var(--or); }
+
+    /* Zone titre noir */
+    .zone-titre { background: var(--noir); padding: 36px 40px; text-align: center; position: relative; overflow: hidden; }
+    .zone-titre::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 50%, rgba(0,119,200,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(208,2,27,0.1) 0%, transparent 50%); pointer-events: none; }
+    .zone-titre h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 9vw, 80px); color: var(--blanc); letter-spacing: 6px; position: relative; }
+    .zone-titre .sous-titre { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(13px, 2vw, 18px); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-top: 10px; position: relative; }
+    .zone-titre .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, var(--bleu-azur), var(--rouge)); margin: 14px auto 0; position: relative; }
+
+    /* Zone contenu avec image */
+    .zone-contenu { padding: 40px 30px 60px; max-width: 1100px; margin: 0 auto; }
+
+    /* Layout desktop : image à droite, classement à gauche */
+    .contenu-inner {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+    }
+    .classement-wrap { flex: 1; min-width: 0; }
+    .photo-vainqueur {
+      flex-shrink: 0;
+      width: 260px;
+      position: sticky;
+      top: 20px;
+    }
+    .photo-vainqueur img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,43,92,0.22);
+      border: 3px solid var(--or);
+      display: block;
+    }
+    .photo-vainqueur .photo-legende {
+      text-align: center;
+      margin-top: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--bleu-marine);
+    }
+
+    /* Sur mobile : image au-dessus du classement */
+    .photo-mobile {
+      display: none;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .photo-mobile img {
+      width: 80%;
+      max-width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,43,92,0.22);
+      border: 3px solid var(--or);
+    }
+    .photo-mobile .photo-legende {
+      margin-top: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--bleu-marine);
+    }
+
+    /* Lignes du classement */
+    .classement-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .classement-list li { display: flex; align-items: stretch; background: var(--blanc); border-radius: 6px; box-shadow: 0 2px 8px rgba(0,43,92,0.08); overflow: hidden; }
+
+    /* Carré de gauche */
+    .cl-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 10px 8px;
+      gap: 4px;
+    }
+    .cl-badge .cl-rang {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--blanc);
+      background: inherit;
+      line-height: 1;
+    }
+
+    /* Points affichés à droite */
+    .cl-pts-right {
+      display: flex;
+      align-items: center;
+      padding: 0 18px 0 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #002B5C;
+      white-space: nowrap;
+    }
+
+    /* Couleurs des badges par dizaine */
+    .badge-d1  { background: linear-gradient(135deg, #FFD700 0%, #D4AF37 60%, #B8860B 100%); }
+    .badge-d2  { background: linear-gradient(135deg, #1565C0 0%, #0D47A1 60%, #082F7A 100%); }
+    .badge-d3  { background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 60%, #104015 100%); }
+    .badge-d4  { background: linear-gradient(135deg, #6A1B9A 0%, #4A148C 60%, #2E0066 100%); }
+    .badge-d5  { background: linear-gradient(135deg, #C62828 0%, #B71C1C 60%, #7F0000 100%); }
+    .badge-d6  { background: linear-gradient(135deg, #00695C 0%, #004D40 60%, #002B25 100%); }
+    .badge-d7  { background: linear-gradient(135deg, #E65100 0%, #BF360C 60%, #8D1F00 100%); }
+    .badge-d8  { background: linear-gradient(135deg, #283593 0%, #1A237E 60%, #0D1257 100%); }
+    .badge-d9  { background: linear-gradient(135deg, #795548 0%, #4E342E 60%, #311B17 100%); }
+    .badge-d10 { background: linear-gradient(135deg, #546E7A 0%, #37474F 60%, #1C2B30 100%); }
+
+    /* Nom du participant */
+    .cl-nom {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bleu-marine);
+      border-left: 1px solid var(--gris-bord);
+    }
+
+    /* Noms multiples ex-aequo */
+    .cl-noms-multi {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8px 20px;
+      border-left: 1px solid var(--gris-bord);
+      gap: 4px;
+    }
+    .cl-noms-multi .cl-nom-item {
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bleu-marine);
+      line-height: 1.4;
+    }
+
+    .footer-stripe { height: 4px; background: linear-gradient(90deg, var(--rouge), var(--bleu-azur), var(--or)); }
+    footer { background: var(--bleu-marine); color: rgba(255,255,255,0.6); text-align: center; padding: 20px 40px; font-size: 13px; }
+    footer a { color: var(--bleu-azur); text-decoration: none; }
+
+    .cl-photo { display: flex; align-items: center; justify-content: center; padding: 6px 8px; min-width: 62px; }
+    .cl-photo img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
+    .cl-photo img:hover { transform: scale(1.1); }
+    .cl-photos-multi { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 8px; gap: 4px; min-width: 62px; }
+    .cl-photos-multi img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid var(--gris-bord); transition: transform 0.2s; }
+    .cl-photos-multi img:hover { transform: scale(1.1); }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+
+    @media (max-width: 700px) {
+      .header-inner { padding: 14px 20px; }
+      .logo-title h1 { font-size: 30px; }
+      .nav-list li a { padding: 10px 12px; font-size: 12px; }
+      .zone-contenu { padding: 20px 12px 40px; }
+      .contenu-inner { flex-direction: column; }
+      .photo-vainqueur { display: none; }
+      .photo-mobile { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-stripe"></div>
+    <div class="header-inner">
+      <div class="logo-title">
+        <span class="eyebrow">Le Championnat des</span>
+        <h1>Pronostiqueurs</h1>
+        <span class="edition">USA &middot; Canada &middot; Mexique 2026</span>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <ul class="nav-list">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="reglement.html">R&egrave;glement</a></li>
+      <li><a href="classement.html">Classement</a></li>
+      <li><a href="pronos-jour.html">Pronos du jour</a></li>
+      <li><a href="pronos-hier.html">Pronos d&#8217;hier</a></li>
+      <li><a href="resultats.html">R&eacute;sultats</a></li>
+      <li><a href="pacorabannes.html">Pacorabannes</a></li>
+      <li><a href="poupoules.html" class="active">Poupoules</a></li>
+      <li><a href="historique.html">Historique</a></li>
+      <li><a href="album-panini.html">Album Panini</a></li>
+      <li><a href="favoris.html">Favoris</a></li>
+    </ul>
+  </nav>
+
+  <div class="zone-titre">
+    <h2>POUPOULES</h2>
+    <div class="sous-titre">Classement final &agrave; l&rsquo;issue des 72 matchs de poule</div>
+    <div class="deco-line"></div>
+  </div>
+
+  <div class="zone-contenu">
+    <!-- Image mobile (portrait) : au-dessus du classement -->
+    <div class="photo-mobile">
+      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinho2.png" alt="Achillinho - Vainqueur des poules">
+      <div class="photo-legende">&#127942; Achillinho &mdash; 1<sup>er</sup> des poules</div>
+    </div>
+
+    <div class="contenu-inner">
+      <!-- Classement -->
+      <div class="classement-wrap">
+        <ul class="classement-list">
+          <!-- 1er : Achillinho 236 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">1er</span></div><div class="cl-photo"><img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinho2.png" alt="Achillinho" onclick="openPhoto(this.src)"></div><div class="cl-nom">Achillinho</div><div class="cl-pts-right">236</div></li>
+          <!-- 2e : Martinico 235 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">2e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Martinico</div><div class="cl-pts-right">235</div></li>
+          <!-- 3e : Ririne 233 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">3e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Ririne</div><div class="cl-pts-right">233</div></li>
+          <!-- 4e : Hamkara 231 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">4e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Hamkara</div><div class="cl-pts-right">231</div></li>
+          <!-- 5e ex-æquo : Schiebercoach (+ pas de rang 5 dans le PDF, on lit 5e implicite) -->
+          <!-- Le PDF indique 6e PAG 230, donc Schiebercoach est 5e à 230 aussi -->
+          <!-- D'après le PDF : Schiebercoach est listé entre 4e et 6e, donc 5e ex-æquo avec PAG à 230 -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">5e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Schiebercoach</span><span class="cl-nom-item">PAG</span></div><div class="cl-pts-right">230</div></li>
+          <!-- 7e : Pierre-Alexandre 229 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">7e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Pierre-Alexandre</div><div class="cl-pts-right">229</div></li>
+          <!-- 8e : Julay 228 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">8e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Julay</div><div class="cl-pts-right">228</div></li>
+          <!-- 9e : Nikita 225 pts -->
+          <li><div class="cl-badge badge-d1"><span class="cl-rang">9e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Nikita</div><div class="cl-pts-right">225</div></li>
+          <!-- 10e : Carl 224 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">10e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Carl</div><div class="cl-pts-right">224</div></li>
+          <!-- 11e ex-æquo : Faustine (224 also? PDF shows Carl then Faustine — same pts? PDF says "Carl 224 / Faustine" so Faustine is 11e) -->
+          <!-- Re-reading PDF: "10e Carl 224 pts / Faustine" → Faustine ex-æquo à 224 -->
+          <!-- Correction: Le PDF liste Carl et Faustine séparés par un saut. Faustine est ex-æquo avec Carl à 224, rang 10e -->
+          <!-- En fait le PDF dit "10e Carl 224 pts" puis "Faustine" sans rang ni pts → ex-æquo 10e à 224 -->
+          <!-- Gardons Carl 10e seul et Faustine 11e (sans pts précis). Le PDF ne précise pas le rang de Faustine donc ex-æquo à 224 -->
+          <!-- On les met ensemble en 10e -->
+          <!-- 12e : Abeillefurieuse 223 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">12e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Abeillefurieuse</div><div class="cl-pts-right">223</div></li>
+          <!-- 13e ex-æquo : Roi97 (223 also? PDF: "Abeillefurieuse / Roi97" → ex-æquo à 223) -->
+          <!-- Roi97 ex-æquo à 223 avec Abeillefurieuse → 12e -->
+          <!-- 14e : NonoStar 222 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">14e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">NonoStar</div><div class="cl-pts-right">222</div></li>
+          <!-- 15e : Niewfoo 221 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">15e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Niewfoo</div><div class="cl-pts-right">221</div></li>
+          <!-- 16e : Princesse Leia 220 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">16e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Princesse Leia</div><div class="cl-pts-right">220</div></li>
+          <!-- 17e : Hugooooo 219 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">17e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Hugooooo</div><div class="cl-pts-right">219</div></li>
+          <!-- 18e ex-æquo : Mariné (219?) PDF: "Hugooooo 219 / Mariné" → ex-æquo à 219 avec Hugooooo → 17e -->
+          <!-- 19e : Nitram 217 pts -->
+          <li><div class="cl-badge badge-d2"><span class="cl-rang">19e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Nitram</div><div class="cl-pts-right">217</div></li>
+          <!-- 20e : Cyril 215 pts -->
+          <li><div class="cl-badge badge-d3"><span class="cl-rang">20e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Cyril</div><div class="cl-pts-right">215</div></li>
+          <!-- 21e ex-æquo : Gaëtan, JOP, LSG (215?) PDF: "Gaëtan / JOP / LSG" sous Cyril 215 → ex-æquo 20e -->
+          <!-- 24e : Poirrierbouffon 214 pts -->
+          <li><div class="cl-badge badge-d3"><span class="cl-rang">24e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Poirrierbouffon</div><div class="cl-pts-right">214</div></li>
+          <!-- 25e : Armandooooo 212 pts -->
+          <li><div class="cl-badge badge-d3"><span class="cl-rang">25e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Armandooooo</span><span class="cl-nom-item">Beppolevi</span><span class="cl-nom-item">Cenomanum</span><span class="cl-nom-item">Sambadebrazil</span><span class="cl-nom-item">SpeedyNiki</span><span class="cl-nom-item">Zakattack</span></div><div class="cl-pts-right">212</div></li>
+          <!-- 31e : EADN 211 pts -->
+          <li><div class="cl-badge badge-d4"><span class="cl-rang">31e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">EADN</span><span class="cl-nom-item">Tariq</span><span class="cl-nom-item">Toulousains</span></div><div class="cl-pts-right">211</div></li>
+          <!-- 34e : LéO 210 pts -->
+          <li><div class="cl-badge badge-d4"><span class="cl-rang">34e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">L&eacute;O</span><span class="cl-nom-item">Lino</span><span class="cl-nom-item">Marco</span><span class="cl-nom-item">Phaco</span></div><div class="cl-pts-right">210</div></li>
+          <!-- 38e : Nesim 209 pts -->
+          <li><div class="cl-badge badge-d4"><span class="cl-rang">38e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Nesim</span><span class="cl-nom-item">Quialedroit</span></div><div class="cl-pts-right">209</div></li>
+          <!-- 40e : Mickaël 207 pts -->
+          <li><div class="cl-badge badge-d4"><span class="cl-rang">40e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Micka&euml;l</span><span class="cl-nom-item">Youki</span></div><div class="cl-pts-right">207</div></li>
+          <!-- 42e : Jeannot 206 pts -->
+          <li><div class="cl-badge badge-d5"><span class="cl-rang">42e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Jeannot</span><span class="cl-nom-item">MS</span><span class="cl-nom-item">Robinucci</span><span class="cl-nom-item">Shrek</span></div><div class="cl-pts-right">206</div></li>
+          <!-- 46e : Manu72 205 pts -->
+          <li><div class="cl-badge badge-d5"><span class="cl-rang">46e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Manu72</div><div class="cl-pts-right">205</div></li>
+          <!-- 47e : Maxime 204 pts -->
+          <li><div class="cl-badge badge-d5"><span class="cl-rang">47e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Maxime</div><div class="cl-pts-right">204</div></li>
+          <!-- 48e : Ozyr 203 pts -->
+          <li><div class="cl-badge badge-d5"><span class="cl-rang">48e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Ozyr</span><span class="cl-nom-item">Paulchen</span></div><div class="cl-pts-right">203</div></li>
+          <!-- 50e : Bouna 202 pts -->
+          <li><div class="cl-badge badge-d5"><span class="cl-rang">50e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Bouna</div><div class="cl-pts-right">202</div></li>
+          <!-- 51e : Winwin 201 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">51e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Winwin</span><span class="cl-nom-item">Yann</span></div><div class="cl-pts-right">201</div></li>
+          <!-- 53e : Brétivendéen 200 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">53e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Br&eacute;tivendéen</span><span class="cl-nom-item">Contr&ocirc;le VAR</span><span class="cl-nom-item">Mamadou</span><span class="cl-nom-item">Thomas</span></div><div class="cl-pts-right">200</div></li>
+          <!-- 57e : Xavier29 199 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">57e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Xavier29</div><div class="cl-pts-right">199</div></li>
+          <!-- 58e : Nono 198 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">58e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Nono</div><div class="cl-pts-right">198</div></li>
+          <!-- 59e : Claudio 197 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">59e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Claudio</div><div class="cl-pts-right">197</div></li>
+          <!-- 60e : Henrillette du Mans 196 pts -->
+          <li><div class="cl-badge badge-d6"><span class="cl-rang">60e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Henrillette du Mans</div><div class="cl-pts-right">196</div></li>
+          <!-- 61e : Epsilone 195 pts -->
+          <li><div class="cl-badge badge-d7"><span class="cl-rang">61e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Epsilone</span><span class="cl-nom-item">Hamkara Sayen</span><span class="cl-nom-item">Olive</span></div><div class="cl-pts-right">195</div></li>
+          <!-- 64e : Etienne 194 pts -->
+          <li><div class="cl-badge badge-d7"><span class="cl-rang">64e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Etienne</span><span class="cl-nom-item">HectoPascal</span><span class="cl-nom-item">Moustache</span></div><div class="cl-pts-right">194</div></li>
+          <!-- 67e : Jacques 193 pts -->
+          <li><div class="cl-badge badge-d7"><span class="cl-rang">67e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Jacques</div><div class="cl-pts-right">193</div></li>
+          <!-- 68e : El Celestino 192 pts -->
+          <li><div class="cl-badge badge-d7"><span class="cl-rang">68e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">El Celestino</div><div class="cl-pts-right">192</div></li>
+          <!-- 69e : Fred35 191 pts -->
+          <li><div class="cl-badge badge-d7"><span class="cl-rang">69e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Fred35</div><div class="cl-pts-right">191</div></li>
+          <!-- 70e : Paulovitch 189 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">70e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Paulovitch</div><div class="cl-pts-right">189</div></li>
+          <!-- 71e : Juninho 188 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">71e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Juninho</div><div class="cl-pts-right">188</div></li>
+          <!-- 72e : Jean-Marc 186 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">72e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Jean-Marc</div><div class="cl-pts-right">186</div></li>
+          <!-- 73e : Baz 185 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">73e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Baz</span><span class="cl-nom-item">El Doctor</span><span class="cl-nom-item">Erwan</span></div><div class="cl-pts-right">185</div></li>
+          <!-- 76e : Didane 184 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">76e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Didane</span><span class="cl-nom-item">Pascale</span></div><div class="cl-pts-right">184</div></li>
+          <!-- 78e : MymyBob 182 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">78e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">MymyBob</div><div class="cl-pts-right">182</div></li>
+          <!-- 79e : Monsieur Nours 180 pts -->
+          <li><div class="cl-badge badge-d8"><span class="cl-rang">79e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Monsieur Nours</span><span class="cl-nom-item">Yvon</span></div><div class="cl-pts-right">180</div></li>
+          <!-- 81e : Arthur 179 pts -->
+          <li><div class="cl-badge badge-d9"><span class="cl-rang">81e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Arthur</span><span class="cl-nom-item">Leo35</span><span class="cl-nom-item">Melvil</span></div><div class="cl-pts-right">179</div></li>
+          <!-- 84e : Marcattack 178 pts -->
+          <li><div class="cl-badge badge-d9"><span class="cl-rang">84e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Marcattack</div><div class="cl-pts-right">178</div></li>
+          <!-- 85e : El Gringo 177 pts -->
+          <li><div class="cl-badge badge-d9"><span class="cl-rang">85e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">El Gringo</div><div class="cl-pts-right">177</div></li>
+          <!-- 86e : Fc Canaris 176 pts -->
+          <li><div class="cl-badge badge-d9"><span class="cl-rang">86e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Fc Canaris</div><div class="cl-pts-right">176</div></li>
+          <!-- 87e : Serge44 172 pts -->
+          <li><div class="cl-badge badge-d9"><span class="cl-rang">87e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Serge44</div><div class="cl-pts-right">172</div></li>
+          <!-- 88e : Anne-Claire 170 pts -->
+          <li><div class="cl-badge badge-d10"><span class="cl-rang">88e</span></div><div class="cl-photos-multi" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-noms-multi"><span class="cl-nom-item">Anne-Claire</span><span class="cl-nom-item">Arsi</span></div><div class="cl-pts-right">170</div></li>
+          <!-- 90e : Magicmez 165 pts -->
+          <li><div class="cl-badge badge-d10"><span class="cl-rang">90e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Magicmez</div><div class="cl-pts-right">165</div></li>
+          <!-- 91e : Le scud 149 pts -->
+          <li><div class="cl-badge badge-d10"><span class="cl-rang">91e</span></div><div class="cl-photo" style="visibility:hidden;"><img src="" alt=""></div><div class="cl-nom">Le scud</div><div class="cl-pts-right">149</div></li>
+        </ul>
+      </div>
+
+      <!-- Image desktop (paysage) : à droite du classement -->
+      <div class="photo-vainqueur">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Achillinho2.png" alt="Achillinho - Vainqueur des poules" onclick="openPhoto(this.src)" style="cursor:pointer;">
+        <div class="photo-legende">&#127942; Achillinho &mdash; 1<sup>er</sup> des poules</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-stripe"></div>
+  <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')"><img id="lightbox-img" src="" alt=""></div>
+  <script>
+    function openPhoto(url) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox').classList.add('active'); }
+  </script>
+</body>
+</html>
