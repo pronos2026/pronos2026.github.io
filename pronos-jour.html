@@ -135,8 +135,8 @@
 
     /* layout desktop: cercle/image à gauche, noms à droite */
     .cat-row { display: flex; align-items: flex-start; gap: 16px; }
-    .cat-left { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
-    .cat-right { flex: 1; }
+    .cat-left { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; justify-content: flex-start; }
+    .cat-right { flex: 1; text-align: left; padding-left: 4px; }
 
     /* cercle vert +20 */
     .pts-circle { width: 80px; height: 80px; border-radius: 50%; background: #2E7D32; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -152,13 +152,13 @@
     .img-modal-overlay img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
 
     /* drapeau catégorie */
-    .cat-flag { font-size: 56px; line-height: 1; }
+    .cat-flag { font-size: 56px; line-height: 1; display: block; }
 
     /* titre catégorie */
-    .cat-title { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #555; margin-bottom: 4px; }
+    .cat-title { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #555; margin-bottom: 4px; text-align: left; }
     .cat-count { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: #2E7D32; margin-bottom: 4px; }
     .cat-count.zero { color: #c0392b; }
-    .cat-names { font-family: 'Barlow', sans-serif; font-size: 12.5px; color: #444; line-height: 1.55; }
+    .cat-names { font-family: 'Barlow', sans-serif; font-size: 15px; color: #333; line-height: 1.65; background: #f0f2f5; border: 1px solid #dde1e8; border-radius: 6px; padding: 6px 10px; margin-top: 4px; }
 
     hr.cat-divider { border: none; border-top: 2px solid rgba(0,0,0,0.1); margin: 12px 0; }
 
@@ -166,8 +166,8 @@
     @media (max-width: 600px) {
       .cat-row { flex-direction: column; align-items: center; }
       .cat-left { flex-direction: row; justify-content: center; }
-      .cat-right { width: 100%; text-align: center; }
-      .cat-names { text-align: center; }
+      .cat-right { width: 100%; text-align: left; }
+      .cat-names { text-align: left; }
       .seizieme-teams { flex-direction: column; align-items: stretch; gap: 4px; }
       .seizieme-teams .st-a { flex: none; width: 100%; justify-content: flex-start; }
       .seizieme-teams .st-b { flex: none; width: 100%; justify-content: flex-end; flex-direction: row; }
@@ -186,7 +186,7 @@
     <!-- ══ 1/16e DE FINALE : Afrique du Sud - Canada ══ -->
     <div class="seizieme-block">
       <!-- BANDEAU -->
-      <div class="seizieme-banner" style="background: linear-gradient(135deg, #006400 0%, #007A33 40%, #B22222 100%);">
+      <div class="seizieme-banner" style="background: #3a3f6b;">
         <div class="seizieme-meta">
           <span>Dimanche 28 juin</span>
           <span class="sep">&#9679;</span>
@@ -217,7 +217,7 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title">🏆 Les deux équipes qualifiées pour les 1/8<sup>e</sup> de finale</div>
+              <div class="cat-title" style="font-size:20px;">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">1 pronostiqueur</div>
               <div class="cat-names">Claudio</div>
             </div>
@@ -233,7 +233,7 @@
               <span class="cat-flag">🇿🇦</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title">🇿🇦 Afrique du Sud qualifiée pour les 1/8<sup>e</sup></div>
+              <div class="cat-title" style="font-size:20px;">AFRIQUE DU SUD QUALIFIEE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">37 pronostiqueurs</div>
               <div class="cat-names">Abeillefurieuse, Achillinho, Anne-Claire, Armandooooo, Bouna, Contrôle VAR, Didane, EADN, El Celestino, El Doctor, El Gringo, Erwan, Faustine, Fred35, Henrillette du Mans, Jacques, Jeannot, Julay, Leo35, Lino, Marco, Mariné, Melvil, Moustache, MymyBob, Ozyr, PAG, Paulovitch, Pierre-Alexandre, Princesse Leia, Quialedroit, Ririne, Sambadebrazil, SpeedyNiki, Xavier29, Youki, Zakattack</div>
             </div>
@@ -249,7 +249,7 @@
               <span class="cat-flag">🇨🇦</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title">🇨🇦 Canada qualifié pour les 1/8<sup>e</sup></div>
+              <div class="cat-title" style="font-size:20px;">CANADA QUALIFIE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">4 pronostiqueurs</div>
               <div class="cat-names">Monsieur Nours, MS, Nesim, Pascale</div>
             </div>
@@ -265,7 +265,7 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title">❌ Aucune des deux équipes en 1/8<sup>e</sup></div>
+              <div class="cat-title" style="font-size:20px;">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count zero">49 pronostiqueurs – 0 pt</div>
               <div class="cat-names">Arsi, Arthur, Baz, Beppolevi, Brétivendéen, Carl, Cenomanum, Cyril, Epsilone, Etienne, FC Canaris, Gaëtan, Hamkara, Hamkara Sayen, HectoPascal, Hugooooo, Jean-Marc, JOP, Juninho, Le scud, LéO, LSG, Magicmez, Mamadou, Manu72, Marcattack, Martinico, Maxime, Mickaël, Niewfoo, Nikita, Nitram, Nono, NonoStar, Olive, Paulchen, Phaco, Poirrierbouffon, Robinucci, Roi97, Schiebercoach, Serge44, Shrek, Tariq, Thomas, Toulousains, Winwin, Yann, Yvon</div>
             </div>
