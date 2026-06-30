@@ -162,6 +162,17 @@
 
     hr.cat-divider { border: none; border-top: 2px solid rgba(0,0,0,0.1); margin: 12px 0; }
 
+    /* DESKTOP : alignement vertical des icônes et des blocs de noms */
+    @media (min-width: 601px) {
+      .cat-body { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto 1fr; column-gap: 10px; row-gap: 0; padding: 1rem 1.4rem 1.2rem; align-items: start; }
+      hr.cat-divider { display: none; }
+      .cat-section { display: flex; flex-direction: column; }
+      .cat-row { flex-direction: column; align-items: center; gap: 8px; height: 100%; }
+      .cat-left { width: 100%; display: flex; justify-content: center; padding-top: 8px; }
+      .cat-right { flex: 1; display: flex; flex-direction: column; text-align: left; padding-left: 0; width: 100%; }
+      .cat-names { flex: 1; }
+    }
+
     /* MOBILE : empilé */
     @media (max-width: 600px) {
       .cat-row { flex-direction: column; align-items: center; }
@@ -183,26 +194,24 @@
   </div>
   <div class="zone-contenu" style="flex-direction:column; align-items:stretch; padding:40px 24px;">
 
-    <!-- ══ 1/16e DE FINALE : Afrique du Sud - Canada ══ -->
+    <!-- ══ 1/8e DE FINALE : Brésil – Japon ══ -->
     <div class="seizieme-block">
       <!-- BANDEAU -->
-      <div class="seizieme-banner" style="background: #3a3f6b;">
+      <div class="seizieme-banner" style="background: #1a6b2e;">
         <div class="seizieme-meta">
-          <span>Dimanche 28 juin</span>
+          <span>Dimanche 29 juin</span>
           <span class="sep">&#9679;</span>
-          <span>22h00</span>
-          <span class="sep">&#9679;</span>
-          <span>1/16<sup>e</sup> de finale</span>
+          <span>1/8<sup>e</sup> de finale</span>
         </div>
         <div class="seizieme-teams">
           <div class="st-a">
-            <span class="st-flag">🇿🇦</span>
-            <span class="st-name">AFRIQUE DU SUD</span>
+            <span class="st-flag">🇧🇷</span>
+            <span class="st-name">BRÉSIL</span>
           </div>
           <div class="st-vs">VS</div>
           <div class="st-b">
-            <span class="st-name">CANADA</span>
-            <span class="st-flag">🇨🇦</span>
+            <span class="st-name">JAPON</span>
+            <span class="st-flag">🇯🇵</span>
           </div>
         </div>
       </div>
@@ -217,41 +226,41 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title" style="font-size:20px;">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">1 pronostiqueur</div>
-              <div class="cat-names">Claudio</div>
+              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">7 pronostiqueurs</div>
+              <div class="cat-names">Le Scud ; Zakattack ; Marcattack ; Manu72 ; Mickaël ; Mymybob ; Paulovitch</div>
             </div>
           </div>
         </div>
 
         <hr class="cat-divider">
 
-        <!-- 2. CANADA QUALIFIÉ -->
+        <!-- 2. BRÉSIL VA PLUS LOIN -->
         <div class="cat-section">
           <div class="cat-row">
             <div class="cat-left">
-              <span class="cat-flag">🇨🇦</span>
+              <span class="cat-flag">🇧🇷</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title" style="font-size:20px;">CANADA QUALIFIE POUR LES 1/9<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">37 pronostiqueurs</div>
-              <div class="cat-names">Abeillefurieuse, Achillinho, Anne-Claire, Armandooooo, Bouna, Contrôle VAR, Didane, EADN, El Celestino, El Doctor, El Gringo, Erwan, Faustine, Fred35, Henrillette du Mans, Jacques, Jeannot, Julay, Leo35, Lino, Marco, Mariné, Melvil, Moustache, MymyBob, Ozyr, PAG, Paulovitch, Pierre-Alexandre, Princesse Leia, Quialedroit, Ririne, Sambadebrazil, SpeedyNiki, Xavier29, Youki, Zakattack</div>
+              <div class="cat-title">BRÉSIL QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">75 pronostiqueurs</div>
+              <div class="cat-names">Abeille-furieuse ; Achillinho ; Anne-Claire ; Arsi ; Arthur ; Baz ; Beppolevi ; Brétivendéen ; Cenomanum ; Claudio ; Contrôle Var ; Cyril ; Didane ; EADN ; El Doctor ; Epsilone ; Erwan ; Etienne ; Faustine ; FC Canaris ; Fred35 ; Gaëtan ; Hamkara ; Hamkara Sayen ; HectoPascal ; Henrillette du Mans ; Hugoooo ; Jacques ; Jean-Marc ; Jeannot ; JOP ; Julay ; Juninho ; Léo35 ; Lino ; LSG ; Magicmez ; Mamadou ; Marco ; Mariné ; Martinico ; Maxime ; Melville ; Monsieur Nours ; Moustache ; MS ; Nesim ; Niewfoo ; Nikita ; Nitram ; Nono ; NonoStar ; Olive ; Ozyr ; Pascale ; Phaco ; Pierre-Alexandre ; Poirrierbouffon ; Princesse Leia ; Quialedroit ; Robinucci ; Roi97 ; Sambadebrazil ; Schiebercoach ; Serge44 ; Shrek ; SpeedyNiki ; Tariq ; Thomas ; Toulousains ; Winwin ; Xavier29 ; Yann ; Youki ; Yvon</div>
             </div>
           </div>
         </div>
 
         <hr class="cat-divider">
 
-        <!-- 3. AFRIQUE DU SUD QUALIFIÉE -->
+        <!-- 3. JAPON VA PLUS LOIN -->
         <div class="cat-section">
           <div class="cat-row">
             <div class="cat-left">
-              <span class="cat-flag">🇿🇦</span>
+              <span class="cat-flag">🇯🇵</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title" style="font-size:20px;">AFRIQUE DU SUD QUALIFIEE POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">4 pronostiqueurs</div>
-              <div class="cat-names">Monsieur Nours, MS, Nesim, Pascale</div>
+              <div class="cat-title">JAPON QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">5 pronostiqueurs</div>
+              <div class="cat-names">Bouna ; Carl ; LéO ; PAG ; Paulchen</div>
             </div>
           </div>
         </div>
@@ -265,9 +274,189 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title" style="font-size:20px;">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count zero">49 pronostiqueurs – 0 pt</div>
-              <div class="cat-names">Arsi, Arthur, Baz, Beppolevi, Brétivendéen, Carl, Cenomanum, Cyril, Epsilone, Etienne, FC Canaris, Gaëtan, Hamkara, Hamkara Sayen, HectoPascal, Hugooooo, Jean-Marc, JOP, Juninho, Le scud, LéO, LSG, Magicmez, Mamadou, Manu72, Marcattack, Martinico, Maxime, Mickaël, Niewfoo, Nikita, Nitram, Nono, NonoStar, Olive, Paulchen, Phaco, Poirrierbouffon, Robinucci, Roi97, Schiebercoach, Serge44, Shrek, Tariq, Thomas, Toulousains, Winwin, Yann, Yvon</div>
+              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count zero">4 pronostiqueurs – 0 pt</div>
+              <div class="cat-names">Armandoooo ; El Celestino ; El Gringo ; Ririne</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cat-body -->
+    </div><!-- /seizieme-block -->
+
+    <!-- ══ 1/8e DE FINALE : Allemagne – Paraguay ══ -->
+    <div class="seizieme-block">
+      <!-- BANDEAU -->
+      <div class="seizieme-banner" style="background: #3a3a3a;">
+        <div class="seizieme-meta">
+          <span>Dimanche 29 juin</span>
+          <span class="sep">&#9679;</span>
+          <span>1/8<sup>e</sup> de finale</span>
+        </div>
+        <div class="seizieme-teams">
+          <div class="st-a">
+            <span class="st-flag">🇩🇪</span>
+            <span class="st-name">ALLEMAGNE</span>
+          </div>
+          <div class="st-vs">VS</div>
+          <div class="st-b">
+            <span class="st-name">PARAGUAY</span>
+            <span class="st-flag">🇵🇾</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIES -->
+      <div class="cat-body">
+
+        <!-- 1. LES DEUX ÉQUIPES QUALIFIÉES -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">19 pronostiqueurs</div>
+              <div class="cat-names">LSG ; Magicmez ; Monsieur Nours ; Tariq ; Bouna ; Le scud ; Ririne ; Arthur ; Epsilone ; Etienne ; Faustine ; Gaëtan ; Hamkara ; Juninho ; Leo35 ; Martinico ; Pascale ; Xavier29 ; Youki</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 2. ALLEMAGNE VA PLUS LOIN -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <span class="cat-flag">🇩🇪</span>
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">ALLEMAGNE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">69 pronostiqueurs</div>
+              <div class="cat-names">Abeillefurieuse ; Achillinho ; Anne-Claire ; Armandooooo ; Baz ; Beppolevi ; Brétivendéen ; Carl ; Cenomanum ; Claudio ; Contrôle VAR ; Cyril ; Didane ; El Celestino ; El Doctor ; El Gringo ; Erwan ; Fc Canaris ; Hamkara Sayen ; HectoPascal ; Henrillette du Mans ; Hugooooo ; Jacques ; Jean-Marc ; Jeannot ; JOP ; Julay ; LéO ; Lino ; Mamadou ; Manu72 ; Marcattack ; Marco ; Mariné ; Maxime ; Melvil ; Mickaël ; Moustache ; MS ; MymyBob ; Nesim ; Niewfoo ; Nikita ; Nitram ; Nono ; NonoStar ; Olive ; Ozyr ; PAG ; Paulchen ; Paulovitch ; Phaco ; Pierre-Alexandre ; Poirrierbouffon ; Princesse Leia ; Quialedroit ; Robinucci ; Roi97 ; Sambadebrazil ; Schiebercoach ; Serge44 ; Shrek ; SpeedyNiki ; Thomas ; Toulousains ; Winwin ; Yann ; Yvon ; Zakattack</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 3. PARAGUAY VA PLUS LOIN -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <span class="cat-flag">🇵🇾</span>
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">PARAGUAY QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">1 pronostiqueur</div>
+              <div class="cat-names">Arsi</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 4. AUCUNE DES DEUX ÉQUIPES -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'">
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count zero">2 pronostiqueurs – 0 pt</div>
+              <div class="cat-names">EADN ; Fred35</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cat-body -->
+    </div><!-- /seizieme-block -->
+
+    <!-- ══ 1/8e DE FINALE : Pays-Bas – Maroc ══ -->
+    <div class="seizieme-block">
+      <!-- BANDEAU -->
+      <div class="seizieme-banner" style="background: #b05a00;">
+        <div class="seizieme-meta">
+          <span>Dimanche 29 juin</span>
+          <span class="sep">&#9679;</span>
+          <span>1/8<sup>e</sup> de finale</span>
+        </div>
+        <div class="seizieme-teams">
+          <div class="st-a">
+            <span class="st-flag">🇳🇱</span>
+            <span class="st-name">PAYS-BAS</span>
+          </div>
+          <div class="st-vs">VS</div>
+          <div class="st-b">
+            <span class="st-name">MAROC</span>
+            <span class="st-flag">🇲🇦</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATÉGORIES -->
+      <div class="cat-body">
+
+        <!-- 1. LES DEUX ÉQUIPES QUALIFIÉES -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">3 pronostiqueurs</div>
+              <div class="cat-names">Ririne ; Armandoooo ; El Celestino</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 2. PAYS-BAS QUALIFIÉS -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <span class="cat-flag">🇳🇱</span>
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">PAYS-BAS QUALIFIÉS POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">35 pronostiqueurs</div>
+              <div class="cat-names">Arthur ; Baz ; Beppolevi ; Bouna ; Cenomanum ; Claudio ; El Gringo ; Erwan ; Etienne ; Faustine ; Gaëtan ; Henrillette du Mans ; Jean-Marc ; Jeannot ; JOP ; Julay ; Leo35 ; LSG ; Mamadou ; Marco ; MS ; Nikita ; Nitram ; Nono ; Olive ; PAG ; Pascale ; Phaco ; Pierre-Alexandre ; Princesse Leia ; Roi97 ; SpeedyNiki ; Thomas ; Toulousains ; Yann</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 3. MAROC QUALIFIÉ -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <span class="cat-flag">🇲🇦</span>
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">MAROC QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count">48 pronostiqueurs</div>
+              <div class="cat-names">Abeille furieuse ; Achillinho ; Anne-Claire ; Arsi ; Brétivendéen ; Carl ; Contrôle VAR ; Cyril ; Didane ; EADN ; El Doctor ; Epsilone ; FC Canaris ; Fred35 ; Hamkara ; Hamkara Sayen ; HectoPascal ; Hugoooo ; Jacques ; Juninho ; LéO ; Lino ; Magicmez ; Manu72 ; Mariné ; Martinico ; Maxime ; Melvil ; Monsieur Nours ; Moustache ; Nesim ; Niewfoo ; NonoStar ; Ozyr ; Paulchen ; Poirrierbouffon ; Quialedroit ; Robinucci ; Sambadebrazil ; Schiebercoach ; Serge44 ; Shrek ; Tariq ; Winwin ; Xavier29 ; Youki ; Yvon ; Zakattack</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+        <!-- 4. AUCUNE DES DEUX ÉQUIPES -->
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'">
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-count zero">5 pronostiqueurs – 0 pt</div>
+              <div class="cat-names">Le scud ; Marcattack ; Mickaël ; Mymybob ; Paulovitch</div>
             </div>
           </div>
         </div>
