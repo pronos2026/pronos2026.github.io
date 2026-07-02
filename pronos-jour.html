@@ -186,11 +186,42 @@
       .st-name { font-size: 22px; }
       .seizieme-teams .st-vs { font-size: 12px; opacity: 0.5; text-align: center; }
     }
+
+    /* ── LEGENDE NIVEAU MAX DES EQUIPES ── */
+    .legend-bar { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; gap: 10px; padding: 18px 24px; background: #eef1f6; }
+    .legend-item { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dde1e8; border-radius: 8px; padding: 6px 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .legend-swatch { width: 22px; height: 22px; border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.15); }
+    .legend-swatch.lvl-1 { background: #C0182B; }
+    .legend-swatch.lvl-2 { background: #F0776B; }
+    .legend-swatch.lvl-3 { background: #F5820A; }
+    .legend-swatch.lvl-4 { background: #F5C400; }
+    .legend-swatch.lvl-5 { background: #FDF3B0; }
+    .legend-swatch.lvl-6 { background: #BDBDBD; }
+    .legend-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: #333; text-transform: uppercase; line-height: 1.2; }
+    @media (max-width:600px) { .legend-bar { padding: 14px 12px; gap: 8px; } .legend-item { padding: 5px 9px; } .legend-label { font-size: 11px; } }
+
+    /* ── RECTANGLES INDIVIDUELS PAR JOUEUR ── */
+    .cat-names { display: flex; flex-wrap: wrap; gap: 6px 7px; align-items: flex-start; }
+    .name-badge { display: inline-block; font-family: 'Barlow', sans-serif; font-size: 12.5px; font-weight: 600; color: #1a1a1a; padding: 3px 8px; border-radius: 5px; border: 1px solid rgba(0,0,0,0.12); line-height: 1.3; white-space: nowrap; }
+    .name-badge.lvl-1 { background: #C0182B; color: #fff; }
+    .name-badge.lvl-2 { background: #F0776B; }
+    .name-badge.lvl-3 { background: #F5820A; }
+    .name-badge.lvl-4 { background: #F5C400; }
+    .name-badge.lvl-5 { background: #FDF3B0; }
+    .name-badge.lvl-6 { background: #BDBDBD; }
   </style>
 
   <div class="zone-titre">
     <h2>Pronos du 02/07</h2>
     <div class="deco-line"></div>
+  </div>
+  <div class="legend-bar">
+    <div class="legend-item"><span class="legend-swatch lvl-1"></span><span class="legend-label">Vainqueur de la Coupe du Monde</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-2"></span><span class="legend-label">Battu en finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-3"></span><span class="legend-label">Battu en demi-finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-4"></span><span class="legend-label">Battu en quarts de finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-5"></span><span class="legend-label">Battu en huitièmes de finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-6"></span><span class="legend-label">Pas d'équipe en 1/8<sup>e</sup></span></div>
   </div>
   <div class="zone-contenu" style="flex-direction:column; align-items:stretch; padding:40px 24px;">
 
@@ -227,7 +258,7 @@
             <div class="cat-right">
               <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">4 pronostiqueurs</div>
-              <div class="cat-names">Jean-Marc ; Juninho ; MS ; Paulchen</div>
+              <div class="cat-names"><span class="name-badge lvl-3">Jean-Marc</span><span class="name-badge lvl-1">Juninho</span><span class="name-badge lvl-2">MS</span><span class="name-badge lvl-3">Paulchen</span></div>
             </div>
           </div>
         </div>
@@ -243,7 +274,7 @@
             <div class="cat-right">
               <div class="cat-title">ESPAGNE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">85 pronostiqueurs</div>
-              <div class="cat-names">Abeillefurieuse ; Achillinho ; Anne-Claire ; Armandooooo ; Arsi ; Arthur ; Baz ; Beppolevi ; Bouna ; Brétivendéen ; Carl ; Cenomanum ; Claudio ; Contrôle VAR ; Cyril ; Didane ; EADN ; El Celestino ; El Doctor ; El Gringo ; Epsilone ; Erwan ; Etienne ; Faustine ; Fc Canaris ; Fred35 ; Gaëtan ; Hamkara ; Hamkara Sayen ; HectoPascal ; Henrillette du Mans ; Hugooooo ; Jacques ; Jeannot ; JOP ; Julay ; Le scud ; LéO ; Leo35 ; Lino ; LSG ; Mamadou ; Manu72 ; Marcattack ; Marco ; Mariné ; Martinico ; Maxime ; Melvil ; Mickaël ; Monsieur Nours ; Moustache ; MymyBob ; Nesim ; Niewfoo ; Nikita ; Nitram ; Nono ; NonoStar ; Olive ; Ozyr ; PAG ; Pascale ; Paulovitch ; Phaco ; Pierre-Alexandre ; Poirrierbouffon ; Princesse Leia ; Quialedroit ; Ririne ; Robinucci ; Roi97 ; Sambadebrazil ; Schiebercoach ; Shrek ; SpeedyNiki ; Tariq ; Thomas ; Toulousains ; Winwin ; Xavier29 ; Yann ; Youki ; Yvon ; Zakattack</div>
+              <div class="cat-names"><span class="name-badge lvl-3">Abeillefurieuse</span><span class="name-badge lvl-1">Achillinho</span><span class="name-badge lvl-4">Anne-Claire</span><span class="name-badge lvl-2">Armandooooo</span><span class="name-badge lvl-2">Arsi</span><span class="name-badge lvl-2">Arthur</span><span class="name-badge lvl-3">Baz</span><span class="name-badge lvl-2">Beppolevi</span><span class="name-badge lvl-2">Bouna</span><span class="name-badge lvl-3">Brétivendéen</span><span class="name-badge lvl-2">Carl</span><span class="name-badge lvl-3">Cenomanum</span><span class="name-badge lvl-3">Claudio</span><span class="name-badge lvl-3">Contrôle VAR</span><span class="name-badge lvl-2">Cyril</span><span class="name-badge lvl-3">Didane</span><span class="name-badge lvl-1">EADN</span><span class="name-badge lvl-3">El Celestino</span><span class="name-badge lvl-3">El Doctor</span><span class="name-badge lvl-3">El Gringo</span><span class="name-badge lvl-1">Epsilone</span><span class="name-badge lvl-3">Erwan</span><span class="name-badge lvl-2">Etienne</span><span class="name-badge lvl-3">Faustine</span><span class="name-badge lvl-4">Fc Canaris</span><span class="name-badge lvl-3">Fred35</span><span class="name-badge lvl-3">Gaëtan</span><span class="name-badge lvl-3">Hamkara</span><span class="name-badge lvl-4">Hamkara Sayen</span><span class="name-badge lvl-3">HectoPascal</span><span class="name-badge lvl-2">Henrillette du Mans</span><span class="name-badge lvl-3">Hugooooo</span><span class="name-badge lvl-3">Jacques</span><span class="name-badge lvl-3">Jeannot</span><span class="name-badge lvl-3">JOP</span><span class="name-badge lvl-3">Julay</span><span class="name-badge lvl-3">Le scud</span><span class="name-badge lvl-1">LéO</span><span class="name-badge lvl-1">Leo35</span><span class="name-badge lvl-3">Lino</span><span class="name-badge lvl-5">LSG</span><span class="name-badge lvl-1">Mamadou</span><span class="name-badge lvl-3">Manu72</span><span class="name-badge lvl-1">Marcattack</span><span class="name-badge lvl-3">Marco</span><span class="name-badge lvl-3">Mariné</span><span class="name-badge lvl-1">Martinico</span><span class="name-badge lvl-3">Maxime</span><span class="name-badge lvl-2">Melvil</span><span class="name-badge lvl-1">Mickaël</span><span class="name-badge lvl-3">Monsieur Nours</span><span class="name-badge lvl-3">Moustache</span><span class="name-badge lvl-3">MymyBob</span><span class="name-badge lvl-1">Nesim</span><span class="name-badge lvl-3">Niewfoo</span><span class="name-badge lvl-3">Nikita</span><span class="name-badge lvl-2">Nitram</span><span class="name-badge lvl-3">Nono</span><span class="name-badge lvl-5">NonoStar</span><span class="name-badge lvl-2">Olive</span><span class="name-badge lvl-3">Ozyr</span><span class="name-badge lvl-3">PAG</span><span class="name-badge lvl-3">Pascale</span><span class="name-badge lvl-2">Paulovitch</span><span class="name-badge lvl-3">Phaco</span><span class="name-badge lvl-1">Pierre-Alexandre</span><span class="name-badge lvl-5">Poirrierbouffon</span><span class="name-badge lvl-3">Princesse Leia</span><span class="name-badge lvl-3">Quialedroit</span><span class="name-badge lvl-3">Ririne</span><span class="name-badge lvl-3">Robinucci</span><span class="name-badge lvl-3">Roi97</span><span class="name-badge lvl-2">Sambadebrazil</span><span class="name-badge lvl-3">Schiebercoach</span><span class="name-badge lvl-3">Shrek</span><span class="name-badge lvl-2">SpeedyNiki</span><span class="name-badge lvl-1">Tariq</span><span class="name-badge lvl-3">Thomas</span><span class="name-badge lvl-3">Toulousains</span><span class="name-badge lvl-3">Winwin</span><span class="name-badge lvl-3">Xavier29</span><span class="name-badge lvl-2">Yann</span><span class="name-badge lvl-2">Youki</span><span class="name-badge lvl-1">Yvon</span><span class="name-badge lvl-3">Zakattack</span></div>
             </div>
           </div>
         </div>
@@ -275,7 +306,7 @@
             <div class="cat-right">
               <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">2 pronostiqueurs</div>
-              <div class="cat-names">Magicmez ; Serge44</div>
+              <div class="cat-names"><span class="name-badge lvl-6">Magicmez</span><span class="name-badge lvl-6">Serge44</span></div>
             </div>
           </div>
         </div>
@@ -316,7 +347,7 @@
             <div class="cat-right">
               <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">49 pronostiqueurs</div>
-              <div class="cat-names">Abeillefurieuse ; Armandooooo ; Arsi ; Arthur ; Claudio ; Contrôle VAR ; El Doctor ; Epsilone ; Fred35 ; Gaëtan ; Hamkara ; Hamkara Sayen ; Henrillette du Mans ; Hugooooo ; Jacques ; Jeannot ; JOP ; Julay ; LéO ; Lino ; LSG ; Mamadou ; Mariné ; Martinico ; Maxime ; Melvil ; Mickaël ; MS ; Nesim ; Niewfoo ; Nitram ; Nono ; NonoStar ; PAG ; Paulchen ; Pascale ; Paulovitch ; Pierre-Alexandre ; Poirrierbouffon ; Princesse Leia ; Ririne ; Robinucci ; Schiebercoach ; SpeedyNiki ; Toulousains ; Winwin ; Yann ; Youki ; Zakattack</div>
+              <div class="cat-names"><span class="name-badge lvl-2">Abeillefurieuse</span><span class="name-badge lvl-1">Armandooooo</span><span class="name-badge lvl-1">Arsi</span><span class="name-badge lvl-3">Arthur</span><span class="name-badge lvl-3">Claudio</span><span class="name-badge lvl-3">Contrôle VAR</span><span class="name-badge lvl-4">El Doctor</span><span class="name-badge lvl-4">Epsilone</span><span class="name-badge lvl-4">Fred35</span><span class="name-badge lvl-4">Gaëtan</span><span class="name-badge lvl-3">Hamkara</span><span class="name-badge lvl-3">Hamkara Sayen</span><span class="name-badge lvl-4">Henrillette du Mans</span><span class="name-badge lvl-2">Hugooooo</span><span class="name-badge lvl-4">Jacques</span><span class="name-badge lvl-4">Jeannot</span><span class="name-badge lvl-4">JOP</span><span class="name-badge lvl-4">Julay</span><span class="name-badge lvl-2">LéO</span><span class="name-badge lvl-4">Lino</span><span class="name-badge lvl-4">LSG</span><span class="name-badge lvl-2">Mamadou</span><span class="name-badge lvl-2">Mariné</span><span class="name-badge lvl-5">Martinico</span><span class="name-badge lvl-1">Maxime</span><span class="name-badge lvl-1">Melvil</span><span class="name-badge lvl-2">Mickaël</span><span class="name-badge lvl-4">MS</span><span class="name-badge lvl-2">Nesim</span><span class="name-badge lvl-4">Niewfoo</span><span class="name-badge lvl-5">Nitram</span><span class="name-badge lvl-2">Nono</span><span class="name-badge lvl-4">NonoStar</span><span class="name-badge lvl-2">PAG</span><span class="name-badge lvl-3">Paulchen</span><span class="name-badge lvl-4">Pascale</span><span class="name-badge lvl-1">Paulovitch</span><span class="name-badge lvl-3">Pierre-Alexandre</span><span class="name-badge lvl-3">Poirrierbouffon</span><span class="name-badge lvl-3">Princesse Leia</span><span class="name-badge lvl-4">Ririne</span><span class="name-badge lvl-2">Robinucci</span><span class="name-badge lvl-2">Schiebercoach</span><span class="name-badge lvl-1">SpeedyNiki</span><span class="name-badge lvl-2">Toulousains</span><span class="name-badge lvl-3">Winwin</span><span class="name-badge lvl-1">Yann</span><span class="name-badge lvl-1">Youki</span><span class="name-badge lvl-3">Zakattack</span></div>
             </div>
           </div>
         </div>
@@ -332,7 +363,7 @@
             <div class="cat-right">
               <div class="cat-title">PORTUGAL QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">39 pronostiqueurs</div>
-              <div class="cat-names">Achillinho ; Anne-Claire ; Baz ; Beppolevi ; Bouna ; Brétivendéen ; Carl ; Cyril ; Didane ; EADN ; El Celestino ; El Gringo ; Erwan ; Etienne ; Faustine ; Fc Canaris ; HectoPascal ; Jean-Marc ; Juninho ; Le scud ; Leo35 ; Manu72 ; Marcattack ; Marco ; Monsieur Nours ; Moustache ; MymyBob ; Nikita ; Olive ; Ozyr ; Phaco ; Quialedroit ; Sambadebrazil ; Serge44 ; Shrek ; Tariq ; Thomas ; Xavier29 ; Yvon</div>
+              <div class="cat-names"><span class="name-badge lvl-4">Achillinho</span><span class="name-badge lvl-3">Anne-Claire</span><span class="name-badge lvl-2">Baz</span><span class="name-badge lvl-1">Beppolevi</span><span class="name-badge lvl-4">Bouna</span><span class="name-badge lvl-2">Brétivendéen</span><span class="name-badge lvl-1">Carl</span><span class="name-badge lvl-1">Cyril</span><span class="name-badge lvl-2">Didane</span><span class="name-badge lvl-4">EADN</span><span class="name-badge lvl-2">El Celestino</span><span class="name-badge lvl-5">El Gringo</span><span class="name-badge lvl-3">Erwan</span><span class="name-badge lvl-4">Etienne</span><span class="name-badge lvl-2">Faustine</span><span class="name-badge lvl-3">Fc Canaris</span><span class="name-badge lvl-3">HectoPascal</span><span class="name-badge lvl-3">Jean-Marc</span><span class="name-badge lvl-2">Juninho</span><span class="name-badge lvl-2">Le scud</span><span class="name-badge lvl-4">Leo35</span><span class="name-badge lvl-2">Manu72</span><span class="name-badge lvl-2">Marcattack</span><span class="name-badge lvl-4">Marco</span><span class="name-badge lvl-5">Monsieur Nours</span><span class="name-badge lvl-2">Moustache</span><span class="name-badge lvl-5">MymyBob</span><span class="name-badge lvl-2">Nikita</span><span class="name-badge lvl-4">Olive</span><span class="name-badge lvl-4">Ozyr</span><span class="name-badge lvl-4">Phaco</span><span class="name-badge lvl-4">Quialedroit</span><span class="name-badge lvl-3">Sambadebrazil</span><span class="name-badge lvl-2">Serge44</span><span class="name-badge lvl-4">Shrek</span><span class="name-badge lvl-4">Tariq</span><span class="name-badge lvl-2">Thomas</span><span class="name-badge lvl-2">Xavier29</span><span class="name-badge lvl-3">Yvon</span></div>
             </div>
           </div>
         </div>
@@ -348,7 +379,7 @@
             <div class="cat-right">
               <div class="cat-title">CROATIE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">2 pronostiqueurs</div>
-              <div class="cat-names">Magicmez ; Roi97</div>
+              <div class="cat-names"><span class="name-badge lvl-4">Magicmez</span><span class="name-badge lvl-2">Roi97</span></div>
             </div>
           </div>
         </div>
@@ -364,7 +395,7 @@
             <div class="cat-right">
               <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">1 pronostiqueur</div>
-              <div class="cat-names">Cenomanum</div>
+              <div class="cat-names"><span class="name-badge lvl-6">Cenomanum</span></div>
             </div>
           </div>
         </div>
@@ -405,7 +436,7 @@
             <div class="cat-right">
               <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">6 pronostiqueurs</div>
-              <div class="cat-names">Baz ; Beppolevi ; Julay ; Magicmez ; Nesim ; Serge44</div>
+              <div class="cat-names"><span class="name-badge lvl-5">Baz</span><span class="name-badge lvl-5">Beppolevi</span><span class="name-badge lvl-5">Julay</span><span class="name-badge lvl-4">Magicmez</span><span class="name-badge lvl-4">Nesim</span><span class="name-badge lvl-4">Serge44</span></div>
             </div>
           </div>
         </div>
@@ -421,7 +452,7 @@
             <div class="cat-right">
               <div class="cat-title">SUISSE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">68 pronostiqueurs</div>
-              <div class="cat-names">Abeillefurieuse ; Anne-Claire ; Armandooooo ; Arsi ; Arthur ; Bouna ; Carl ; Cenomanum ; Claudio ; Contrôle VAR ; Cyril ; Didane ; EADN ; El Celestino ; El Gringo ; Epsilone ; Erwan ; Etienne ; Faustine ; Fred35 ; Hamkara ; Hamkara Sayen ; HectoPascal ; Henrillette du Mans ; Hugooooo ; Jacques ; Jeannot ; JOP ; LéO ; Leo35 ; Lino ; LSG ; Mamadou ; Manu72 ; Marcattack ; Mariné ; Martinico ; Maxime ; Melvil ; Mickaël ; Monsieur Nours ; Moustache ; MymyBob ; Niewfoo ; Nitram ; Nono ; Olive ; Ozyr ; PAG ; Paulchen ; Pascale ; Paulovitch ; Phaco ; Pierre-Alexandre ; Poirrierbouffon ; Princesse Leia ; Quialedroit ; Robinucci ; Roi97 ; Sambadebrazil ; Schiebercoach ; SpeedyNiki ; Tariq ; Thomas ; Toulousains ; Xavier29 ; Youki ; Zakattack</div>
+              <div class="cat-names"><span class="name-badge lvl-5">Abeillefurieuse</span><span class="name-badge lvl-5">Anne-Claire</span><span class="name-badge lvl-5">Armandooooo</span><span class="name-badge lvl-5">Arsi</span><span class="name-badge lvl-5">Arthur</span><span class="name-badge lvl-5">Bouna</span><span class="name-badge lvl-5">Carl</span><span class="name-badge lvl-4">Cenomanum</span><span class="name-badge lvl-5">Claudio</span><span class="name-badge lvl-5">Contrôle VAR</span><span class="name-badge lvl-5">Cyril</span><span class="name-badge lvl-5">Didane</span><span class="name-badge lvl-5">EADN</span><span class="name-badge lvl-5">El Celestino</span><span class="name-badge lvl-5">El Gringo</span><span class="name-badge lvl-5">Epsilone</span><span class="name-badge lvl-5">Erwan</span><span class="name-badge lvl-5">Etienne</span><span class="name-badge lvl-5">Faustine</span><span class="name-badge lvl-5">Fred35</span><span class="name-badge lvl-5">Hamkara</span><span class="name-badge lvl-5">Hamkara Sayen</span><span class="name-badge lvl-5">HectoPascal</span><span class="name-badge lvl-5">Henrillette du Mans</span><span class="name-badge lvl-5">Hugooooo</span><span class="name-badge lvl-5">Jacques</span><span class="name-badge lvl-5">Jeannot</span><span class="name-badge lvl-5">JOP</span><span class="name-badge lvl-5">LéO</span><span class="name-badge lvl-5">Leo35</span><span class="name-badge lvl-5">Lino</span><span class="name-badge lvl-5">LSG</span><span class="name-badge lvl-5">Mamadou</span><span class="name-badge lvl-4">Manu72</span><span class="name-badge lvl-5">Marcattack</span><span class="name-badge lvl-5">Mariné</span><span class="name-badge lvl-4">Martinico</span><span class="name-badge lvl-5">Maxime</span><span class="name-badge lvl-5">Melvil</span><span class="name-badge lvl-5">Mickaël</span><span class="name-badge lvl-5">Monsieur Nours</span><span class="name-badge lvl-5">Moustache</span><span class="name-badge lvl-5">MymyBob</span><span class="name-badge lvl-5">Niewfoo</span><span class="name-badge lvl-4">Nitram</span><span class="name-badge lvl-5">Nono</span><span class="name-badge lvl-5">Olive</span><span class="name-badge lvl-5">Ozyr</span><span class="name-badge lvl-5">PAG</span><span class="name-badge lvl-5">Paulchen</span><span class="name-badge lvl-5">Pascale</span><span class="name-badge lvl-5">Paulovitch</span><span class="name-badge lvl-5">Phaco</span><span class="name-badge lvl-5">Pierre-Alexandre</span><span class="name-badge lvl-5">Poirrierbouffon</span><span class="name-badge lvl-5">Princesse Leia</span><span class="name-badge lvl-5">Quialedroit</span><span class="name-badge lvl-5">Robinucci</span><span class="name-badge lvl-5">Roi97</span><span class="name-badge lvl-5">Sambadebrazil</span><span class="name-badge lvl-5">Schiebercoach</span><span class="name-badge lvl-5">SpeedyNiki</span><span class="name-badge lvl-5">Tariq</span><span class="name-badge lvl-5">Thomas</span><span class="name-badge lvl-5">Toulousains</span><span class="name-badge lvl-5">Xavier29</span><span class="name-badge lvl-5">Youki</span><span class="name-badge lvl-5">Zakattack</span></div>
             </div>
           </div>
         </div>
@@ -437,7 +468,7 @@
             <div class="cat-right">
               <div class="cat-title">ALGÉRIE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">6 pronostiqueurs</div>
-              <div class="cat-names">Achillinho ; Brétivendéen ; Fc Canaris ; Nikita ; Shrek ; Winwin</div>
+              <div class="cat-names"><span class="name-badge lvl-5">Achillinho</span><span class="name-badge lvl-5">Brétivendéen</span><span class="name-badge lvl-5">Fc Canaris</span><span class="name-badge lvl-5">Nikita</span><span class="name-badge lvl-5">Shrek</span><span class="name-badge lvl-5">Winwin</span></div>
             </div>
           </div>
         </div>
@@ -453,7 +484,7 @@
             <div class="cat-right">
               <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
               <div class="cat-count">11 pronostiqueurs</div>
-              <div class="cat-names">El Doctor ; Gaëtan ; Jean-Marc ; Juninho ; Le scud ; Marco ; MS ; NonoStar ; Ririne ; Yann ; Yvon</div>
+              <div class="cat-names"><span class="name-badge lvl-6">El Doctor</span><span class="name-badge lvl-6">Gaëtan</span><span class="name-badge lvl-6">Jean-Marc</span><span class="name-badge lvl-6">Juninho</span><span class="name-badge lvl-6">Le scud</span><span class="name-badge lvl-6">Marco</span><span class="name-badge lvl-6">MS</span><span class="name-badge lvl-6">NonoStar</span><span class="name-badge lvl-6">Ririne</span><span class="name-badge lvl-6">Yann</span><span class="name-badge lvl-6">Yvon</span></div>
             </div>
           </div>
         </div>
