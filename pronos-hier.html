@@ -192,10 +192,10 @@
     .legend-item { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #dde1e8; border-radius: 8px; padding: 6px 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
     .legend-swatch { width: 22px; height: 22px; border-radius: 5px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.15); }
     .legend-swatch.lvl-1 { background: #C0182B; }
-    .legend-swatch.lvl-2 { background: #F0776B; }
-    .legend-swatch.lvl-3 { background: #F5820A; }
-    .legend-swatch.lvl-4 { background: #F5C400; }
-    .legend-swatch.lvl-5 { background: #FDF3B0; }
+    .legend-swatch.lvl-2 { background: #F5820A; }
+    .legend-swatch.lvl-3 { background: #F5C400; }
+    .legend-swatch.lvl-4 { background: #FCE98A; }
+    .legend-swatch.lvl-5 { background: #FDF6D8; }
     .legend-swatch.lvl-6 { background: #BDBDBD; }
     .legend-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: #333; text-transform: uppercase; line-height: 1.2; }
     @media (max-width:600px) { .legend-bar { padding: 14px 12px; gap: 8px; } .legend-item { padding: 5px 9px; } .legend-label { font-size: 11px; } }
@@ -204,10 +204,10 @@
     .cat-names { display: flex; flex-wrap: wrap; gap: 6px 7px; align-items: flex-start; }
     .name-badge { display: inline-block; font-family: 'Barlow', sans-serif; font-size: 12.5px; font-weight: 600; color: #1a1a1a; padding: 3px 8px; border-radius: 5px; border: 1px solid rgba(0,0,0,0.12); line-height: 1.3; white-space: nowrap; }
     .name-badge.lvl-1 { background: #C0182B; color: #fff; }
-    .name-badge.lvl-2 { background: #F0776B; }
-    .name-badge.lvl-3 { background: #F5820A; }
-    .name-badge.lvl-4 { background: #F5C400; }
-    .name-badge.lvl-5 { background: #FDF3B0; }
+    .name-badge.lvl-2 { background: #F5820A; color: #fff; }
+    .name-badge.lvl-3 { background: #F5C400; }
+    .name-badge.lvl-4 { background: #FCE98A; }
+    .name-badge.lvl-5 { background: #FDF6D8; }
     .name-badge.lvl-6 { background: #BDBDBD; }
 
     /* ── SOUS-GROUPES PREFERENCE (LES DEUX EQUIPES QUALIFIEES) ── */
@@ -221,26 +221,33 @@
     <h2>PRONOS D'HIER</h2>
     <div class="deco-line"></div>
   </div>
+  <div class="legend-bar">
+    <div class="legend-item"><span class="legend-swatch lvl-1"></span><span class="legend-label">A déjà gagné la Coupe du Monde</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-2"></span><span class="legend-label">Battu en finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-3"></span><span class="legend-label">Battu en demi-finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-4"></span><span class="legend-label">Battu en quarts de finale</span></div>
+    <div class="legend-item"><span class="legend-swatch lvl-5"></span><span class="legend-label">Pas d'équipe en quarts de finale</span></div>
+  </div>
   <div class="zone-contenu" style="flex-direction:column; align-items:stretch; padding:40px 24px;">
 
-    <!-- ══ 1/8e DE FINALE : Australie – Egypte ══ -->
+    <!-- ══ QUARTS DE FINALE 1 : Canada – Maroc ══ -->
     <div class="seizieme-block">
       <!-- BANDEAU -->
-      <div class="seizieme-banner" style="background: #1B4332;">
+      <div class="seizieme-banner" style="background: #14343D;">
         <div class="seizieme-meta">
-          <span>Vendredi 3 juillet</span>
+          <span>Samedi 4 juillet</span>
           <span class="sep">&#9679;</span>
           <span>1/8<sup>e</sup> de finale</span>
         </div>
         <div class="seizieme-teams">
           <div class="st-a">
-            <span class="st-flag">🇦🇺</span>
-            <span class="st-name">AUSTRALIE</span>
+            <span class="st-flag">🇨🇦</span>
+            <span class="st-name">CANADA</span>
           </div>
           <div class="st-vs">VS</div>
           <div class="st-b">
-            <span class="st-name">EGYPTE</span>
-            <span class="st-flag">🇪🇬</span>
+            <span class="st-name">MAROC</span>
+            <span class="st-flag">🇲🇦</span>
           </div>
         </div>
       </div>
@@ -254,7 +261,7 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES QUARTS DE FINALE</div>
               <div class="cat-count zero">0 pronostiqueur</div>
               <div class="cat-names">—</div>
             </div>
@@ -267,12 +274,12 @@
         <div class="cat-section">
           <div class="cat-row">
             <div class="cat-left">
-              <span class="cat-flag">🇦🇺</span>
+              <span class="cat-flag">🇨🇦</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title">AUSTRALIE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-title">CANADA QUALIFIÉ POUR LES QUARTS DE FINALE</div>
               <div class="cat-count">2 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Claudio</span><span class="name-badge">Toulousains</span></div>
+              <div class="cat-names"><span class="name-badge lvl-4">EADN</span><span class="name-badge lvl-4">El Gringo</span></div>
             </div>
           </div>
         </div>
@@ -283,101 +290,12 @@
         <div class="cat-section">
           <div class="cat-row">
             <div class="cat-left">
-              <span class="cat-flag">🇪🇬</span>
+              <span class="cat-flag">🇲🇦</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title">EGYPTE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">32 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Arsi</span><span class="name-badge">Arthur</span><span class="name-badge">Beppolevi</span><span class="name-badge">Bouna</span><span class="name-badge">Brétivendéen</span><span class="name-badge">Cenomanum</span><span class="name-badge">Didane</span><span class="name-badge">Erwan</span><span class="name-badge">Gaëtan</span><span class="name-badge">Hamkara</span><span class="name-badge">Jacques</span><span class="name-badge">Jean-Marc</span><span class="name-badge">Le scud</span><span class="name-badge">Martinico</span><span class="name-badge">Melvil</span><span class="name-badge">Mickaël</span><span class="name-badge">Moustache</span><span class="name-badge">Nesim</span><span class="name-badge">Nikita</span><span class="name-badge">Nitram</span><span class="name-badge">NonoStar</span><span class="name-badge">Paulchen</span><span class="name-badge">Poirrierbouffon</span><span class="name-badge">Quialedroit</span><span class="name-badge">Robinucci</span><span class="name-badge">Roi97</span><span class="name-badge">Sambadebrazil</span><span class="name-badge">Serge44</span><span class="name-badge">Tariq</span><span class="name-badge">Winwin</span><span class="name-badge">Youki</span><span class="name-badge">Yvon</span></div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="cat-divider">
-
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'" style="mix-blend-mode:multiply;filter:brightness(1.06);">
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">57 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Abeillefurieuse</span><span class="name-badge">Achillinho</span><span class="name-badge">Anne-Claire</span><span class="name-badge">Armandooooo</span><span class="name-badge">Baz</span><span class="name-badge">Carl</span><span class="name-badge">Contrôle VAR</span><span class="name-badge">Cyril</span><span class="name-badge">EADN</span><span class="name-badge">El Celestino</span><span class="name-badge">El Doctor</span><span class="name-badge">El Gringo</span><span class="name-badge">Epsilone</span><span class="name-badge">Etienne</span><span class="name-badge">Faustine</span><span class="name-badge">Fc Canaris</span><span class="name-badge">Fred35</span><span class="name-badge">Hamkara Sayen</span><span class="name-badge">HectoPascal</span><span class="name-badge">Henrillette du Mans</span><span class="name-badge">Hugooooo</span><span class="name-badge">Jeannot</span><span class="name-badge">JOP</span><span class="name-badge">Julay</span><span class="name-badge">Juninho</span><span class="name-badge">LéO</span><span class="name-badge">Leo35</span><span class="name-badge">Lino</span><span class="name-badge">LSG</span><span class="name-badge">Magicmez</span><span class="name-badge">Mamadou</span><span class="name-badge">Manu72</span><span class="name-badge">Marcattack</span><span class="name-badge">Marco</span><span class="name-badge">Mariné</span><span class="name-badge">Maxime</span><span class="name-badge">Monsieur Nours</span><span class="name-badge">MS</span><span class="name-badge">MymyBob</span><span class="name-badge">Niewfoo</span><span class="name-badge">Nono</span><span class="name-badge">Olive</span><span class="name-badge">Ozyr</span><span class="name-badge">PAG</span><span class="name-badge">Pascale</span><span class="name-badge">Paulovitch</span><span class="name-badge">Phaco</span><span class="name-badge">Pierre-Alexandre</span><span class="name-badge">Princesse Leia</span><span class="name-badge">Ririne</span><span class="name-badge">Schiebercoach</span><span class="name-badge">Shrek</span><span class="name-badge">SpeedyNiki</span><span class="name-badge">Thomas</span><span class="name-badge">Xavier29</span><span class="name-badge">Yann</span><span class="name-badge">Zakattack</span></div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /cat-body -->
-    </div><!-- /seizieme-block -->
-
-    <!-- ══ 1/8e DE FINALE : Argentine – Cap Vert ══ -->
-    <div class="seizieme-block">
-      <!-- BANDEAU -->
-      <div class="seizieme-banner" style="background: #5C1A33;">
-        <div class="seizieme-meta">
-          <span>Vendredi 3 juillet</span>
-          <span class="sep">&#9679;</span>
-          <span>1/8<sup>e</sup> de finale</span>
-        </div>
-        <div class="seizieme-teams">
-          <div class="st-a">
-            <span class="st-flag">🇦🇷</span>
-            <span class="st-name">ARGENTINE</span>
-          </div>
-          <div class="st-vs">VS</div>
-          <div class="st-b">
-            <span class="st-name">CAP VERT</span>
-            <span class="st-flag">🇨🇻</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CATÉGORIES -->
-      <div class="cat-body">
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">1 pronostiqueur</div>
-              <div class="cat-names"><span class="name-badge">Poirrierbouffon</span></div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="cat-divider">
-
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <span class="cat-flag">🇦🇷</span>
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">ARGENTINE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">81 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Abeillefurieuse</span><span class="name-badge">Achillinho</span><span class="name-badge">Anne-Claire</span><span class="name-badge">Armandooooo</span><span class="name-badge">Arsi</span><span class="name-badge">Arthur</span><span class="name-badge">Baz</span><span class="name-badge">Beppolevi</span><span class="name-badge">Bouna</span><span class="name-badge">Brétivendéen</span><span class="name-badge">Carl</span><span class="name-badge">Cenomanum</span><span class="name-badge">Claudio</span><span class="name-badge">Contrôle VAR</span><span class="name-badge">Didane</span><span class="name-badge">EADN</span><span class="name-badge">El Celestino</span><span class="name-badge">El Doctor</span><span class="name-badge">Epsilone</span><span class="name-badge">Erwan</span><span class="name-badge">Etienne</span><span class="name-badge">Faustine</span><span class="name-badge">Fred35</span><span class="name-badge">Gaëtan</span><span class="name-badge">Hamkara</span><span class="name-badge">Hamkara Sayen</span><span class="name-badge">HectoPascal</span><span class="name-badge">Henrillette du Mans</span><span class="name-badge">Hugooooo</span><span class="name-badge">Jacques</span><span class="name-badge">Jeannot</span><span class="name-badge">JOP</span><span class="name-badge">Julay</span><span class="name-badge">Juninho</span><span class="name-badge">Le scud</span><span class="name-badge">LéO</span><span class="name-badge">Leo35</span><span class="name-badge">Lino</span><span class="name-badge">Magicmez</span><span class="name-badge">Mamadou</span><span class="name-badge">Marcattack</span><span class="name-badge">Marco</span><span class="name-badge">Mariné</span><span class="name-badge">Martinico</span><span class="name-badge">Maxime</span><span class="name-badge">Melvil</span><span class="name-badge">Mickaël</span><span class="name-badge">Monsieur Nours</span><span class="name-badge">Moustache</span><span class="name-badge">MS</span><span class="name-badge">MymyBob</span><span class="name-badge">Niewfoo</span><span class="name-badge">Nikita</span><span class="name-badge">Nitram</span><span class="name-badge">Nono</span><span class="name-badge">NonoStar</span><span class="name-badge">Olive</span><span class="name-badge">Ozyr</span><span class="name-badge">PAG</span><span class="name-badge">Pascale</span><span class="name-badge">Paulovitch</span><span class="name-badge">Phaco</span><span class="name-badge">Pierre-Alexandre</span><span class="name-badge">Princesse Leia</span><span class="name-badge">Quialedroit</span><span class="name-badge">Ririne</span><span class="name-badge">Robinucci</span><span class="name-badge">Roi97</span><span class="name-badge">Sambadebrazil</span><span class="name-badge">Schiebercoach</span><span class="name-badge">Serge44</span><span class="name-badge">SpeedyNiki</span><span class="name-badge">Tariq</span><span class="name-badge">Thomas</span><span class="name-badge">Toulousains</span><span class="name-badge">Winwin</span><span class="name-badge">Xavier29</span><span class="name-badge">Yann</span><span class="name-badge">Youki</span><span class="name-badge">Yvon</span><span class="name-badge">Zakattack</span></div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="cat-divider">
-
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <span class="cat-flag">🇨🇻</span>
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">CAP VERT QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">1 pronostiqueur</div>
-              <div class="cat-names"><span class="name-badge">Cyril</span></div>
+              <div class="cat-title">MAROC QUALIFIÉ POUR LES QUARTS DE FINALE</div>
+              <div class="cat-count">42 pronostiqueurs</div>
+              <div class="cat-names"><span class="name-badge lvl-2">Poirrierbouffon</span><span class="name-badge lvl-3">Armandooooo</span><span class="name-badge lvl-3">Didane</span><span class="name-badge lvl-3">Serge44</span><span class="name-badge lvl-3">Youki</span><span class="name-badge lvl-4">Abeillefurieuse</span><span class="name-badge lvl-4">Achillinho</span><span class="name-badge lvl-4">Anne-Claire</span><span class="name-badge lvl-4">Arsi</span><span class="name-badge lvl-4">Brétivendéen</span><span class="name-badge lvl-4">Carl</span><span class="name-badge lvl-4">Contrôle VAR</span><span class="name-badge lvl-4">Cyril</span><span class="name-badge lvl-4">El Celestino</span><span class="name-badge lvl-4">El Doctor</span><span class="name-badge lvl-4">Epsilone</span><span class="name-badge lvl-4">Fred35</span><span class="name-badge lvl-4">Hamkara</span><span class="name-badge lvl-4">HectoPascal</span><span class="name-badge lvl-4">Hugooooo</span><span class="name-badge lvl-4">Jacques</span><span class="name-badge lvl-4">LéO</span><span class="name-badge lvl-4">Lino</span><span class="name-badge lvl-4">Magicmez</span><span class="name-badge lvl-4">Manu72</span><span class="name-badge lvl-4">Mariné</span><span class="name-badge lvl-4">Martinico</span><span class="name-badge lvl-4">Maxime</span><span class="name-badge lvl-4">Moustache</span><span class="name-badge lvl-4">Nesim</span><span class="name-badge lvl-4">Niewfoo</span><span class="name-badge lvl-4">NonoStar</span><span class="name-badge lvl-4">Ozyr</span><span class="name-badge lvl-4">Quialedroit</span><span class="name-badge lvl-4">Ririne</span><span class="name-badge lvl-4">Robinucci</span><span class="name-badge lvl-4">Sambadebrazil</span><span class="name-badge lvl-4">Schiebercoach</span><span class="name-badge lvl-4">Tariq</span><span class="name-badge lvl-4">Winwin</span><span class="name-badge lvl-4">Xavier29</span><span class="name-badge lvl-4">Yvon</span></div>
             </div>
           </div>
         </div>
@@ -391,9 +309,9 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'" style="mix-blend-mode:multiply;filter:brightness(1.06);">
             </div>
             <div class="cat-right">
-              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">8 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">El Gringo</span><span class="name-badge">Fc Canaris</span><span class="name-badge">Jean-Marc</span><span class="name-badge">LSG</span><span class="name-badge">Manu72</span><span class="name-badge">Nesim</span><span class="name-badge">Paulchen</span><span class="name-badge">Shrek</span></div>
+              <div class="cat-title">AUCUNE DES DEUX EQUIPES QUALIFIÉE POUR LES QUARTS DE FINALE</div>
+              <div class="cat-count">47 pronostiqueurs</div>
+              <div class="cat-names"><span class="name-badge lvl-5">Arthur</span><span class="name-badge lvl-5">Baz</span><span class="name-badge lvl-5">Beppolevi</span><span class="name-badge lvl-5">Bouna</span><span class="name-badge lvl-5">Cenomanum</span><span class="name-badge lvl-5">Claudio</span><span class="name-badge lvl-5">Erwan</span><span class="name-badge lvl-5">Etienne</span><span class="name-badge lvl-5">Faustine</span><span class="name-badge lvl-5">Fc Canaris</span><span class="name-badge lvl-5">Gaëtan</span><span class="name-badge lvl-5">Hamkara Sayen</span><span class="name-badge lvl-5">Henrillette du Mans</span><span class="name-badge lvl-5">Jean-Marc</span><span class="name-badge lvl-5">Jeannot</span><span class="name-badge lvl-5">JOP</span><span class="name-badge lvl-5">Julay</span><span class="name-badge lvl-5">Juninho</span><span class="name-badge lvl-5">Le scud</span><span class="name-badge lvl-5">Leo35</span><span class="name-badge lvl-5">LSG</span><span class="name-badge lvl-5">Mamadou</span><span class="name-badge lvl-5">Marcattack</span><span class="name-badge lvl-5">Marco</span><span class="name-badge lvl-5">Melvil</span><span class="name-badge lvl-5">Mickaël</span><span class="name-badge lvl-5">Monsieur Nours</span><span class="name-badge lvl-5">MS</span><span class="name-badge lvl-5">MymyBob</span><span class="name-badge lvl-5">Nikita</span><span class="name-badge lvl-5">Nitram</span><span class="name-badge lvl-5">Nono</span><span class="name-badge lvl-5">Olive</span><span class="name-badge lvl-5">PAG</span><span class="name-badge lvl-5">Paulchen</span><span class="name-badge lvl-5">Pascale</span><span class="name-badge lvl-5">Paulovitch</span><span class="name-badge lvl-5">Phaco</span><span class="name-badge lvl-5">Pierre-Alexandre</span><span class="name-badge lvl-5">Princesse Leia</span><span class="name-badge lvl-5">Roi97</span><span class="name-badge lvl-5">Shrek</span><span class="name-badge lvl-5">SpeedyNiki</span><span class="name-badge lvl-5">Thomas</span><span class="name-badge lvl-5">Toulousains</span><span class="name-badge lvl-5">Yann</span><span class="name-badge lvl-5">Zakattack</span></div>
             </div>
           </div>
         </div>
@@ -401,24 +319,24 @@
       </div><!-- /cat-body -->
     </div><!-- /seizieme-block -->
 
-    <!-- ══ 1/8e DE FINALE : Colombie – Ghana ══ -->
+    <!-- ══ QUARTS DE FINALE 2 : Paraguay – France ══ -->
     <div class="seizieme-block">
       <!-- BANDEAU -->
-      <div class="seizieme-banner" style="background: #1B2A4A;">
+      <div class="seizieme-banner" style="background: #3B2416;">
         <div class="seizieme-meta">
-          <span>Vendredi 3 juillet</span>
+          <span>Samedi 4 juillet</span>
           <span class="sep">&#9679;</span>
           <span>1/8<sup>e</sup> de finale</span>
         </div>
         <div class="seizieme-teams">
           <div class="st-a">
-            <span class="st-flag">🇨🇴</span>
-            <span class="st-name">COLOMBIE</span>
+            <span class="st-flag">🇵🇾</span>
+            <span class="st-name">PARAGUAY</span>
           </div>
           <div class="st-vs">VS</div>
           <div class="st-b">
-            <span class="st-name">GHANA</span>
-            <span class="st-flag">🇬🇭</span>
+            <span class="st-name">FRANCE</span>
+            <span class="st-flag">🇫🇷</span>
           </div>
         </div>
       </div>
@@ -432,7 +350,32 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
             </div>
             <div class="cat-right">
-              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES 1/8<sup>e</sup> DE FINALE</div>
+              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LES QUARTS DE FINALE</div>
+              <div class="cat-count">5 pronostiqueurs</div>
+              <div class="pref-groups">
+                <div class="pref-group">
+                  <div class="pref-group-title">Équipe FRANCE préférée</div>
+                  <div class="cat-names"><span class="name-badge lvl-1">Le scud</span><span class="name-badge lvl-3">Bouna</span><span class="name-badge lvl-3">Magicmez</span><span class="name-badge lvl-3">Tariq</span></div>
+                </div>
+                <div class="pref-group">
+                  <div class="pref-group-title">Équipe PARAGUAY préférée</div>
+                  <div class="cat-names"><span class="name-badge lvl-4">Ririne</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cat-divider">
+
+
+        <div class="cat-section">
+          <div class="cat-row">
+            <div class="cat-left">
+              <span class="cat-flag">🇵🇾</span>
+            </div>
+            <div class="cat-right">
+              <div class="cat-title">PARAGUAY QUALIFIÉ POUR LES QUARTS DE FINALE</div>
               <div class="cat-count zero">0 pronostiqueur</div>
               <div class="cat-names">—</div>
             </div>
@@ -445,28 +388,12 @@
         <div class="cat-section">
           <div class="cat-row">
             <div class="cat-left">
-              <span class="cat-flag">🇨🇴</span>
+              <span class="cat-flag">🇫🇷</span>
             </div>
             <div class="cat-right">
-              <div class="cat-title">COLOMBIE QUALIFIÉE POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">32 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Achillinho</span><span class="name-badge">Anne-Claire</span><span class="name-badge">Bouna</span><span class="name-badge">Brétivendéen</span><span class="name-badge">Carl</span><span class="name-badge">Cyril</span><span class="name-badge">Didane</span><span class="name-badge">El Celestino</span><span class="name-badge">El Gringo</span><span class="name-badge">Erwan</span><span class="name-badge">Etienne</span><span class="name-badge">Faustine</span><span class="name-badge">Fc Canaris</span><span class="name-badge">Gaëtan</span><span class="name-badge">Jean-Marc</span><span class="name-badge">Juninho</span><span class="name-badge">Le scud</span><span class="name-badge">Leo35</span><span class="name-badge">Marcattack</span><span class="name-badge">Marco</span><span class="name-badge">Martinico</span><span class="name-badge">Moustache</span><span class="name-badge">MymyBob</span><span class="name-badge">Nikita</span><span class="name-badge">Ozyr</span><span class="name-badge">Phaco</span><span class="name-badge">Quialedroit</span><span class="name-badge">Roi97</span><span class="name-badge">Sambadebrazil</span><span class="name-badge">Serge44</span><span class="name-badge">Shrek</span><span class="name-badge">Thomas</span></div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="cat-divider">
-
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <span class="cat-flag">🇬🇭</span>
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">GHANA QUALIFIÉ POUR LES 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">9 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Beppolevi</span><span class="name-badge">Cenomanum</span><span class="name-badge">EADN</span><span class="name-badge">Fred35</span><span class="name-badge">HectoPascal</span><span class="name-badge">Manu72</span><span class="name-badge">Monsieur Nours</span><span class="name-badge">Tariq</span><span class="name-badge">Yvon</span></div>
+              <div class="cat-title">FRANCE QUALIFIÉE POUR LES QUARTS DE FINALE</div>
+              <div class="cat-count">82 pronostiqueurs</div>
+              <div class="cat-names"><span class="name-badge lvl-1">Abeillefurieuse</span><span class="name-badge lvl-1">Anne-Claire</span><span class="name-badge lvl-1">Brétivendéen</span><span class="name-badge lvl-1">Cenomanum</span><span class="name-badge lvl-1">Claudio</span><span class="name-badge lvl-1">Contrôle VAR</span><span class="name-badge lvl-1">Didane</span><span class="name-badge lvl-1">El Celestino</span><span class="name-badge lvl-1">El Doctor</span><span class="name-badge lvl-1">El Gringo</span><span class="name-badge lvl-1">Etienne</span><span class="name-badge lvl-1">Faustine</span><span class="name-badge lvl-1">Fred35</span><span class="name-badge lvl-1">Gaëtan</span><span class="name-badge lvl-1">Hamkara</span><span class="name-badge lvl-1">HectoPascal</span><span class="name-badge lvl-1">Hugooooo</span><span class="name-badge lvl-1">Jacques</span><span class="name-badge lvl-1">Jean-Marc</span><span class="name-badge lvl-1">Jeannot</span><span class="name-badge lvl-1">JOP</span><span class="name-badge lvl-1">Julay</span><span class="name-badge lvl-1">Lino</span><span class="name-badge lvl-1">LSG</span><span class="name-badge lvl-1">Manu72</span><span class="name-badge lvl-1">Marco</span><span class="name-badge lvl-1">Mariné</span><span class="name-badge lvl-1">Moustache</span><span class="name-badge lvl-1">MymyBob</span><span class="name-badge lvl-1">Niewfoo</span><span class="name-badge lvl-1">Nikita</span><span class="name-badge lvl-1">Nono</span><span class="name-badge lvl-1">Ozyr</span><span class="name-badge lvl-1">PAG</span><span class="name-badge lvl-1">Pascale</span><span class="name-badge lvl-1">Phaco</span><span class="name-badge lvl-1">Princesse Leia</span><span class="name-badge lvl-1">Quialedroit</span><span class="name-badge lvl-1">Robinucci</span><span class="name-badge lvl-1">Roi97</span><span class="name-badge lvl-1">Schiebercoach</span><span class="name-badge lvl-1">Serge44</span><span class="name-badge lvl-1">Shrek</span><span class="name-badge lvl-1">Thomas</span><span class="name-badge lvl-1">Toulousains</span><span class="name-badge lvl-1">Winwin</span><span class="name-badge lvl-1">Xavier29</span><span class="name-badge lvl-1">Zakattack</span><span class="name-badge lvl-2">Fc Canaris</span><span class="name-badge lvl-2">Maxime</span><span class="name-badge lvl-2">NonoStar</span><span class="name-badge lvl-3">Achillinho</span><span class="name-badge lvl-3">Armandooooo</span><span class="name-badge lvl-3">Arsi</span><span class="name-badge lvl-3">Carl</span><span class="name-badge lvl-3">Cyril</span><span class="name-badge lvl-3">Epsilone</span><span class="name-badge lvl-3">Juninho</span><span class="name-badge lvl-3">LéO</span><span class="name-badge lvl-3">Leo35</span><span class="name-badge lvl-3">Mamadou</span><span class="name-badge lvl-3">Marcattack</span><span class="name-badge lvl-3">Martinico</span><span class="name-badge lvl-3">Melvil</span><span class="name-badge lvl-3">Mickaël</span><span class="name-badge lvl-3">MS</span><span class="name-badge lvl-3">Nesim</span><span class="name-badge lvl-3">Nitram</span><span class="name-badge lvl-3">Olive</span><span class="name-badge lvl-3">Paulchen</span><span class="name-badge lvl-3">Paulovitch</span><span class="name-badge lvl-3">Pierre-Alexandre</span><span class="name-badge lvl-3">Sambadebrazil</span><span class="name-badge lvl-3">Yann</span><span class="name-badge lvl-3">Yvon</span><span class="name-badge lvl-4">Arthur</span><span class="name-badge lvl-4">Beppolevi</span><span class="name-badge lvl-4">EADN</span><span class="name-badge lvl-4">Erwan</span><span class="name-badge lvl-4">Hamkara Sayen</span><span class="name-badge lvl-4">Poirrierbouffon</span><span class="name-badge lvl-4">Youki</span></div>
             </div>
           </div>
         </div>
@@ -480,15 +407,16 @@
               <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'" style="mix-blend-mode:multiply;filter:brightness(1.06);">
             </div>
             <div class="cat-right">
-              <div class="cat-title">AUCUNE DES DEUX EQUIPES EN 1/8<sup>e</sup> DE FINALE</div>
-              <div class="cat-count">50 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge">Abeillefurieuse</span><span class="name-badge">Armandooooo</span><span class="name-badge">Arsi</span><span class="name-badge">Arthur</span><span class="name-badge">Baz</span><span class="name-badge">Claudio</span><span class="name-badge">Contrôle VAR</span><span class="name-badge">El Doctor</span><span class="name-badge">Epsilone</span><span class="name-badge">Hamkara</span><span class="name-badge">Hamkara Sayen</span><span class="name-badge">Henrillette du Mans</span><span class="name-badge">Hugooooo</span><span class="name-badge">Jacques</span><span class="name-badge">Jeannot</span><span class="name-badge">JOP</span><span class="name-badge">Julay</span><span class="name-badge">LéO</span><span class="name-badge">Lino</span><span class="name-badge">LSG</span><span class="name-badge">Magicmez</span><span class="name-badge">Mamadou</span><span class="name-badge">Mariné</span><span class="name-badge">Maxime</span><span class="name-badge">Melvil</span><span class="name-badge">Mickaël</span><span class="name-badge">MS</span><span class="name-badge">Nesim</span><span class="name-badge">Niewfoo</span><span class="name-badge">Nitram</span><span class="name-badge">Nono</span><span class="name-badge">NonoStar</span><span class="name-badge">Olive</span><span class="name-badge">PAG</span><span class="name-badge">Paulchen</span><span class="name-badge">Pascale</span><span class="name-badge">Paulovitch</span><span class="name-badge">Pierre-Alexandre</span><span class="name-badge">Poirrierbouffon</span><span class="name-badge">Princesse Leia</span><span class="name-badge">Ririne</span><span class="name-badge">Robinucci</span><span class="name-badge">Schiebercoach</span><span class="name-badge">SpeedyNiki</span><span class="name-badge">Toulousains</span><span class="name-badge">Winwin</span><span class="name-badge">Xavier29</span><span class="name-badge">Yann</span><span class="name-badge">Youki</span><span class="name-badge">Zakattack</span></div>
+              <div class="cat-title">AUCUNE DES DEUX EQUIPES QUALIFIÉE POUR LES QUARTS DE FINALE</div>
+              <div class="cat-count">4 pronostiqueurs</div>
+              <div class="cat-names"><span class="name-badge lvl-5">Baz</span><span class="name-badge lvl-5">Henrillette du Mans</span><span class="name-badge lvl-5">Monsieur Nours</span><span class="name-badge lvl-5">SpeedyNiki</span></div>
             </div>
           </div>
         </div>
 
       </div><!-- /cat-body -->
     </div><!-- /seizieme-block -->
+
   </div><!-- /zone-contenu -->
   <div class="footer-stripe"></div>
   <footer>Contact Webmaster : <a href="mailto:olivier.ruchaud@hotmail.fr">olivier.ruchaud@hotmail.fr</a></footer>
@@ -507,6 +435,6 @@
     }
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
   </script>
-
+  </script>
 </body>
 </html>
