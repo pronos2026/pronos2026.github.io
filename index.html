@@ -905,6 +905,48 @@
     </div>
   </section>
 
+  <style>
+    .humour-footeux-images {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .humour-footeux-images img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    @media (orientation: landscape) {
+      .humour-footeux-images {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .humour-footeux-images img {
+        width: auto;
+        max-width: none;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+    }
+  </style>
+
+  <section style="background:#F4F6FA;padding:40px 40px 44px;border-top:4px solid var(--bleu-marine);">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+      😂 Humour de footeux
+      <span style="flex:1;height:2px;background:linear-gradient(90deg,var(--bleu-marine),transparent);display:inline-block;"></span>
+    </p>
+    <div class="humour-footeux-images">
+      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet1.jpg" alt="Humour de footeux 1"/>
+      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet2.jpg" alt="Humour de footeux 2"/>
+      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/infantino1.jpg" alt="Humour de footeux 3"/>
+    </div>
+  </section>
+
   <section style="background:#fff;padding:40px 40px 50px;border-top:4px solid var(--bleu-marine);">
     <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:16px;display:flex;align-items:center;gap:12px;">
       ✍️ A VOS PLUMES (BRESILIENNES)
