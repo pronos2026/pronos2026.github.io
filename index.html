@@ -772,10 +772,10 @@
     <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;padding:36px 30px;max-width:1100px;margin:0 auto;text-align:left;">
 
       <!-- Image Faustine desktop (à gauche du texte sur desktop) -->
-      <div class="edito-julay-desktop" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#0A0A0A;">
-        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Sambadebrazil.png"
+      <div class="edito-julay-desktop" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Sambadebrazil2.png"
              alt="Sambadebrazil"
-             style="height:365px;width:auto;display:block;object-fit:contain;background:#0A0A0A;" />
+             style="height:365px;width:auto;display:block;object-fit:contain;" />
       </div>
 
       <!-- Texte édito -->
@@ -796,10 +796,10 @@
       </div>
 
       <!-- Image Sambadebrazil mobile portrait (sous le texte) -->
-      <div class="edito-julay-mobile" style="width:100%;text-align:center;display:none;background:#0A0A0A;">
-        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Sambadebrazil.png"
+      <div class="edito-julay-mobile" style="width:100%;text-align:center;display:none;">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Sambadebrazil2.png"
              alt="Sambadebrazil"
-             style="max-width:80%;height:auto;object-fit:contain;background:#0A0A0A;" />
+             style="max-width:80%;height:auto;object-fit:contain;" />
       </div>
     </div>
   </section>
@@ -884,7 +884,15 @@
       align-items: center;
       gap: 20px;
     }
-    .humour-footeux-images img {
+    .humour-footeux-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 500px;
+      gap: 8px;
+    }
+    .humour-footeux-item img {
       width: 100%;
       max-width: 500px;
       height: auto;
@@ -898,12 +906,41 @@
         justify-content: center;
         flex-wrap: wrap;
       }
-      .humour-footeux-images img {
+      .humour-footeux-item {
         width: auto;
         max-width: none;
         flex: 1 1 0;
         min-width: 0;
       }
+      .humour-footeux-item img {
+        width: 100%;
+        max-width: none;
+      }
+    }
+    .humour-footeux-like-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      line-height: 0;
+    }
+    .humour-footeux-like-btn.liked {
+      cursor: default;
+    }
+    .humour-footeux-like-btn svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .humour-footeux-like-btn svg path {
+      fill: transparent;
+      stroke: #000;
+      stroke-width: 1.2;
+      transition: fill 0.15s ease, stroke 0.15s ease;
+    }
+    .humour-footeux-like-btn.liked svg path {
+      fill: #E0245E;
+      stroke: none;
     }
   </style>
 
@@ -913,11 +950,57 @@
       <span style="flex:1;height:2px;background:linear-gradient(90deg,var(--bleu-marine),transparent);display:inline-block;"></span>
     </p>
     <div class="humour-footeux-images">
-      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet1.jpg" alt="Humour de footeux 1"/>
-      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet2.jpg" alt="Humour de footeux 2"/>
-      <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/infantino1.jpg" alt="Humour de footeux 3"/>
+      <div class="humour-footeux-item">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet1.jpg" alt="Humour de footeux 1"/>
+        <button type="button" class="humour-footeux-like-btn" data-like-key="tweet1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="humour-footeux-item">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet2.jpg" alt="Humour de footeux 2"/>
+        <button type="button" class="humour-footeux-like-btn" data-like-key="tweet2" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="humour-footeux-item">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/infantino1.jpg" alt="Humour de footeux 3"/>
+        <button type="button" class="humour-footeux-like-btn" data-like-key="infantino1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </section>
+  <script>
+    (function() {
+      var STORAGE_PREFIX = 'humourFooteuxLike_';
+      var buttons = document.querySelectorAll('.humour-footeux-like-btn');
+      buttons.forEach(function(btn) {
+        var key = btn.getAttribute('data-like-key');
+        try {
+          if (localStorage.getItem(STORAGE_PREFIX + key) === '1') {
+            btn.classList.add('liked');
+          }
+        } catch (e) {}
+      });
+    })();
+    function humourFooteuxLike(btn) {
+      var key = btn.getAttribute('data-like-key');
+      var storageKey = 'humourFooteuxLike_' + key;
+      try {
+        if (localStorage.getItem(storageKey) === '1') {
+          return;
+        }
+        localStorage.setItem(storageKey, '1');
+      } catch (e) {}
+      btn.classList.add('liked');
+    }
+  </script>
 
   <section style="background:#fff;padding:40px 40px 50px;border-top:4px solid var(--bleu-marine);">
     <p style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--bleu-marine);margin-bottom:16px;display:flex;align-items:center;gap:12px;">
