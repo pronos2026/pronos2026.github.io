@@ -942,6 +942,18 @@
       fill: #E0245E;
       stroke: none;
     }
+    .humour-footeux-like-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .humour-footeux-like-count {
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      color: var(--bleu-marine);
+      font-weight: 600;
+      min-width: 12px;
+    }
   </style>
 
   <section style="background:#F4F6FA;padding:40px 40px 44px;border-top:4px solid var(--bleu-marine);">
@@ -952,33 +964,54 @@
     <div class="humour-footeux-images">
       <div class="humour-footeux-item">
         <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet1.jpg" alt="Humour de footeux 1"/>
-        <button type="button" class="humour-footeux-like-btn" data-like-key="tweet1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
-          </svg>
-        </button>
+        <div class="humour-footeux-like-row">
+          <button type="button" class="humour-footeux-like-btn" data-like-key="tweet1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </button>
+          <span class="humour-footeux-like-count" data-like-count="tweet1"></span>
+        </div>
       </div>
       <div class="humour-footeux-item">
         <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/tweet2.jpg" alt="Humour de footeux 2"/>
-        <button type="button" class="humour-footeux-like-btn" data-like-key="tweet2" onclick="humourFooteuxLike(this)" aria-label="J'aime">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
-          </svg>
-        </button>
+        <div class="humour-footeux-like-row">
+          <button type="button" class="humour-footeux-like-btn" data-like-key="tweet2" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </button>
+          <span class="humour-footeux-like-count" data-like-count="tweet2"></span>
+        </div>
       </div>
       <div class="humour-footeux-item">
         <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/infantino1.jpg" alt="Humour de footeux 3"/>
-        <button type="button" class="humour-footeux-like-btn" data-like-key="infantino1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
-          </svg>
-        </button>
+        <div class="humour-footeux-like-row">
+          <button type="button" class="humour-footeux-like-btn" data-like-key="infantino1" onclick="humourFooteuxLike(this)" aria-label="J'aime">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21s-6.716-4.35-9.428-8.09C.86 10.42 1.2 6.9 4.02 5.24 6.2 3.96 8.9 4.6 10.2 6.6L12 9.2l1.8-2.6c1.3-2 4-2.64 6.18-1.36 2.82 1.66 3.16 5.18 1.45 7.67C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </button>
+          <span class="humour-footeux-like-count" data-like-count="infantino1"></span>
+        </div>
       </div>
     </div>
   </section>
   <script>
     (function() {
+      var NS = 'pronos2026.github.io';
+      var API = 'https://abacus.jasoncameron.dev';
       var STORAGE_PREFIX = 'humourFooteuxLike_';
+
+      var countEls = document.querySelectorAll('.humour-footeux-like-count');
+      countEls.forEach(function(el) {
+        var key = el.getAttribute('data-like-count');
+        fetch(API + '/get/' + NS + '/humour-footeux-' + key)
+          .then(function(r) { return r.ok ? r.json() : { value: 0 }; })
+          .then(function(data) { el.textContent = data.value || 0; })
+          .catch(function() { el.textContent = '0'; });
+      });
+
       var buttons = document.querySelectorAll('.humour-footeux-like-btn');
       buttons.forEach(function(btn) {
         var key = btn.getAttribute('data-like-key');
@@ -989,7 +1022,10 @@
         } catch (e) {}
       });
     })();
+
     function humourFooteuxLike(btn) {
+      var NS = 'pronos2026.github.io';
+      var API = 'https://abacus.jasoncameron.dev';
       var key = btn.getAttribute('data-like-key');
       var storageKey = 'humourFooteuxLike_' + key;
       try {
@@ -999,6 +1035,14 @@
         localStorage.setItem(storageKey, '1');
       } catch (e) {}
       btn.classList.add('liked');
+
+      var countEl = btn.parentElement.querySelector('.humour-footeux-like-count');
+      fetch(API + '/hit/' + NS + '/humour-footeux-' + key)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (countEl) countEl.textContent = data.value;
+        })
+        .catch(function() {});
     }
   </script>
 
