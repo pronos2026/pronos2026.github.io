@@ -699,15 +699,31 @@
 
     html, body { overflow-x: hidden; max-width: 100%; }
 
-    /* Julay image dans l'édito */
-    @media (max-width: 700px), (orientation: portrait) and (max-width: 900px) {
-      .edito-julay-desktop { display: none !important; }
-      .edito-julay-mobile { display: block !important; }
+    /* Images de l'édito : sous le texte, côte à côte en paysage, empilées en portrait */
+    .edito-images {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
     }
-    @media (min-width: 700px) and (orientation: landscape),
-           (min-width: 900px) {
-      .edito-julay-desktop { display: block !important; }
-      .edito-julay-mobile { display: none !important; }
+    .edito-images img {
+      height: 280px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      display: block;
+    }
+    @media (max-width: 700px), (orientation: portrait) and (max-width: 900px) {
+      .edito-images {
+        flex-direction: column;
+      }
+      .edito-images img {
+        height: auto;
+        width: 70%;
+        max-width: 320px;
+      }
     }
 
     /* Édito : layout desktop (photo USA haut-gauche + LeO bas-gauche) */
@@ -769,37 +785,25 @@
 
 
 <section class="zone-match">
-    <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;padding:36px 30px;max-width:1100px;margin:0 auto;text-align:left;">
-
-      <!-- Image Faustine desktop (à gauche du texte sur desktop) -->
-      <div class="edito-julay-desktop" style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Lino.png"
-             alt="Lino"
-             style="height:365px;width:auto;display:block;object-fit:contain;" />
-      </div>
+    <div style="display:flex;flex-direction:column;gap:0;padding:36px 30px;max-width:1100px;margin:0 auto;text-align:left;">
 
       <!-- Texte édito -->
       <div style="flex:1;min-width:240px;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#FFD700;letter-spacing:2px;margin:0 0 18px;line-height:1.1;font-weight:bold;">Les favoris sont au rendez-vous !</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#FFD700;letter-spacing:2px;margin:0 0 18px;line-height:1.1;font-weight:bold;">La finale avant la finale</p>
         <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
-          Ce sera donc <strong style="color:#87CEEB;font-weight:bold;">FRANCE – ESPAGNE</strong> et <strong style="color:#87CEEB;font-weight:bold;">ANGLETERRE – ARGENTINE</strong>. Cette année, il ne fallait pas tenter de surprise car les 4 ultra-favoris sont en quarts de finale. Cela avait l'air évident, pourtant ils ne sont que 9 à avoir tenté cette configuration il y a un mois. Bravo donc à <strong style="color:#00cc44;font-weight:bold;">CENOMANUM</strong>, <strong style="color:#00cc44;font-weight:bold;">EPSILONE</strong>, <strong style="color:#00cc44;font-weight:bold;">JULAY</strong>, <strong style="color:#00cc44;font-weight:bold;">LEO35</strong>, <strong style="color:#00cc44;font-weight:bold;">LINO</strong>, <strong style="color:#00cc44;font-weight:bold;">MS</strong>, <strong style="color:#00cc44;font-weight:bold;">MYMYBOB</strong>, <strong style="color:#00cc44;font-weight:bold;">PASCALE</strong> et <strong style="color:#00cc44;font-weight:bold;">QUIALEDROIT</strong>.
-        </p>
-        <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
-          Et comme annoncé, les 200 points que 12 pronostiqueurs ont gagné grâce aux qualifications anglaises et argentines, bouleversent le classement.
-        </p>
-        <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
-          C'est <strong style="color:#FFD700;font-weight:bold;">LINO</strong> qui passe en tête à 3 matchs de la fin de la compétition. Et voyez comme la phase de poule est déterminante bien qu'elle distribue moins de points : Lino n'a qu'un tout petit point d'avance sur <strong style="color:#FFD700;font-weight:bold;">QUIALEDROIT</strong> qui monte sur la 2e marche du podium. 45 points derrière, à la 3e place, c'est le retour d'<strong style="color:#FFD700;font-weight:bold;">EPSILON</strong> (2e du classement finale et vainqueur de la phase des poules en 2022). Mention spéciale pour <strong style="color:#FFD700;font-weight:bold;">JULAY</strong> qui, après avoir chuté au classement, est de retour dans le Top10. Il n'y a pas loin du Capitole à la roche tarpéïenne... et inversement.
-        </p>
-        <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
-          Petit repos de deux jours et mardi c'est le grand match : <strong style="color:#87CEEB;font-weight:bold;">FRANCE – ESPAGNE</strong>.
+          <strong style="color:#FFD700;font-weight:bold;">Première demi-finale à 21h</strong>, la France défie l'Espagne. La Roja n'a pas peur des Bleus mais la France non-plus depuis 2018. Yamal, tu tétais encore que déjà la France paraissait taquine* !<br>
+          Pour celles et ceux qui ont intérêt à une victoire espagnole, qui l'emportera du chauvinisme ou du classement au concours ? Soirée schizophrénique en perspective.<br>
+          Ce qui est sûr c'est que le classement changera après le match. Deux team s'affrontent avec 4 vainqueurs potentiels dans chaque équipe.<br>
+          Fin du suspense à 23h. <strong style="color:#00cc44;font-weight:bold;">Allez les Bleus !</strong>
         </p>
       </div>
 
-      <!-- Image Sambadebrazil mobile portrait (sous le texte) -->
-      <div class="edito-julay-mobile" style="width:100%;text-align:center;display:none;">
-        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Lino.png"
-             alt="Lino"
-             style="max-width:80%;height:auto;object-fit:contain;" />
+      <!-- Images sous le texte : côte à côte en paysage, empilées en portrait -->
+      <div class="edito-images">
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/TeamFranceDemi.png"
+             alt="Team France" />
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/TeamEspagneDemi.png"
+             alt="Team Espagne" />
       </div>
     </div>
   </section>
@@ -831,7 +835,7 @@
       <div style="flex:1;min-width:220px;">
         <table class="pronos-stats">
           <tr><td class="stat-num">53</td><td class="stat-label">parieurs</td><td class="stat-unit">Team FRANCE</td></tr>
-          <tr><td class="stat-num">32</td><td class="stat-label">parieur</td><td class="stat-unit">Team ESPAGNE</td></tr>
+          <tr><td class="stat-num">32</td><td class="stat-label">parieurs</td><td class="stat-unit">Team ESPAGNE</td></tr>
           <tr><td class="stat-num">7</td><td class="stat-label">parieurs</td><td class="stat-unit">Team RIEN A GAGNER</td></tr>
         </table>
         <p style="font-family:'Barlow',sans-serif;font-size:14px;color:#555;line-height:1.7;margin:0;font-style:italic;">Tous derrière la France ! Sauf pour 31 schizophrènes qui vont crier « allez les bleus » en espérant secrètement une victoire espagnole. Seul ETIENNE, le singe-mouton footballeur, a l'esprit serein, certain de marquer 200 points puisque France-Espagne était sa finale.</p>
