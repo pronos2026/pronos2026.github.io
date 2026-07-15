@@ -164,7 +164,7 @@
 
     /* DESKTOP : alignement vertical des icônes et des blocs de noms */
     @media (min-width: 601px) {
-      .cat-body { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto 1fr; column-gap: 10px; row-gap: 0; padding: 1rem 1.4rem 1.2rem; align-items: start; }
+      .cat-body { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1fr; column-gap: 14px; row-gap: 0; padding: 1rem 1.4rem 1.2rem; align-items: start; }
       hr.cat-divider { display: none; }
       .cat-section { display: flex; flex-direction: column; }
       .cat-row { flex-direction: column; align-items: center; gap: 8px; height: 100%; }
@@ -217,37 +217,45 @@
     .pref-group { display: flex; flex-direction: column; gap: 6px; }
     .pref-group-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #555; margin-top: 10px; }
     .pref-group:first-child .pref-group-title { margin-top: 0; }
+
+    /* ── EN-TETE DE CATEGORIE (drapeau + titre + points), aligné en haut de chaque colonne ── */
+    .cat-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; margin-bottom: 10px; }
+    .cat-header .cat-flag { font-size: 54px; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.30)) drop-shadow(0 1px 2px rgba(0,0,0,0.20)); }
+    .cat-header .cat-title { text-align: center; font-size: 15px; margin-bottom: 2px; }
+    .cat-points { font-family: 'Barlow Condensed', sans-serif; font-size: 21px; font-weight: 900; letter-spacing: 0.03em; }
+    .cat-points.win { color: #2E7D32; }
+    .cat-points.zero { color: #c0392b; }
+
+    /* ── BADGES PAR CATEGORIE (finale Espagne - Argentine) ── */
+    .name-badge.badge-esp { background: #C60B1E; color: #fff; }
+    .name-badge.badge-arg { background: #74ACDF; color: #0b2545; }
+    .name-badge.badge-none { background: #5B7C93; color: #fff; }
   </style>
 
   <div class="zone-titre">
-    <h2>Pronos du 15/07</h2>
+    <h2>Pronos du 19/07</h2>
     <div class="deco-line"></div>
-  </div>
-  <div class="legend-bar">
-    <div class="legend-item"><span class="legend-swatch lvl-1"></span><span class="legend-label">Vainqueur de la Coupe du Monde</span></div>
-    <div class="legend-item"><span class="legend-swatch lvl-2"></span><span class="legend-label">Battu en finale</span></div>
-    <div class="legend-item"><span class="legend-swatch lvl-bg"></span><span class="legend-label">Pas d'équipe en finale</span></div>
   </div>
   <div class="zone-contenu" style="flex-direction:column; align-items:stretch; padding:40px 24px;">
 
-    <!-- ══ DEMI-FINALE : Argentine – Angleterre ══ -->
+    <!-- ══ FINALE : Espagne – Argentine ══ -->
     <div class="seizieme-block">
       <!-- BANDEAU -->
       <div class="seizieme-banner" style="background: #12203A;">
         <div class="seizieme-meta">
-          <span>Mardi 15 juillet</span>
+          <span>Dimanche 19 juillet</span>
           <span class="sep">&#9679;</span>
-          <span>2&egrave;me demi-finale</span>
+          <span>Finale</span>
         </div>
         <div class="seizieme-teams">
           <div class="st-a">
-            <span class="st-flag">🇦🇷</span>
-            <span class="st-name">ARGENTINE</span>
+            <span class="st-flag">🇪🇸</span>
+            <span class="st-name">ESPAGNE</span>
           </div>
           <div class="st-vs">VS</div>
           <div class="st-b">
-            <span class="st-name">ANGLETERRE</span>
-            <span class="st-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+            <span class="st-name">ARGENTINE</span>
+            <span class="st-flag">🇦🇷</span>
           </div>
         </div>
       </div>
@@ -256,66 +264,39 @@
       <div class="cat-body">
 
         <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Chattadede.png" alt="Chattadede" onclick="openModal(this)" onerror="this.style.display='none'">
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">LES DEUX EQUIPES QUALIFIEES POUR LA FINALE</div>
-              <div class="cat-count zero">0 pronostiqueur</div>
-              <div class="pref-groups">
-                <div class="cat-names">Aucun pronostiqueur n'a vu l'Argentine ET l'Angleterre en finale.</div>
-              </div>
-            </div>
+          <div class="cat-header">
+            <span class="cat-flag">🇪🇸</span>
+            <div class="cat-title">ESPAGNE VAINQUEUR DE LA COUPE DU MONDE</div>
+            <div class="cat-points win">+400 pts</div>
           </div>
+          <div class="cat-count">14 pronostiqueurs</div>
+          <div class="cat-names"><span class="name-badge badge-esp">Achillinho</span><span class="name-badge badge-esp">EADN</span><span class="name-badge badge-esp">Epsilone</span><span class="name-badge badge-esp">Juninho</span><span class="name-badge badge-esp">LéO</span><span class="name-badge badge-esp">Leo35</span><span class="name-badge badge-esp">Mamadou</span><span class="name-badge badge-esp">Marcattack</span><span class="name-badge badge-esp">Martinico</span><span class="name-badge badge-esp">Mickaël</span><span class="name-badge badge-esp">Nesim</span><span class="name-badge badge-esp">Pierre-Alexandre</span><span class="name-badge badge-esp">Tariq</span><span class="name-badge badge-esp">Yvon</span></div>
         </div>
 
         <hr class="cat-divider">
 
 
         <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <span class="cat-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">L'ANGLETERRE QUALIFIÉE POUR LA FINALE (ET PAS L'ARGENTINE)</div>
-              <div class="cat-count">15 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge lvl-1">Arthur</span><span class="name-badge lvl-1">Erwan</span><span class="name-badge lvl-1">Hamkara Sayen</span><span class="name-badge lvl-1">Magicmez</span><span class="name-badge lvl-1">Poirrierbouffon</span><span class="name-badge lvl-1">Ririne</span><span class="name-badge lvl-2">Anne-Claire</span><span class="name-badge lvl-2">Cenomanum</span><span class="name-badge lvl-2">EADN</span><span class="name-badge lvl-2">Hamkara</span><span class="name-badge lvl-2">Julay</span><span class="name-badge lvl-2">Leo35</span><span class="name-badge lvl-2">Lino</span><span class="name-badge lvl-2">Pierre-Alexandre</span><span class="name-badge lvl-2">Yvon</span></div>
-            </div>
+          <div class="cat-header">
+            <span class="cat-flag">🇦🇷</span>
+            <div class="cat-title">ARGENTINE VAINQUEUR DE LA COUPE DU MONDE</div>
+            <div class="cat-points win">+400 pts</div>
           </div>
+          <div class="cat-count">2 pronostiqueurs</div>
+          <div class="cat-names"><span class="name-badge badge-arg">MS</span><span class="name-badge badge-arg">NonoStar</span></div>
         </div>
 
         <hr class="cat-divider">
 
 
         <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <span class="cat-flag">🇦🇷</span>
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">L'ARGENTINE QUALIFIÉE POUR LA FINALE (ET PAS L'ANGLETERRE)</div>
-              <div class="cat-count">14 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge lvl-1">MS</span><span class="name-badge lvl-1">NonoStar</span><span class="name-badge lvl-2">Achillinho</span><span class="name-badge lvl-2">Epsilone</span><span class="name-badge lvl-2">JOP</span><span class="name-badge lvl-2">Marco</span><span class="name-badge lvl-2">Martinico</span><span class="name-badge lvl-2">Monsieur Nours</span><span class="name-badge lvl-2">MymyBob</span><span class="name-badge lvl-2">Niewfoo</span><span class="name-badge lvl-2">Pascale</span><span class="name-badge lvl-2">Quialedroit</span><span class="name-badge lvl-2">Tariq</span><span class="name-badge lvl-2">Winwin</span></div>
-            </div>
+          <div class="cat-header">
+            <span class="cat-flag" style="visibility:hidden;">🏳️</span>
+            <div class="cat-title">AUCUNE DES DEUX EQUIPES PRONOSTIQUÉE VICTORIEUSE</div>
+            <div class="cat-points zero">0 point</div>
           </div>
-        </div>
-
-        <hr class="cat-divider">
-
-
-        <div class="cat-section">
-          <div class="cat-row">
-            <div class="cat-left">
-              <img class="cat-img" src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Raymondlaloose.png" alt="Raymond la loose" onclick="openModal(this)" onerror="this.style.display='none'" style="mix-blend-mode:multiply;filter:brightness(1.06);">
-            </div>
-            <div class="cat-right">
-              <div class="cat-title">AUCUNE DES DEUX EQUIPES QUALIFIÉE POUR LA FINALE</div>
-              <div class="cat-count">62 pronostiqueurs</div>
-              <div class="cat-names"><span class="name-badge lvl-bg">Abeillefurieuse</span><span class="name-badge lvl-bg">Armandooooo</span><span class="name-badge lvl-bg">Arsi</span><span class="name-badge lvl-bg">Baz</span><span class="name-badge lvl-bg">Beppolevi</span><span class="name-badge lvl-bg">Bouna</span><span class="name-badge lvl-bg">Brétivendéen</span><span class="name-badge lvl-bg">Carl</span><span class="name-badge lvl-bg">Claudio</span><span class="name-badge lvl-bg">Contrôle VAR</span><span class="name-badge lvl-bg">Cyril</span><span class="name-badge lvl-bg">Didane</span><span class="name-badge lvl-bg">El Celestino</span><span class="name-badge lvl-bg">El Doctor</span><span class="name-badge lvl-bg">El Gringo</span><span class="name-badge lvl-bg">Etienne</span><span class="name-badge lvl-bg">Faustine</span><span class="name-badge lvl-bg">Fc Canaris</span><span class="name-badge lvl-bg">Fred35</span><span class="name-badge lvl-bg">Gaëtan</span><span class="name-badge lvl-bg">HectoPascal</span><span class="name-badge lvl-bg">Henrillette du Mans</span><span class="name-badge lvl-bg">Hugooooo</span><span class="name-badge lvl-bg">Jacques</span><span class="name-badge lvl-bg">Jean-Marc</span><span class="name-badge lvl-bg">Jeannot</span><span class="name-badge lvl-bg">Juninho</span><span class="name-badge lvl-bg">Le scud</span><span class="name-badge lvl-bg">LéO</span><span class="name-badge lvl-bg">LSG</span><span class="name-badge lvl-bg">Mamadou</span><span class="name-badge lvl-bg">Manu72</span><span class="name-badge lvl-bg">Marcattack</span><span class="name-badge lvl-bg">Mariné</span><span class="name-badge lvl-bg">Maxime</span><span class="name-badge lvl-bg">Melvil</span><span class="name-badge lvl-bg">Mickaël</span><span class="name-badge lvl-bg">Moustache</span><span class="name-badge lvl-bg">Nesim</span><span class="name-badge lvl-bg">Nikita</span><span class="name-badge lvl-bg">Nitram</span><span class="name-badge lvl-bg">Nono</span><span class="name-badge lvl-bg">Olive</span><span class="name-badge lvl-bg">Ozyr</span><span class="name-badge lvl-bg">PAG</span><span class="name-badge lvl-bg">Paulchen</span><span class="name-badge lvl-bg">Paulovitch</span><span class="name-badge lvl-bg">Phaco</span><span class="name-badge lvl-bg">Princesse Leia</span><span class="name-badge lvl-bg">Robinucci</span><span class="name-badge lvl-bg">Roi97</span><span class="name-badge lvl-bg">Sambadebrazil</span><span class="name-badge lvl-bg">Schiebercoach</span><span class="name-badge lvl-bg">Serge44</span><span class="name-badge lvl-bg">Shrek</span><span class="name-badge lvl-bg">SpeedyNiki</span><span class="name-badge lvl-bg">Thomas</span><span class="name-badge lvl-bg">Toulousains</span><span class="name-badge lvl-bg">Xavier29</span><span class="name-badge lvl-bg">Yann</span><span class="name-badge lvl-bg">Youki</span><span class="name-badge lvl-bg">Zackattack</span></div>
-            </div>
-          </div>
+          <div class="cat-count">75 pronostiqueurs</div>
+          <div class="cat-names"><span class="name-badge badge-none">Abeillefurieuse</span><span class="name-badge badge-none">Anne-Claire</span><span class="name-badge badge-none">Armandooooo</span><span class="name-badge badge-none">Arsi</span><span class="name-badge badge-none">Arthur</span><span class="name-badge badge-none">Baz</span><span class="name-badge badge-none">Beppolevi</span><span class="name-badge badge-none">Bouna</span><span class="name-badge badge-none">Brétivendéen</span><span class="name-badge badge-none">Carl</span><span class="name-badge badge-none">Cenomanum</span><span class="name-badge badge-none">Claudio</span><span class="name-badge badge-none">Contrôle VAR</span><span class="name-badge badge-none">Cyril</span><span class="name-badge badge-none">Didane</span><span class="name-badge badge-none">El Celestino</span><span class="name-badge badge-none">El Doctor</span><span class="name-badge badge-none">El Gringo</span><span class="name-badge badge-none">Erwan</span><span class="name-badge badge-none">Etienne</span><span class="name-badge badge-none">Faustine</span><span class="name-badge badge-none">Fc Canaris</span><span class="name-badge badge-none">Fred35</span><span class="name-badge badge-none">Gaëtan</span><span class="name-badge badge-none">Hamkara</span><span class="name-badge badge-none">Hamkara Sayen</span><span class="name-badge badge-none">HectoPascal</span><span class="name-badge badge-none">Henrillette du Mans</span><span class="name-badge badge-none">Hugooooo</span><span class="name-badge badge-none">Jacques</span><span class="name-badge badge-none">Jean-Marc</span><span class="name-badge badge-none">Jeannot</span><span class="name-badge badge-none">JOP</span><span class="name-badge badge-none">Julay</span><span class="name-badge badge-none">Le scud</span><span class="name-badge badge-none">Lino</span><span class="name-badge badge-none">LSG</span><span class="name-badge badge-none">Magicmez</span><span class="name-badge badge-none">Manu72</span><span class="name-badge badge-none">Marco</span><span class="name-badge badge-none">Mariné</span><span class="name-badge badge-none">Maxime</span><span class="name-badge badge-none">Melvil</span><span class="name-badge badge-none">Monsieur Nours</span><span class="name-badge badge-none">Moustache</span><span class="name-badge badge-none">MymyBob</span><span class="name-badge badge-none">Niewfoo</span><span class="name-badge badge-none">Nikita</span><span class="name-badge badge-none">Nitram</span><span class="name-badge badge-none">Nono</span><span class="name-badge badge-none">Olive</span><span class="name-badge badge-none">Ozyr</span><span class="name-badge badge-none">PAG</span><span class="name-badge badge-none">Paulchen</span><span class="name-badge badge-none">Pascale</span><span class="name-badge badge-none">Paulovitch</span><span class="name-badge badge-none">Phaco</span><span class="name-badge badge-none">Poirrierbouffon</span><span class="name-badge badge-none">Princesse Leia</span><span class="name-badge badge-none">Quialedroit</span><span class="name-badge badge-none">Ririne</span><span class="name-badge badge-none">Robinucci</span><span class="name-badge badge-none">Roi97</span><span class="name-badge badge-none">Sambadebrazil</span><span class="name-badge badge-none">Schiebercoach</span><span class="name-badge badge-none">Serge44</span><span class="name-badge badge-none">Shrek</span><span class="name-badge badge-none">SpeedyNiki</span><span class="name-badge badge-none">Thomas</span><span class="name-badge badge-none">Toulousains</span><span class="name-badge badge-none">Winwin</span><span class="name-badge badge-none">Xavier29</span><span class="name-badge badge-none">Yann</span><span class="name-badge badge-none">Youki</span><span class="name-badge badge-none">Zakattack</span></div>
         </div>
 
       </div><!-- /cat-body -->
