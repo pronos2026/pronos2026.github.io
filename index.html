@@ -709,11 +709,13 @@
       margin-top: 24px;
     }
     .edito-images img {
-      height: 280px;
-      width: auto;
-      object-fit: contain;
+      height: 420px;
+      width: 340px;
+      object-fit: cover;
+      object-position: center;
       border-radius: 6px;
       display: block;
+      align-self: center;
     }
     @media (max-width: 700px), (orientation: portrait) and (max-width: 900px) {
       .edito-images {
@@ -746,6 +748,34 @@
       .edito-leo-mobile { display: none !important; }
     }
 
+    /* VS étincelant entre les deux images d'équipes */
+    .vs-sparkle {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 100px);
+      font-weight: bold;
+      color: #FFD700;
+      letter-spacing: 3px;
+      animation: vsGlow 1.6s ease-in-out infinite alternate;
+    }
+    @keyframes vsGlow {
+      0% {
+        text-shadow:
+          1px 1px 0 #8a6d00,
+          0 0 6px rgba(255,215,0,0.6),
+          0 0 14px rgba(255,215,0,0.4),
+          0 0 22px rgba(255,255,255,0.3);
+        transform: scale(1);
+      }
+      100% {
+        text-shadow:
+          1px 1px 0 #8a6d00,
+          0 0 16px rgba(255,215,0,0.95),
+          0 0 32px rgba(255,215,0,0.75),
+          0 0 48px rgba(255,255,255,0.6);
+        transform: scale(1.06);
+      }
+    }
 
 </style>
   <link rel="manifest" href="/manifest.json">
@@ -789,19 +819,22 @@
 
       <!-- Texte édito -->
       <div style="flex:1;min-width:240px;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#FFD700;letter-spacing:2px;margin:0 0 18px;line-height:1.1;font-weight:bold;">Ce sera une finale inédite ESPAGNE – ARGENTINE !</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);color:#FFD700;letter-spacing:2px;margin:0 0 18px;line-height:1.1;font-weight:bold;">Ce sera une finale inédite <strong style="color:#2ECC71;font-weight:bold;">ESPAGNE – ARGENTINE</strong> !</p>
         <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#fff;line-height:1.8;margin:0 0 10px;">
-          Il n'y aura malheureusement pas les Bleus mais vivement dimanche tout de même pour assister à l'affrontement de deux équipes aux styles radicalement opposés : la maîtrise espagnole face à la fougue argentine.<br>
-          Côté pronostiqueurs, on s'en tire bien : seulement 12 arrêts cardiaques pendant Angleterre – Argentine. C'est le quota autorisé. Grosse déception pour les deux frères <strong style="color:#FF8C00;font-weight:bold;">LEO35</strong> et <strong style="color:#FF8C00;font-weight:bold;">ARTHUR</strong> qui furent à deux doigts de s'affronter pour la victoire mais les Argentins en décidèrent autrement.<br>
-          Du coup, cette victoire profite à <strong style="color:#FFD700;font-weight:bold;">EPSILONE</strong> qui garde sa 1e place devant <strong style="color:#FFD700;font-weight:bold;">ACHILLINHO</strong> et <strong style="color:#FFD700;font-weight:bold;">MARTINICO</strong>. Merci Messi.<br>
-          En attendant dimanche, petit en-cas samedi avec <strong style="color:#5BC8F5;font-weight:bold;">FRANCE – ANGLETERRE</strong>, le match des loosers. Le seul match qui ne rapportera aucun point. En espérant que les Bleus finissent sur une belle prestation.
+          Il n'y aura malheureusement pas les Bleus l'affrontement de deux équipes aux styles radicalement opposés : la maîtrise espagnole face à la fougue argentine.<br>
+          Que le meilleur gagne !<br>
+          Côté pronostiqueurs, nous voici rendus au grand affrontement final : d'un côté la TEAM ESPANA avec <strong style="color:#FF3B30;font-weight:bold;">EPSILONE</strong>, <strong style="color:#FF3B30;font-weight:bold;">ACHILLINHO</strong> et <strong style="color:#FF3B30;font-weight:bold;">MARTINICO</strong> qui montent sur le podium si Rodri soulève le trophée ; de l'autre, la TEAM ARGENTINA avec <strong style="color:#5BC8F5;font-weight:bold;">MS</strong>, <strong style="color:#5BC8F5;font-weight:bold;">EPSILONE</strong> (encore?!) et <strong style="color:#5BC8F5;font-weight:bold;">NONOSTAR</strong> qui sera le trio gagnant si Messi gagne sa 2e coupe du monde.<br>
+          Bonne chance à tous !
         </p>
       </div>
 
       <!-- Images sous le texte : côte à côte en paysage, empilées en portrait -->
       <div class="edito-images">
-        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Epsilone.png"
-             alt="Epsilone" />
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Team-Espana.png"
+             alt="Team Espana" />
+        <span class="vs-sparkle">VS</span>
+        <img src="https://raw.githubusercontent.com/pronos2026/pronos2026.github.io/main/photos/Team-Argentina.png"
+             alt="Team Argentina" />
       </div>
     </div>
   </section>
